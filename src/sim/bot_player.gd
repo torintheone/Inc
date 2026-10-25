@@ -22,6 +22,7 @@ static func play_week(sim: SimWorld) -> void:
 	_answer_event(sim)
 	resolve_battle(sim)
 	_collect_bubbles(sim)
+	_manage_societies(sim)
 	_buy_upgrade(sim)
 	var ranked := sim.countries.filter(func(cs: CountryState) -> bool: return not cs.is_revolutionary() and cs.influence >= 1.0)
 	ranked.sort_custom(func(a: CountryState, b: CountryState) -> bool:
@@ -49,6 +50,20 @@ static func resolve_battle(sim: SimWorld) -> void:
 	var strategy := BattleBot.ARMY if cs.army_loyalty < ARMY_LOYALTY_FOR_TALKS else BattleBot.STORM
 	BattleBot.run(sim, sim.battle, strategy)
 	sim.finish_battle()
+
+
+## Политики революционных стран: против бюрократизации — рабочий контроль, против голода — рынок,
+## при слабой поддержке и сильной Реакции — мирное сосуществование.
+static func _manage_societies(sim: SimWorld) -> void:
+	for cs in sim.countries:
+		if not cs.is_revolutionary() or NewSociety.is_thermidor(cs):
+			continue
+		var economy: String = "workers_control" if cs.bureaucracy > 50.0 else ("plan" if cs.production < 45.0 else cs.policies.get("economy", "mixed"))
+		NewSociety.set_policy(sim, cs, "economy", economy)
+		var village: String = "market" if cs.food < 35.0 else ("cooperation" if cs.support < 40.0 else cs.policies.get("village", "cooperation"))
+		NewSociety.set_policy(sim, cs, "village", village)
+		var foreign := "coexistence" if cs.support < 35.0 and sim.reaction >= 60.0 else "support"
+		NewSociety.set_policy(sim, cs, "foreign", foreign)
 
 
 ## Решение по событию: первый вариант, который сейчас доступен.

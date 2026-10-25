@@ -19,7 +19,11 @@ COUNTRY_FIELDS = {
     "need", "consciousness", "organization", "influence", "trust", "visibility", "cadres", "unrest", "reformism",
     "top_cant", "bottom_wont", "mass_activity", "rev_situation",
     "strikes_recent", "demos_recent", "aristocracy",
+    "democracy", "bureaucracy", "food", "production", "defense", "support",
 }
+SOCIETY_FIELDS = ["democracy", "bureaucracy", "food", "production", "defense", "support"]
+POLICY_KEYS = {"food", "support", "democracy", "bureaucracy", "defense", "growth", "spread", "solidarity", "reaction",
+               "counter", "blockade", "isolation", "battle_aid"}
 # Должно совпадать с модификаторами, которые читает код (sim.mod("…")), и со строками MOD_<ключ> в тексте.
 MODIFIERS = {"influence_growth", "consciousness_rate", "organization_rate", "organization_cap", "visibility",
              "cadre_rate", "cadre_cap", "trust_target", "auto_support", "activity", "underground",
@@ -276,10 +280,13 @@ EVENT_SCOPES = {"country", "world"}
 EFFECT_SCOPES = {"country", "movement", "core", "periphery", "neighbors"}
 EVENT_TRIGGERS = {"phase", "phase_week_min", "reaction_min", "reaction_max", "upgrade", "no_upgrade", "unlock", "line",
                   "revolutionary_count_min", "revolutionary", "min", "max", "zone", "flag", "no_flag", "timed", "no_timed",
-                  "class_min", "indicator_min", "neighbor_flag_any", "any_of"}
+                  "class_min", "indicator_min", "neighbor_flag_any", "any_of",
+                  "rev_weeks_min", "rev_weeks_max", "policy", "isolated", "civil_war_any"}
 EVENT_ON = {"crisis_start", "revolution_neighbor", "defeat", "line_change"}
 TIMED_FLAGS = {"underground", "port_cells", "antifascist", "unemployed_organized", "theory", "peasant_ally", "emergency",
-               "fascist_regime", "reformist_cap", "blockade"}
+               "fascist_regime", "reformist_cap", "blockade",
+               "firm_hand", "workers_democracy", "specialists", "market_light", "closed_borders", "literacy", "culture",
+               "forced_collectivization", "intervention"}
 
 
 def check_outcome(where: str, o: dict) -> None:
@@ -420,8 +427,42 @@ def check_battle(b: dict, maps: dict, ids: set[str], line_ids: set[str]) -> list
     return b.get("actions", [])
 
 
+def check_policy_triggers(ev: dict, policies: dict[str, list[str]]) -> None:
+    for e in ev.get("events", []):
+        for p, o in e.get("trigger", {}).get("policy", {}).items():
+            if o not in policies.get(p, []):
+                err(f"events.json/{e['id']}: условие на неизвестную политику {p}={o}")
+
+
+def check_society(soc: dict, lines: dict) -> dict[str, list[str]]:
+    """society.json: три политики с вариантами, поправки только известных видов; политики линий существуют."""
+    policies = {}
+    for p in soc.get("policies", []):
+        opts = [o["id"] for o in p.get("options", [])]
+        if len(opts) < 2 or len(set(opts)) != len(opts):
+            err(f"society.json/{p.get('id')}: нужно хотя бы два разных варианта")
+        policies[p["id"]] = opts
+        for o in p.get("options", []):
+            for k in o:
+                if k != "id" and k not in POLICY_KEYS:
+                    err(f"society.json/{p['id']}.{o['id']}: неизвестная поправка {k}")
+    if set(policies) != {"village", "economy", "foreign"}:
+        err("society.json: нужны политики village, economy, foreign")
+    for flag, eff in soc.get("timed", {}).items():
+        if flag not in TIMED_FLAGS:
+            err(f"society.json/timed: неизвестная отметка {flag}")
+        for k in eff:
+            if k not in POLICY_KEYS:
+                err(f"society.json/timed/{flag}: неизвестная поправка {k}")
+    for line in lines.get("lines", []):
+        for p, o in line.get("society", {}).get("policies", {}).items():
+            if o not in policies.get(p, []):
+                err(f"lines.json/{line['id']}: неизвестная политика {p}={o}")
+    return policies
+
+
 def check_locale(upgrades: set[str], actions: set[str], lines: set[str], branches: list[str], groups: list[str],
-                 events: list, battle_actions: list[dict]) -> None:
+                 events: list, battle_actions: list[dict], policies: dict[str, list[str]]) -> None:
     keys = set()
     for name in ("ui.csv", "game.csv"):
         path = ROOT / "locale" / name
@@ -456,6 +497,9 @@ def check_locale(upgrades: set[str], actions: set[str], lines: set[str], branche
     need += [f"BATTLE_LOG_OUTCOME_{o}" for o in BATTLE_OUTCOMES if "exhaustion" not in o]
     need += [f"BBLOCK_{k}" for k in ("cooldown", "agitators", "supplies", "cost", "region", "squads", "no_garrison",
                                      "not_power", "no_squads", "no_object", "seized", "battle_support", "done", "unknown")]
+    for p, opts in policies.items():
+        need += [f"POLICY_{p}"] + [f"POLICY_{p}_{o}" for o in opts] + [f"POLICY_{p}_{o}_DESC" for o in opts]
+    need += [f"F_{f}" for f in SOCIETY_FIELDS] + [f"SOC_{f}" for f in SOCIETY_FIELDS]
     for key in need:
         if key not in keys:
             err(f"locale: нет текста {key}")
@@ -471,6 +515,7 @@ def main() -> int:
     events = load("events.json")
     battle = load("battle.json")
     battle_maps = load("battle_maps.json")
+    society = load("society.json")
     ids = check_world(world) if world else set()
     if shapes:
         check_shapes(shapes, ids)
@@ -483,8 +528,10 @@ def main() -> int:
         line_ids = check_lines(lines, upgrades, acts)
         event_list = check_events(events, upgrades, acts)
         battle_actions = check_battle(battle, battle_maps, ids, line_ids) if battle and battle_maps else []
+        policies = check_society(society, lines) if society else {}
+        check_policy_triggers(events, policies)
         check_locale(upgrades, acts, line_ids, actions.get("branches", []), actions.get("action_groups", []), event_list,
-                     battle_actions)
+                     battle_actions, policies)
     if errors:
         print(f"Ошибок в данных: {len(errors)}")
         for e in errors:

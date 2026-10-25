@@ -112,7 +112,9 @@ func show_country(c: Country, cs: CountryState, sim: SimWorld, button_text: Stri
 		_set_hint("")
 		if not started:
 			tab = TAB_COUNTRY
-	if revolutionary:
+	if revolutionary and NewSociety.is_thermidor(cs):
+		_status.text = tr("STATUS_THERMIDOR")
+	elif revolutionary:
 		_status.text = tr("STATUS_REVOLUTIONARY") % UiText.date(sim, cs.revolution_week).get_slice(" ", 1)
 	elif started and sim.in_civil_war(c.id):
 		var war: BattleState = sim.civil_wars[c.id]
@@ -131,7 +133,7 @@ func show_country(c: Country, cs: CountryState, sim: SimWorld, button_text: Stri
 	var scroll := _scroll.scroll_vertical
 	_clear(_content)
 	if revolutionary:
-		_paragraph(tr("PANEL_REVOLUTIONARY"))
+		_build_society(cs, sim)
 	elif tab == TAB_MOVEMENT:
 		_build_movement(cs, sim, started)
 	else:
@@ -183,6 +185,20 @@ func _build_movement(cs: CountryState, sim: SimWorld, started: bool) -> void:
 	_row(tr("M_VISIBILITY"), cs.visibility, str(int(cs.visibility)), "HINT_VISIBILITY", MapPalette.STEEL)
 	_row(tr("M_REFORMISM"), cs.reformism, str(int(cs.reformism)), "HINT_REFORMISM", MapPalette.STEEL)
 	_row(tr("M_TRUST"), cs.trust, str(int(cs.trust)), "HINT_TRUST")
+
+
+## Революционная страна: показатели нового общества, политики и то, что сейчас давит на революцию.
+func _build_society(cs: CountryState, sim: SimWorld) -> void:
+	_section(tr("BTN_SOCIETY"))
+	for r in SocietyScreen.indicator_rows(cs):
+		_hook(r)
+		_content.add_child(r)
+	_section(tr("SOCIETY_POLICIES"))
+	for policy in NewSociety.POLICIES:
+		_caption("%s: %s" % [tr("POLICY_" + policy), tr("POLICY_%s_%s" % [policy, cs.policies.get(policy, "")])])
+	for note in SocietyScreen.notes(sim, cs):
+		_paragraph(note)
+	_caption(tr("PANEL_SOCIETY_HINT"))
 
 
 func _build_country(c: Country, cs: CountryState, sim: SimWorld, started: bool) -> void:

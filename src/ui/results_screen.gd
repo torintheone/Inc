@@ -39,6 +39,14 @@ func _left(sim: SimWorld) -> Control:
 	title.custom_minimum_size.x = LEFT_W
 	box.add_child(title)
 	box.add_child(_text(tr(key + "_TEXT"), 17))
+	# Горькая победа: где-то революция переродилась.
+	var degenerated := PackedStringArray()
+	for cs in sim.countries:
+		if cs.is_revolutionary() and NewSociety.is_thermidor(cs):
+			degenerated.append(cs.country.name_ru)
+	if not degenerated.is_empty():
+		box.add_child(GameTheme.make_label(tr("RES_BITTER") % ", ".join(degenerated), 15, GameTheme.BODY_BOLD_FONT,
+			MapPalette.STEEL))
 	if sim.line != "":
 		box.add_child(GameTheme.make_label(tr("LINE_LABEL") % tr("LINE_" + sim.line), 15, GameTheme.BODY_BOLD_FONT, MapPalette.VERMILION))
 

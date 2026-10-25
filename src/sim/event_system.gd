@@ -134,6 +134,8 @@ static func world_trigger_ok(sim: SimWorld, t: Dictionary) -> bool:
 		return false
 	if t.has("revolutionary_count_min") and sim.revolutionary_count() < int(t["revolutionary_count_min"]):
 		return false
+	if t.get("civil_war_any", false) and sim.civil_wars.is_empty():
+		return false
 	return true
 
 
@@ -154,8 +156,8 @@ static func _country_ok(sim: SimWorld, e: Dictionary, cs: CountryState, min_infl
 		return false
 	if cs.timed.get("ev_" + str(e["id"]), -1) > sim.week:
 		return false
-	if revolutionary:
-		return true
+	if revolutionary and not _society_ok(sim, cs, t):
+		return false
 	# В стране идёт гражданская война: мирных событий там нет.
 	if sim.civil_wars.has(cs.country.id):
 		return false
@@ -192,10 +194,40 @@ static func _country_ok(sim: SimWorld, e: Dictionary, cs: CountryState, min_infl
 	if t.has("any_of"):
 		var any := false
 		for alt: Dictionary in t["any_of"]:
-			if _country_data_ok(cs, alt) and (not alt.has("flag") or cs.active(alt["flag"], sim.week)):
+			if _country_data_ok(cs, alt) and (not alt.has("flag") or cs.active(alt["flag"], sim.week)) \
+					and _fields_ok(cs, alt):
 				any = true
 		if not any:
 			return false
+	return true
+
+
+## Пороги показателей страны: {"min": {...}, "max": {...}}.
+static func _fields_ok(cs: CountryState, t: Dictionary) -> bool:
+	var mins: Dictionary = t.get("min", {})
+	for f: String in mins:
+		if cs.get_field(f) < float(mins[f]):
+			return false
+	var maxs: Dictionary = t.get("max", {})
+	for f: String in maxs:
+		if cs.get_field(f) > float(maxs[f]):
+			return false
+	return true
+
+
+## Условия нового общества: сколько недель после победы, выбранные политики, изоляция.
+static func _society_ok(sim: SimWorld, cs: CountryState, t: Dictionary) -> bool:
+	var weeks := sim.week - cs.revolution_week
+	if t.has("rev_weeks_min") and weeks < int(t["rev_weeks_min"]):
+		return false
+	if t.has("rev_weeks_max") and weeks > int(t["rev_weeks_max"]):
+		return false
+	var policies: Dictionary = t.get("policy", {})
+	for p: String in policies:
+		if cs.policies.get(p, "") != str(policies[p]):
+			return false
+	if t.get("isolated", false) and NewSociety.living_revolutions(sim) > 1:
+		return false
 	return true
 
 
@@ -341,6 +373,14 @@ static func apply_effects(sim: SimWorld, effects: Dictionary, cs: CountryState) 
 		ReactionSystem.add(sim, float(effects["reaction"]))
 	if effects.has("solidarity"):
 		sim.solidarity = maxf(sim.solidarity + float(effects["solidarity"]), 0.0)
+	# Помощь революционной страны тем, кто воюет в гражданской войне.
+	if effects.has("civil_war_aid"):
+		var aid: Dictionary = effects["civil_war_aid"]
+		for id: String in sim.civil_wars:
+			var b: BattleState = sim.civil_wars[id]
+			b.squads_pool += float(aid.get("squads", 0.0))
+			b.supplies += float(aid.get("supplies", 0.0))
+			b.add_log("BATTLE_LOG_AID", [cs.country.name_ru if cs != null else ""])
 	if effects.has("chain"):
 		var chain: Dictionary = effects["chain"]
 		var after: Array = chain.get("after", [4, 8])

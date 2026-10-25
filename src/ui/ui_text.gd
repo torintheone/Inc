@@ -34,7 +34,7 @@ static func news(item: Dictionary) -> String:
 	var template := TranslationServer.translate(item.get("key", ""))
 	var args := []
 	for a: Variant in item.get("args", []):
-		if a is String and (a.begins_with("UPGRADE_") or a.begins_with("OUTCOME_") or a.begins_with("ACTION_") or a.begins_with("LINE_") or a.begins_with("EVENT_")):
+		if a is String and (a.begins_with("UPGRADE_") or a.begins_with("OUTCOME_") or a.begins_with("ACTION_") or a.begins_with("LINE_") or a.begins_with("EVENT_") or a.begins_with("POLICY_")):
 			args.append(TranslationServer.translate(a))
 		elif a is float and a == floorf(a):
 			args.append(str(int(a)))

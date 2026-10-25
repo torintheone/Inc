@@ -85,7 +85,7 @@ static func compute_spread(sim: SimWorld) -> PackedFloat64Array:
 	for cs in sim.countries:
 		var s := 0.0
 		if cs.is_revolutionary():
-			s = rev_strength * (0.5 if cs.active("blockade", sim.week) else 1.0)
+			s = rev_strength * (0.5 if cs.active("blockade", sim.week) else 1.0) * NewSociety.spread_mult(sim, cs)
 		elif cs.influence >= min_source:
 			s = cs.influence / 100.0 * (0.5 + 0.5 * cs.organization / 100.0)
 		strength[cs.index] = s

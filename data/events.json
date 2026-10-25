@@ -5,7 +5,8 @@
   "economy",
   "state",
   "world",
-  "movement"
+  "movement",
+  "society"
  ],
  "events": [
   {
@@ -2031,7 +2032,8 @@
      "fail": {
       "country": {
        "timed": {
-        "blockade": 52
+        "blockade": 52,
+        "intervention": 26
        }
       }
      }
@@ -2043,7 +2045,13 @@
      },
      "effects": {
       "reaction": 2,
-      "solidarity": -6
+      "solidarity": -6,
+      "country": {
+       "add": {
+        "defense": 10,
+        "support": 3
+       }
+      }
      }
     },
     {
@@ -2808,6 +2816,472 @@
       }
      },
      "default": true
+    }
+   ]
+  },
+  {
+   "id": "specialist_sabotage",
+   "category": "society",
+   "scope": "country",
+   "art": "ev_specialist_sabotage",
+   "weight": 1.0,
+   "cooldown_weeks": 52,
+   "country_cooldown_weeks": 520,
+   "max_times": 2,
+   "trigger": {
+    "revolutionary": true,
+    "rev_weeks_max": 156
+   },
+   "options": [
+    {
+     "id": "workers_control",
+     "effects": {
+      "country": {
+       "add": {
+        "production": -3,
+        "democracy": 6
+       }
+      }
+     },
+     "default": true
+    },
+    {
+     "id": "high_salaries",
+     "effects": {
+      "country": {
+       "add": {
+        "production": 4,
+        "support": -4
+       },
+       "timed": {
+        "specialists": 156
+       }
+      }
+     }
+    },
+    {
+     "id": "coercion",
+     "effects": {
+      "country": {
+       "add": {
+        "production": 2,
+        "bureaucracy": 8
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "city_famine",
+   "category": "society",
+   "scope": "country",
+   "art": "ev_city_famine",
+   "weight": 2.0,
+   "cooldown_weeks": 52,
+   "country_cooldown_weeks": 104,
+   "max_times": 2,
+   "trigger": {
+    "revolutionary": true,
+    "max": {
+     "food": 30
+    }
+   },
+   "options": [
+    {
+     "id": "requisition",
+     "effects": {
+      "country": {
+       "add": {
+        "food": 20,
+        "support": -12,
+        "bureaucracy": 4
+       }
+      }
+     }
+    },
+    {
+     "id": "market_exchange",
+     "effects": {
+      "country": {
+       "add": {
+        "food": 12
+       },
+       "timed": {
+        "market_light": 104
+       }
+      }
+     }
+    },
+    {
+     "id": "import_gold",
+     "effects": {
+      "country": {
+       "add": {
+        "food": 15,
+        "production": -5
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "bureaucracy_threat",
+   "category": "society",
+   "scope": "country",
+   "art": "ev_bureaucracy_threat",
+   "weight": 1.5,
+   "cooldown_weeks": 52,
+   "country_cooldown_weeks": 208,
+   "max_times": 2,
+   "trigger": {
+    "revolutionary": true,
+    "min": {
+     "bureaucracy": 45
+    }
+   },
+   "options": [
+    {
+     "id": "workers_democracy",
+     "effects": {
+      "country": {
+       "add": {
+        "production": -3,
+        "bureaucracy": -12
+       },
+       "timed": {
+        "workers_democracy": 156
+       }
+      }
+     }
+    },
+    {
+     "id": "firm_hand",
+     "effects": {
+      "country": {
+       "add": {
+        "defense": 10,
+        "bureaucracy": 10
+       },
+       "timed": {
+        "firm_hand": 156
+       }
+      }
+     }
+    },
+    {
+     "id": "promote_workers",
+     "effects": {
+      "country": {
+       "add": {
+        "bureaucracy": -5,
+        "democracy": 4
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "union_role",
+   "category": "society",
+   "scope": "country",
+   "art": "ev_union_role",
+   "weight": 1.0,
+   "cooldown_weeks": 52,
+   "country_cooldown_weeks": 2000,
+   "max_times": 99,
+   "trigger": {
+    "revolutionary": true,
+    "rev_weeks_min": 52,
+    "rev_weeks_max": 208
+   },
+   "options": [
+    {
+     "id": "autonomy",
+     "effects": {
+      "country": {
+       "add": {
+        "democracy": 5
+       },
+       "flags": [
+        "union_autonomy"
+       ]
+      }
+     },
+     "default": true
+    },
+    {
+     "id": "statization",
+     "effects": {
+      "country": {
+       "add": {
+        "bureaucracy": 5
+       },
+       "flags": [
+        "union_state"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "land_cooperation",
+   "category": "society",
+   "scope": "country",
+   "art": "ev_land_cooperation",
+   "weight": 1.0,
+   "cooldown_weeks": 52,
+   "country_cooldown_weeks": 520,
+   "max_times": 2,
+   "trigger": {
+    "revolutionary": true,
+    "rev_weeks_min": 26,
+    "class_min": {
+     "peasantry": 0.3
+    }
+   },
+   "options": [
+    {
+     "id": "voluntary",
+     "effects": {
+      "country": {
+       "add": {
+        "support": 6,
+        "food": 3
+       }
+      }
+     }
+    },
+    {
+     "id": "forced",
+     "effects": {
+      "country": {
+       "add": {
+        "food": -10,
+        "support": -10,
+        "bureaucracy": 10
+       },
+       "timed": {
+        "forced_collectivization": 156
+       }
+      }
+     }
+    },
+    {
+     "id": "postpone",
+     "effects": {
+      "country": {
+       "add": {
+        "support": -2
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "aid_revolution",
+   "category": "society",
+   "scope": "country",
+   "art": "ev_aid_revolution",
+   "weight": 2.0,
+   "cooldown_weeks": 26,
+   "country_cooldown_weeks": 52,
+   "max_times": 4,
+   "trigger": {
+    "revolutionary": true,
+    "civil_war_any": true
+   },
+   "options": [
+    {
+     "id": "export",
+     "effects": {
+      "country": {
+       "add": {
+        "production": -4
+       }
+      },
+      "civil_war_aid": {
+       "squads": 10,
+       "supplies": 20
+      },
+      "reaction": 2
+     }
+    },
+    {
+     "id": "focus",
+     "effects": {
+      "country": {
+       "add": {
+        "production": 4,
+        "bureaucracy": 5
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "plan_error",
+   "category": "society",
+   "scope": "country",
+   "art": "ev_plan_error",
+   "weight": 1.0,
+   "cooldown_weeks": 52,
+   "country_cooldown_weeks": 208,
+   "max_times": 2,
+   "trigger": {
+    "revolutionary": true,
+    "policy": {
+     "economy": "plan"
+    }
+   },
+   "options": [
+    {
+     "id": "feedback",
+     "effects": {
+      "country": {
+       "add": {
+        "production": -2,
+        "democracy": 6,
+        "bureaucracy": -4
+       }
+      }
+     },
+     "default": true
+    },
+    {
+     "id": "tighten",
+     "effects": {
+      "country": {
+       "add": {
+        "production": 3,
+        "bureaucracy": 8,
+        "support": -5
+       }
+      }
+     }
+    },
+    {
+     "id": "light_market",
+     "effects": {
+      "country": {
+       "add": {
+        "food": 5,
+        "support": 4
+       },
+       "timed": {
+        "market_light": 104
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "specialists_leave",
+   "category": "society",
+   "scope": "country",
+   "art": "ev_specialists_leave",
+   "weight": 1.0,
+   "cooldown_weeks": 52,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "revolutionary": true,
+    "any_of": [
+     {
+      "flag": "blockade"
+     },
+     {
+      "max": {
+       "food": 40
+      }
+     }
+    ]
+   },
+   "options": [
+    {
+     "id": "open_borders",
+     "effects": {
+      "country": {
+       "add": {
+        "production": -5,
+        "democracy": 3
+       }
+      }
+     },
+     "default": true
+    },
+    {
+     "id": "close_borders",
+     "effects": {
+      "country": {
+       "add": {
+        "bureaucracy": 6
+       },
+       "timed": {
+        "closed_borders": 156
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "new_culture",
+   "category": "society",
+   "scope": "country",
+   "art": "ev_new_culture",
+   "weight": 1.0,
+   "cooldown_weeks": 52,
+   "country_cooldown_weeks": 520,
+   "max_times": 2,
+   "trigger": {
+    "revolutionary": true,
+    "rev_weeks_min": 104,
+    "max": {
+     "bureaucracy": 60
+    },
+    "min": {
+     "support": 45
+    }
+   },
+   "options": [
+    {
+     "id": "literacy",
+     "effects": {
+      "country": {
+       "add": {
+        "support": 3
+       },
+       "timed": {
+        "literacy": 260
+       }
+      }
+     },
+     "default": true
+    },
+    {
+     "id": "experiments",
+     "effects": {
+      "country": {
+       "add": {
+        "democracy": 4,
+        "support": -2
+       },
+       "timed": {
+        "culture": 260
+       }
+      }
+     }
     }
    ]
   }

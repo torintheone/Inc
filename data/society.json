@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "_comment": "Революционные страны: показатели нового общества, три политики, бюрократизация, Термидор, контрреволюция. Формат — в data/README.md, раздел «society.json».",
+  "start": {
+    "democracy": 60.0,
+    "bureaucracy": 15.0,
+    "food": 50.0,
+    "production_ruin": 0.85,
+    "defense": 40.0,
+    "defense_army_victory": 20.0,
+    "support_base": 50.0,
+    "support_per_trust": 0.3,
+    "leader_cult_bureaucracy": 15.0
+  },
+  "speed": {
+    "democracy": 0.02,
+    "bureaucracy": 0.012,
+    "bureaucracy_down_mult": 0.5,
+    "food": 0.04,
+    "defense": 0.02,
+    "support": 0.03
+  },
+  "bureaucracy": {
+    "base": 20.0,
+    "isolation": 45.0,
+    "ruin": 25.0,
+    "war": 15.0,
+    "leader_cult": 15.0,
+    "per_democracy": 0.3,
+    "per_growth": 1.5,
+    "per_recent_revolution": 8.0,
+    "recent_revolution_cap": 32.0,
+    "recent_weeks": 104,
+    "thermidor": 100.0
+  },
+  "democracy": {
+    "base": 60.0,
+    "per_bureaucracy": 0.5
+  },
+  "food": {
+    "base": 45.0,
+    "war": 10.0,
+    "blockade": 15.0,
+    "per_production": 0.1,
+    "famine": 30.0,
+    "famine_growth": -2.0
+  },
+  "production": {
+    "war_growth": -2.0,
+    "max": 100.0
+  },
+  "defense": {
+    "base": 25.0,
+    "per_production": 0.3,
+    "per_support": 0.1
+  },
+  "support": {
+    "base": 35.0,
+    "per_democracy": 0.3,
+    "per_food": 0.5,
+    "per_bureaucracy": 0.25,
+    "war": 5.0
+  },
+  "counter": {
+    "support_below": 30.0,
+    "chance": 0.012,
+    "defense_scale": 150.0,
+    "warning_support": 35.0,
+    "influence_after": 25.0,
+    "organization_after": 20.0,
+    "repression_after": 80.0,
+    "reaction": 5.0
+  },
+  "world": {
+    "spread_support_base": 0.6,
+    "spread_per_support": 0.8,
+    "battle_ally_supplies": 8.0,
+    "battle_ally_weapons": 5.0,
+    "battle_allies_max": 3
+  },
+  "policy_weeks": 52,
+  "policies": [
+    {"id": "village", "options": [
+      {"id": "cooperation", "food": 5.0, "support": 5.0},
+      {"id": "market", "food": 25.0, "counter": 1.3, "growth": 0.5},
+      {"id": "requisition", "food": 20.0, "support": -20.0, "counter": 1.5, "bureaucracy": 10.0}
+    ]},
+    {"id": "economy", "options": [
+      {"id": "workers_control", "democracy": 15.0, "bureaucracy": -10.0, "growth": 1.5},
+      {"id": "plan", "growth": 4.0, "bureaucracy": 15.0, "democracy": -10.0, "defense": 5.0},
+      {"id": "mixed", "growth": 2.5, "food": 5.0}
+    ]},
+    {"id": "foreign", "options": [
+      {"id": "support", "spread": 1.6, "solidarity": 1.5, "growth": -0.5, "reaction": 0.02, "battle_aid": true},
+      {"id": "coexistence", "spread": 0.6, "growth": 1.0, "blockade": 0.5, "isolation": 1.3}
+    ]}
+  ],
+  "timed": {
+    "firm_hand": {"bureaucracy": 20.0, "defense": 15.0},
+    "workers_democracy": {"democracy": 15.0, "bureaucracy": -10.0},
+    "specialists": {"growth": 1.5, "support": -5.0},
+    "market_light": {"food": 10.0, "growth": 1.0},
+    "closed_borders": {"bureaucracy": 5.0, "growth": -0.5},
+    "literacy": {"support": 10.0, "democracy": 5.0},
+    "culture": {"support": 5.0, "democracy": 3.0},
+    "forced_collectivization": {"bureaucracy": 15.0, "support": -15.0, "growth": 1.0, "food": -15.0},
+    "intervention": {}
+  },
+  "flags": {
+    "union_autonomy": {"democracy": 8.0},
+    "union_state": {"democracy": -8.0, "growth": 0.5}
+  }
+}

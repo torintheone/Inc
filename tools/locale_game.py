@@ -11,6 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import locale_battle  # noqa: E402
 import locale_events  # noqa: E402
+import locale_society  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -565,10 +566,6 @@ ROWS = [
     ("PANEL_TAB_country", "Страна", "Country"),
     ("PANEL_BASE_HINT", "Какие силы здесь могут встать за движение и как держится власть.",
      "Who could join the movement here and how strong the state is."),
-    ("PANEL_REVOLUTIONARY",
-     "Здесь победила революция. Страна помогает движению солидарностью и примером, движение из неё идёт к соседям. "
-     "Как живёт новое общество — на следующих этапах.",
-     "The revolution has won here. It helps the movement with solidarity and example."),
     ("STATUS_PROTEST", "Стихийный протест! Коснитесь охристого пузырька, чтобы его поддержать.",
      "A spontaneous protest! Tap the ochre bubble to support it."),
     ("M_CADRES", "Кадры", "Cadres"),
@@ -773,7 +770,7 @@ ROWS = [
 
 def main() -> None:
     out = ROOT / "locale" / "game.csv"
-    all_rows = ROWS + locale_events.rows() + locale_battle.rows()
+    all_rows = ROWS + locale_events.rows() + locale_battle.rows() + locale_society.rows()
     keys = [r[0] for r in all_rows]
     assert len(keys) == len(set(keys)), "повторяется ключ"
     with out.open("w", encoding="utf-8", newline="") as f:

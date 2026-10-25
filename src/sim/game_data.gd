@@ -9,6 +9,7 @@ const ACTIONS_PATH := "res://data/actions.json"
 const LINES_PATH := "res://data/lines.json"
 const EVENTS_PATH := "res://data/events.json"
 const BATTLE_PATH := "res://data/battle.json"
+const SOCIETY_PATH := "res://data/society.json"
 
 var world: WorldData
 var balance: Dictionary = {}
@@ -33,6 +34,11 @@ var event_order: PackedStringArray
 var battle: Dictionary = {}
 var battle_actions: Dictionary = {}
 var battle_action_order: PackedStringArray
+## Новое общество в революционных странах (data/society.json); числа — через num("society.…").
+var society: Dictionary = {}
+## Политика → {вариант → описание варианта}; порядок вариантов — в society_options.
+var policy_options: Dictionary = {}
+var society_options: Dictionary = {}
 
 ## Связи как параллельные массивы: так недельный шаг идёт быстрее.
 var link_a: PackedInt32Array
@@ -60,8 +66,9 @@ static func load_from(world: WorldData, links_path: String, balance_path: String
 	var lines_doc: Variant = _read_json(lines_path)
 	var events_doc: Variant = _read_json(events_path)
 	var battle_doc: Variant = _read_json(BATTLE_PATH)
+	var society_doc: Variant = _read_json(SOCIETY_PATH)
 	if not (links_doc is Dictionary and balance_doc is Dictionary and actions_doc is Dictionary and lines_doc is Dictionary
-			and events_doc is Dictionary and battle_doc is Dictionary):
+			and events_doc is Dictionary and battle_doc is Dictionary and society_doc is Dictionary):
 		return null
 	var data := GameData.new()
 	data.world = world
@@ -87,6 +94,16 @@ static func load_from(world: WorldData, links_path: String, balance_path: String
 	for item: Dictionary in battle_doc.get("actions", []):
 		data.battle_actions[item["id"]] = item
 		data.battle_action_order.append(item["id"])
+	data.society = society_doc
+	data._index_numbers(society_doc, "society")
+	for p: Dictionary in society_doc.get("policies", []):
+		var by_id := {}
+		var order := PackedStringArray()
+		for o: Dictionary in p["options"]:
+			by_id[o["id"]] = o
+			order.append(o["id"])
+		data.policy_options[p["id"]] = by_id
+		data.society_options[p["id"]] = order
 	for link: Dictionary in links_doc.get("links", []):
 		var a := world.get_country(link["a"])
 		var b := world.get_country(link["b"])

@@ -84,7 +84,7 @@ func reset_colors() -> void:
 
 static func color_for(cs: CountryState) -> Color:
 	if cs.is_revolutionary():
-		return MapPalette.REVOLUTIONARY_LAND
+		return MapPalette.THERMIDOR_LAND if NewSociety.is_thermidor(cs) else MapPalette.REVOLUTIONARY_LAND
 	if cs.influence <= 0.0:
 		return MapPalette.LAND
 	return MapPalette.LAND.lerp(MapPalette.VERMILION, clampf(pow(cs.influence / 45.0, 0.7), 0.06, 0.92))

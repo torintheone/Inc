@@ -15,5 +15,7 @@ const NEUTRAL_LAND := Color("#BDB5A2")
 const REVOLUTIONARY_LAND := Color("#8E1C1C")
 ## Страна, разделённая гражданской войной.
 const CIVIL_WAR_LAND := Color("#A9503A")
+## Революционная страна после Термидора.
+const THERMIDOR_LAND := Color("#5E4B45")
 const BORDER := Color(0.102, 0.102, 0.102, 0.55)
 const SELECTED_OUTLINE := INK

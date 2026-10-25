@@ -5,7 +5,8 @@ extends RefCounted
 ## Показатели страны, которые попадают в итог, в порядке показа. Влияние и безработица — с десятыми.
 const FIELDS: PackedStringArray = ["influence", "consciousness", "organization", "cadres", "trust", "unrest",
 	"visibility", "reformism", "real_wage", "unemployment", "exploitation", "hegemony", "legitimacy",
-	"repression", "army_loyalty", "elite_split", "legality"]
+	"repression", "army_loyalty", "elite_split", "legality",
+	"democracy", "bureaucracy", "food", "production", "defense", "support"]
 const DECIMALS: PackedStringArray = ["influence", "unemployment"]
 
 

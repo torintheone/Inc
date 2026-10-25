@@ -12,10 +12,11 @@
 | `lines.json` | Пять стратегических линий движения | правится руками |
 | `events.json` | События: условия, варианты решений, цепочки | правится руками |
 | `battle.json` | Местные сражения: время, силы сторон, действия игрока, ИИ власти, итоги | правится руками |
+| `society.json` | Новое общество в революционных странах: показатели, три политики, Термидор, контрреволюция | правится руками |
 | `battle_maps.json` | Карты стран для сражений: регионы, соседи, население, объекты | `tools/build_regions.py` |
 
 Файлы `world*.json`, `links.json` и `battle_maps.json` руками не правят: их перезаписывают скрипты.
-`balance.json`, `actions.json`, `lines.json`, `events.json` и `battle.json` — для дизайнера: числа и тексты меняются без программиста.
+`balance.json`, `actions.json`, `lines.json`, `events.json`, `battle.json` и `society.json` — для дизайнера: числа и тексты меняются без программиста.
 Перед сборкой их проверяет `python3 tools/validate_data.py` (он же запускается в GitHub Actions):
 ссылки между записями, диапазоны значений, тексты для каждого улучшения и действия. Чтобы пересобрать их, запусти
 в GitHub вкладку **Actions → «Данные мира» → Run workflow**. Тот же скрипт можно запустить
@@ -211,6 +212,8 @@
 - `requires_override` — другие требования для улучшения (у рабочих советов — без партии).
 - `action_bonus` — что ещё происходит при успехе действия: `success_mult` усиливает прибавки, `reaction` и
   `add` — побочные последствия, `revolution_chance` — шанс, что действие перерастёт в революцию.
+- `society` — с чего начинается новое общество после победы: поправки к стартовым `democracy`, `bureaucracy`,
+  `food` и политики по умолчанию (`policies`: `village`, `economy`, `foreign`), например у советов — рабочий контроль.
 
 Тексты линий — `LINE_<id>`, `LINE_<id>_CURRENT`, `_PLUS`, `_MINUS`, `_WHERE` в `tools/locale_game.py`.
 
@@ -242,13 +245,19 @@
 - `trigger`: `phase`, `phase_week_min`, `reaction_min`, `reaction_max`, `zone`, `min` / `max` (показатели
   страны), `upgrade`, `no_upgrade`, `unlock`, `line`, `flag` / `no_flag`, `timed` / `no_timed` (временные
   отметки), `class_min` (доли классов), `indicator_min` (показатели Всемирного банка), `neighbor_flag_any`,
-  `revolutionary` (событие в революционной стране), `any_of` (хотя бы одно из условий).
+  `revolutionary` (событие в революционной стране), `any_of` (хотя бы одно из условий; внутри можно `flag`,
+  `class_min`, `indicator_min`, `min`, `max`). Для революционных стран: `rev_weeks_min` / `rev_weeks_max` —
+  сколько недель прошло после победы, `policy` — выбранные политики (`{"economy": "plan"}`), `isolated` — революция
+  одна в мире; для мира: `civil_war_any` — где-то идёт гражданская война.
 - Вариант: `requires` — `cadres` (списываются), `solidarity`, `upgrade`, `any_upgrade`, `unlock`, `min`,
   `world.core_consciousness_max`; `chance` — шанс удачи, `effects` — последствия при удаче, `fail` — при
   неудаче; `default` — вариант, который берётся, если решения нет 4 недели (в игре время в это время стоит).
 - Последствия: `country`, `movement` (все страны с движением), `core`, `periphery`, `neighbors` — в формате
   исходов действий (`add`, `mult`, `flags`, `timed`, `special`); `reaction`, `solidarity` — общие;
-  `chain: {"event": "power_crisis", "after": [8, 16]}` — продолжение через 8–16 недель.
+  `chain: {"event": "power_crisis", "after": [8, 16]}` — продолжение через 8–16 недель;
+  `civil_war_aid: {"squads": 10, "supplies": 20}` — помощь всем, кто воюет в гражданской войне.
+- Категория `society` — события новой власти в революционных странах (показатели `democracy`, `bureaucracy`,
+  `food`, `production`, `defense`, `support` и отметки из `society.json`).
 - Временные отметки событий: `emergency` (действия в стране в 1,5 раза дороже), `theory` (сознание гаснет вдвое
   медленнее), `peasant_ally` (влияние растёт в 1,3 раза быстрее), `reformist_cap` (сознание не выше
   политического), `fascist_regime` (репрессии +40, легальности нет), `blockade` (революционная страна вдвое слабее
@@ -299,6 +308,38 @@
 
 Тексты: `BATTLE_ACTION_<id>`, `BATTLE_ACTION_<id>_DESC`, строки журнала `BATTLE_LOG_<id>_OK` / `_FAIL` — в
 `tools/locale_battle.py`.
+
+## society.json
+
+Революционная страна после победы. Шесть показателей (0–100): `democracy` — рабочая демократия, `bureaucracy` —
+бюрократизация, `food` — продовольствие, `production` — производство, `defense` — оборона, `support` — поддержка
+населения. Каждую неделю показатель сдвигается к своему уровню на долю `speed`; уровень складывается из обстановки
+и политик.
+
+- `start` — показатели в день победы: производство — производительные силы × `production_ruin` (разруха),
+  поддержка — `support_base` + доверие масс × `support_per_trust`; переход армии даёт обороне `defense_army_victory`.
+- `bureaucracy` — уровень аппарата: `base` + изоляция × `isolation` (1 — революция одна, ½ — есть ещё одна…) +
+  разруха × `ruin` + война × `war` + культ вождя − демократия × `per_democracy` − рост производства × `per_growth` −
+  недавние революции × `per_recent_revolution` (за `recent_weeks` недель, не больше `recent_revolution_cap`).
+  Спадает бюрократизация вдвое медленнее, чем растёт (`speed.bureaucracy_down_mult`). На `thermidor` — Термидор:
+  страна остаётся революционной, но не даёт движению солидарности и не вдохновляет соседей.
+- `democracy`, `food`, `production`, `defense`, `support` — из чего складываются остальные показатели. Война —
+  интервенция (Реакция от 60 или отметка `intervention`) или блокада.
+- `counter` — контрреволюция: при поддержке ниже `support_below` во время интервенции страна падает с шансом
+  `chance` в неделю (больше при низкой поддержке, меньше при сильной обороне). Тогда старый строй возвращается,
+  влияние — `influence_after`, репрессии — `repression_after`, Реакция + `reaction`. Ниже `warning_support` игра
+  предупреждает.
+- `world` — что страна даёт движению: сила примера (`spread_support_base` + поддержка × `spread_per_support`) и
+  помощь чужим восстаниям снабжением и оружием (`battle_ally_*`, не больше `battle_allies_max` стран).
+- `policy_weeks` — политику можно менять не чаще раза в столько недель.
+- `policies` — три политики и их варианты. Поправки варианта: `food`, `support`, `democracy`, `bureaucracy`,
+  `defense` — к уровню показателя; `growth` — рост производства в год; `spread`, `solidarity`, `counter`,
+  `blockade`, `isolation` — множители примера, солидарности, шанса контрреволюции, удара блокады и изоляции;
+  `reaction` — прибавка Реакции в неделю; `battle_aid` — страна помогает чужим восстаниям.
+- `timed` и `flags` — те же поправки от временных отметок и флагов событий («твёрдая рука», ликбез…).
+
+Тексты — `POLICY_<политика>_<вариант>` и `_DESC`, показатели `F_<показатель>` и `SOC_<показатель>` — в
+`tools/locale_society.py`.
 
 ## battle_maps.json
 

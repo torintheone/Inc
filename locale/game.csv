@@ -367,7 +367,6 @@ STAGE_LINE,Стадия сознания: %s,Stage of consciousness: %s
 PANEL_TAB_movement,Движение,Movement
 PANEL_TAB_country,Страна,Country
 PANEL_BASE_HINT,Какие силы здесь могут встать за движение и как держится власть.,Who could join the movement here and how strong the state is.
-PANEL_REVOLUTIONARY,"Здесь победила революция. Страна помогает движению солидарностью и примером, движение из неё идёт к соседям. Как живёт новое общество — на следующих этапах.",The revolution has won here. It helps the movement with solidarity and example.
 STATUS_PROTEST,"Стихийный протест! Коснитесь охристого пузырька, чтобы его поддержать.",A spontaneous protest! Tap the ochre bubble to support it.
 M_CADRES,Кадры,Cadres
 M_POTENTIAL,База движения,Movement base
@@ -742,6 +741,47 @@ EVENT_lessons_of_defeat,Уроки поражения,Lessons of defeat
 EVENT_lessons_of_defeat_TEXT,"%s: восстание разгромлено. Уцелевшие спорят, что пошло не так.",Lessons of defeat: %s.
 EVENT_lessons_of_defeat_study,Изучить ошибки,Study
 EVENT_lessons_of_defeat_martyrs,Память павших,Martyrs
+EVENT_specialist_sabotage,Саботаж специалистов,Specialist sabotage
+EVENT_specialist_sabotage_TEXT,%s: инженеры и управляющие старых заводов не выходят на работу или путают дела. Станки стоят.,Specialist sabotage: %s.
+EVENT_specialist_sabotage_workers_control,Рабочий контроль,Workers control
+EVENT_specialist_sabotage_high_salaries,Высокие оклады специалистам,High salaries
+EVENT_specialist_sabotage_coercion,Принуждение,Coercion
+EVENT_city_famine,Голод в городах,City famine
+EVENT_city_famine_TEXT,"%s: хлеба в городах почти нет. Рабочие стоят в очередях с ночи, деревня придерживает зерно.",City famine: %s.
+EVENT_city_famine_requisition,Реквизиции в деревне,Requisition
+EVENT_city_famine_market_exchange,Рыночный обмен,Market exchange
+EVENT_city_famine_import_gold,Импорт за золото,Import gold
+EVENT_bureaucracy_threat,Угроза бюрократизации,Bureaucracy threat
+EVENT_bureaucracy_threat_TEXT,"%s: в комиссариатах всё больше людей, которые не стояли у станка. Решения принимают не советы, а кабинеты.",Bureaucracy threat: %s.
+EVENT_bureaucracy_threat_workers_democracy,Рабочая демократия и выборность,Workers democracy
+EVENT_bureaucracy_threat_firm_hand,«Твёрдая рука»,Firm hand
+EVENT_bureaucracy_threat_promote_workers,Выдвижение молодых рабочих,Promote workers
+EVENT_union_role,Роль профсоюзов,Union role
+EVENT_union_role_TEXT,"%s: прошёл год после победы. Нужны ли профсоюзы, если государство теперь рабочее?",Union role: %s.
+EVENT_union_role_autonomy,Автономия профсоюзов,Autonomy
+EVENT_union_role_statization,Огосударствление,Statization
+EVENT_land_cooperation,Земля и кооперация,Land cooperation
+EVENT_land_cooperation_TEXT,"%s: крестьяне получили землю, но мелкие наделы кормят только их самих. Города ждут хлеба.",Land cooperation: %s.
+EVENT_land_cooperation_voluntary,Добровольные кооперативы,Voluntary
+EVENT_land_cooperation_forced,Принудительное объединение,Forced
+EVENT_land_cooperation_postpone,Отложить,Postpone
+EVENT_aid_revolution,Помощь другой революции,Aid revolution
+EVENT_aid_revolution_TEXT,%s: в другой стране идёт гражданская война. Восставшие просят оружия и хлеба.,Aid revolution: %s.
+EVENT_aid_revolution_export,Экспорт поддержки,Export
+EVENT_aid_revolution_focus,Сосредоточиться на себе,Focus
+EVENT_plan_error,Ошибка плана,Plan error
+EVENT_plan_error_TEXT,"%s: по плану сделали горы сапог одного размера, а гвоздей нет вовсе. Склады полны, лавки пусты.",Plan error: %s.
+EVENT_plan_error_feedback,Рабочий контроль и обратная связь,Feedback
+EVENT_plan_error_tighten,Ужесточить план,Tighten
+EVENT_plan_error_light_market,Допустить рынок в лёгкой промышленности,Light market
+EVENT_specialists_leave,Отъезд специалистов,Specialists leave
+EVENT_specialists_leave_TEXT,"%s: врачи, инженеры и учителя уезжают за границу — там платят больше и нет очередей.",Specialists leave: %s.
+EVENT_specialists_leave_open_borders,Открытые границы,Open borders
+EVENT_specialists_leave_close_borders,Закрыть границы,Close borders
+EVENT_new_culture,Новая культура,New culture
+EVENT_new_culture_TEXT,"%s: жизнь налаживается. Рабочие клубы просят книг, театров и школ для взрослых.",New culture: %s.
+EVENT_new_culture_literacy,Ликвидация неграмотности,Literacy
+EVENT_new_culture_experiments,Культурные эксперименты,Experiments
 BATTLE_TITLE,Восстание: %s,Uprising: %s
 BATTLE_TITLE_CIVIL_WAR,Гражданская война: %s,Civil war: %s
 BATTLE_DAY,День %s из %s,Day %s of %s
@@ -909,3 +949,74 @@ ALERT_TITLE_CIVIL_WAR,Гражданская война,Civil war
 BLOCK_civil_war,В стране идёт гражданская война,A civil war is going on
 SPECIAL_battle,сражение на карте страны,a battle on the country map
 CIVIL_WAR_STATUS,Гражданская война: революция держит %s страны. Следующий раунд боёв через %s нед.,Civil war: the revolution holds %s. Next round in %s weeks.
+F_democracy,Рабочая демократия,Workers' democracy
+F_bureaucracy,Бюрократизация,Bureaucratization
+F_food,Продовольствие,Food
+F_production,Производство,Production
+F_defense,Оборона,Defence
+F_support,Поддержка населения,Popular support
+SOC_democracy,Решают ли советы и собрания или кабинеты. Сдерживает бюрократизацию.,"Do councils decide, or offices? Holds back bureaucratization."
+SOC_bureaucracy,"Главная внутренняя угроза. Растёт в изоляции, при разрухе, войне, «твёрдой руке» и культе вождя; на 100 — Термидор.",The main internal danger. At 100 — Thermidor.
+SOC_food,"Хлеб в городах. Ниже 30 — голод: производство падает, люди отворачиваются.",Bread in the cities. Below 30 — famine.
+SOC_production,"Производительные силы: растут от плана, рынка и торговли, падают от войны и голода.","Productive forces: grow with the plan and trade, fall in war and famine."
+SOC_defense,Защита от интервенции и мятежей.,Protection against intervention and revolt.
+SOC_support,"Если поддержка ниже 30, а идёт интервенция, страна может пасть.","Below 30 during an intervention, the country may fall."
+POLICY_village,Деревня,Countryside
+POLICY_village_cooperation,Добровольная кооперация,Voluntary cooperation
+POLICY_village_cooperation_DESC,"Медленно, зато крестьяне довольны.","Slow, but the peasants are content."
+POLICY_village_market,Рынок для крестьян,Market for peasants
+POLICY_village_market_DESC,"Продовольствие ++, но растёт мелкая буржуазия: контрреволюции легче найти опору.","Food ++, but the petty bourgeoisie grows."
+POLICY_village_requisition,Реквизиции,Requisitions
+POLICY_village_requisition_DESC,"Хлеб сразу, но поддержка −−, бюрократизация + и риск мятежей.","Bread now, but support −− and the risk of revolt."
+POLICY_economy,Экономика,Economy
+POLICY_economy_workers_control,Рабочий контроль,Workers' control
+POLICY_economy_workers_control_DESC,"Демократия +, бюрократизация −, но производство растёт медленно.","Democracy +, bureaucratization −, slow growth."
+POLICY_economy_plan,Центральный план,Central plan
+POLICY_economy_plan_DESC,"Индустриализация быстрее всего, оборона +, но бюрократизация ++ и демократия −.","Fastest industrialization, but bureaucratization ++."
+POLICY_economy_mixed,Смешанная,Mixed
+POLICY_economy_mixed_DESC,"Стабильно, но медленно.",Stable but slow.
+POLICY_foreign,Внешняя линия,Foreign line
+POLICY_foreign_support,Поддержка революций,Support revolutions
+POLICY_foreign_support_DESC,"Распространение ++, солидарность +, помощь чужим восстаниям; производство − и Реакция +.","Spread ++, solidarity +, aid to uprisings; Reaction +."
+POLICY_foreign_coexistence,Мирное сосуществование,Peaceful coexistence
+POLICY_foreign_coexistence_DESC,"Торговля +, блокада слабее, но пример гаснет, а в изоляции быстрее растёт бюрократизация.","Trade +, weaker blockade, but bureaucracy grows faster in isolation."
+TIMED_firm_hand,«твёрдая рука» на %s нед.,firm hand for %s wk
+TIMED_workers_democracy,выборность и отчёт на %s нед.,workers' democracy for %s wk
+TIMED_specialists,оклады специалистам на %s нед.,specialists' salaries for %s wk
+TIMED_market_light,рынок в лёгкой промышленности на %s нед.,light-industry market for %s wk
+TIMED_closed_borders,закрытые границы на %s нед.,closed borders for %s wk
+TIMED_literacy,ликбез на %s нед.,literacy campaign for %s wk
+TIMED_culture,культурные эксперименты на %s нед.,cultural experiments for %s wk
+TIMED_forced_collectivization,принудительная коллективизация на %s нед.,forced collectivization for %s wk
+TIMED_intervention,интервенция на %s нед.,intervention for %s wk
+CATEGORY_society,Новое общество,New society
+BTN_SOCIETY,Новое общество,New society
+BTN_CHOOSE,Выбрать,Choose
+SOCIETY_TITLE,Новое общество: %s,New society: %s
+SOCIETY_INDICATORS,Показатели,Indicators
+SOCIETY_POLICIES,Политики,Policies
+SOCIETY_POLICY_HINT,Каждую политику можно менять не чаще раза в год.,Each policy can change once a year.
+SOCIETY_CHANGE_IN,сменить можно через %s нед.,can change in %s wk
+SOCIETY_CHANGE_NOW,можно сменить,can change now
+SOCIETY_CURRENT,сейчас,current
+SOCIETY_BUREAUCRACY_TREND,Бюрократизация тянется к %s: %s,Bureaucratization heads to %s: %s
+SOCIETY_ISOLATED,Революция одна в мире — изоляция растит аппарат. Помогите победить революции в других странах.,The revolution is alone: isolation feeds the apparatus.
+SOCIETY_ALLIES,Революционных стран в мире: %s — изоляция слабее.,Revolutionary countries: %s — less isolation.
+SOCIETY_WAR,Идёт интервенция или блокада: война кормит аппарат и бьёт по хлебу.,Intervention or blockade.
+SOCIETY_THERMIDOR,"Термидор: аппарат взял верх над советами. Страна больше не помогает движению, её пример не вдохновляет.",Thermidor: the apparatus has taken over.
+SOCIETY_COUNTER_RISK,"Опасно: поддержка ниже 30, а интервенты ищут союзников — страна может пасть.",Danger: support below 30 during an intervention.
+SOCIETY_GIVES,Страна даёт движению солидарность и пример соседям; при «Поддержке революций» — снабжение и оружие для чужих восстаний.,"The country gives solidarity and an example; with ""Support revolutions"" — supplies for uprisings."
+STATUS_THERMIDOR,Термидор: революция переродилась,Thermidor: the revolution has degenerated
+PANEL_SOCIETY_HINT,Политики и показатели — на экране «Новое общество».,Policies are on the New society screen.
+REPORT_POLICY,Новая политика: %s,New policy: %s
+NEWS_POLICY,%s: новая политика — %s,%s: new policy — %s
+NEWS_THERMIDOR,"%s: Термидор. Аппарат взял верх над советами, страна больше не помогает движению",%s: Thermidor. The apparatus has taken over
+NEWS_COUNTERREVOLUTION,"%s: контрреволюция! Старый строй вернулся, начался белый террор",%s: counter-revolution! The old order is back
+NEWS_COUNTER_THREAT,"%s: поддержка новой власти падает, интервенты ищут союзников внутри страны",%s: support for the new power falls during the intervention
+ALERT_TITLE_THERMIDOR,Термидор,Thermidor
+ALERT_TITLE_COUNTERREVOLUTION,Контрреволюция,Counter-revolution
+ALERT_TITLE_COUNTER_THREAT,Революция в опасности,The revolution in danger
+BATTLE_LOG_ALLIES,Революционные страны прислали снабжение и оружие: %s,Revolutionary countries sent aid: %s
+BATTLE_LOG_AID,%s прислала отряды и хлеб,%s sent squads and bread
+RES_BITTER,Горькая победа: в %s революция переродилась — Термидор.,A bitter victory: Thermidor in %s.
+HELP_MAP_THERMIDOR,"Бурая — Термидор: революция переродилась, стране больше не до движения.","Brown: Thermidor, the revolution has degenerated."

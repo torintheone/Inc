@@ -77,6 +77,12 @@ static func start(sim: SimWorld, cs: CountryState, penalty: float = 0.0, agitato
 	b.weapons = d.num(p + "weapons") + (10.0 if cs.has_flag("workers_control") else 0.0)
 	b.trust = cs.trust
 	b.add_log("BATTLE_LOG_START", [cs.country.name_ru])
+	# Революционные страны помогают чужому восстанию снабжением и оружием.
+	var allies := NewSociety.battle_allies(sim)
+	if allies > 0:
+		b.supplies += allies * d.num("society.world.battle_ally_supplies")
+		b.weapons += allies * d.num("society.world.battle_ally_weapons")
+		b.add_log("BATTLE_LOG_ALLIES", [allies])
 	return b
 
 

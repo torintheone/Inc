@@ -23,6 +23,9 @@ const ALERT_TITLES := {
 	"NEWS_REACTION_100": "ALERT_TITLE_REACTION",
 	"NEWS_LINE_CHANGED": "ALERT_TITLE_LINE",
 	"NEWS_CIVIL_WAR": "ALERT_TITLE_CIVIL_WAR",
+	"NEWS_THERMIDOR": "ALERT_TITLE_THERMIDOR",
+	"NEWS_COUNTERREVOLUTION": "ALERT_TITLE_COUNTERREVOLUTION",
+	"NEWS_COUNTER_THREAT": "ALERT_TITLE_COUNTER_THREAT",
 }
 ## Во время сражения партия сохраняется раз в столько дней.
 const BATTLE_SAVE_DAYS := 7
@@ -431,7 +434,9 @@ func _panel_button_text() -> String:
 		return tr("BTN_START_HERE")
 	if mode == "play" and selected != null and sim.in_civil_war(selected.id):
 		return tr("BTN_TO_BATTLE")
-	if mode == "play" and selected != null and not sim.state_of(selected.id).is_revolutionary():
+	if mode == "play" and selected != null and sim.state_of(selected.id).is_revolutionary():
+		return tr("BTN_SOCIETY")
+	if mode == "play" and selected != null:
 		return tr("BTN_ACTIONS")
 	return ""
 
@@ -445,6 +450,8 @@ func _on_panel_button() -> void:
 	elif mode == "play" and sim.in_civil_war(selected.id):
 		if sim.resume_civil_war(selected.id):
 			_open_battle()
+	elif mode == "play" and sim.state_of(selected.id).is_revolutionary():
+		_open_society()
 	elif mode == "play":
 		_open_actions()
 
@@ -466,6 +473,28 @@ func _open_development() -> void:
 	screen.refresh(sim)
 
 
+## «Новое общество» революционной страны: показатели и три политики.
+func _open_society() -> void:
+	if mode != "play" or selected == null:
+		return
+	var cs := sim.state_of(selected.id)
+	if not cs.is_revolutionary():
+		return
+	var screen := SocietyScreen.new()
+	screen.policy_requested.connect(func(policy: String, option: String) -> void:
+		if NewSociety.set_policy(sim, cs, policy, option):
+			_seen_news = sim.news_count
+			screen.refresh(sim, cs)
+			hud.show_result(tr("REPORT_POLICY") % tr("POLICY_%s_%s" % [policy, option]),
+				PackedStringArray([tr("POLICY_%s_%s_DESC" % [policy, option])]), true)
+			_refresh_ui())
+	screen.close_requested.connect(func() -> void:
+		hud.close_overlay()
+		_refresh_ui())
+	hud.show_overlay(screen)
+	screen.refresh(sim, cs)
+
+
 func _open_line_change() -> void:
 	var screen := LineScreen.new(data, sim.line, true)
 	screen.line_chosen.connect(func(id: String) -> void:
@@ -485,7 +514,7 @@ func _open_actions() -> void:
 		return
 	var cs := sim.state_of(selected.id)
 	if cs.is_revolutionary():
-		hud.toast(tr("BLOCK_revolutionary"))
+		_open_society()
 		return
 	var screen := ActionsScreen.new()
 	screen.action_requested.connect(func(id: String) -> void: _on_action(screen, id))

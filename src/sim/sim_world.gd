@@ -18,12 +18,12 @@ const OUTCOME_DEFEAT := "defeat"
 
 ## Новости, ради которых игра ставит паузу и показывает сообщение.
 const IMPORTANT_NEWS: PackedStringArray = ["NEWS_WINDOW_OPENED", "NEWS_REVOLUTION", "NEWS_UPRISING_DEFEATED", "NEWS_OUTCOME",
-	"NEWS_CIVIL_WAR"]
+	"NEWS_CIVIL_WAR", "NEWS_THERMIDOR", "NEWS_COUNTERREVOLUTION", "NEWS_COUNTER_THREAT"]
 ## Новости, которые попадают в хронику партии на экране итогов (вместе с важными).
 const CHRONICLE_NEWS: PackedStringArray = ["NEWS_START", "NEWS_BATTLE_START", "NEWS_CIVIL_WAR", "NEWS_LINE", "NEWS_LINE_CHANGED", "NEWS_CRISIS",
 	"NEWS_COUNTERTENDENCY", "NEWS_REVOLUTION", "NEWS_UPRISING_DEFEATED", "NEWS_REACTION_20", "NEWS_REACTION_40",
 	"NEWS_REACTION_60", "NEWS_REACTION_80", "NEWS_REACTION_100", "NEWS_OUTCOME", "NEWS_STRIKE_TO_REVOLUTION",
-	"NEWS_WINDOW_OPENED", "NEWS_EVENT", "NEWS_EVENT_WORLD"]
+	"NEWS_WINDOW_OPENED", "NEWS_EVENT", "NEWS_EVENT_WORLD", "NEWS_THERMIDOR", "NEWS_COUNTERREVOLUTION"]
 
 var data: GameData
 var seed_value := 0
@@ -230,6 +230,7 @@ func step() -> void:
 	MovementSystem.update_movement(self, MovementSystem.compute_spread(self))
 	MovementSystem.update_rev_situation(self, ph)
 	ReactionSystem.update(self)
+	NewSociety.update(self)
 	peak_reaction = maxf(peak_reaction, reaction)
 	var income := weekly_income()
 	solidarity = maxf(solidarity + income, 0.0)
@@ -260,7 +261,7 @@ func weekly_income() -> float:
 	var per_rev := d.num("solidarity.revolutionary_country") * (1.0 - (d.num("reaction.intervention_income_penalty") if reaction >= 60.0 else 0.0))
 	for cs in countries:
 		if cs.is_revolutionary() and not cs.active("blockade", week):
-			income += per_rev * cs.size
+			income += per_rev * cs.size * NewSociety.solidarity_mult(self, cs)
 	return income
 
 
@@ -286,13 +287,14 @@ func on_window_opened(cs: CountryState) -> void:
 	add_news("NEWS_WINDOW_OPENED", [cs.country.name_ru], cs.country.id, true)
 
 
-## Победа восстания: страна становится революционной.
-func make_revolutionary(cs: CountryState) -> void:
+## Победа восстания: страна становится революционной. battle — сражение, которым кончилось восстание.
+func make_revolutionary(cs: CountryState, battle: BattleState = null) -> void:
 	var d := data
 	cs.status = CountryState.REVOLUTIONARY
 	cs.revolution_week = week
 	cs.window_left = -1
 	cs.unrest = 0.0
+	NewSociety.begin(self, cs, battle)
 	ReactionSystem.add(self, d.num("revolution.reaction"))
 	# Победа где угодно даёт рывок активности по всему миру, а соседям — пример.
 	var boost := d.num("revolution.world_influence_boost")
@@ -364,7 +366,7 @@ func _apply_battle(b: BattleState) -> void:
 	match b.outcome:
 		BattleState.OUTCOME_VICTORY:
 			civil_wars.erase(b.country_id)
-			make_revolutionary(cs)
+			make_revolutionary(cs, b)
 		BattleState.OUTCOME_DEFEAT:
 			civil_wars.erase(b.country_id)
 			defeat_uprising(cs)
@@ -387,6 +389,27 @@ func _civil_war_rounds() -> void:
 		BattleSystem.begin_round(self, b)
 		BattleBot.run(self, b, BattleBot.AUTO)
 		_apply_battle(b)
+
+
+## Контрреволюция: старый строй возвращается, приходит белый террор, остаются «Уроки поражения».
+func fall_revolution(cs: CountryState) -> void:
+	var d := data
+	var c := "society.counter."
+	cs.status = CountryState.CAPITALIST
+	cs.revolution_week = -1
+	cs.window_left = -1
+	cs.policies.clear()
+	cs.policy_week.clear()
+	cs.flags.erase(NewSociety.THERMIDOR)
+	cs.flags.erase("counter_warned")
+	cs.flags["lessons_of_defeat"] = true
+	cs.set_field("influence", d.num(c + "influence_after"))
+	cs.set_field("organization", d.num(c + "organization_after"))
+	cs.set_field("repression", d.num(c + "repression_after"))
+	cs.cadres *= d.num("cadres.defeat_mult")
+	ReactionSystem.add(self, d.num(c + "reaction"))
+	add_news("NEWS_COUNTERREVOLUTION", [cs.country.name_ru], cs.country.id, true)
+	EventSystem.notify(self, "defeat", cs)
 
 
 ## Разгром восстания: влияние падает, приходит белый террор, остаётся опыт.

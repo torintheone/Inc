@@ -5,17 +5,20 @@
   "lines": [
     {
       "id": "vanguard",
+      "society": {"democracy": -5, "bureaucracy": 5, "policies": {"village": "cooperation", "economy": "plan", "foreign": "support"}},
       "modifiers": {"visibility": -0.15, "organization_rate": 0.2, "uprising_chance": 0.1, "repression_growth": 0.5,
         "trust_target": -5, "arrest_damage": -0.3}
     },
     {
       "id": "councils",
+      "society": {"democracy": 15, "bureaucracy": -5, "policies": {"village": "cooperation", "economy": "workers_control", "foreign": "support"}},
       "modifiers": {"trust_target": 10, "auto_support": 0.6, "activity": 6, "semi_growth": 0.35,
         "trade_channel": -0.1, "migration_channel": -0.1, "neighbor_channel": -0.1, "organization_rate": -0.1},
       "requires_override": {"workers_councils": ["trade_unions"]}
     },
     {
       "id": "syndicalism",
+      "society": {"democracy": 10, "policies": {"village": "cooperation", "economy": "workers_control", "foreign": "support"}},
       "modifiers": {"strike_chance": 0.1, "organization_cap": 10, "consciousness_rate": -0.15, "cadre_rate": 0.2},
       "action_cost": {"general_strike": 0.6},
       "blocked_actions": ["elections"],
@@ -23,12 +26,14 @@
     },
     {
       "id": "mass_party",
+      "society": {"democracy": 5, "policies": {"village": "market", "economy": "mixed", "foreign": "coexistence"}},
       "modifiers": {"core_growth": 0.4, "legality_hold": 0.5, "hegemony_erosion": 0.06, "reformism": 12,
         "uprising_chance": -0.1, "bubble_value": 0.2},
       "action_bonus": {"elections": {"success_mult": 1.5, "reaction": 2, "add": {"army_loyalty": 4}}}
     },
     {
       "id": "peoples_war",
+      "society": {"food": 10, "bureaucracy": 5, "policies": {"village": "cooperation", "economy": "plan", "foreign": "support"}},
       "modifiers": {"periphery_growth": 0.6, "core_growth": -0.3, "peasant_potential": 0.4, "uprising_periphery": 0.08,
         "semi_growth": 0.1}
     }

@@ -18,6 +18,8 @@ const FIELDS: PackedStringArray = [
 	"top_cant", "bottom_wont", "mass_activity", "rev_situation",
 	# память о недавних выступлениях и доля сверхприбыли
 	"strikes_recent", "demos_recent", "aristocracy",
+	# новое общество в революционной стране
+	"democracy", "bureaucracy", "food", "production", "defense", "support",
 ]
 
 var country: Country
@@ -102,6 +104,17 @@ var timed: Dictionary[String, int] = {}
 ## Влияние раз в 4 недели за последние два года — для графика в панели страны.
 var history := PackedFloat32Array()
 
+# Новое общество (только у революционной страны, раздел «После победы» в SPEC.md).
+var democracy := 0.0
+var bureaucracy := 0.0
+var food := 0.0
+var production := 0.0
+var defense := 0.0
+var support := 0.0
+## Выбранные политики: "village", "economy", "foreign" → вариант; и неделя последней смены.
+var policies: Dictionary[String, String] = {}
+var policy_week: Dictionary[String, int] = {}
+
 
 ## Пересчитать величины, которые зависят только от данных (после создания или загрузки).
 func prepare(data: GameData) -> void:
@@ -170,7 +183,8 @@ func to_dict() -> Dictionary:
 		"revolution_week": revolution_week, "cooldowns": cooldowns.duplicate(),
 		"base": {"unemployment": base_unemployment, "real_wage": base_real_wage,
 			"exploitation": base_exploitation, "inequality": base_inequality},
-		"flags": flags.duplicate(), "timed": timed.duplicate(), "history": Array(history)}
+		"flags": flags.duplicate(), "timed": timed.duplicate(), "history": Array(history),
+		"policies": policies.duplicate(), "policy_week": policy_week.duplicate()}
 	for f in FIELDS:
 		d[f] = get(f)
 	return d
@@ -196,6 +210,14 @@ func load_dict(d: Dictionary) -> void:
 	var fl: Dictionary = d.get("flags", {})
 	for k: String in fl:
 		flags[k] = bool(fl[k])
+	policies.clear()
+	var pol: Dictionary = d.get("policies", {})
+	for k: String in pol:
+		policies[k] = str(pol[k])
+	policy_week.clear()
+	var pw: Dictionary = d.get("policy_week", {})
+	for k: String in pw:
+		policy_week[k] = int(pw[k])
 	timed.clear()
 	var tm: Dictionary = d.get("timed", {})
 	for k: String in tm:

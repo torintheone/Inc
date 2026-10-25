@@ -10,7 +10,8 @@ const ART_W := 380.0
 const TEXT_W := 640.0
 
 ## Значок категории на заглушке иллюстрации.
-const CATEGORY_ICONS := {"economy": "struggle", "state": "defense", "world": "international", "movement": "flag"}
+const CATEGORY_ICONS := {"economy": "struggle", "state": "defense", "world": "international", "movement": "flag",
+	"society": "organization"}
 
 
 func _init(sim: SimWorld) -> void:
