@@ -7,7 +7,7 @@ config_version=5
 
 config/name="Призрак"
 config/description="Стратегия о рабочем движении"
-config/version="0.0.0"
+config/version="0.1.0"
 run/main_scene="res://src/main.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 boot_splash/bg_color=Color(0.937, 0.902, 0.824, 1)
@@ -32,7 +32,7 @@ pointing/emulate_touch_from_mouse=true
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://locale/ui.ru.translation", "res://locale/ui.en.translation")
+locale/translations=PackedStringArray("res://locale/ui.ru.translation", "res://locale/ui.en.translation", "res://locale/game.ru.translation", "res://locale/game.en.translation")
 locale/fallback="ru"
 
 [rendering]

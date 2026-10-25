@@ -1,0 +1,154 @@
+keys,ru,en
+UPGRADE_study_circles,Рабочие кружки,Study circles
+UPGRADE_study_circles_DESC,"Вечерами после смены рабочие читают и спорят о том, почему жизнь устроена так, а не иначе. Сознание медленно растёт везде, где есть движение. Полиция почти ничего не замечает.",Workers read and argue after their shifts. Consciousness grows slowly wherever the movement is present.
+UPGRADE_leaflets,Листовки,Leaflets
+UPGRADE_leaflets_DESC,"Простые листки у проходных и на рынках объясняют, кто получает прибыль с твоего труда. Влияние движения растёт быстрее.",Leaflets at factory gates and markets. The movement's influence grows faster.
+UPGRADE_trade_unions,Профсоюзы,Trade unions
+UPGRADE_trade_unions_DESC,"Разрозненные кружки превращаются в профсоюзы с членскими взносами и выборными комитетами. Организованность растёт, открываются стачки и экономическая борьба. Движение становится заметнее.","Circles grow into unions. Organization rises, strikes become possible, the movement is more visible."
+UPGRADE_industry_federations,Отраслевые федерации,Industry federations
+UPGRADE_industry_federations_DESC,"Профсоюзы одной отрасли объединяются в федерации: теперь бастует не завод, а отрасль целиком. Открывает отраслевую стачку.",Unions of one industry unite. Opens the industry-wide strike.
+UPGRADE_workers_party,Рабочая партия,Workers' party
+UPGRADE_workers_party_DESC,"У движения появляется своя партия и программа, требования к власти, а не только к хозяевам. Открывает политическое сознание. Правящие классы это замечают: Реакция +5.",The movement gets a party and a programme. Opens political consciousness. Reaction +5.
+UPGRADE_emigrant_links,Связи эмигрантов,Emigrant networks
+UPGRADE_emigrant_links_DESC,"Рабочие, уехавшие на заработки, переписываются с домом и везут с собой опыт борьбы. Движение быстрее распространяется по миграционным связям.",Migrant workers carry their experience of struggle. Faster spread along migration links.
+BRANCH_organization,Организация,Organization
+BRANCH_agitation,Агитация,Agitation
+BRANCH_international,Интернационал,International
+ACTION_factory_strike,Стачка на предприятии,Factory strike
+ACTION_factory_strike_DESC,"Рабочие одного завода останавливают станки и требуют прибавки. Победа поднимает зарплату и сознание, поражение грозит локаутом и увольнением активистов. Труднее при безработице выше 15%.",A plant stops work for higher pay. A win raises wages and consciousness; a loss means a lockout.
+ACTION_industry_strike,Отраслевая стачка,Industry strike
+ACTION_industry_strike_DESC,"Встаёт вся отрасль: шахты, порты или железные дороги. Победа сильно поднимает организованность и открывает путь к политическому сознанию. При высокой безработице хозяева найдут штрейкбрехеров.",A whole industry stops. A win builds organization and opens the way to political consciousness.
+ACTION_demonstration,Демонстрация,Demonstration
+ACTION_demonstration_DESC,"Колонны выходят на улицы. Активность масс растёт, власть теряет лицо. Чем сильнее репрессивный аппарат, тем выше риск, что демонстрацию разгонят.",Columns take to the streets. Mass activity grows; with strong repression the march may be dispersed.
+ACTION_uprising,Восстание,Uprising
+ACTION_uprising_DESC,"Взять власть, пока открыто окно революции. Нужны революционная ситуация не ниже 70 и организованность не ниже 50. Победа делает страну революционной, поражение приносит белый террор.",Seize power while the window is open. Needs a revolutionary situation of 70 and organization of 50.
+BLOCK_owned,Уже есть,Owned
+BLOCK_cost,Не хватает солидарности,Not enough solidarity
+BLOCK_requires,Сначала: %s,First: %s
+BLOCK_unlock_strikes,Нужны профсоюзы,Needs trade unions
+BLOCK_unlock_industry_strikes,Нужны отраслевые федерации,Needs industry federations
+BLOCK_min_influence,Влияние движения ниже %s%%,Influence below %s%%
+BLOCK_min_rev_situation,Революционная ситуация ниже %s,Revolutionary situation below %s
+BLOCK_min_organization,Организованность ниже %s,Organization below %s
+BLOCK_cooldown,Снова можно через %s нед.,Available again in %s weeks
+BLOCK_revolutionary,Страна уже революционная,Already revolutionary
+PHASE_recovery,Оживление,Recovery
+PHASE_boom,Подъём,Boom
+PHASE_overheat,Перегрев,Overheating
+PHASE_crisis,Кризис,Crisis
+PHASE_depression,Депрессия,Depression
+NEWS_START,В стране %s появились первые рабочие кружки. Движение зародилось.,The first workers' circles appear in %s. The movement is born.
+NEWS_REACHED,Движение пришло в страну: %s.,The movement reaches %s.
+NEWS_UPGRADE,Движение освоило: %s.,The movement adopts: %s.
+NEWS_PHASE_recovery,Мировая экономика оживает: заводы снова нанимают.,The world economy recovers.
+NEWS_PHASE_boom,"Подъём: прибыли растут, стачки за зарплату выигрывать легче.",Boom: strikes for pay are easier to win.
+NEWS_PHASE_overheat,Перегрев: цены растут быстрее зарплат.,Overheating: prices outrun wages.
+NEWS_PHASE_depression,"Депрессия: безработица держится, нужда растёт.",Depression: unemployment stays high.
+NEWS_CRISIS,"Кризис перепроизводства! Склады ломятся от товаров, рабочих выбрасывают на улицу. Глубина %s.","Overproduction crisis! Warehouses are full, workers are thrown out. Depth %s."
+NEWS_COUNTERTENDENCY,"Правительства урезают расходы, а капитал уходит на периферию: кризис отложен на %s нед. Эксплуатация растёт.",Governments cut spending and capital flees to the periphery: the crisis is postponed by %s weeks.
+NEWS_WINDOW_OPENED,"В стране %s сложилась революционная ситуация: верхи не могут, низы не хотят.","A revolutionary situation in %s: those above cannot, those below will not."
+NEWS_WINDOW_CLOSED,Окно революции в стране %s закрылось: верхи сплотились.,The window in %s has closed.
+NEWS_REVOLUTION,Революция победила: %s становится революционной страной!,The revolution wins in %s!
+NEWS_UPRISING_DEFEATED,Восстание в стране %s подавлено. Начинается белый террор.,The uprising in %s is crushed. White terror begins.
+NEWS_ACTION_factory_strike_OK,%s: стачка на заводе закончилась победой.,%s: the factory strike is won.
+NEWS_ACTION_factory_strike_FAIL,"%s: стачка проиграна, хозяева объявили локаут.","%s: the strike is lost, a lockout follows."
+NEWS_ACTION_industry_strike_OK,"%s: отраслевая стачка победила, хозяева пошли на уступки.",%s: the industry strike is won.
+NEWS_ACTION_industry_strike_FAIL,%s: отраслевая стачка сорвана штрейкбрехерами.,%s: strikebreakers broke the industry strike.
+NEWS_ACTION_demonstration_OK,%s: многотысячная демонстрация прошла по центру столицы.,%s: a huge march through the capital.
+NEWS_ACTION_demonstration_FAIL,"%s: демонстрацию разогнала полиция, есть аресты.",%s: police dispersed the march.
+NEWS_POLICE_ARRESTS,"%s: по спискам, которыми обменялись полиции разных стран, арестованы лидеры-эмигранты.",%s: emigrant leaders arrested from lists shared between police forces.
+NEWS_REACTION_20,Реакция 20: полиции разных стран начали координировать аресты.,Reaction 20: police forces coordinate.
+NEWS_REACTION_40,Реакция 40: мировая идеологическая кампания против движения. Гегемония везде +10.,Reaction 40: a worldwide ideological campaign. Hegemony +10 everywhere.
+NEWS_REACTION_60,Реакция 60: санкции и давление на революционные страны.,Reaction 60: sanctions against revolutionary countries.
+NEWS_REACTION_80,Реакция 80: в кризисных странах правящие классы делают ставку на фашизм.,Reaction 80: the ruling classes bet on fascism.
+NEWS_REACTION_100,"Белый террор: волна репрессий по всему миру, организованность движения везде вдвое ниже.","White terror: repression everywhere, organization halved."
+NEWS_OUTCOME,Партия окончена: %s.,The game is over: %s.
+MENU_NEW,Новая партия,New game
+MENU_CONTINUE,Продолжить,Continue
+MENU_SUBTITLE,Стратегия о рабочем движении,A strategy game about the workers' movement
+CHOOSE_HINT,"Выберите страну, где зародится движение",Choose the country where the movement is born
+BTN_START_HERE,Начать здесь,Start here
+BTN_ACTIONS,Действия в стране,Actions here
+TAB_upgrades,Развитие,Development
+TAB_actions,Действия,Actions
+TAB_news,События,Events
+TAB_stats,Статистика,Statistics
+SOLIDARITY,Солидарность,Solidarity
+REACTION,Реакция,Reaction
+SPEED_PAUSE,Пауза,Pause
+MONTH_0,январь,January
+MONTH_1,февраль,February
+MONTH_2,март,March
+MONTH_3,апрель,April
+MONTH_4,май,May
+MONTH_5,июнь,June
+MONTH_6,июль,July
+MONTH_7,август,August
+MONTH_8,сентябрь,September
+MONTH_9,октябрь,October
+MONTH_10,ноябрь,November
+MONTH_11,декабрь,December
+SEC_MOVEMENT,Движение,Movement
+SEC_REV,Революционная ситуация,Revolutionary situation
+SEC_COUNTRY,Страна,Country
+M_INFLUENCE,Влияние,Influence
+M_CONSCIOUSNESS,Сознание,Consciousness
+M_ORGANIZATION,Организованность,Organization
+M_TRUST,Доверие,Trust
+M_VISIBILITY,Заметность,Visibility
+M_CONSCIOUSNESS_LINE,Сознание: %s — %s,"Consciousness: %s, %s"
+STAGE_0,стихийное,spontaneous
+STAGE_1,экономическое,economic
+STAGE_2,политическое,political
+STAGE_3,революционное,revolutionary
+REV_TOP,Верхи не могут,Those above cannot
+REV_BOTTOM,Низы не хотят,Those below will not
+REV_MASS,Активность масс,Mass activity
+REV_TOTAL,Итог — меньшее из трёх,Result: the lowest of three
+C_NEED,Нужда,Need
+C_UNEMPLOYMENT,Безработица,Unemployment
+C_WAGE,Зарплата,Wage
+C_EXPLOITATION,Эксплуатация,Exploitation
+C_HEGEMONY,Гегемония,Hegemony
+C_LEGITIMACY,Легитимность,Legitimacy
+C_REPRESSION,Репрессии,Repression
+STATUS_REVOLUTIONARY,Революционная страна с %s года,Revolutionary since %s
+NO_MOVEMENT,Движения здесь пока нет: оно придёт по торговым и миграционным связям.,No movement here yet: it arrives along trade and migration links.
+WINDOW_OPEN,Окно революции открыто ещё %s нед.,The window is open for %s more weeks
+BTN_BUY,Купить,Buy
+BTN_DO,Провести,Do it
+COST,%s солидарности,%s solidarity
+CHANCE,шанс %s%%,chance %s%%
+SELECT_COUNTRY,Выберите страну на карте — здесь появятся действия в ней.,Pick a country on the map.
+ACTIONS_FOR,Действия: %s,Actions: %s
+NEWS_EMPTY,Пока тихо.,All quiet.
+ST_DATE,Год партии,Year of the game
+ST_PHASE,Фаза мирового цикла,World cycle phase
+ST_DEPTH,Глубина кризисов,Crisis depth
+ST_CRISES,Кризисов позади,Crises so far
+ST_INFLUENCED,Под влиянием движения,Under the movement's influence
+ST_REVOLUTIONARY,Революционных стран,Revolutionary countries
+ST_GDP_SHARE,Доля в мировом производстве,Share of world output
+ST_POP_SHARE,Доля в населении мира,Share of world population
+ST_CORE,Стран ядра среди них,Core countries among them
+ST_GOAL,Для мировой революции нужно 50% производства и населения и две страны ядра.,World revolution needs 50% of output and population and two core countries.
+ST_ARISTOCRACY,"Сверхприбыль, которой ядро подкупает своих рабочих",Superprofit bribing core workers
+ST_WINDOWS,Где открыто окно революции,Where the window is open
+ST_NONE,нигде,nowhere
+ALERT_TITLE_WINDOW,Революционная ситуация,Revolutionary situation
+ALERT_TITLE_REVOLUTION,Революция,Revolution
+ALERT_TITLE_DEFEAT,Поражение восстания,The uprising is defeated
+ALERT_TITLE_CRISIS,Кризис,Crisis
+ALERT_TITLE_REACTION,Реакция,Reaction
+ALERT_GOTO,Перейти,Go there
+ALERT_OK,Понятно,OK
+END_STATS,Лет прошло: %s · революционных стран: %s · пик Реакции: %s,Years: %s · revolutionary countries: %s · peak Reaction: %s
+END_NEW,Новая партия,New game
+OUTCOME_federation,Мировая федерация,World federation
+OUTCOME_world_revolution,Мировая революция,World revolution
+OUTCOME_two_systems,Мир двух систем,A world of two systems
+OUTCOME_defeat,Белый террор,White terror
+OUTCOME_federation_TEXT,"Революционные страны дают три четверти мирового производства и населения. Старый порядок остался на окраинах карты, а впереди — трудная работа по строительству нового общества.",Revolutionary countries hold three quarters of world output and population.
+OUTCOME_world_revolution_TEXT,"Цепь империализма порвана: революционные страны дают половину мирового производства и населения, среди них — страны ядра. Призрак обрёл плоть.","Revolutionary countries hold half the world, including core countries."
+OUTCOME_two_systems_TEXT,"Прошло полвека. Революционные страны выстояли, но остались в меньшинстве. Мир разделён надвое, и спор между системами продолжится без вас.","Fifty years later the revolutionary countries hold on, but remain a minority."
+OUTCOME_defeat_TEXT,"Движение разгромлено. Правящие классы празднуют, но противоречия, которые его породили, никуда не делись. Уроки поражения пригодятся следующим поколениям.","The movement is crushed, but the contradictions that gave birth to it remain."

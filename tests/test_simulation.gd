@@ -142,6 +142,17 @@ func test_save_then_load_gives_same_state() -> void:
 	assert_eq(_same_state(_plain(sim), _plain(loaded)), "", "и дальше идёт так же")
 
 
+func test_save_file_roundtrip() -> void:
+	var path := "user://test_autosave.json"
+	var sim := SimWorld.new_game(data, 5, "FRA")
+	sim.run_weeks(150)
+	assert_true(SaveStore.save(sim, path), "партия сохраняется в файл")
+	var loaded := SaveStore.load_game(data, path)
+	assert_not_null(loaded)
+	assert_eq(_same_state(_plain(sim), _plain(loaded)), "")
+	DirAccess.remove_absolute(path)
+
+
 func test_upgrade_needs_solidarity_and_prerequisites() -> void:
 	var sim := SimWorld.new_game(data, 1, "FRA")
 	sim.solidarity = 100.0

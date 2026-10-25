@@ -4,7 +4,8 @@ extends Node2D
 ## выбранной страны. Ввод обрабатывает MapCamera.
 
 const FILL_SHADER := preload("res://src/map/country_fill.gdshader")
-const OUTLINE_WIDTH_PX := 2.5
+const OUTLINE_WIDTH_PX := 3.0
+const WINDOW_WIDTH_PX := 2.5
 
 var world: WorldData
 var selected: Country
@@ -14,6 +15,7 @@ var _palette_texture: ImageTexture
 var _fill: MeshInstance2D
 var _neutral: MeshInstance2D
 var _borders: _BorderLayer
+var _windows: _OutlineLayer
 var _outline: _OutlineLayer
 
 
@@ -31,7 +33,11 @@ func setup(p_world: WorldData) -> void:
 	_borders = _BorderLayer.new()
 	_borders.segments = _build_border_segments()
 	add_child(_borders)
+	_windows = _OutlineLayer.new()
+	_windows.color = MapPalette.OCHRE
+	add_child(_windows)
 	_outline = _OutlineLayer.new()
+	_outline.color = MapPalette.SELECTED_OUTLINE
 	add_child(_outline)
 
 
@@ -40,22 +46,52 @@ func set_country_color(country: Country, color: Color) -> void:
 	_palette_texture.update(_palette_image)
 
 
+## Выделить страну обводкой (null — снять выделение). Заливка показывает влияние движения.
 func select(country: Country) -> void:
 	if selected == country:
 		return
-	if selected != null:
-		set_country_color(selected, MapPalette.LAND)
 	selected = country
+	_outline.countries.clear()
 	if selected != null:
-		set_country_color(selected, MapPalette.SELECTED_LAND)
-	_outline.country = selected
+		_outline.countries.append(selected)
 	_outline.queue_redraw()
+
+
+## Перекрасить страны по состоянию партии: чем сильнее движение, тем краснее; революционные —
+## тёмно-красные. Страны с открытым окном революции обведены охрой.
+func apply_sim(sim: SimWorld) -> void:
+	var windows: Array[Country] = []
+	for cs in sim.countries:
+		_palette_image.set_pixel(cs.index, 0, color_for(cs))
+		if cs.window_left >= 0 and not cs.is_revolutionary():
+			windows.append(cs.country)
+	_palette_texture.update(_palette_image)
+	if windows != _windows.countries:
+		_windows.countries = windows
+		_windows.queue_redraw()
+
+
+func reset_colors() -> void:
+	_palette_image.fill(MapPalette.LAND)
+	_palette_texture.update(_palette_image)
+	_windows.countries.clear()
+	_windows.queue_redraw()
+
+
+static func color_for(cs: CountryState) -> Color:
+	if cs.is_revolutionary():
+		return MapPalette.REVOLUTIONARY_LAND
+	if cs.influence <= 0.0:
+		return MapPalette.LAND
+	return MapPalette.LAND.lerp(MapPalette.VERMILION, clampf(pow(cs.influence / 45.0, 0.7), 0.06, 0.92))
 
 
 ## Толщина обводки задаётся в пикселях экрана, поэтому при смене масштаба её пересчитываем.
 func on_zoom_changed(zoom: float) -> void:
 	_outline.width = OUTLINE_WIDTH_PX / zoom
 	_outline.queue_redraw()
+	_windows.width = WINDOW_WIDTH_PX / zoom
+	_windows.queue_redraw()
 
 
 func _build_palette() -> void:
@@ -139,13 +175,13 @@ class _BorderLayer:
 
 class _OutlineLayer:
 	extends Node2D
-	var country: Country
+	var countries: Array[Country] = []
 	var width := 2.0
+	var color := MapPalette.INK
 
 	func _draw() -> void:
-		if country == null:
-			return
-		for s in country.shapes:
-			var ring := s.outer.duplicate()
-			ring.append(ring[0])
-			draw_polyline(ring, MapPalette.SELECTED_OUTLINE, width, true)
+		for country in countries:
+			for s in country.shapes:
+				var ring := s.outer.duplicate()
+				ring.append(ring[0])
+				draw_polyline(ring, color, width, true)
