@@ -7,6 +7,7 @@ const MARGIN := 16.0
 var panel: CountryPanel
 
 var _root: Control
+var _title: Control
 var _fps: Label
 var _hint: Label
 var _fps_timer := 0.0
@@ -26,7 +27,7 @@ func setup(world: WorldData) -> void:
 	var version := str(ProjectSettings.get_setting("application/config/version", "0.0.0"))
 	title_box.add_child(GameTheme.make_label(tr("STAGE_LABEL") % version, GameTheme.SMALL_SIZE, null, MapPalette.INK))
 	_root.add_child(title_box)
-	title_box.position = Vector2(MARGIN, MARGIN * 0.5)
+	_title = title_box
 
 	_fps = GameTheme.make_label("", GameTheme.SMALL_SIZE, GameTheme.BODY_BOLD_FONT)
 	_fps.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -72,6 +73,7 @@ func _process(delta: float) -> void:
 func _layout() -> void:
 	var view := _root.get_viewport_rect().size
 	var insets := _safe_insets(view)
+	_title.position = Vector2(insets.x + MARGIN, insets.y + MARGIN * 0.5)
 	_fps.position = Vector2(view.x - insets.z - MARGIN - 200.0, insets.y + MARGIN * 0.5)
 	_fps.size = Vector2(200.0, 24.0)
 	_hint.size = Vector2(minf(720.0, view.x - 2.0 * MARGIN), 0.0)
