@@ -89,6 +89,7 @@ func _on_zoom(zoom: float) -> void:
 
 func _process(delta: float) -> void:
 	camera.ui_blockers = hud.blockers()
+	camera.screen_insets = hud.map_insets()
 	if mode != "play" or speed == 0 or hud.has_overlay():
 		return
 	var seconds_per_week := data.num("time.seconds_per_week", 2.5)
@@ -249,12 +250,28 @@ func _on_event_option(option_id: String) -> void:
 	for o: Dictionary in e.get("options", []):
 		if o["id"] == option_id and o.has("chance"):
 			had_chance = true
+	var id: String = sim.pending_event.get("id", "")
+	var cs := EventSystem.pending_country(sim)
+	var before := ChangeReport.snapshot(sim, cs)
 	var result := EventSystem.resolve(sim, option_id)
 	if not result["ok"]:
 		return
 	hud.close_overlay()
+	# Итог: что изменилось в стране события, и что — в других странах (по описанию последствий).
+	var lines := ChangeReport.lines(sim, before, cs)
+	var effects: Dictionary = result["effects"]
+	var elsewhere := effects.duplicate()
+	for key in ["country", "reaction", "solidarity", "chain"]:
+		elsewhere.erase(key)
+	var others := UiText.event_effects(elsewhere)
+	if others != "":
+		lines.append(others)
+	if effects.has("chain"):
+		lines.append(tr("EVENT_CHAIN"))
+	var title := "%s — %s" % [tr("EVENT_" + id), tr("EVENT_%s_%s" % [id, option_id])]
 	if had_chance:
-		hud.toast(tr("EVENT_RESULT_OK" if result["success"] else "EVENT_RESULT_FAIL"))
+		title = "%s: %s" % [tr("EVENT_RESULT_OK" if result["success"] else "EVENT_RESULT_FAIL"), tr("EVENT_%s_%s" % [id, option_id])]
+	hud.show_result(title, lines, result["success"] if had_chance else null)
 	map.apply_sim(sim)
 	_collect_alerts()
 	_refresh_ui()
@@ -350,6 +367,9 @@ func _select(c: Country) -> void:
 	map.select(c)
 	hud.show_country(c, sim.state_of(c.id), sim, _panel_button_text())
 	_refresh_ui()
+	# Панель справа не должна закрывать выбранную страну (Япония, Корея, Новая Зеландия).
+	camera.screen_insets = hud.map_insets()
+	camera.reveal(c.label)
 
 
 func _focus_country(id: String) -> void:
@@ -357,7 +377,6 @@ func _focus_country(id: String) -> void:
 	if c == null:
 		return
 	_select(c)
-	camera.position = MapCamera.clamp_position(c.label, camera.zoom_level(), get_viewport_rect().size, camera.map_bounds)
 
 
 func _deselect() -> void:
@@ -436,9 +455,12 @@ func _on_action(screen: ActionsScreen, id: String) -> void:
 	if mode != "play" or selected == null:
 		return
 	var cs := sim.state_of(selected.id)
+	var before := ChangeReport.snapshot(sim, cs)
 	var result := PlayerActions.perform(sim, id, cs)
 	if not result["ok"]:
 		return
+	hud.show_result(tr("ACTION_RESULT_OK" if result["success"] else "ACTION_RESULT_FAIL") % tr("ACTION_" + id),
+		ChangeReport.lines(sim, before, cs), result["success"])
 	map.apply_sim(sim)
 	_collect_alerts()
 	_refresh_ui()

@@ -17,6 +17,7 @@ var _cadres: Label
 var _solidarity: Label
 var _summary: VBoxContainer
 var _cards: VBoxContainer
+var _cards_scroll: ScrollContainer
 var _stamp: Label
 var _stamp_time := 0.0
 
@@ -58,6 +59,7 @@ func _init() -> void:
 	var scroll := ScrollContainer.new()
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_cards_scroll = scroll
 	var margin := MarginContainer.new()
 	margin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for side_name in ["margin_left", "margin_right", "margin_top", "margin_bottom"]:
@@ -194,6 +196,8 @@ func _card(id: String, width: float) -> Control:
 			locked = true
 	var card := PanelContainer.new()
 	card.custom_minimum_size = Vector2(width, 0)
+	# Касание по карточке уходит к прокрутке: список листается с любого места.
+	card.mouse_filter = Control.MOUSE_FILTER_PASS
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = MapPalette.PAPER if not locked else Color("#E6DCC6")
 	sb.border_color = MapPalette.INK if available else Color(MapPalette.INK, 0.3)
@@ -239,7 +243,8 @@ func _card(id: String, width: float) -> Control:
 	why.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	why.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	foot.add_child(why)
-	var b := Overlays.button(tr("BTN_DO"), func() -> void: action_requested.emit(id), available)
+	var b := Overlays.button(tr("BTN_DO"), func() -> void: pass, available)
+	Screens.scroll_safe(b, _cards_scroll, func() -> void: action_requested.emit(id))
 	b.custom_minimum_size = Vector2(150, 46)
 	b.disabled = not available
 	foot.add_child(b)

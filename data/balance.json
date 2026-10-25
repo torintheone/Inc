@@ -313,16 +313,17 @@
     "size_population": 50000000,
     "size_min": 0.3,
     "size_max": 3.0,
-    "revolutionary_country": 0.03
+    "revolutionary_country": 0.02,
+    "upgrade_escalation": 0.06
   },
   "bubbles": {
     "protest_weeks": 8,
     "max_protest": 4,
     "solidarity_chance": 0.04,
     "solidarity_per_reach": 0.003,
-    "solidarity_max_chance": 0.15,
+    "solidarity_max_chance": 0.1,
     "solidarity_min": 1,
-    "solidarity_max": 3,
+    "solidarity_max": 2,
     "solidarity_weeks": 10,
     "max_solidarity": 4,
     "reached_value": 1

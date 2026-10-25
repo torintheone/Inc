@@ -165,8 +165,10 @@ func test_upgrade_needs_solidarity_and_prerequisites() -> void:
 	assert_false(PlayerActions.buy_upgrade(sim, "workers_party"))
 	assert_has(PlayerActions.upgrade_blockers(sim, "trade_unions"), "requires:study_circles")
 	assert_true(PlayerActions.buy_upgrade(sim, "study_circles"))
+	var unions_price := PlayerActions.upgrade_cost(sim, "trade_unions")
+	assert_gt(unions_price, int(data.upgrades["trade_unions"]["cost"]), "каждое купленное улучшение дорожает следующие")
 	assert_true(PlayerActions.buy_upgrade(sim, "trade_unions"))
-	assert_almost_eq(sim.solidarity, 100.0 - 4.0 - 8.0, 0.001)
+	assert_almost_eq(sim.solidarity, 100.0 - 4.0 - unions_price, 0.001)
 	assert_true(sim.has_unlock("strikes"), "профсоюзы открывают стачки")
 	assert_has(PlayerActions.upgrade_blockers(sim, "trade_unions"), "owned")
 	var reaction_before := sim.reaction
@@ -191,9 +193,10 @@ func test_strikes_require_unions_cadres_and_have_cooldown() -> void:
 	assert_eq(PlayerActions.action_blockers(sim, "factory_strike", fra).size(), 0)
 	var chance := PlayerActions.action_chance(sim, "factory_strike", fra)
 	assert_between(chance, 0.05, 0.92)
+	var before := sim.solidarity
 	var result := PlayerActions.perform(sim, "factory_strike", fra)
 	assert_true(result["ok"])
-	assert_almost_eq(sim.solidarity, 88.0, 0.001, "действие не тратит солидарность")
+	assert_almost_eq(sim.solidarity, before, 0.001, "стачка на предприятии не тратит солидарность")
 	assert_between(fra.cadres, 2.0, 4.0, "кадры потрачены: 5 − 2, ±1 за исход")
 	assert_true(PlayerActions.action_blockers(sim, "factory_strike", fra)[0].begins_with("cooldown:"))
 
@@ -394,3 +397,17 @@ func test_save_keeps_bubbles_line_and_chronicle() -> void:
 	assert_eq(loaded.chronicle.size(), sim.chronicle.size())
 	assert_eq(loaded.next_bubble_id, sim.next_bubble_id)
 	assert_eq(_same_state(_plain(sim), _plain(loaded)), "")
+
+
+func test_big_actions_cost_solidarity_too() -> void:
+	var sim := SimWorld.new_game(data, 41, "FRA", "vanguard")
+	var fra := sim.state_of("FRA")
+	fra.influence = 20.0
+	fra.organization = 60.0
+	fra.cadres = 30.0
+	sim.unlocks["general_strike"] = true
+	sim.solidarity = 0.0
+	assert_has(PlayerActions.action_blockers(sim, "general_strike", fra), "cost", "всеобщая стачка стоит и солидарности")
+	sim.solidarity = 20.0
+	assert_true(PlayerActions.perform(sim, "general_strike", fra)["ok"])
+	assert_lt(sim.solidarity, 20.0)

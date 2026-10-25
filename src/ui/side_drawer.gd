@@ -74,10 +74,14 @@ func _build_news(sim: SimWorld) -> void:
 		row.add_child(text)
 		var cid: String = item.get("country", "")
 		if cid != "":
-			text.mouse_filter = Control.MOUSE_FILTER_STOP
+			# Касание пропускается к прокрутке; переход к стране — только если ленту не сдвинули.
+			text.mouse_filter = Control.MOUSE_FILTER_PASS
 			text.gui_input.connect(func(e: InputEvent) -> void:
-				if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
-					country_requested.emit(cid))
+				if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
+					if e.pressed:
+						text.set_meta("scroll_at", _scroll.scroll_vertical)
+					elif absi(_scroll.scroll_vertical - int(text.get_meta("scroll_at", _scroll.scroll_vertical))) <= 8:
+						country_requested.emit(cid))
 		_body.add_child(row)
 
 

@@ -26,6 +26,10 @@ static func play_week(sim: SimWorld) -> void:
 	for cs: CountryState in ranked.slice(0, TOP_COUNTRIES):
 		for id in ACTION_PRIORITY:
 			if PlayerActions.action_blockers(sim, id, cs).is_empty():
+				# Солидарность бот бережёт на развитие; на восстание — не жалеет.
+				var price := float(PlayerActions.action_cost(sim, id, cs)["solidarity"])
+				if id != "uprising" and price > 0.0 and sim.solidarity - price < _next_upgrade_cost(sim):
+					continue
 				# Стачки и демонстрации — только при хорошем шансе, восстание — всегда.
 				if id == "uprising" or PlayerActions.action_chance(sim, id, cs) >= 0.5:
 					PlayerActions.perform(sim, id, cs)
@@ -67,7 +71,7 @@ static func _wanted_upgrade(sim: SimWorld) -> String:
 	for id in sim.data.upgrade_order:
 		if not _requirements_met(sim, id):
 			continue
-		var cost := float(sim.data.upgrades[id].get("cost", 0))
+		var cost := float(PlayerActions.upgrade_cost(sim, id))
 		if cost < best_cost:
 			best_cost = cost
 			best = id
@@ -96,4 +100,4 @@ static func _send_organizers(sim: SimWorld, ranked: Array) -> void:
 ## Цена улучшения, на которое бот копит (0 — всё куплено).
 static func _next_upgrade_cost(sim: SimWorld) -> float:
 	var id := _wanted_upgrade(sim)
-	return float(sim.data.upgrades[id].get("cost", 0)) if id != "" else 0.0
+	return float(PlayerActions.upgrade_cost(sim, id)) if id != "" else 0.0

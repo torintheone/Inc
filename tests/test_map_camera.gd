@@ -42,3 +42,10 @@ func test_zoom_limits_and_zoom_at_keeps_point() -> void:
 	cam.zoom_at(screen, 1.3)
 	assert_almost_eq(cam.screen_to_world(screen).distance_to(before), 0.0, 0.01,
 		"точка под пальцами остаётся на месте")
+
+
+func test_map_can_slide_out_from_under_the_panel() -> void:
+	var zoom := 2.0
+	var plain := MapCamera.clamp_position(Vector2(10000, 0), zoom, VIEW, BOUNDS)
+	var with_panel := MapCamera.clamp_position(Vector2(10000, 0), zoom, VIEW, BOUNDS, Vector4(0, 0, 400, 0))
+	assert_almost_eq(with_panel.x - plain.x, 400.0 / zoom, 0.01, "правый край карты может уйти под панель шириной 400")

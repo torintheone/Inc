@@ -14,6 +14,13 @@ static func upgrade_requires(sim: SimWorld, id: String) -> PackedStringArray:
 	return PackedStringArray(sim.data.upgrades.get(id, {}).get("requires", []))
 
 
+## Цена улучшения сейчас: каждое уже купленное улучшение делает остальные дороже
+## (как в Plague Inc), чтобы солидарность ценилась до конца партии.
+static func upgrade_cost(sim: SimWorld, id: String) -> int:
+	var base := float(sim.data.upgrades.get(id, {}).get("cost", 0))
+	return int(ceilf(base * (1.0 + sim.data.num("solidarity.upgrade_escalation") * sim.upgrades.size()) - 0.001))
+
+
 ## Почему улучшение нельзя купить. Пустой список — можно.
 static func upgrade_blockers(sim: SimWorld, id: String) -> PackedStringArray:
 	var out := PackedStringArray()
@@ -27,7 +34,7 @@ static func upgrade_blockers(sim: SimWorld, id: String) -> PackedStringArray:
 	for req in upgrade_requires(sim, id):
 		if not sim.upgrades.has(req):
 			out.append("requires:" + req)
-	if sim.solidarity < float(u.get("cost", 0)):
+	if sim.solidarity < float(upgrade_cost(sim, id)):
 		out.append("cost")
 	return out
 
@@ -36,7 +43,7 @@ static func buy_upgrade(sim: SimWorld, id: String) -> bool:
 	if not upgrade_blockers(sim, id).is_empty():
 		return false
 	var u: Dictionary = sim.data.upgrades[id]
-	sim.solidarity -= float(u.get("cost", 0))
+	sim.solidarity -= float(upgrade_cost(sim, id))
 	sim.upgrades[id] = true
 	recompute_mods(sim)
 	var on_buy: Dictionary = u.get("on_buy", {})
@@ -257,4 +264,4 @@ static func _solidarity_strike(sim: SimWorld, cs: CountryState) -> void:
 		other.set_field("trust", other.trust + 3.0)
 		other.demos_recent += 0.5
 		other.set_field("influence", other.influence + 0.3)
-	sim.solidarity += 2.0
+	sim.solidarity += 3.0

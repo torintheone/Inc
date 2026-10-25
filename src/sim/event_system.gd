@@ -321,7 +321,7 @@ static func resolve(sim: SimWorld, option_id: String, forced: int = -1) -> Dicti
 		([place] if cs != null else []) + ["EVENT_" + id, "EVENT_%s_%s" % [id, option_id]], cid if cs != null else "",
 		false)
 	apply_effects(sim, effects, cs)
-	return {"ok": true, "success": success, "chance": chance}
+	return {"ok": true, "success": success, "chance": chance, "effects": effects}
 
 
 ## Последствия варианта: страна события, все страны с движением, ядро, периферия, соседи,

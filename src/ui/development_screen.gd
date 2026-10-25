@@ -182,17 +182,18 @@ func _show_detail() -> void:
 	_detail_icon.icon = branch
 	_detail_icon.queue_redraw()
 	_detail_title.text = tr("UPGRADE_" + selected)
-	_detail_sub.text = "%s · %s" % [tr("BRANCH_" + branch).to_upper(), tr("COST") % int(u.get("cost", 0))]
+	var cost := PlayerActions.upgrade_cost(sim, selected)
+	_detail_sub.text = "%s · %s" % [tr("BRANCH_" + branch).to_upper(), tr("COST") % cost]
 	_detail_desc.text = tr("UPGRADE_" + selected + "_DESC")
 	_detail_effects.text = "\n".join(Array(UiText.effect_lines(u)).map(func(l: String) -> String: return "• " + l))
 	var blockers := PlayerActions.upgrade_blockers(sim, selected)
 	var owned := sim.upgrades.has(selected)
 	_buy.disabled = not blockers.is_empty()
-	_buy.text = tr("BLOCK_owned") if owned else tr("BTN_BUY_FOR") % int(u.get("cost", 0))
+	_buy.text = tr("BLOCK_owned") if owned else tr("BTN_BUY_FOR") % cost
 	var reasons := PackedStringArray()
 	for b in blockers:
 		if b == "cost":
-			reasons.append(tr("DEV_NEED_MORE") % [int(sim.solidarity), int(u.get("cost", 0))])
+			reasons.append(tr("DEV_NEED_MORE") % [int(sim.solidarity), cost])
 		elif b != "owned":
 			reasons.append(UiText.blocker(b))
 	_detail_reason.text = "\n".join(reasons)
@@ -343,7 +344,7 @@ class _TreeCanvas:
 			draw_polyline(PackedVector2Array([c + Vector2(-5, 0), c + Vector2(-1.5, 4), c + Vector2(5, -4)]), MapPalette.PAPER, 2.5, true)
 		else:
 			# Цена — плашка у нижнего края кружка.
-			var cost := str(int(u.get("cost", 0)))
+			var cost := str(PlayerActions.upgrade_cost(sim, id))
 			var w := font.get_string_size(cost, HORIZONTAL_ALIGNMENT_LEFT, -1, 14).x + 22.0
 			var pill := Rect2(p + Vector2(-w / 2.0, r - 9.0), Vector2(w, 19.0))
 			var sb := StyleBoxFlat.new()

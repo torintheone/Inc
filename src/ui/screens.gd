@@ -51,6 +51,18 @@ static func close_button(on_press: Callable, on_dark: bool = false) -> Button:
 	return b
 
 
+## Кнопка внутри прокрутки: касание пропускается к прокрутке, чтобы список листался
+## с любого места, а нажатие срабатывает, только если список при этом не сдвинули.
+static func scroll_safe(button: Button, scroll: ScrollContainer, on_press: Callable) -> void:
+	button.mouse_filter = Control.MOUSE_FILTER_PASS
+	button.button_down.connect(func() -> void:
+		button.set_meta("scroll_at", Vector2(scroll.scroll_horizontal, scroll.scroll_vertical)))
+	button.pressed.connect(func() -> void:
+		var at: Vector2 = button.get_meta("scroll_at", Vector2(scroll.scroll_horizontal, scroll.scroll_vertical))
+		if at.distance_to(Vector2(scroll.scroll_horizontal, scroll.scroll_vertical)) <= 8.0:
+			on_press.call())
+
+
 ## Цветной кружок заданного диаметра — подложка для значка.
 static func disc(color: Color, diameter: float) -> Control:
 	var c := _Disc.new()

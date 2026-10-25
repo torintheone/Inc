@@ -42,13 +42,14 @@ func _init(sim: SimWorld) -> void:
 	box.add_theme_constant_override("separation", 8)
 	row.add_child(box)
 	box.add_child(GameTheme.make_label(tr("CATEGORY_" + str(e.get("category", ""))).to_upper(), 14, GameTheme.BODY_BOLD_FONT,
-		MapPalette.VERMILION))
+		Color(MapPalette.INK, 0.6)))
 	var title := GameTheme.make_label(tr("EVENT_" + id), 30, GameTheme.display_font(600))
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	title.custom_minimum_size.x = TEXT_W
 	box.add_child(title)
-	box.add_child(GameTheme.make_label(cs.country.name_ru if cs != null else tr("EVENT_WORLD"), 16, GameTheme.BODY_BOLD_FONT,
-		Color(MapPalette.INK, 0.6)))
+	var place := GameTheme.make_label(cs.country.name_ru if cs != null else tr("EVENT_WORLD"), 28, GameTheme.display_font(500),
+		MapPalette.VERMILION)
+	box.add_child(place)
 	var text := GameTheme.make_label(situation(tr("EVENT_%s_TEXT" % id)), 18)
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.custom_minimum_size.x = TEXT_W

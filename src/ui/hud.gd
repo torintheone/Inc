@@ -25,6 +25,7 @@ var _root: Control
 var _hint: Label
 var _toast: Label
 var _toast_time := 0.0
+var _result: ResultPopup
 var _overlay: Control
 var _overlay_content: Control
 var _drawer_signature := ""
@@ -63,6 +64,8 @@ func setup() -> void:
 	_toast = _floating_label(20)
 	_toast.hide()
 	_root.add_child(_toast)
+	_result = ResultPopup.new()
+	_root.add_child(_result)
 
 	get_viewport().size_changed.connect(_layout)
 	panel.minimum_size_changed.connect(_layout, CONNECT_DEFERRED)
@@ -84,6 +87,18 @@ func blockers() -> Array[Control]:
 	if _overlay != null:
 		list.append(_overlay)
 	return list
+
+
+## Сколько пикселей карты закрывают строки и панели: (лево, верх, право, низ).
+func map_insets() -> Vector4:
+	if _root == null:
+		return Vector4.ZERO
+	var view := _root.get_viewport_rect().size
+	var left := drawer.position.x + drawer.size.x if drawer.visible else 0.0
+	var top := top_bar.position.y + top_bar.size.y if top_bar.visible else 0.0
+	var right := view.x - panel.position.x if panel.visible else 0.0
+	var bottom := view.y - bottom_bar.position.y if bottom_bar.visible else 0.0
+	return Vector4(left, top, right, bottom)
 
 
 ## Режим партии: "menu", "choose" (выбор стартовой страны), "play", "ended".
@@ -132,6 +147,13 @@ func toast(text: String, seconds: float = 2.5) -> void:
 	_toast.text = text
 	_toast.show()
 	_toast_time = seconds
+	_layout()
+
+
+## Карточка «Итог» поверх всего, в том числе поверх экрана действий.
+func show_result(title: String, lines: PackedStringArray, success: Variant = null) -> void:
+	_result.show_result(title, lines, success)
+	_result.move_to_front()
 	_layout()
 
 
@@ -237,6 +259,7 @@ func _layout() -> void:
 	_hint.position = Vector2(0.0, top + 4.0)
 	_toast.size = Vector2(view.x, 0.0)
 	_toast.position = Vector2(0.0, view.y * 0.42)
+	_result.position = Vector2((view.x - _result.size.x) * 0.5, insets.y + 74.0)
 
 
 ## Отступы от выреза камеры и системных панелей: (лево, верх, право, низ) в координатах интерфейса.

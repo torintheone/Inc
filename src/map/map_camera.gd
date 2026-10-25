@@ -17,6 +17,11 @@ const INERTIA_MIN_SPEED := 20.0
 var map_bounds := Rect2(-2000, -1000, 4000, 1700)
 ## Элементы интерфейса поверх карты: касания по ним карта не обрабатывает.
 var ui_blockers: Array[Control] = []
+## Сколько пикселей экрана закрывает интерфейс с каждой стороны: (лево, верх, право, низ).
+## Карту можно сдвинуть за край на эту величину, чтобы страна выехала из-под панели.
+var screen_insets := Vector4.ZERO
+## Куда плавно едет камера (null — никуда).
+var _glide_to: Variant = null
 
 var _touches: Dictionary[int, Vector2] = {}
 var _tap_start := Vector2.ZERO
@@ -59,26 +64,55 @@ func zoom_at(screen_pos: Vector2, factor: float) -> void:
 	_set_zoom_level(zoom_level() * factor)
 	var after := screen_to_world(screen_pos)
 	position += before - after
-	position = clamp_position(position, zoom_level(), _view_size(), map_bounds)
+	position = clamp_position(position, zoom_level(), _view_size(), map_bounds, screen_insets)
 
 
 func pan_screen(delta_px: Vector2) -> void:
-	position = clamp_position(position - delta_px / zoom_level(), zoom_level(), _view_size(), map_bounds)
+	_glide_to = null
+	position = clamp_position(position - delta_px / zoom_level(), zoom_level(), _view_size(), map_bounds, screen_insets)
 
 
 ## Центр камеры, при котором карта не уезжает с экрана. Если карта по какой-то
-## оси меньше экрана, она центрируется по этой оси.
-static func clamp_position(pos: Vector2, zoom_value: float, view_size: Vector2, bounds: Rect2) -> Vector2:
+## оси меньше экрана, она центрируется по этой оси. insets — части экрана под
+## интерфейсом (лево, верх, право, низ): за них край карты может заходить.
+static func clamp_position(pos: Vector2, zoom_value: float, view_size: Vector2, bounds: Rect2,
+		insets: Vector4 = Vector4.ZERO) -> Vector2:
 	var half := view_size * 0.5 / zoom_value
+	var lo_extra := Vector2(insets.x, insets.y) / zoom_value
+	var hi_extra := Vector2(insets.z, insets.w) / zoom_value
 	var result := pos
 	for axis in 2:
-		var lo := bounds.position[axis] + half[axis]
-		var hi := bounds.end[axis] - half[axis]
+		var lo := bounds.position[axis] + half[axis] - lo_extra[axis]
+		var hi := bounds.end[axis] - half[axis] + hi_extra[axis]
 		result[axis] = bounds.get_center()[axis] if lo > hi else clampf(pos[axis], lo, hi)
 	return result
 
 
+## Свободная от интерфейса часть экрана.
+func free_rect() -> Rect2:
+	var view := _view_size()
+	return Rect2(screen_insets.x, screen_insets.y, view.x - screen_insets.x - screen_insets.z,
+		view.y - screen_insets.y - screen_insets.w)
+
+
+## Если точка карты закрыта интерфейсом или у края, плавно подвезти её в середину свободной части экрана.
+func reveal(world_pos: Vector2) -> void:
+	var free := free_rect().grow(-60.0)
+	var screen := (world_pos - position) * zoom_level() + _view_size() * 0.5
+	if free.has_point(screen):
+		return
+	var target := world_pos - (free_rect().get_center() - _view_size() * 0.5) / zoom_level()
+	_glide_to = clamp_position(target, zoom_level(), _view_size(), map_bounds, screen_insets)
+	_velocity = Vector2.ZERO
+
+
 func _process(delta: float) -> void:
+	if _glide_to != null:
+		var target: Vector2 = _glide_to
+		position = position.lerp(target, 1.0 - exp(-8.0 * delta))
+		if position.distance_to(target) * zoom_level() < 1.0:
+			position = target
+			_glide_to = null
 	if _touches.is_empty() and _velocity.length() > INERTIA_MIN_SPEED:
 		pan_screen(_velocity * delta)
 		_velocity *= exp(-INERTIA_DAMPING * delta)
@@ -108,6 +142,7 @@ func _on_touch(event: InputEventScreenTouch) -> void:
 			return
 		_touches[event.index] = event.position
 		_velocity = Vector2.ZERO
+		_glide_to = null
 		if _touches.size() == 1:
 			_tap_start = event.position
 			_tap_start_msec = Time.get_ticks_msec()
@@ -175,4 +210,4 @@ func _view_size() -> Vector2:
 
 func _on_viewport_resized() -> void:
 	_set_zoom_level(zoom_level())
-	position = clamp_position(position, zoom_level(), _view_size(), map_bounds)
+	position = clamp_position(position, zoom_level(), _view_size(), map_bounds, screen_insets)

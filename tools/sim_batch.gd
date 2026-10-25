@@ -37,9 +37,12 @@ func _initialize() -> void:
 			var first := -1
 			var present_2 := 0
 			var present_5 := 0
+			var tree_done := -1
 			while not sim.is_over():
 				BotPlayer.play_week(sim)
 				sim.step()
+				if tree_done < 0 and sim.upgrades.size() == data.upgrade_order.size():
+					tree_done = sim.week
 				if first < 0 and sim.revolutionary_count() > 0:
 					first = sim.week
 				if sim.week == 2 * per_year:
@@ -54,10 +57,11 @@ func _initialize() -> void:
 			outcomes[sim.outcome] = outcomes.get(sim.outcome, 0) + 1
 			if first >= 0:
 				first_years.append(float(first) / per_year)
-			print("%s seed %d: %-16s неделя %4d, первая революция %s, революций %d (ядро %d, полупер. %d, пер. %d), стран с движением: 2 г. %d, 5 лет %d, улучшений %d, солидарность %d, реакция-пик %d, очки %d" % [
+			print("%s seed %d: %-16s неделя %4d, первая революция %s, революций %d (ядро %d, полупер. %d, пер. %d), стран с движением: 2 г. %d, 5 лет %d, улучшений %d (все — %s), солидарность %d, реакция-пик %d, очки %d" % [
 				start, 1000 + g, sim.outcome, sim.week, ("%.1f г." % (float(first) / per_year)) if first >= 0 else "—",
 				sim.revolutionary_count(), zones["core"], zones["semi"], zones["periphery"], present_2, present_5,
-				sim.upgrades.size(), int(sim.solidarity_earned), int(sim.peak_reaction), sim.score()["total"]])
+				sim.upgrades.size(), ("%.1f г." % (float(tree_done) / per_year)) if tree_done >= 0 else "—",
+				int(sim.solidarity_earned), int(sim.peak_reaction), sim.score()["total"]])
 		var avg := 0.0
 		for y: float in first_years:
 			avg += y

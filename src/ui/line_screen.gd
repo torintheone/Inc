@@ -8,6 +8,8 @@ signal line_chosen(id: String)
 signal close_requested
 
 ## Значок для каждой линии, пока нет эмблем из Grok.
+var _scroll: ScrollContainer
+
 const ICONS := {"vanguard": "flag", "councils": "organization", "syndicalism": "struggle",
 	"mass_party": "agitation", "peoples_war": "defense"}
 
@@ -60,6 +62,7 @@ func _init(data: GameData, current: String = "", changing: bool = false) -> void
 	row.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(row)
+	_scroll = scroll
 	for id in data.line_order:
 		row.add_child(_card(data, id, id == current, changing))
 
@@ -67,6 +70,7 @@ func _init(data: GameData, current: String = "", changing: bool = false) -> void
 func _card(data: GameData, id: String, is_current: bool, changing: bool) -> Control:
 	var card := PanelContainer.new()
 	card.custom_minimum_size = Vector2(236, 0)
+	card.mouse_filter = Control.MOUSE_FILTER_PASS
 	card.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var sb := StyleBoxFlat.new()
@@ -106,7 +110,8 @@ func _card(data: GameData, id: String, is_current: bool, changing: bool) -> Cont
 		mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		box.add_child(mark)
 	else:
-		var b := Overlays.button(tr("LINE_PICK_CHANGE" if changing else "LINE_PICK"), func() -> void: line_chosen.emit(id), true)
+		var b := Overlays.button(tr("LINE_PICK_CHANGE" if changing else "LINE_PICK"), func() -> void: pass, true)
+		Screens.scroll_safe(b, _scroll, func() -> void: line_chosen.emit(id))
 		b.custom_minimum_size = Vector2(0, 50)
 		box.add_child(b)
 	return card
