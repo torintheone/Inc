@@ -30,6 +30,7 @@ func _init(first_time: bool = false) -> void:
 	map_col.add_child(_legend(_Swatch.new("gradient"), tr("HELP_MAP_INFLUENCE")))
 	map_col.add_child(_legend(_Swatch.new("revolution"), tr("HELP_MAP_REVOLUTION")))
 	map_col.add_child(_legend(_Swatch.new("window"), tr("HELP_MAP_WINDOW")))
+	map_col.add_child(_legend(_Swatch.new("civil_war"), tr("HELP_MAP_CIVIL_WAR")))
 	map_col.add_child(_legend(_Swatch.new("neutral"), tr("HELP_MAP_NEUTRAL")))
 	map_col.add_child(_legend(_Swatch.new("solidarity"), tr("HELP_BUBBLE_SOLIDARITY")))
 	map_col.add_child(_legend(_Swatch.new("protest"), tr("HELP_BUBBLE_PROTEST")))
@@ -108,9 +109,11 @@ class _Swatch:
 			"window":
 				draw_rect(r, MapPalette.LAND.lerp(MapPalette.VERMILION, 0.4))
 				draw_rect(r, MapPalette.OCHRE, false, 3.0)
+			"civil_war":
+				draw_rect(r, MapPalette.CIVIL_WAR_LAND)
 			"neutral":
 				draw_rect(r, MapPalette.NEUTRAL_LAND)
 			"solidarity", "protest":
 				BubbleLayer.draw_bubble(self, kind, Vector2(22, 15), 14.0, 1.0)
-		if kind in ["gradient", "revolution", "neutral"]:
+		if kind in ["gradient", "revolution", "civil_war", "neutral"]:
 			draw_rect(r, MapPalette.BORDER, false, 1.0)

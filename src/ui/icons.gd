@@ -29,6 +29,30 @@ static func draw(canvas: CanvasItem, name: String, center: Vector2, r: float, co
 			flag(canvas, center, r, color)
 		"organizing":
 			gear(canvas, center, r, color)
+		"capital":
+			star(canvas, center, r, color)
+		"factories":
+			factory(canvas, center, r, color)
+		"railway":
+			rails(canvas, center, r, color)
+		"port":
+			anchor(canvas, center, r, color)
+		"comms":
+			antenna(canvas, center, r, color)
+		"arsenal":
+			crate(canvas, center, r, color)
+		"agrarian":
+			wheat(canvas, center, r, color)
+		"barricade":
+			barricade(canvas, center, r, color)
+		"garrison":
+			helmet(canvas, center, r, color)
+		"squads":
+			shield(canvas, center, r, color)
+		"supplies":
+			bread(canvas, center, r, color)
+		"weapons":
+			rifle(canvas, center, r, color)
 		_:
 			canvas.draw_circle(center, r * 0.5, color)
 
@@ -113,6 +137,108 @@ static func flag(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void
 	var cloth := PackedVector2Array([c + Vector2(-0.55, -0.9) * r, c + Vector2(0.9, -0.62) * r,
 		c + Vector2(0.45, -0.3) * r, c + Vector2(0.9, 0.05) * r, c + Vector2(-0.55, 0.1) * r])
 	canvas.draw_colored_polygon(cloth, color)
+
+
+## Пятиконечная звезда: столица.
+static func star(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var pts := PackedVector2Array()
+	for i in 10:
+		var a := TAU * float(i) / 10.0 - PI / 2.0
+		pts.append(c + Vector2(cos(a), sin(a)) * (r if i % 2 == 0 else r * 0.42))
+	canvas.draw_colored_polygon(pts, color)
+
+
+## Цех с пилообразной крышей и трубой: заводы.
+static func factory(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var pts := PackedVector2Array([c + Vector2(-1.0, 0.9) * r, c + Vector2(-1.0, -0.1) * r, c + Vector2(-0.45, -0.5) * r,
+		c + Vector2(-0.45, -0.1) * r, c + Vector2(0.1, -0.5) * r, c + Vector2(0.1, -0.1) * r, c + Vector2(0.55, -0.5) * r,
+		c + Vector2(0.55, -1.0) * r, c + Vector2(0.95, -1.0) * r, c + Vector2(0.95, 0.9) * r])
+	canvas.draw_colored_polygon(pts, color)
+
+
+## Рельсы со шпалами: железнодорожный узел.
+static func rails(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var w := maxf(r * 0.18, 1.5)
+	canvas.draw_line(c + Vector2(-1.0, -0.4) * r, c + Vector2(1.0, -0.4) * r, color, w)
+	canvas.draw_line(c + Vector2(-1.0, 0.4) * r, c + Vector2(1.0, 0.4) * r, color, w)
+	for x in [-0.7, -0.23, 0.23, 0.7]:
+		canvas.draw_line(c + Vector2(x, -0.75) * r, c + Vector2(x, 0.75) * r, color, w)
+
+
+## Якорь: порт.
+static func anchor(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var w := maxf(r * 0.2, 1.5)
+	canvas.draw_arc(c + Vector2(0, -0.72) * r, r * 0.24, 0.0, TAU, 16, color, w)
+	canvas.draw_line(c + Vector2(0, -0.48) * r, c + Vector2(0, 0.95) * r, color, w)
+	canvas.draw_line(c + Vector2(-0.45, -0.2) * r, c + Vector2(0.45, -0.2) * r, color, w)
+	canvas.draw_arc(c + Vector2(0, 0.2) * r, r * 0.75, 0.25, PI - 0.25, 16, color, w)
+
+
+## Мачта с волнами: узел связи.
+static func antenna(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var w := maxf(r * 0.18, 1.5)
+	canvas.draw_colored_polygon(PackedVector2Array([c + Vector2(-0.45, 1.0) * r, c + Vector2(0, -0.4) * r,
+		c + Vector2(0.45, 1.0) * r]), color)
+	canvas.draw_circle(c + Vector2(0, -0.45) * r, r * 0.16, color)
+	canvas.draw_arc(c + Vector2(0, -0.45) * r, r * 0.5, -PI * 0.85, -PI * 0.15, 10, color, w)
+	canvas.draw_arc(c + Vector2(0, -0.45) * r, r * 0.85, -PI * 0.85, -PI * 0.15, 12, color, w)
+
+
+## Ящик с перекрестьем: арсенал.
+static func crate(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var w := maxf(r * 0.18, 1.5)
+	canvas.draw_rect(Rect2(c - Vector2(0.85, 0.75) * r, Vector2(1.7, 1.5) * r), color)
+	canvas.draw_line(c + Vector2(-0.6, -0.5) * r, c + Vector2(0.6, 0.5) * r, _hole(canvas), w)
+	canvas.draw_line(c + Vector2(0.6, -0.5) * r, c + Vector2(-0.6, 0.5) * r, _hole(canvas), w)
+
+
+## Колос: аграрный район.
+static func wheat(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	canvas.draw_line(c + Vector2(0, -0.9) * r, c + Vector2(0, 1.0) * r, color, maxf(r * 0.16, 1.5))
+	for k in 3:
+		var y := -0.55 + 0.42 * k
+		canvas.draw_circle(c + Vector2(-0.3, y) * r, r * 0.22, color)
+		canvas.draw_circle(c + Vector2(0.3, y) * r, r * 0.22, color)
+	canvas.draw_circle(c + Vector2(0, -0.85) * r, r * 0.2, color)
+
+
+## Перекрещённые доски: баррикада.
+static func barricade(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var w := maxf(r * 0.3, 2.0)
+	canvas.draw_line(c + Vector2(-0.9, 0.8) * r, c + Vector2(0.9, -0.6) * r, color, w)
+	canvas.draw_line(c + Vector2(-0.9, -0.6) * r, c + Vector2(0.9, 0.8) * r, color, w)
+	canvas.draw_line(c + Vector2(-1.0, 0.1) * r, c + Vector2(1.0, 0.1) * r, color, w)
+
+
+## Каска: гарнизон.
+static func helmet(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var pts := PackedVector2Array()
+	for i in 13:
+		var a := PI + PI * float(i) / 12.0
+		pts.append(c + Vector2(cos(a) * 0.8, sin(a) * 0.85 + 0.25) * r)
+	canvas.draw_colored_polygon(pts, color)
+	canvas.draw_rect(Rect2(c + Vector2(-1.0, 0.2) * r, Vector2(2.0, 0.28) * r), color)
+
+
+## Буханка: снабжение.
+static func bread(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var pts := PackedVector2Array()
+	for i in 13:
+		var a := PI + PI * float(i) / 12.0
+		pts.append(c + Vector2(cos(a) * 0.95, sin(a) * 0.7 + 0.15) * r)
+	pts.append(c + Vector2(0.95, 0.7) * r)
+	pts.append(c + Vector2(-0.95, 0.7) * r)
+	canvas.draw_colored_polygon(pts, color)
+	for x in [-0.4, 0.0, 0.4]:
+		canvas.draw_line(c + Vector2(x - 0.12, -0.25) * r, c + Vector2(x + 0.12, 0.1) * r, _hole(canvas), maxf(r * 0.12, 1.0))
+
+
+## Винтовка: оружие.
+static func rifle(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	var w := maxf(r * 0.2, 1.5)
+	canvas.draw_line(c + Vector2(-0.95, 0.55) * r, c + Vector2(0.95, -0.6) * r, color, w)
+	canvas.draw_colored_polygon(PackedVector2Array([c + Vector2(-1.0, 0.45) * r, c + Vector2(-0.45, 0.1) * r,
+		c + Vector2(-0.2, 0.5) * r, c + Vector2(-0.75, 0.95) * r]), color)
 
 
 ## Цвет «прорези» в значке — цвет фона, на котором он нарисован.

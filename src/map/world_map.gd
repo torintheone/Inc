@@ -62,7 +62,11 @@ func select(country: Country) -> void:
 func apply_sim(sim: SimWorld) -> void:
 	var windows: Array[Country] = []
 	for cs in sim.countries:
-		_palette_image.set_pixel(cs.index, 0, color_for(cs))
+		var color := color_for(cs)
+		# Страна, разделённая гражданской войной, — между революционной и охваченной движением.
+		if sim.civil_wars.has(cs.country.id):
+			color = MapPalette.CIVIL_WAR_LAND
+		_palette_image.set_pixel(cs.index, 0, color)
 		if cs.window_left >= 0 and not cs.is_revolutionary():
 			windows.append(cs.country)
 	_palette_texture.update(_palette_image)

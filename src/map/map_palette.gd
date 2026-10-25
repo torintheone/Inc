@@ -13,5 +13,7 @@ const OCEAN := Color("#CBBFA4")
 const LAND := Color("#E8DDC4")
 const NEUTRAL_LAND := Color("#BDB5A2")
 const REVOLUTIONARY_LAND := Color("#8E1C1C")
+## Страна, разделённая гражданской войной.
+const CIVIL_WAR_LAND := Color("#A9503A")
 const BORDER := Color(0.102, 0.102, 0.102, 0.55)
 const SELECTED_OUTLINE := INK

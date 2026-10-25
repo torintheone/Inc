@@ -22,7 +22,10 @@ const ALERT_TITLES := {
 	"NEWS_REACTION_80": "ALERT_TITLE_REACTION",
 	"NEWS_REACTION_100": "ALERT_TITLE_REACTION",
 	"NEWS_LINE_CHANGED": "ALERT_TITLE_LINE",
+	"NEWS_CIVIL_WAR": "ALERT_TITLE_CIVIL_WAR",
 }
+## Во время сражения партия сохраняется раз в столько дней.
+const BATTLE_SAVE_DAYS := 7
 
 var data: GameData
 var sim: SimWorld
@@ -186,8 +189,10 @@ func _start_play() -> void:
 	if selected != null:
 		hud.show_country(selected, sim.state_of(selected.id), sim, _panel_button_text())
 	_refresh_ui()
-	# Сохранённая партия могла остановиться на нерешённом событии.
-	if not sim.pending_event.is_empty():
+	# Сохранённая партия могла остановиться посреди сражения или на нерешённом событии.
+	if sim.battle != null:
+		_open_battle()
+	elif not sim.pending_event.is_empty():
 		_show_event()
 
 
@@ -223,6 +228,8 @@ func _advance_week() -> void:
 		SaveStore.save(sim)
 	if sim.is_over():
 		_finish()
+	elif sim.battle != null:
+		_open_battle()
 	else:
 		_show_next_popup()
 
@@ -257,6 +264,10 @@ func _on_event_option(option_id: String) -> void:
 	if not result["ok"]:
 		return
 	hud.close_overlay()
+	# «Возглавить восстание» и подобные варианты открывают сражение.
+	if sim.battle != null:
+		_open_battle()
+		return
 	# Итог: что изменилось в стране события, и что — в других странах (по описанию последствий).
 	var lines := ChangeReport.lines(sim, before, cs)
 	var effects: Dictionary = result["effects"]
@@ -306,6 +317,35 @@ func _show_next_alert() -> void:
 			hud.close_overlay()
 			_focus_country(cid)
 	hud.show_overlay(Overlays.alert(tr(ALERT_TITLES[item["key"]]), text, on_goto, _close_alert))
+
+
+# --- Сражение ----------------------------------------------------------------
+
+## Экран сражения во весь экран; мир стоит, пока он открыт.
+func _open_battle() -> void:
+	if sim.battle == null:
+		return
+	_focus_country(sim.battle.country_id)
+	var screen := BattleScreen.new(sim)
+	screen.finished.connect(_on_battle_finished)
+	screen.day_passed.connect(func() -> void:
+		if sim.battle != null and sim.battle.day % BATTLE_SAVE_DAYS == 0:
+			SaveStore.save(sim))
+	hud.show_overlay(screen)
+	SaveStore.save(sim)
+
+
+func _on_battle_finished() -> void:
+	sim.finish_battle()
+	hud.close_overlay()
+	map.apply_sim(sim)
+	_collect_alerts()
+	_refresh_ui()
+	SaveStore.save(sim)
+	if sim.is_over():
+		_finish()
+	else:
+		_show_next_popup()
 
 
 func _close_alert() -> void:
@@ -389,6 +429,8 @@ func _deselect() -> void:
 func _panel_button_text() -> String:
 	if mode == "choose":
 		return tr("BTN_START_HERE")
+	if mode == "play" and selected != null and sim.in_civil_war(selected.id):
+		return tr("BTN_TO_BATTLE")
 	if mode == "play" and selected != null and not sim.state_of(selected.id).is_revolutionary():
 		return tr("BTN_ACTIONS")
 	return ""
@@ -400,6 +442,9 @@ func _on_panel_button() -> void:
 	if mode == "choose":
 		_start_id = selected.id
 		_choose_line()
+	elif mode == "play" and sim.in_civil_war(selected.id):
+		if sim.resume_civil_war(selected.id):
+			_open_battle()
 	elif mode == "play":
 		_open_actions()
 
@@ -458,6 +503,10 @@ func _on_action(screen: ActionsScreen, id: String) -> void:
 	var before := ChangeReport.snapshot(sim, cs)
 	var result := PlayerActions.perform(sim, id, cs)
 	if not result["ok"]:
+		return
+	if result.get("battle", false):
+		hud.close_overlay()
+		_open_battle()
 		return
 	hud.show_result(tr("ACTION_RESULT_OK" if result["success"] else "ACTION_RESULT_FAIL") % tr("ACTION_" + id),
 		ChangeReport.lines(sim, before, cs), result["success"])

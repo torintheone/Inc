@@ -114,6 +114,10 @@ func show_country(c: Country, cs: CountryState, sim: SimWorld, button_text: Stri
 			tab = TAB_COUNTRY
 	if revolutionary:
 		_status.text = tr("STATUS_REVOLUTIONARY") % UiText.date(sim, cs.revolution_week).get_slice(" ", 1)
+	elif started and sim.in_civil_war(c.id):
+		var war: BattleState = sim.civil_wars[c.id]
+		_status.text = tr("CIVIL_WAR_STATUS") % [UiText.percent(war.control_share() * 100.0),
+			maxi(war.next_round_week - sim.week, 0)]
 	elif started and cs.influence > 0.0 and cs.window_left >= 0:
 		_status.text = tr("WINDOW_OPEN") % cs.window_left
 	elif started and UnrestSystem.has_bubble(sim, c.id, UnrestSystem.PROTEST):

@@ -8,6 +8,7 @@ const BALANCE_PATH := "res://data/balance.json"
 const ACTIONS_PATH := "res://data/actions.json"
 const LINES_PATH := "res://data/lines.json"
 const EVENTS_PATH := "res://data/events.json"
+const BATTLE_PATH := "res://data/battle.json"
 
 var world: WorldData
 var balance: Dictionary = {}
@@ -28,6 +29,10 @@ var line_change_organization_mult := 0.5
 ## id события → описание (data/events.json).
 var events: Dictionary = {}
 var event_order: PackedStringArray
+## Числа и действия местных сражений (data/battle.json); числа доступны через num("battle.…").
+var battle: Dictionary = {}
+var battle_actions: Dictionary = {}
+var battle_action_order: PackedStringArray
 
 ## Связи как параллельные массивы: так недельный шаг идёт быстрее.
 var link_a: PackedInt32Array
@@ -54,8 +59,9 @@ static func load_from(world: WorldData, links_path: String, balance_path: String
 	var actions_doc: Variant = _read_json(actions_path)
 	var lines_doc: Variant = _read_json(lines_path)
 	var events_doc: Variant = _read_json(events_path)
+	var battle_doc: Variant = _read_json(BATTLE_PATH)
 	if not (links_doc is Dictionary and balance_doc is Dictionary and actions_doc is Dictionary and lines_doc is Dictionary
-			and events_doc is Dictionary):
+			and events_doc is Dictionary and battle_doc is Dictionary):
 		return null
 	var data := GameData.new()
 	data.world = world
@@ -76,6 +82,11 @@ static func load_from(world: WorldData, links_path: String, balance_path: String
 	for item: Dictionary in events_doc.get("events", []):
 		data.events[item["id"]] = item
 		data.event_order.append(item["id"])
+	data.battle = battle_doc
+	data._index_numbers(battle_doc, "battle")
+	for item: Dictionary in battle_doc.get("actions", []):
+		data.battle_actions[item["id"]] = item
+		data.battle_action_order.append(item["id"])
 	for link: Dictionary in links_doc.get("links", []):
 		var a := world.get_country(link["a"])
 		var b := world.get_country(link["b"])

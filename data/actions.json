@@ -885,6 +885,7 @@
     {
       "id": "uprising",
       "group": "political",
+      "battle": true,
       "cadres": 12,
       "solidarity": 8,
       "cooldown_weeks": 26,

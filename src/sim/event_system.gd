@@ -156,6 +156,9 @@ static func _country_ok(sim: SimWorld, e: Dictionary, cs: CountryState, min_infl
 		return false
 	if revolutionary:
 		return true
+	# В стране идёт гражданская война: мирных событий там нет.
+	if sim.civil_wars.has(cs.country.id):
+		return false
 	for f: String in mins:
 		if cs.get_field(f) < float(mins[f]):
 			return false

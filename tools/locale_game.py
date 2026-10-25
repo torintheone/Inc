@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import locale_battle  # noqa: E402
 import locale_events  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -267,7 +268,8 @@ ROWS = [
     ("ACTION_uprising", "Восстание", "Uprising"),
     ("ACTION_uprising_DESC",
      "Взять власть, пока открыто окно революции. Нужны революционная ситуация не ниже 70 "
-     "и организованность не ниже 50. Победа делает страну революционной, поражение приносит белый террор.",
+     "и организованность не ниже 50. Начинается сражение на карте страны: победа делает страну революционной, "
+     "поражение приносит белый террор. Кадры восстания становятся агитаторами.",
      "Seize power while the window is open. Needs a revolutionary situation of 70 and organization of 50."),
     ("ACTION_send_organizers", "Прислать организаторов", "Send organizers"),
     ("ACTION_send_organizers_DESC",
@@ -644,6 +646,8 @@ ROWS = [
     ("HELP_MAP_REVOLUTION", "Тёмно-красная — революция победила.", "Dark red: the revolution has won."),
     ("HELP_MAP_WINDOW", "Охристая рамка — открыто окно революции: можно поднимать восстание.",
      "Ochre outline: the window of revolution is open."),
+    ("HELP_MAP_CIVIL_WAR", "Буро-красная — гражданская война: страна разделена, бои идут раундами.",
+     "Brown-red: civil war, the country is split."),
     ("HELP_MAP_NEUTRAL", "Серые — малые территории, в партии не участвуют.", "Grey: small territories, not in play."),
     ("HELP_BUBBLE_SOLIDARITY", "Красный пузырёк — солидарность. Коснитесь, чтобы собрать.", "Red bubble: solidarity. Tap to collect."),
     ("HELP_BUBBLE_PROTEST", "Охристый пузырёк — стихийный протест. Коснитесь, и партия его поддержит. Не успеете — власть его подавит.",
@@ -658,11 +662,12 @@ ROWS = [
      "The workers' movement arises by itself, but without the party the state crushes it."),
     ("HELP_PANEL", "Коснитесь строки в панели страны — под списком появится объяснение показателя.",
      "Tap a row in the country panel to see what it means."),
-    ("HELP_CREDITS", "Границы стран — Natural Earth. Показатели — Всемирный банк, World Development Indicators (CC BY 4.0). "
+    ("HELP_CREDITS", "Границы стран и регионов, города и порты — Natural Earth. Показатели — Всемирный банк, World Development Indicators (CC BY 4.0). "
      "Шрифты PT Sans и Oswald (OFL).", "Borders: Natural Earth. Indicators: World Bank WDI (CC BY 4.0). Fonts: PT Sans, Oswald (OFL)."),
     ("HELP_WIN", "Как победить", "How to win"),
     ("HELP_REV", "Революция возможна, когда сложились три условия — «верхи не могут», «низы не хотят», «активность масс», — "
-     "каждое не ниже 70, а организованность не ниже 50. Обычно это бывает в кризис.",
+     "каждое не ниже 70, а организованность не ниже 50. Обычно это бывает в кризис. Тогда поднимайте восстание: "
+     "начнётся сражение на карте страны — возьмите столицу и заводы или склоните армию на свою сторону.",
      "A revolution needs three conditions of 70 each and organization of 50. Usually in a crisis."),
     ("HELP_REACTION", "Реакция — шкала правящих классов вверху. Чем заметнее движение и чем больше побед, тем она выше и жёстче ответ.",
      "Reaction is the rulers' scale. The more visible the movement, the harsher the response."),
@@ -768,7 +773,7 @@ ROWS = [
 
 def main() -> None:
     out = ROOT / "locale" / "game.csv"
-    all_rows = ROWS + locale_events.rows()
+    all_rows = ROWS + locale_events.rows() + locale_battle.rows()
     keys = [r[0] for r in all_rows]
     assert len(keys) == len(set(keys)), "повторяется ключ"
     with out.open("w", encoding="utf-8", newline="") as f:

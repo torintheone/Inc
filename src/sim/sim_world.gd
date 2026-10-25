@@ -17,9 +17,10 @@ const OUTCOME_TWO_SYSTEMS := "two_systems"
 const OUTCOME_DEFEAT := "defeat"
 
 ## Новости, ради которых игра ставит паузу и показывает сообщение.
-const IMPORTANT_NEWS: PackedStringArray = ["NEWS_WINDOW_OPENED", "NEWS_REVOLUTION", "NEWS_UPRISING_DEFEATED", "NEWS_OUTCOME"]
+const IMPORTANT_NEWS: PackedStringArray = ["NEWS_WINDOW_OPENED", "NEWS_REVOLUTION", "NEWS_UPRISING_DEFEATED", "NEWS_OUTCOME",
+	"NEWS_CIVIL_WAR"]
 ## Новости, которые попадают в хронику партии на экране итогов (вместе с важными).
-const CHRONICLE_NEWS: PackedStringArray = ["NEWS_START", "NEWS_LINE", "NEWS_LINE_CHANGED", "NEWS_CRISIS",
+const CHRONICLE_NEWS: PackedStringArray = ["NEWS_START", "NEWS_BATTLE_START", "NEWS_CIVIL_WAR", "NEWS_LINE", "NEWS_LINE_CHANGED", "NEWS_CRISIS",
 	"NEWS_COUNTERTENDENCY", "NEWS_REVOLUTION", "NEWS_UPRISING_DEFEATED", "NEWS_REACTION_20", "NEWS_REACTION_40",
 	"NEWS_REACTION_60", "NEWS_REACTION_80", "NEWS_REACTION_100", "NEWS_OUTCOME", "NEWS_STRIKE_TO_REVOLUTION",
 	"NEWS_WINDOW_OPENED", "NEWS_EVENT", "NEWS_EVENT_WORLD"]
@@ -81,6 +82,11 @@ var event_queue: Array[Dictionary] = []
 var events_seen: Dictionary[String, int] = {}
 var event_cooldowns: Dictionary[String, int] = {}
 var last_event_week := -100
+
+## Сражение, которое идёт сейчас: пока оно не закончится, мир стоит на паузе.
+var battle: BattleState = null
+## Гражданские войны: страна → сражение, которое продолжается раундами раз в несколько недель.
+var civil_wars: Dictionary[String, BattleState] = {}
 
 ## Ключевые события партии для экрана итогов.
 var chronicle: Array[Dictionary] = []
@@ -212,7 +218,7 @@ func is_over() -> bool:
 
 ## Один шаг симуляции — неделя.
 func step() -> void:
-	if is_over():
+	if is_over() or battle != null:
 		return
 	week += 1
 	EconomySystem.advance_cycle(self)
@@ -231,6 +237,7 @@ func step() -> void:
 	UnrestSystem.spawn_solidarity(self)
 	UnrestSystem.expire(self)
 	EventSystem.update(self)
+	_civil_war_rounds()
 	if week % 4 == 0:
 		_record_history()
 	_check_outcome()
@@ -304,6 +311,82 @@ func make_revolutionary(cs: CountryState) -> void:
 				inspired = n
 	add_news("NEWS_REVOLUTION", [cs.country.name_ru], cs.country.id, true)
 	EventSystem.notify(self, "revolution_neighbor", inspired)
+
+
+## Восстание: начинается сражение на карте страны. false — карты страны нет или сражение уже идёт.
+func begin_battle(cs: CountryState, penalty: float = 0.0, agitators: int = -1) -> bool:
+	if battle != null or civil_wars.has(cs.country.id):
+		return false
+	var b := BattleSystem.start(self, cs, penalty, agitators)
+	if b == null:
+		return false
+	battle = b
+	add_news("NEWS_BATTLE_START", [cs.country.name_ru], cs.country.id)
+	return true
+
+
+## Сыграть очередной раунд гражданской войны самому.
+func resume_civil_war(id: String) -> bool:
+	if battle != null or not civil_wars.has(id):
+		return false
+	battle = civil_wars[id]
+	BattleSystem.begin_round(self, battle)
+	return true
+
+
+func in_civil_war(id: String) -> bool:
+	return civil_wars.has(id)
+
+
+## Сражение закончено: итог переносится на мировую карту.
+func finish_battle() -> void:
+	if battle == null or not battle.is_over():
+		return
+	var b := battle
+	battle = null
+	_apply_battle(b)
+
+
+func _apply_battle(b: BattleState) -> void:
+	var d := data
+	var cs := state_of(b.country_id)
+	if cs == null:
+		civil_wars.erase(b.country_id)
+		return
+	var ongoing := civil_wars.has(b.country_id)
+	if b.outcome == BattleState.OUTCOME_CIVIL_WAR:
+		b.rounds += 1
+		# Затянувшаяся война решается перевесом сил.
+		if b.rounds >= int(d.num("battle.outcome.civil_war_max_rounds")):
+			var won := b.control_share() >= d.num("battle.outcome.civil_war_final_share")
+			b.outcome = BattleState.OUTCOME_VICTORY if won else BattleState.OUTCOME_DEFEAT
+			b.outcome_reason = "exhaustion"
+	match b.outcome:
+		BattleState.OUTCOME_VICTORY:
+			civil_wars.erase(b.country_id)
+			make_revolutionary(cs)
+		BattleState.OUTCOME_DEFEAT:
+			civil_wars.erase(b.country_id)
+			defeat_uprising(cs)
+		BattleState.OUTCOME_CIVIL_WAR:
+			civil_wars[b.country_id] = b
+			b.next_round_week = week + int(d.num("battle.outcome.civil_war_round_weeks"))
+			cs.window_left = -1
+			if ongoing:
+				add_news("NEWS_CIVIL_WAR_GOES_ON", [cs.country.name_ru, roundi(b.control_share() * 100.0)], cs.country.id)
+			else:
+				add_news("NEWS_CIVIL_WAR", [cs.country.name_ru], cs.country.id, true)
+
+
+## Раунды гражданских войн, которые игрок не сыграл сам, рассчитываются автоматически.
+func _civil_war_rounds() -> void:
+	for id: String in civil_wars.keys():
+		var b: BattleState = civil_wars[id]
+		if week < b.next_round_week:
+			continue
+		BattleSystem.begin_round(self, b)
+		BattleBot.run(self, b, BattleBot.AUTO)
+		_apply_battle(b)
 
 
 ## Разгром восстания: влияние падает, приходит белый террор, остаётся опыт.
@@ -472,11 +555,21 @@ func to_dict() -> Dictionary:
 		"events_seen": events_seen.duplicate(),
 		"event_cooldowns": event_cooldowns.duplicate(),
 		"last_event_week": last_event_week,
+		"battle": battle.to_dict() if battle != null and not civil_wars.has(battle.country_id) else {},
+		"battle_civil_war": battle.country_id if battle != null and civil_wars.has(battle.country_id) else "",
+		"civil_wars": _civil_wars_dict(),
 		"news": news.duplicate(true),
 		"news_count": news_count,
 		"outcome": outcome,
 		"history": history.duplicate(true),
 	}
+
+
+func _civil_wars_dict() -> Dictionary:
+	var out := {}
+	for id: String in civil_wars:
+		out[id] = civil_wars[id].to_dict()
+	return out
 
 
 static func from_dict(p_data: GameData, d: Dictionary) -> SimWorld:
@@ -552,6 +645,14 @@ static func from_dict(p_data: GameData, d: Dictionary) -> SimWorld:
 	for k: String in cds:
 		sim.event_cooldowns[k] = int(cds[k])
 	sim.last_event_week = int(d.get("last_event_week", -100))
+	var cw: Dictionary = d.get("civil_wars", {})
+	for id: String in cw:
+		sim.civil_wars[id] = BattleState.from_dict(cw[id])
+	var bd: Dictionary = d.get("battle", {})
+	if not bd.is_empty():
+		sim.battle = BattleState.from_dict(bd)
+	elif sim.civil_wars.has(str(d.get("battle_civil_war", ""))):
+		sim.battle = sim.civil_wars[str(d["battle_civil_war"])]
 	for item: Dictionary in d.get("news", []):
 		sim.news.append(item)
 	sim.news_count = int(d.get("news_count", sim.news.size()))

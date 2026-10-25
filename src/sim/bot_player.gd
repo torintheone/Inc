@@ -12,12 +12,15 @@ const UPGRADE_PRIORITY: PackedStringArray = ["leaflets", "study_circles", "trade
 	"self_defense", "occupation_tactic", "general_strike_prep", "workers_councils"]
 ## Сколько стран с самым сильным влиянием бот обходит каждую неделю.
 const TOP_COUNTRIES := 6
+## Ниже этой верности армии бот в сражении агитирует гарнизоны, выше — готовит штурм.
+const ARMY_LOYALTY_FOR_TALKS := 65.0
 ## Сколько солидарности бот оставляет сверх цены следующего улучшения, прежде чем посылать организаторов.
 const ORGANIZERS_RESERVE := 6.0
 
 
 static func play_week(sim: SimWorld) -> void:
 	_answer_event(sim)
+	resolve_battle(sim)
 	_collect_bubbles(sim)
 	_buy_upgrade(sim)
 	var ranked := sim.countries.filter(func(cs: CountryState) -> bool: return not cs.is_revolutionary() and cs.influence >= 1.0)
@@ -33,8 +36,19 @@ static func play_week(sim: SimWorld) -> void:
 				# Стачки и демонстрации — только при хорошем шансе, восстание — всегда.
 				if id == "uprising" or PlayerActions.action_chance(sim, id, cs) >= 0.5:
 					PlayerActions.perform(sim, id, cs)
+					resolve_battle(sim)
 					break
 	_send_organizers(sim, ranked)
+
+
+## Сражение бот ведёт сам: где армия колеблется — агитирует гарнизоны, иначе готовит штурм.
+static func resolve_battle(sim: SimWorld) -> void:
+	if sim.battle == null:
+		return
+	var cs := sim.state_of(sim.battle.country_id)
+	var strategy := BattleBot.ARMY if cs.army_loyalty < ARMY_LOYALTY_FOR_TALKS else BattleBot.STORM
+	BattleBot.run(sim, sim.battle, strategy)
+	sim.finish_battle()
 
 
 ## Решение по событию: первый вариант, который сейчас доступен.

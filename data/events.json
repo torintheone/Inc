@@ -1624,23 +1624,12 @@
      "requires": {
       "cadres": 6
      },
-     "chance": 0.3,
      "effects": {
       "country": {
+       "special": "battle",
+       "penalty": 0.6,
        "add": {
-        "army_loyalty": -20,
-        "elite_split": 20
-       }
-      }
-     },
-     "fail": {
-      "country": {
-       "add": {
-        "repression": 35
-       },
-       "mult": {
-        "influence": 0.6,
-        "organization": 0.4
+        "repression": 10
        }
       }
      }
@@ -2515,15 +2504,9 @@
    "options": [
     {
      "id": "lead",
-     "chance": 0.3,
      "effects": {
       "country": {
-       "special": "revolution"
-      }
-     },
-     "fail": {
-      "country": {
-       "special": "defeat"
+       "special": "battle"
       }
      }
     },

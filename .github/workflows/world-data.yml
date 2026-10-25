@@ -1,6 +1,6 @@
-# Собирает данные мира (tools/build_world.py) и коммитит результат в ту же ветку.
-# Запускается вручную или при изменении скрипта. Игре интернет не нужен: она берёт
-# готовые data/world.json и data/world_shapes.json из репозитория.
+# Собирает данные мира (tools/build_world.py) и, по галочке, карты стран для сражений
+# (tools/build_regions.py), и коммитит результат в ту же ветку. Запускается вручную или при
+# изменении скрипта данных мира. Игре интернет не нужен: она берёт готовые файлы из data/.
 name: Данные мира
 
 on:
@@ -8,6 +8,10 @@ on:
     inputs:
       refresh:
         description: "Перекачать показатели Всемирного банка заново"
+        type: boolean
+        default: false
+      regions:
+        description: "Пересобрать карты стран для сражений (data/battle_maps.json)"
         type: boolean
         default: false
   push:
@@ -44,11 +48,15 @@ jobs:
             python3 tools/build_world.py
           fi
 
+      - name: Карты стран для сражений
+        if: inputs.regions
+        run: python3 tools/build_regions.py
+
       - name: Коммит результата
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/world.json data/world_shapes.json tools/cache/worldbank.json
+          git add data/world.json data/world_shapes.json data/battle_maps.json tools/cache/worldbank.json
           if git diff --cached --quiet; then
             echo "Данные не изменились."
           else

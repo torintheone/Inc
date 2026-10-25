@@ -213,7 +213,10 @@ func _card(id: String, width: float) -> Control:
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	head.add_child(title)
-	if not locked:
+	# Восстание решает не шанс, а сражение на карте страны.
+	if not locked and sim.data.country_actions[id].get("battle", false):
+		head.add_child(_chip(tr("CHIP_BATTLE"), MapPalette.VERMILION))
+	elif not locked:
 		var chance := PlayerActions.action_chance(sim, id, cs)
 		head.add_child(_chip(tr("CHANCE") % int(roundf(chance * 100.0)), _chance_color(chance)))
 	box.add_child(head)

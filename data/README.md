@@ -11,9 +11,11 @@
 | `actions.json` | Дерево развития (27 улучшений в пяти ветвях) и действия в стране | правится руками |
 | `lines.json` | Пять стратегических линий движения | правится руками |
 | `events.json` | События: условия, варианты решений, цепочки | правится руками |
+| `battle.json` | Местные сражения: время, силы сторон, действия игрока, ИИ власти, итоги | правится руками |
+| `battle_maps.json` | Карты стран для сражений: регионы, соседи, население, объекты | `tools/build_regions.py` |
 
-Файлы `world*.json` и `links.json` руками не правят: их перезаписывает скрипт.
-`balance.json`, `actions.json`, `lines.json` и `events.json` — для дизайнера: числа и тексты меняются без программиста.
+Файлы `world*.json`, `links.json` и `battle_maps.json` руками не правят: их перезаписывают скрипты.
+`balance.json`, `actions.json`, `lines.json`, `events.json` и `battle.json` — для дизайнера: числа и тексты меняются без программиста.
 Перед сборкой их проверяет `python3 tools/validate_data.py` (он же запускается в GitHub Actions):
 ссылки между записями, диапазоны значений, тексты для каждого улучшения и действия. Чтобы пересобрать их, запусти
 в GitHub вкладку **Actions → «Данные мира» → Run workflow**. Тот же скрипт можно запустить
@@ -255,6 +257,68 @@
 Названия, тексты и надписи вариантов — `EVENT_<id>`, `EVENT_<id>_TEXT`, `EVENT_<id>_<вариант>` в
 `tools/locale_events.py`.
 
+## battle.json
+
+Местное сражение идёт по дням: игрок действует в районах страны, власть отвечает. Разделы:
+
+- `time`: `seconds_per_day` — секунд реального времени на день при обычной скорости; длина сражения —
+  оставшиеся недели окна революции × `days_per_window_week`, но не меньше `min_days` и не больше `max_days`.
+- `start` — с чего начинается: поддержка в районах (`support_base` + влияние × `support_per_influence` + доля
+  горожан × `support_urban` + революционная ситуация × `support_rev_situation`), отряды (`squads_base` +
+  организованность × `squads_per_organization` + влияние × `squads_per_influence`), армия (`army_base` +
+  лояльность армии страны × `army_per_loyalty`, доля `reserve_share` — в резерве), полиция (репрессии ×
+  `police_per_repression`), снабжение и оружие. `spontaneous_penalty` — штраф стихийного восстания.
+- `daily` — что происходит каждый день: бои (`combat_rate`, `armed_workers`, `barricade_defense`), снабжение,
+  новые агитаторы (`agitator_regen_days`, `agitators_per_council`), пополнение отрядов (`recruit_rate`),
+  верность солдат (`loyalty_from_support` выше `loyalty_support_from` % поддержки; ниже `defect_loyalty` часть
+  гарнизона, `defect_share`, переходит к революции, а вся армия переходит при средней верности ниже
+  `army_defects_loyalty`), доверие масс (`civilian_trust_loss`, `requisition_trust_loss`, `excess_*`, ниже
+  `low_trust` поддержка падает везде).
+- `ai` — ход власти: переброска войск (`transfer_every_days`, `transfer_share`, `travel_days_per_step`, при
+  захваченной железной дороге × `railway_cut_mult`), аресты (`arrest_chance`), арест руководства
+  (`leadership_arrest_chance`, новое руководство через `leadership_recover_days`), комендантский час,
+  контрпропаганда, добровольцы имущих классов (`volunteers_days`), интервенция при Реакции ≥ `intervention_reaction`.
+- `outcome` — итоги: победа — столица и доля промышленных районов `factory_share`; к концу таймера при доле
+  страны от `civil_war_min` — гражданская война; её раунд длится `civil_war_round_days` дней раз в
+  `civil_war_round_weeks` недель; в раунде доля `civil_war_max` и выше — победа; после `civil_war_max_rounds`
+  раундов решает доля `civil_war_final_share`.
+- `lines` — бонусы линий в сражении (советы — снабжение, народная война — отряды в деревне, синдикализм — стачки,
+  авангард — отряды и защита руководства, массовая партия — города и гарнизоны).
+- `actions` — действия игрока:
+
+```json
+{"id": "garrison_agitation", "cost": {"agitators": 1}, "cooldown_days": 6, "busy_days": 8, "target": "garrison",
+ "chance": 0.45, "loyalty": -10.0, "fail_loyalty": 5.0}
+```
+
+`cost` — `agitators` (уходят на задание и возвращаются через `busy_days`), `supplies`, `squads` (нужны в районе),
+`solidarity` (из мировой). `cooldown_days` — перерыв, у действий в районе — свой в каждом районе. `target`:
+`any` — любой район, `garrison` — где есть гарнизон, `not_power` — спорный или наш, `squads` — где есть наши
+отряды, `object:<объект>` — район с объектом, `global` — вся страна. `chance` — базовый шанс, `min_support` —
+нужная поддержка. Остальные поля — числа самого действия.
+
+Тексты: `BATTLE_ACTION_<id>`, `BATTLE_ACTION_<id>_DESC`, строки журнала `BATTLE_LOG_<id>_OK` / `_FAIL` — в
+`tools/locale_battle.py`.
+
+## battle_maps.json
+
+```json
+{"version": 1, "countries": {"FRA": {"regions": [
+  {"name_ru": "Лилль", "city": "Лилль", "label": [529.7, 73.9], "population": 3901000, "urban": 0.344,
+   "objects": ["factories"], "neighbors": [1, 9, 12], "polygons": [{"rings": [[x0, y0, …]], "tris": [ … ]}]}]}}}
+```
+
+В каждой стране 5–20 регионов (8–20 везде, кроме Фиджи). Регионы — административное деление первого уровня
+Natural Earth 1:10m; если их больше 20, соседние объединяются (сначала по крупным районам страны), мелкие
+присоединяются к соседям, а если регионов меньше 8 — крупные делятся по сторонам света. Заморские территории,
+Аляска и Гавайи не входят: остаются регионы, отделённые от основной территории не больше чем на 4°.
+Объединённый регион называется по главному городу. Координаты — в прямоугольнике 1000 × 640.
+
+Объекты: `capital` — столица, `factories` — промышленный район (самые городские регионы), `comms` — узел связи
+(столица и второй город), `railway` — железнодорожный узел (самые связанные регионы), `port` — порт (по портам
+Natural Earth), `arsenal` — арсенал (городской сосед столицы), `agrarian` — аграрный район (горожан меньше 20%).
+Население — города Natural Earth плюс сельское по площади.
+
 ## world_shapes.json
 
 ```json
@@ -276,4 +340,6 @@
 ## Источники
 
 - Границы и названия: [Natural Earth](https://www.naturalearthdata.com/) 1:50m Admin 0 Countries v5.1.2, общественное достояние.
+- Регионы, города и порты для сражений: Natural Earth 1:10m Admin 1 States and Provinces, Populated Places,
+  Ports v5.1.2, общественное достояние.
 - Показатели: [Всемирный банк, World Development Indicators](https://data.worldbank.org/), лицензия CC BY 4.0.

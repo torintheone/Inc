@@ -289,8 +289,10 @@ def check_outcome(where: str, o: dict) -> None:
     for flag in o.get("timed", {}):
         if flag not in TIMED_FLAGS:
             err(f"{where}: неизвестная временная отметка {flag}")
-    if "special" in o and o["special"] not in {"revolution", "defeat"}:
+    if "special" in o and o["special"] not in {"revolution", "defeat", "battle"}:
         err(f"{where}: неизвестный исход {o['special']}")
+    if "penalty" in o and not 0.0 <= float(o["penalty"]) <= 1.0:
+        err(f"{where}: штраф сражения должен быть от 0 до 1")
 
 
 def check_events(ev: dict, upgrades: set[str], actions: set[str]) -> list[tuple[str, list[str]]]:
@@ -362,8 +364,64 @@ def check_events(ev: dict, upgrades: set[str], actions: set[str]) -> list[tuple[
     return [(eid, [o["id"] for o in e["options"]]) for eid, e in events.items()]
 
 
+BATTLE_OBJECTS = {"capital", "factories", "railway", "port", "comms", "arsenal", "agrarian"}
+BATTLE_TARGETS = {"any", "garrison", "not_power", "squads", "global"} | {f"object:{o}" for o in BATTLE_OBJECTS}
+BATTLE_COSTS = {"agitators", "supplies", "squads", "solidarity"}
+BATTLE_SECTIONS = ("time", "start", "daily", "ai", "outcome", "lines")
+BATTLE_OUTCOMES = ["victory_army", "victory_capital", "victory_civil_war", "victory_exhaustion", "civil_war_timer",
+                   "defeat_timer", "defeat_leadership", "defeat_crushed", "defeat_exhaustion"]
+
+
+def check_battle(b: dict, maps: dict, ids: set[str], line_ids: set[str]) -> list[dict]:
+    """battle.json: разделы и действия; battle_maps.json: карта для каждой страны, 5–20 регионов, одна столица."""
+    for section in BATTLE_SECTIONS:
+        if not isinstance(b.get(section), dict):
+            err(f"battle.json: нет раздела {section}")
+    t = b.get("time", {})
+    if t and not t.get("min_days", 0) <= t.get("max_days", 0):
+        err("battle.json: min_days больше max_days")
+    for lid in b.get("lines", {}):
+        if lid not in line_ids:
+            err(f"battle.json/lines: неизвестная линия {lid}")
+    seen = set()
+    for a in b.get("actions", []):
+        aid = a.get("id", "?")
+        if aid in seen:
+            err(f"battle.json: действие {aid} повторяется")
+        seen.add(aid)
+        if a.get("target") not in BATTLE_TARGETS:
+            err(f"battle.json/{aid}: неизвестная цель {a.get('target')}")
+        for k, v in a.get("cost", {}).items():
+            if k not in BATTLE_COSTS or v <= 0:
+                err(f"battle.json/{aid}: странная цена {k}={v}")
+        if "chance" in a and not 0.0 < a["chance"] < 1.0:
+            err(f"battle.json/{aid}: шанс должен быть между 0 и 1")
+    for c in sorted(ids):
+        m = maps.get("countries", {}).get(c)
+        if m is None:
+            err(f"battle_maps.json: нет карты страны {c}")
+            continue
+        regions = m.get("regions", [])
+        if not 5 <= len(regions) <= 20:
+            err(f"battle_maps.json/{c}: регионов {len(regions)}, нужно 5–20")
+        capitals = 0
+        for i, r in enumerate(regions):
+            objects = set(r.get("objects", []))
+            if objects - BATTLE_OBJECTS:
+                err(f"battle_maps.json/{c}/{i}: неизвестные объекты {objects - BATTLE_OBJECTS}")
+            capitals += "capital" in objects
+            for nb in r.get("neighbors", []):
+                if not 0 <= nb < len(regions) or i not in regions[nb].get("neighbors", []):
+                    err(f"battle_maps.json/{c}/{i}: сосед {nb} не взаимен")
+            if not r.get("polygons") or not r.get("name_ru"):
+                err(f"battle_maps.json/{c}/{i}: нет контура или названия")
+        if capitals != 1:
+            err(f"battle_maps.json/{c}: столиц {capitals}, нужна одна")
+    return b.get("actions", [])
+
+
 def check_locale(upgrades: set[str], actions: set[str], lines: set[str], branches: list[str], groups: list[str],
-                 events: list) -> None:
+                 events: list, battle_actions: list[dict]) -> None:
     keys = set()
     for name in ("ui.csv", "game.csv"):
         path = ROOT / "locale" / name
@@ -388,6 +446,16 @@ def check_locale(upgrades: set[str], actions: set[str], lines: set[str], branche
     for eid, options in events:
         need += [f"EVENT_{eid}", f"EVENT_{eid}_TEXT"] + [f"EVENT_{eid}_{o}" for o in options]
     need += [f"TIMED_{t}" for t in TIMED_FLAGS if t != "port_cells"]
+    for a in battle_actions:
+        aid = a["id"]
+        need += [f"BATTLE_ACTION_{aid}", f"BATTLE_ACTION_{aid}_DESC", f"BATTLE_LOG_{aid}_OK"]
+        if "chance" in a:
+            need.append(f"BATTLE_LOG_{aid}_FAIL")
+    need += [f"OBJECT_{o}" for o in BATTLE_OBJECTS] + [f"CONTROL_{i}" for i in range(3)]
+    need += [f"BATTLE_REASON_{o}" for o in BATTLE_OUTCOMES]
+    need += [f"BATTLE_LOG_OUTCOME_{o}" for o in BATTLE_OUTCOMES if "exhaustion" not in o]
+    need += [f"BBLOCK_{k}" for k in ("cooldown", "agitators", "supplies", "cost", "region", "squads", "no_garrison",
+                                     "not_power", "no_squads", "no_object", "seized", "battle_support", "done", "unknown")]
     for key in need:
         if key not in keys:
             err(f"locale: нет текста {key}")
@@ -401,6 +469,8 @@ def main() -> int:
     actions = load("actions.json")
     lines = load("lines.json")
     events = load("events.json")
+    battle = load("battle.json")
+    battle_maps = load("battle_maps.json")
     ids = check_world(world) if world else set()
     if shapes:
         check_shapes(shapes, ids)
@@ -412,7 +482,9 @@ def main() -> int:
         upgrades, acts = check_actions(actions)
         line_ids = check_lines(lines, upgrades, acts)
         event_list = check_events(events, upgrades, acts)
-        check_locale(upgrades, acts, line_ids, actions.get("branches", []), actions.get("action_groups", []), event_list)
+        battle_actions = check_battle(battle, battle_maps, ids, line_ids) if battle and battle_maps else []
+        check_locale(upgrades, acts, line_ids, actions.get("branches", []), actions.get("action_groups", []), event_list,
+                     battle_actions)
     if errors:
         print(f"Ошибок в данных: {len(errors)}")
         for e in errors:

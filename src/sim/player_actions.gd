@@ -97,6 +97,9 @@ static func action_blockers(sim: SimWorld, id: String, cs: CountryState) -> Pack
 	if cs.is_revolutionary():
 		out.append("revolutionary")
 		return out
+	if sim.in_civil_war(cs.country.id):
+		out.append("civil_war")
+		return out
 	var line: Dictionary = sim.data.lines.get(sim.line, {})
 	if id in line.get("blocked_actions", []):
 		out.append("line")
@@ -164,6 +167,12 @@ static func perform(sim: SimWorld, id: String, cs: CountryState) -> Dictionary:
 	cs.cadres = maxf(cs.cadres - float(cost["cadres"]), 0.0)
 	sim.solidarity -= float(cost["solidarity"])
 	cs.cooldowns[id] = sim.week + int(a.get("cooldown_weeks", 0))
+	# Восстание ведёт к сражению на карте страны; кадры, ушедшие в него, становятся агитаторами.
+	if a.get("battle", false) and sim.begin_battle(cs, 0.0, int(cost["cadres"])):
+		if cs.is_core and a.has("core_reaction"):
+			ReactionSystem.add(sim, float(a["core_reaction"]))
+		EventSystem.notify(sim, "action:" + id, cs)
+		return {"ok": true, "success": true, "chance": chance, "battle": true}
 	var success := sim.rng.randf() < chance
 	if cs.is_core and a.has("core_reaction"):
 		ReactionSystem.add(sim, float(a["core_reaction"]))
@@ -238,6 +247,9 @@ static func apply_outcome(sim: SimWorld, cs: CountryState, outcome: Dictionary, 
 			sim.make_revolutionary(cs)
 		"defeat":
 			sim.defeat_uprising(cs)
+		"battle":
+			# Возглавить стихийное восстание: сражение без подготовки, со штрафом.
+			sim.begin_battle(cs, float(outcome.get("penalty", sim.data.num("battle.start.spontaneous_penalty"))))
 		"organizers":
 			# Организаторы закладывают движение и там, где его ещё нет.
 			if cs.influence < 0.5:
