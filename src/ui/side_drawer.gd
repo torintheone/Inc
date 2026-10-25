@@ -1,10 +1,8 @@
 class_name SideDrawer
 extends PanelContainer
-## Боковая панель с содержимым вкладок: развитие движения, действия в стране,
-## лента событий и статистика мира.
+## Боковая панель с содержимым вкладок «События» и «Статистика».
+## Развитие и действия открываются отдельными экранами во весь экран.
 
-signal upgrade_requested(id: String)
-signal action_requested(id: String)
 signal close_requested
 signal country_requested(id: String)
 
@@ -49,47 +47,17 @@ func _init() -> void:
 	margin.add_child(_body)
 
 
-## Перестроить содержимое вкладки. country — выбранная страна (для «Действий»).
-func refresh(sim: SimWorld, country: CountryState) -> void:
+## Перестроить содержимое вкладки.
+func refresh(sim: SimWorld) -> void:
 	for child in _body.get_children():
 		_body.remove_child(child)
 		child.queue_free()
 	_title.text = tr("TAB_" + tab)
 	match tab:
-		"upgrades":
-			_build_upgrades(sim)
-		"actions":
-			_build_actions(sim, country)
 		"news":
 			_build_news(sim)
 		"stats":
 			_build_stats(sim)
-
-
-func _build_upgrades(sim: SimWorld) -> void:
-	for id in sim.data.upgrade_order:
-		var u: Dictionary = sim.data.upgrades[id]
-		var blockers := PlayerActions.upgrade_blockers(sim, id)
-		var owned := sim.upgrades.has(id)
-		var subtitle := "%s · %s" % [tr("BRANCH_" + str(u.get("branch", ""))), tr("COST") % int(u.get("cost", 0))]
-		var button_text := tr("BLOCK_owned") if owned else tr("BTN_BUY")
-		_body.add_child(_card(tr("UPGRADE_" + id), subtitle, tr("UPGRADE_" + id + "_DESC"),
-			"" if owned else _reasons(blockers), button_text, blockers.is_empty(),
-			func() -> void: upgrade_requested.emit(id), owned))
-
-
-func _build_actions(sim: SimWorld, cs: CountryState) -> void:
-	if cs == null:
-		_body.add_child(_paragraph(tr("SELECT_COUNTRY")))
-		return
-	_title.text = tr("ACTIONS_FOR") % cs.country.name_ru
-	for id in sim.data.country_action_order:
-		var a: Dictionary = sim.data.country_actions[id]
-		var blockers := PlayerActions.action_blockers(sim, id, cs)
-		var chance := PlayerActions.action_chance(sim, id, cs)
-		var subtitle := "%s · %s" % [tr("COST") % int(a.get("cost", 0)), tr("CHANCE") % int(roundf(chance * 100.0))]
-		_body.add_child(_card(tr("ACTION_" + id), subtitle, tr("ACTION_" + id + "_DESC"), _reasons(blockers),
-			tr("BTN_DO"), blockers.is_empty(), func() -> void: action_requested.emit(id), false))
 
 
 func _build_news(sim: SimWorld) -> void:
@@ -120,6 +88,8 @@ func _build_stats(sim: SimWorld) -> void:
 	grid.add_theme_constant_override("h_separation", 14)
 	grid.add_theme_constant_override("v_separation", 8)
 	_stat(grid, tr("ST_DATE"), "%d" % (sim.week / 52 + 1))
+	if sim.line != "":
+		_stat(grid, tr("ST_LINE"), tr("LINE_" + sim.line))
 	_stat(grid, tr("ST_PHASE"), tr("PHASE_" + sim.phase_id()))
 	_stat(grid, tr("ST_DEPTH"), NumberFormat.decimal(sim.depth, 2))
 	_stat(grid, tr("ST_CRISES"), str(sim.crisis_weeks.size()))
@@ -136,42 +106,27 @@ func _build_stats(sim: SimWorld) -> void:
 		if cs.window_left >= 0 and not cs.is_revolutionary():
 			windows.append(cs.country.name_ru)
 	_body.add_child(_paragraph("%s: %s" % [tr("ST_WINDOWS"), ", ".join(windows) if not windows.is_empty() else tr("ST_NONE")]))
-
-
-func _card(title: String, subtitle: String, desc: String, reason: String, button_text: String,
-		enabled: bool, on_press: Callable, done: bool) -> Control:
-	var card := VBoxContainer.new()
-	card.add_theme_constant_override("separation", 4)
-	var head := HBoxContainer.new()
-	var titles := VBoxContainer.new()
-	titles.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	titles.add_theme_constant_override("separation", 0)
-	titles.add_child(GameTheme.make_label(title, 20, GameTheme.BODY_BOLD_FONT, MapPalette.INK if not done else MapPalette.CONCRETE))
-	titles.add_child(GameTheme.make_label(subtitle, GameTheme.SMALL_SIZE, null, MapPalette.VERMILION))
-	head.add_child(titles)
-	var b := Button.new()
-	b.text = button_text
-	b.disabled = not enabled
-	b.custom_minimum_size = Vector2(110, 44)
-	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	b.pressed.connect(on_press)
-	head.add_child(b)
-	card.add_child(head)
-	card.add_child(_paragraph(desc, 15))
-	if reason != "":
-		var why := _paragraph(reason, GameTheme.SMALL_SIZE)
-		why.add_theme_font_override("font", GameTheme.BODY_BOLD_FONT)
-		why.add_theme_color_override("font_color", MapPalette.STEEL)
-		card.add_child(why)
-	card.add_child(HSeparator.new())
-	return card
-
-
-func _reasons(blockers: PackedStringArray) -> String:
-	var parts := PackedStringArray()
-	for b in blockers:
-		parts.append(UiText.blocker(b))
-	return " · ".join(parts)
+	var influence := PackedFloat32Array()
+	var reaction := PackedFloat32Array()
+	var years := PackedStringArray()
+	for h in sim.history:
+		influence.append(float(h["influenced"]) / 1.0e6)
+		reaction.append(float(h["reaction"]))
+		years.append(str(int(sim.data.num("time.start_year")) + int(h["week"]) / 52))
+	_body.add_child(GameTheme.make_label(tr("CHART_INFLUENCE"), 16, GameTheme.BODY_BOLD_FONT))
+	var c1 := LineChart.new()
+	c1.custom_minimum_size = Vector2(WIDTH - 76.0, 140)
+	c1.format = func(v: float) -> String: return NumberFormat.decimal(v, 0)
+	c1.set_series(influence, years)
+	_body.add_child(c1)
+	_body.add_child(GameTheme.make_label(tr("CHART_REACTION"), 16, GameTheme.BODY_BOLD_FONT))
+	var c2 := LineChart.new()
+	c2.custom_minimum_size = Vector2(WIDTH - 76.0, 140)
+	c2.color = MapPalette.STEEL
+	c2.y_max = 100.0
+	c2.thresholds = PackedFloat32Array([20, 40, 60, 80])
+	c2.set_series(reaction, years)
+	_body.add_child(c2)
 
 
 func _paragraph(text: String, size: int = GameTheme.BODY_SIZE) -> Label:

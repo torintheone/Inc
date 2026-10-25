@@ -4,8 +4,10 @@ extends RefCounted
 ## состояние используют игра, тесты и безголовые прогоны. При одинаковом seed
 ## партия повторяется в точности: весь случай берётся из rng.
 
-const SAVE_VERSION := 1
+const SAVE_VERSION := 2
 const NEWS_LIMIT := 120
+## Точек в графике влияния у страны: раз в 4 недели за два года.
+const COUNTRY_HISTORY := 26
 
 ## Исходы партии.
 const OUTCOME_NONE := ""
@@ -16,6 +18,11 @@ const OUTCOME_DEFEAT := "defeat"
 
 ## Новости, ради которых игра ставит паузу и показывает сообщение.
 const IMPORTANT_NEWS: PackedStringArray = ["NEWS_WINDOW_OPENED", "NEWS_REVOLUTION", "NEWS_UPRISING_DEFEATED", "NEWS_OUTCOME"]
+## Новости, которые попадают в хронику партии на экране итогов (вместе с важными).
+const CHRONICLE_NEWS: PackedStringArray = ["NEWS_START", "NEWS_LINE", "NEWS_LINE_CHANGED", "NEWS_CRISIS",
+	"NEWS_COUNTERTENDENCY", "NEWS_REVOLUTION", "NEWS_UPRISING_DEFEATED", "NEWS_REACTION_20", "NEWS_REACTION_40",
+	"NEWS_REACTION_60", "NEWS_REACTION_80", "NEWS_REACTION_100", "NEWS_OUTCOME", "NEWS_STRIKE_TO_REVOLUTION",
+	"NEWS_WINDOW_OPENED"]
 
 var data: GameData
 var seed_value := 0
@@ -23,6 +30,9 @@ var rng := RandomNumberGenerator.new()
 var week := 0
 var countries: Array[CountryState] = []
 var start_country := ""
+## Стратегическая линия движения ("" — ещё не выбрана) и была ли она уже сменена.
+var line := ""
+var line_changed := false
 
 var solidarity := 0.0
 var reaction := 0.0
@@ -53,6 +63,18 @@ var upgrades: Dictionary[String, bool] = {}
 var mods: Dictionary[String, float] = {}
 var unlocks: Dictionary[String, bool] = {}
 
+## Пузырьки на карте: {"id", "kind", "country", "born", "expires", "value"}.
+var bubbles: Array[Dictionary] = []
+var next_bubble_id := 1
+var bubbles_collected := 0
+## Сколько солидарности движение собрало за партию.
+var solidarity_earned := 0.0
+var protests_supported := 0
+var protests_suppressed := 0
+var peak_reaction := 0.0
+
+## Ключевые события партии для экрана итогов.
+var chronicle: Array[Dictionary] = []
 var news: Array[Dictionary] = []
 ## Сколько новостей появилось за партию: интерфейс по нему узнаёт о свежих.
 var news_count := 0
@@ -61,8 +83,9 @@ var outcome := OUTCOME_NONE
 var history: Array[Dictionary] = []
 
 
-## Новая партия. start_id — страна, где зарождается движение ("" — без движения, для прогонов).
-static func new_game(p_data: GameData, p_seed: int, start_id: String = "") -> SimWorld:
+## Новая партия. start_id — страна, где зарождается движение ("" — без движения, для прогонов);
+## line_id — стратегическая линия ("" — выбрать позже).
+static func new_game(p_data: GameData, p_seed: int, start_id: String = "", line_id: String = "") -> SimWorld:
 	var sim := SimWorld.new()
 	sim.data = p_data
 	sim.seed_value = p_seed
@@ -79,6 +102,8 @@ static func new_game(p_data: GameData, p_seed: int, start_id: String = "") -> Si
 	sim.solidarity = p_data.num("start.solidarity")
 	_start_world_cycle(sim)
 	EconomySystem.update_imperialism(sim)
+	if line_id != "":
+		sim.set_line(line_id)
 	if start_id != "":
 		sim.start_movement(start_id)
 	return sim
@@ -102,8 +127,37 @@ func start_movement(id: String) -> void:
 	cs.consciousness = data.num("start.consciousness")
 	cs.organization = data.num("start.organization")
 	cs.trust = data.num("start.trust")
+	cs.cadres = data.num("start.cadres")
 	cs.flags["reached"] = true
 	add_news("NEWS_START", [cs.country.name_ru], id)
+
+
+## Выбрать линию в начале партии.
+func set_line(id: String) -> void:
+	if not data.lines.has(id):
+		return
+	line = id
+	PlayerActions.recompute_mods(self)
+	add_news("NEWS_LINE", ["LINE_" + id])
+
+
+## Сменить линию: один раз за партию, ценой половины организованности везде.
+func can_change_line() -> bool:
+	return line != "" and not line_changed
+
+
+func change_line(id: String) -> bool:
+	if not can_change_line() or id == line or not data.lines.has(id):
+		return false
+	line = id
+	line_changed = true
+	var mult := data.line_change_organization_mult
+	for cs in countries:
+		if not cs.is_revolutionary():
+			cs.set_field("organization", cs.organization * mult)
+	PlayerActions.recompute_mods(self)
+	add_news("NEWS_LINE_CHANGED", ["LINE_" + id], "", true)
+	return true
 
 
 func state_of(id: String) -> CountryState:
@@ -147,10 +201,16 @@ func step() -> void:
 	var ph := phase()
 	EconomySystem.update_countries(self, ph)
 	MovementSystem.update_superstructure(self, ph)
+	UnrestSystem.update(self, ph)
 	MovementSystem.update_movement(self, MovementSystem.compute_spread(self))
 	MovementSystem.update_rev_situation(self, ph)
 	ReactionSystem.update(self)
-	solidarity += weekly_income()
+	peak_reaction = maxf(peak_reaction, reaction)
+	var income := weekly_income()
+	solidarity = maxf(solidarity + income, 0.0)
+	solidarity_earned += maxf(income, 0.0)
+	UnrestSystem.spawn_solidarity(self)
+	UnrestSystem.expire(self)
 	if week % 4 == 0:
 		_record_history()
 	_check_outcome()
@@ -163,27 +223,36 @@ func run_weeks(n: int) -> void:
 		step()
 
 
-## Доход солидарности за неделю: от охвата движения и от революционных стран.
+## Постоянный доход солидарности за неделю: небольшой взнос, помощь революционных стран,
+## минус содержание стачечного фонда. Основное — пузырьки на карте.
 func weekly_income() -> float:
+	if start_country == "":
+		return 0.0
 	var d := data
-	var income := d.num("solidarity.base")
-	var per_influence := d.num("solidarity.per_influence")
+	var income := d.num("solidarity.base") - mod("upkeep")
 	var per_rev := d.num("solidarity.revolutionary_country") * (1.0 - (d.num("reaction.intervention_income_penalty") if reaction >= 60.0 else 0.0))
-	var reach := 0.0
 	for cs in countries:
 		if cs.is_revolutionary():
 			income += per_rev * cs.size
-		else:
-			reach += cs.influence * cs.size
-	# Доход растёт медленнее, чем охват: иначе к середине партии солидарности некуда девать.
-	return income + per_influence * sqrt(reach)
+	return income
 
 
 func on_country_reached(cs: CountryState) -> void:
 	if cs.country.id == start_country:
 		return
-	solidarity += data.num("solidarity.new_country")
+	add_bubble(UnrestSystem.SOLIDARITY, cs.country.id, int(data.num("bubbles.solidarity_weeks")), data.num("bubbles.reached_value"))
 	add_news("NEWS_REACHED", [cs.country.name_ru], cs.country.id)
+
+
+func add_bubble(kind: String, country_id: String, weeks: int, value: float) -> void:
+	bubbles.append({"id": next_bubble_id, "kind": kind, "country": country_id, "born": week,
+		"expires": week + weeks, "value": value})
+	next_bubble_id += 1
+
+
+## Игрок коснулся пузырька. Возвращает {"ok", "kind", "value", "country"}.
+func collect_bubble(id: int) -> Dictionary:
+	return UnrestSystem.collect(self, id)
 
 
 func on_window_opened(cs: CountryState) -> void:
@@ -196,6 +265,7 @@ func make_revolutionary(cs: CountryState) -> void:
 	cs.status = CountryState.REVOLUTIONARY
 	cs.revolution_week = week
 	cs.window_left = -1
+	cs.unrest = 0.0
 	ReactionSystem.add(self, d.num("revolution.reaction"))
 	# Победа где угодно даёт рывок активности по всему миру, а соседям — пример.
 	var boost := d.num("revolution.world_influence_boost")
@@ -215,8 +285,14 @@ func make_revolutionary(cs: CountryState) -> void:
 ## Разгром восстания: влияние падает, приходит белый террор, остаётся опыт.
 func defeat_uprising(cs: CountryState) -> void:
 	var d := data
-	cs.set_field("influence", cs.influence * d.num("revolution.defeat_influence_mult"))
-	cs.set_field("organization", cs.organization * d.num("revolution.defeat_organization_mult"))
+	# Явочные квартиры сохраняют часть движения после разгрома.
+	var cushion := clampf(mod("defeat_cushion"), 0.0, 1.0) * 0.5
+	var infl_mult := d.num("revolution.defeat_influence_mult")
+	var org_mult := d.num("revolution.defeat_organization_mult")
+	var cadre_mult := d.num("cadres.defeat_mult")
+	cs.set_field("influence", cs.influence * (infl_mult + (1.0 - infl_mult) * cushion))
+	cs.set_field("organization", cs.organization * (org_mult + (1.0 - org_mult) * cushion))
+	cs.cadres *= cadre_mult + (1.0 - cadre_mult) * cushion
 	cs.set_field("repression", cs.repression + d.num("revolution.defeat_repression"))
 	cs.flags["lessons_of_defeat"] = true
 	cs.window_left = -1
@@ -224,9 +300,12 @@ func defeat_uprising(cs: CountryState) -> void:
 
 
 func add_news(key: String, args: Array, country_id: String = "", important: bool = false) -> void:
-	news.append({"week": week, "key": key, "args": args, "country": country_id,
-		"important": important or IMPORTANT_NEWS.has(key)})
+	var item := {"week": week, "key": key, "args": args, "country": country_id,
+		"important": important or IMPORTANT_NEWS.has(key)}
+	news.append(item)
 	news_count += 1
+	if CHRONICLE_NEWS.has(key):
+		chronicle.append(item.duplicate())
 	if news.size() > NEWS_LIMIT:
 		news.pop_front()
 
@@ -262,6 +341,30 @@ func influenced_people() -> float:
 func _record_history() -> void:
 	history.append({"week": week, "influenced": influenced_people(), "reaction": reaction,
 		"revolutionary_gdp": revolutionary_shares().x})
+	for cs in countries:
+		if cs.influence <= 0.0 and cs.history.is_empty():
+			continue
+		cs.history.append(100.0 if cs.is_revolutionary() else cs.influence)
+		if cs.history.size() > COUNTRY_HISTORY:
+			cs.history.remove_at(0)
+
+
+## Очки партии и из чего они сложились: {"total", "share", "revolutions", "victory", "speed"}.
+func score() -> Dictionary:
+	var d := data
+	var shares := revolutionary_shares()
+	var share := d.num("score.share") * (shares.x + shares.y) / 2.0
+	var revs := d.num("score.revolution") * revolutionary_count() \
+		+ (d.num("score.core_revolution") - d.num("score.revolution")) * revolutionary_count("core")
+	var victory := 0.0
+	var speed := 0.0
+	if outcome == OUTCOME_FEDERATION or outcome == OUTCOME_WORLD_REVOLUTION:
+		victory = d.num("score." + outcome)
+		var years_left := d.num("time.max_years") - float(week) / d.num("time.weeks_per_year")
+		speed = d.num("score.per_year_left") * maxf(years_left, 0.0)
+	var total := roundf(share + revs + victory + speed)
+	return {"total": int(total), "share": int(roundf(share)), "revolutions": int(roundf(revs)),
+		"victory": int(victory), "speed": int(roundf(speed))}
 
 
 func _check_outcome() -> void:
@@ -313,6 +416,8 @@ func to_dict() -> Dictionary:
 		"rng_state": str(rng.state),
 		"week": week,
 		"start_country": start_country,
+		"line": line,
+		"line_changed": line_changed,
 		"solidarity": solidarity,
 		"reaction": reaction,
 		"reaction_reached": reached,
@@ -329,6 +434,14 @@ func to_dict() -> Dictionary:
 		"initial_core_contradiction": initial_core_contradiction,
 		"upgrades": upgrades.keys(),
 		"countries": states,
+		"bubbles": bubbles.duplicate(true),
+		"next_bubble_id": next_bubble_id,
+		"bubbles_collected": bubbles_collected,
+		"solidarity_earned": solidarity_earned,
+		"protests_supported": protests_supported,
+		"protests_suppressed": protests_suppressed,
+		"peak_reaction": peak_reaction,
+		"chronicle": chronicle.duplicate(true),
 		"news": news.duplicate(true),
 		"news_count": news_count,
 		"outcome": outcome,
@@ -346,6 +459,8 @@ static func from_dict(p_data: GameData, d: Dictionary) -> SimWorld:
 	sim.rng.state = int(str(d["rng_state"]))
 	sim.week = int(d["week"])
 	sim.start_country = d.get("start_country", "")
+	sim.line = d.get("line", "")
+	sim.line_changed = bool(d.get("line_changed", false))
 	sim.solidarity = float(d["solidarity"])
 	sim.reaction = float(d["reaction"])
 	for t in d.get("reaction_reached", []):
@@ -382,6 +497,19 @@ static func from_dict(p_data: GameData, d: Dictionary) -> SimWorld:
 		else:
 			EconomySystem.init_country(sim, cs)
 		sim.countries.append(cs)
+	for item: Dictionary in d.get("bubbles", []):
+		item["id"] = int(item["id"])
+		item["born"] = int(item["born"])
+		item["expires"] = int(item["expires"])
+		sim.bubbles.append(item)
+	sim.next_bubble_id = int(d.get("next_bubble_id", 1))
+	sim.bubbles_collected = int(d.get("bubbles_collected", 0))
+	sim.solidarity_earned = float(d.get("solidarity_earned", 0.0))
+	sim.protests_supported = int(d.get("protests_supported", 0))
+	sim.protests_suppressed = int(d.get("protests_suppressed", 0))
+	sim.peak_reaction = float(d.get("peak_reaction", sim.reaction))
+	for item: Dictionary in d.get("chronicle", []):
+		sim.chronicle.append(item)
 	for item: Dictionary in d.get("news", []):
 		sim.news.append(item)
 	sim.news_count = int(d.get("news_count", sim.news.size()))

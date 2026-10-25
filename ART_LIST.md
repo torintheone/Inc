@@ -1,6 +1,6 @@
 # ART_LIST — что сгенерировать в Grok
 
-Всего **121 картинка**. У каждой есть имя файла и готовый промпт — его нужно скопировать целиком (кнопка копирования справа от блока с текстом) и вставить в Grok.
+Всего **124 картинки**. У каждой есть имя файла и готовый промпт — его нужно скопировать целиком (кнопка копирования справа от блока с текстом) и вставить в Grok.
 
 Игра не ждёт графику: пока картинок нет, вместо них показываются заглушки. Делать их можно в любом темпе и в любом порядке, но эталон стиля (шаг 1) — первым.
 
@@ -38,12 +38,12 @@
 | --- | --- | --- |
 | Шаг 1. Эталон стиля | 1 | 16:9 |
 | Иллюстрации событий | 55 | 16:9 |
-| Карточки улучшений и действий | 45 | 1:1 |
+| Карточки улучшений и действий | 48 | 1:1 |
 | Портреты классов | 8 | 3:4 |
 | Эмблемы стратегических линий | 5 | 1:1 |
 | Фоны концовок | 5 | 16:9 |
 | Иконка и обложка | 2 | 1:1 |
-| **Всего** | **121** | |
+| **Всего** | **124** | |
 
 Общий стилевой блок, с которого начинается каждый промпт:
 
@@ -1287,4 +1287,38 @@ Original propaganda poster illustration in 1920s constructivist style, bold flat
 
 ```
 Original propaganda poster illustration in 1920s constructivist style, bold flat shapes, limited palette of vermilion red, black and cream paper with small accents of ochre and steel blue, strong diagonal composition, halftone and paper grain texture, anonymous stylized faces, no real people, no text, no letters, no numbers, no logos, plain banners and flags without symbols. A giant red specter rising from factory chimney smoke over an old-style world map, tiny crowds of workers below raising their fists, dramatic diagonal composition. Square 1:1 composition, dramatic and readable at a glance.
+```
+
+## Дополнение к версии 0.2
+
+3 карточки, 1:1. Новые улучшения и действие, которых не было в первом списке.
+
+### 122. Помощь политзаключённым (развитие)
+
+Файл: `card_prisoner_aid.png` · формат 1:1 (512×512)
+
+Что на картинке: Женщина передаёт свёрток с хлебом через решётку тюремного окна, рядом — дети.
+
+```
+Original propaganda poster illustration in 1920s constructivist style, bold flat shapes, limited palette of vermilion red, black and cream paper with small accents of ochre and steel blue, strong diagonal composition, halftone and paper grain texture, anonymous stylized faces, no real people, no text, no letters, no numbers, no logos, plain banners and flags without symbols. A woman passing a bundle of bread through the bars of a prison window, children beside her. Square 1:1 composition, one bold central subject on a simple background, readable at small size.
+```
+
+### 123. Явочные квартиры (развитие)
+
+Файл: `card_safe_houses.png` · формат 1:1 (512×512)
+
+Что на картинке: Тёмная лестница старого дома, приоткрытая дверь, полоска тёплого света и силуэт в шляпе.
+
+```
+Original propaganda poster illustration in 1920s constructivist style, bold flat shapes, limited palette of vermilion red, black and cream paper with small accents of ochre and steel blue, strong diagonal composition, halftone and paper grain texture, anonymous stylized faces, no real people, no text, no letters, no numbers, no logos, plain banners and flags without symbols. A dark staircase in an old tenement, a door ajar with a strip of warm light, a silhouette in a hat slipping inside. Square 1:1 composition, one bold central subject on a simple background, readable at small size.
+```
+
+### 124. Прислать организаторов (действие)
+
+Файл: `card_send_organizers.png` · формат 1:1 (512×512)
+
+Что на картинке: Двое рабочих с чемоданами сходят с поезда на перроне, их встречает толпа с поднятыми руками.
+
+```
+Original propaganda poster illustration in 1920s constructivist style, bold flat shapes, limited palette of vermilion red, black and cream paper with small accents of ochre and steel blue, strong diagonal composition, halftone and paper grain texture, anonymous stylized faces, no real people, no text, no letters, no numbers, no logos, plain banners and flags without symbols. Two workers with suitcases stepping off a train onto a platform, greeted by a crowd raising their hands. Square 1:1 composition, one bold central subject on a simple background, readable at small size.
 ```

@@ -1,27 +1,36 @@
 class_name CountryPanel
 extends PanelContainer
-## Панель выбранной страны: движение в ней, три условия революционной ситуации
-## и главные показатели базиса и надстройки.
+## Панель выбранной страны. Вкладка «Движение»: влияние, кадры, организованность,
+## сознание, стихийные протесты и три условия революционной ситуации с подсказкой,
+## чего не хватает. Вкладка «Страна»: жизнь рабочих, власть и состав общества.
+## Касание строки показывает внизу, что означает показатель.
 
 signal close_requested
 signal main_button_pressed
 
-const WIDTH := 400.0
+const WIDTH := 410.0
 ## Ширина текста внутри панели: нужна, чтобы переносы строк считались сразу.
-const TEXT_WIDTH := WIDTH - 40.0
+const TEXT_WIDTH := WIDTH - 44.0
+const TAB_MOVEMENT := "movement"
+const TAB_COUNTRY := "country"
+
+## Цвета групп в составе общества (проверены на различимость, в том числе при дальтонизме);
+## «остальные» — нейтральный серый.
+const CLASS_COLORS := [Color("#C62828"), Color("#D4A13A"), Color("#2F5D9A"), Color("#8A8A84")]
 
 var world: WorldData
+var tab := TAB_MOVEMENT
 
 var _title: Label
 var _subtitle: Label
 var _status: Label
-var _movement: GridContainer
-var _consciousness: Label
-var _rev_box: VBoxContainer
-var _rev_rows: Dictionary[String, Array] = {}
-var _country: GridContainer
-var _note: Label
+var _tabs: HBoxContainer
+var _tab_buttons: Dictionary[String, Button] = {}
+var _scroll: ScrollContainer
+var _content: VBoxContainer
+var _hint: Label
 var _main_button: Button
+var _last: Array = []
 
 
 func _init() -> void:
@@ -29,7 +38,7 @@ func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 5)
+	box.add_theme_constant_override("separation", 6)
 	add_child(box)
 
 	var header := HBoxContainer.new()
@@ -46,139 +55,290 @@ func _init() -> void:
 	_subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_subtitle.custom_minimum_size.x = TEXT_WIDTH - 60.0
 	titles.add_child(_subtitle)
-	var close := Button.new()
-	close.text = "×"
-	close.tooltip_text = tr("BTN_CLOSE")
-	close.custom_minimum_size = Vector2(44, 44)
-	close.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	close.add_theme_font_size_override("font_size", 24)
-	close.pressed.connect(func() -> void: close_requested.emit())
-	header.add_child(close)
+	header.add_child(Screens.close_button(func() -> void: close_requested.emit()))
 
-	_status = GameTheme.make_label("", 16, GameTheme.BODY_BOLD_FONT, MapPalette.VERMILION)
+	_status = GameTheme.make_label("", 15, GameTheme.BODY_BOLD_FONT, MapPalette.VERMILION)
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status.custom_minimum_size.x = TEXT_WIDTH
 	box.add_child(_status)
 
-	_movement = _grid()
-	box.add_child(_movement)
-	_consciousness = GameTheme.make_label("", 15)
-	box.add_child(_consciousness)
+	_tabs = HBoxContainer.new()
+	_tabs.add_theme_constant_override("separation", 6)
+	for t in [TAB_MOVEMENT, TAB_COUNTRY]:
+		var b := Button.new()
+		b.text = tr("PANEL_TAB_" + t)
+		b.toggle_mode = true
+		b.custom_minimum_size = Vector2(0, 38)
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.pressed.connect(func() -> void: _set_tab(t))
+		_tabs.add_child(b)
+		_tab_buttons[t] = b
+	box.add_child(_tabs)
 
-	_rev_box = VBoxContainer.new()
-	_rev_box.add_theme_constant_override("separation", 3)
-	_rev_box.add_child(GameTheme.make_label(tr("SEC_REV"), 16, GameTheme.BODY_BOLD_FONT))
-	for key in ["REV_TOP", "REV_BOTTOM", "REV_MASS", "REV_TOTAL"]:
-		var row := HBoxContainer.new()
-		var name := GameTheme.make_label(tr(key), 15, GameTheme.BODY_BOLD_FONT if key == "REV_TOTAL" else null)
-		name.custom_minimum_size.x = 190
-		row.add_child(name)
-		var meter := Meter.new(MapPalette.VERMILION if key == "REV_TOTAL" else Color(MapPalette.INK, 0.55), 9.0)
-		meter.mark = 70.0
-		meter.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		meter.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		row.add_child(meter)
-		var value := GameTheme.make_label("", 15, GameTheme.BODY_BOLD_FONT)
-		value.custom_minimum_size.x = 34
-		value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		row.add_child(value)
-		_rev_box.add_child(row)
-		_rev_rows[key] = [meter, value]
-	box.add_child(_rev_box)
+	_scroll = ScrollContainer.new()
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	box.add_child(_scroll)
+	var margin := MarginContainer.new()
+	margin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	margin.add_theme_constant_override("margin_right", 12)
+	_scroll.add_child(margin)
+	_content = VBoxContainer.new()
+	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_content.add_theme_constant_override("separation", 5)
+	margin.add_child(_content)
 
-	box.add_child(HSeparator.new())
-	_country = _grid()
-	box.add_child(_country)
+	_hint = GameTheme.make_label("", 14, null, Color(MapPalette.INK, 0.75))
+	_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_hint.custom_minimum_size.x = TEXT_WIDTH
+	box.add_child(_hint)
 
-	_note = GameTheme.make_label("", GameTheme.SMALL_SIZE, null, MapPalette.CONCRETE)
-	_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_note.custom_minimum_size.x = TEXT_WIDTH
-	box.add_child(_note)
-
-	_main_button = Button.new()
-	_main_button.custom_minimum_size = Vector2(0, 48)
-	_main_button.pressed.connect(func() -> void: main_button_pressed.emit())
+	_main_button = Overlays.button("", func() -> void: main_button_pressed.emit(), true)
+	_main_button.custom_minimum_size = Vector2(0, 50)
 	box.add_child(_main_button)
 
 
-## Показать страну. cs — её состояние в партии (null — партия не начата);
-## button_text — надпись главной кнопки ("" — без кнопки).
+## Показать страну. cs — её состояние в партии; button_text — надпись главной кнопки ("" — без кнопки).
 func show_country(c: Country, cs: CountryState, sim: SimWorld, button_text: String) -> void:
+	var switched: bool = _last.is_empty() or _last[0] != c
+	_last = [c, cs, sim, button_text]
 	_title.text = c.name_ru
 	_subtitle.text = "%s · %s · %s · %s" % [tr("ZONE_" + c.zone), c.subregion_ru,
 		NumberFormat.population(c.indicator("population")), NumberFormat.dollars(c.indicator("gdp_per_capita"))]
 	_main_button.text = button_text
 	_main_button.visible = button_text != ""
-	_clear(_movement)
-	_clear(_country)
+	var started := sim != null and sim.start_country != ""
 	var revolutionary := cs != null and cs.is_revolutionary()
-	var active := cs != null and cs.influence > 0.0 and not revolutionary
+	if switched:
+		_hint.text = tr("PANEL_HINT")
+		if not started:
+			tab = TAB_COUNTRY
 	if revolutionary:
 		_status.text = tr("STATUS_REVOLUTIONARY") % UiText.date(sim, cs.revolution_week).get_slice(" ", 1)
-	elif active and cs.window_left >= 0:
+	elif started and cs.influence > 0.0 and cs.window_left >= 0:
 		_status.text = tr("WINDOW_OPEN") % cs.window_left
-	elif cs != null and not active and sim.start_country != "":
-		_status.text = tr("NO_MOVEMENT")
+	elif started and UnrestSystem.has_bubble(sim, c.id, UnrestSystem.PROTEST):
+		_status.text = tr("STATUS_PROTEST")
 	else:
 		_status.text = ""
 	_status.visible = _status.text != ""
-	_movement.visible = active
-	_consciousness.visible = active
-	_rev_box.visible = active
-	if active:
-		_row(_movement, tr("M_INFLUENCE"), UiText.percent(cs.influence))
-		_row(_movement, tr("M_ORGANIZATION"), str(int(cs.organization)))
-		_row(_movement, tr("M_TRUST"), str(int(cs.trust)))
-		_row(_movement, tr("M_VISIBILITY"), str(int(cs.visibility)))
-		_consciousness.text = tr("M_CONSCIOUSNESS_LINE") % [int(cs.consciousness), tr("STAGE_%d" % cs.consciousness_stage())]
-		_set_rev("REV_TOP", cs.top_cant)
-		_set_rev("REV_BOTTOM", cs.bottom_wont)
-		_set_rev("REV_MASS", cs.mass_activity)
-		_set_rev("REV_TOTAL", cs.rev_situation)
-	if cs != null and not revolutionary:
-		_row(_country, tr("C_NEED"), str(int(cs.need)))
-		_row(_country, tr("C_UNEMPLOYMENT"), UiText.percent(cs.unemployment), c.is_estimated("unemployment"))
-		_row(_country, tr("C_WAGE"), str(int(cs.real_wage)))
-		_row(_country, tr("C_EXPLOITATION"), str(int(cs.exploitation)))
-		_row(_country, tr("C_HEGEMONY"), str(int(cs.hegemony)))
-		_row(_country, tr("C_LEGITIMACY"), str(int(cs.legitimacy)))
-		_row(_country, tr("C_REPRESSION"), str(int(cs.repression)))
+	_tabs.visible = not revolutionary
+	for t: String in _tab_buttons:
+		_tab_buttons[t].set_pressed_no_signal(t == tab)
+	var scroll := _scroll.scroll_vertical
+	_clear(_content)
+	if revolutionary:
+		_paragraph(tr("PANEL_REVOLUTIONARY"))
+	elif tab == TAB_MOVEMENT:
+		_build_movement(cs, sim, started)
 	else:
-		_row(_country, tr("IND_EMP_INDUSTRY"), NumberFormat.percent(c.indicator("emp_industry")), c.is_estimated("emp_industry"))
-		_row(_country, tr("IND_UNEMPLOYMENT"), NumberFormat.percent(c.indicator("unemployment")), c.is_estimated("unemployment"))
-		_row(_country, tr("IND_GINI"), NumberFormat.decimal(c.indicator("gini"), 1), c.is_estimated("gini"))
-	# Источник данных — при выборе страны; в партии место нужнее показателям.
-	_note.visible = sim == null or sim.start_country == ""
-	_note.text = tr("SOURCE_LINE") % (world.sources.get("indicators_fetched", "") if world != null else "")
+		_build_country(c, cs, sim, started)
+	_scroll.set_deferred("scroll_vertical", 0 if switched else scroll)
 	show()
 
 
-func _set_rev(key: String, value: float) -> void:
-	var row: Array = _rev_rows[key]
-	(row[0] as Meter).value = value
-	(row[1] as Label).text = str(int(value))
+func _set_tab(t: String) -> void:
+	tab = t
+	_hint.text = tr("PANEL_HINT")
+	if not _last.is_empty():
+		show_country(_last[0], _last[1], _last[2], _last[3])
 
 
-## Сетка из двух пар «название — значение» в строке.
-func _grid() -> GridContainer:
-	var g := GridContainer.new()
-	g.columns = 4
-	g.add_theme_constant_override("h_separation", 8)
-	g.add_theme_constant_override("v_separation", 0)
-	return g
+func _build_movement(cs: CountryState, sim: SimWorld, started: bool) -> void:
+	if not started or cs.influence <= 0.0:
+		_paragraph(tr("NO_MOVEMENT") if started else tr("PANEL_BASE_HINT"))
+		_row(tr("M_POTENTIAL"), cs.potential, UiText.percent(cs.potential), "HINT_POTENTIAL", MapPalette.VERMILION)
+		_row(tr("M_UNREST"), cs.unrest, str(int(cs.unrest)), "HINT_UNREST", MapPalette.OCHRE)
+		_row(tr("C_REPRESSION"), cs.repression, str(int(cs.repression)), "HINT_REPRESSION")
+		return
+	var tiles := HBoxContainer.new()
+	tiles.add_theme_constant_override("separation", 8)
+	var trend := ""
+	if cs.history.size() >= 2:
+		var back := cs.history[maxi(cs.history.size() - 14, 0)]
+		trend = tr("TREND_YEAR") % UiText.signed_points(cs.influence - back)
+	tiles.add_child(_tile(tr("M_INFLUENCE"), UiText.percent(cs.influence), trend, "", cs.history))
+	tiles.add_child(_tile(tr("M_CADRES"), "%d / %d" % [int(cs.cadres), int(cs.cadre_cap(sim))], tr("CADRES_TILE"), "cadres", PackedFloat32Array()))
+	_content.add_child(tiles)
+	_row(tr("M_POTENTIAL"), cs.influence, tr("OF_POTENTIAL") % [int(cs.influence), int(cs.potential)], "HINT_POTENTIAL",
+		MapPalette.VERMILION, -1.0, cs.potential)
+	# Главное — что мешает революции: сразу под плитками.
+	_section(tr("SEC_REV"))
+	for row in Panels.rev_rows(cs):
+		_hook(row)
+		_content.add_child(row)
+	var verdict := GameTheme.make_label(Panels.rev_verdict(cs), 14, GameTheme.BODY_BOLD_FONT,
+		MapPalette.VERMILION if cs.rev_situation >= Panels.REV_THRESHOLD else MapPalette.INK)
+	verdict.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	verdict.custom_minimum_size.x = TEXT_WIDTH - 12.0
+	_content.add_child(verdict)
+	_section(tr("SEC_MOVEMENT"))
+	_row(tr("M_ORGANIZATION"), cs.organization, str(int(cs.organization)), "HINT_ORGANIZATION")
+	_row(tr("M_CONSCIOUSNESS"), cs.consciousness, str(int(cs.consciousness)), "HINT_CONSCIOUSNESS")
+	_caption(tr("STAGE_LINE") % tr("STAGE_%d" % cs.consciousness_stage()))
+	_row(tr("M_UNREST"), cs.unrest, str(int(cs.unrest)), "HINT_UNREST", MapPalette.OCHRE)
+	_row(tr("M_VISIBILITY"), cs.visibility, str(int(cs.visibility)), "HINT_VISIBILITY", MapPalette.STEEL)
+	_row(tr("M_REFORMISM"), cs.reformism, str(int(cs.reformism)), "HINT_REFORMISM", MapPalette.STEEL)
+	_row(tr("M_TRUST"), cs.trust, str(int(cs.trust)), "HINT_TRUST")
 
 
-func _row(grid: GridContainer, name: String, value: String, estimated: bool = false) -> void:
-	var n := GameTheme.make_label(name, 15, null, Color(MapPalette.INK, 0.75))
-	n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	grid.add_child(n)
-	var v := GameTheme.make_label(("≈ " if estimated else "") + value, 15, GameTheme.BODY_BOLD_FONT)
-	v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	v.custom_minimum_size.x = 44
-	grid.add_child(v)
+func _build_country(c: Country, cs: CountryState, sim: SimWorld, started: bool) -> void:
+	_section(tr("SEC_LIFE"))
+	_row(tr("C_NEED"), cs.need, str(int(cs.need)), "HINT_NEED", MapPalette.VERMILION)
+	_row(tr("C_UNEMPLOYMENT"), cs.unemployment * 100.0 / 30.0, UiText.percent(cs.unemployment), "HINT_UNEMPLOYMENT")
+	_row(tr("C_WAGE"), cs.real_wage, str(int(cs.real_wage)), "HINT_WAGE")
+	_row(tr("C_EXPLOITATION"), cs.exploitation, str(int(cs.exploitation)), "HINT_EXPLOITATION")
+	_section(tr("SEC_POWER"))
+	_row(tr("C_HEGEMONY"), cs.hegemony, str(int(cs.hegemony)), "HINT_HEGEMONY", MapPalette.STEEL)
+	_row(tr("C_LEGITIMACY"), cs.legitimacy, str(int(cs.legitimacy)), "HINT_LEGITIMACY", MapPalette.STEEL)
+	_row(tr("C_REPRESSION"), cs.repression, str(int(cs.repression)), "HINT_REPRESSION", MapPalette.STEEL)
+	_row(tr("C_ARMY"), cs.army_loyalty, str(int(cs.army_loyalty)), "HINT_ARMY", MapPalette.STEEL)
+	_row(tr("C_ELITE_SPLIT"), cs.elite_split, str(int(cs.elite_split)), "HINT_ELITE_SPLIT")
+	_row(tr("C_LEGALITY"), cs.legality, str(int(cs.legality)), "HINT_LEGALITY")
+	_section(tr("SEC_CLASSES"))
+	var groups := class_groups(c)
+	var bar := _ClassBar.new()
+	bar.shares = groups
+	_content.add_child(bar)
+	var legend := GridContainer.new()
+	legend.columns = 2
+	legend.add_theme_constant_override("h_separation", 12)
+	legend.add_theme_constant_override("v_separation", 2)
+	for i in groups.size():
+		var item := HBoxContainer.new()
+		item.add_theme_constant_override("separation", 6)
+		var sw := ColorRect.new()
+		sw.color = CLASS_COLORS[i]
+		sw.custom_minimum_size = Vector2(12, 12)
+		sw.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		item.add_child(sw)
+		item.add_child(GameTheme.make_label("%s %s" % [tr("CLASS_GROUP_%d" % i), UiText.percent(groups[i] * 100.0)], 14))
+		legend.add_child(item)
+	_content.add_child(legend)
+	if c.is_estimated("unemployment") or c.is_estimated("gini"):
+		_caption(tr("NOTE_ESTIMATED"))
+	if not started:
+		_caption(tr("SOURCE_LINE") % (world.sources.get("indicators_fetched", "") if world != null else ""))
+
+
+## Доли четырёх групп: пролетариат, крестьяне, служащие, остальные.
+static func class_groups(c: Country) -> PackedFloat32Array:
+	var k := c.classes
+	var proletariat := float(k.get("industrial_proletariat", 0.0)) + float(k.get("rural_proletariat", 0.0))
+	var peasants := float(k.get("peasantry", 0.0))
+	var employees := float(k.get("employees", 0.0))
+	var others := maxf(1.0 - proletariat - peasants - employees, 0.0)
+	return PackedFloat32Array([proletariat, peasants, employees, others])
+
+
+func _tile(title: String, value: String, caption: String, icon: String, history: PackedFloat32Array) -> Control:
+	var tile := PanelContainer.new()
+	tile.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = MapPalette.INK
+	sb.set_content_margin_all(8)
+	sb.content_margin_left = 10
+	tile.add_theme_stylebox_override("panel", sb)
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", -2)
+	tile.add_child(box)
+	var head := HBoxContainer.new()
+	head.add_theme_constant_override("separation", 4)
+	if icon != "":
+		head.add_child(Icons.IconView.new(icon, MapPalette.OCHRE, 16.0, MapPalette.INK))
+	head.add_child(GameTheme.make_label(title.to_upper(), 12, GameTheme.BODY_BOLD_FONT, Color(MapPalette.PAPER, 0.75)))
+	box.add_child(head)
+	var row := HBoxContainer.new()
+	row.add_child(GameTheme.make_label(value, 26, GameTheme.display_font(600), MapPalette.PAPER))
+	if history.size() >= 3:
+		var spark := _Sparkline.new()
+		spark.values = history
+		spark.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(spark)
+	box.add_child(row)
+	if caption != "":
+		box.add_child(GameTheme.make_label(caption, 12, null, Color(MapPalette.PAPER, 0.75)))
+	return tile
+
+
+func _row(name: String, value: float, text: String, hint_key: String, color: Color = Color(MapPalette.INK, 0.7),
+		mark: float = -1.0, ghost: float = -1.0) -> void:
+	var row := Panels.meter_row(name, value, text, color, mark, ghost, hint_key)
+	_hook(row)
+	_content.add_child(row)
+
+
+## Касание строки показывает подсказку о показателе.
+func _hook(row: Control) -> void:
+	if not row.has_meta("hint"):
+		return
+	var key: String = row.get_meta("hint")
+	row.gui_input.connect(func(e: InputEvent) -> void:
+		if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
+			_hint.text = tr(key))
+
+
+func _section(title: String) -> void:
+	var l := GameTheme.make_label(title.to_upper(), 14, GameTheme.BODY_BOLD_FONT, MapPalette.VERMILION)
+	_content.add_child(l)
+
+
+func _caption(text: String) -> void:
+	var l := GameTheme.make_label(text, 13, null, Color(MapPalette.INK, 0.6))
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.custom_minimum_size.x = TEXT_WIDTH - 12.0
+	_content.add_child(l)
+
+
+func _paragraph(text: String) -> void:
+	var l := GameTheme.make_label(text, 15)
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.custom_minimum_size.x = TEXT_WIDTH - 12.0
+	_content.add_child(l)
 
 
 static func _clear(node: Node) -> void:
 	for child in node.get_children():
 		node.remove_child(child)
 		child.queue_free()
+
+
+## Состав общества — одна полоса из четырёх частей с промежутками.
+class _ClassBar:
+	extends Control
+	var shares := PackedFloat32Array()
+
+	func _init() -> void:
+		custom_minimum_size = Vector2(0, 16)
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _draw() -> void:
+		var x := 0.0
+		for i in shares.size():
+			var w := size.x * shares[i]
+			if w >= 3.0:
+				var sb := StyleBoxFlat.new()
+				sb.bg_color = CountryPanel.CLASS_COLORS[i]
+				sb.set_corner_radius_all(3)
+				draw_style_box(sb, Rect2(x, 0, w - 2.0, size.y))
+			x += w
+
+
+## Маленький график влияния за два года в плитке.
+class _Sparkline:
+	extends Control
+	var values := PackedFloat32Array()
+
+	func _init() -> void:
+		custom_minimum_size = Vector2(80, 30)
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _draw() -> void:
+		var top := 1.0
+		for v in values:
+			top = maxf(top, v)
+		var pts := PackedVector2Array()
+		for i in values.size():
+			pts.append(Vector2(8.0 + (size.x - 16.0) * i / maxf(values.size() - 1, 1), size.y - 4.0 - (size.y - 8.0) * values[i] / top))
+		draw_polyline(pts, MapPalette.VERMILION, 2.0, true)
+		draw_circle(pts[pts.size() - 1], 3.5, MapPalette.PAPER)

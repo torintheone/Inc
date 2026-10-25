@@ -36,9 +36,13 @@ static func build() -> Theme:
 	normal.content_margin_right = 12
 	var pressed := normal.duplicate() as StyleBoxFlat
 	pressed.bg_color = MapPalette.INK
+	var disabled := normal.duplicate() as StyleBoxFlat
+	disabled.border_color = Color(MapPalette.INK, 0.25)
 	theme.set_stylebox("normal", "Button", normal)
 	theme.set_stylebox("hover", "Button", normal)
 	theme.set_stylebox("pressed", "Button", pressed)
+	theme.set_stylebox("disabled", "Button", disabled)
+	theme.set_color("font_disabled_color", "Button", Color(MapPalette.INK, 0.35))
 	theme.set_stylebox("focus", "Button", StyleBoxEmpty.new())
 	theme.set_color("font_color", "Button", MapPalette.INK)
 	theme.set_color("font_hover_color", "Button", MapPalette.VERMILION)

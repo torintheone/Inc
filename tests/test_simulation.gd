@@ -1,6 +1,7 @@
 extends GutTest
 ## Модель мира: детерминизм, цикл, ограниченность показателей, революционная
-## ситуация, сохранение и загрузка, улучшения и действия.
+## ситуация, сохранение и загрузка, улучшения, действия, кадры, стихийные протесты,
+## пузырьки и стратегические линии.
 
 var data: GameData
 
@@ -46,7 +47,10 @@ func _plain(sim: SimWorld) -> Variant:
 
 func test_data_loads() -> void:
 	assert_not_null(data)
-	assert_eq(data.upgrade_order.size() + data.country_action_order.size(), 10, "10 базовых улучшений и действий")
+	assert_gte(data.upgrade_order.size(), 25, "не меньше 25 улучшений")
+	assert_gte(data.country_action_order.size(), 14, "все действия в стране")
+	assert_eq(data.line_order.size(), 5, "пять стратегических линий")
+	assert_eq(data.branches.size(), 5, "пять ветвей развития")
 	assert_gt(data.link_a.size(), 500, "связи между странами загружены")
 	assert_almost_eq(Array(data.gdp_share).reduce(func(a: float, b: float) -> float: return a + b, 0.0), 1.0, 0.0001)
 
@@ -65,37 +69,38 @@ func test_same_seed_gives_same_game() -> void:
 	assert_ne(_snapshot(a), _snapshot(c), "другой seed — другая партия")
 
 
-func test_cycle_passes_all_phases_with_crises_every_8_to_11_years() -> void:
-	var sim := SimWorld.new_game(data, 7)
-	var seen := {}
-	for i in 50 * 52:
-		sim.step()
-		seen[sim.phase_id()] = true
-	for id in ["recovery", "boom", "overheat", "crisis", "depression"]:
-		assert_true(seen.has(id), "фаза %s встречается" % id)
-	assert_between(sim.crisis_weeks.size(), 4, 7, "за 50 лет 4–7 кризисов")
-	for i in range(1, sim.crisis_weeks.size()):
-		var years := float(sim.crisis_weeks[i] - sim.crisis_weeks[i - 1]) / 52.0
-		assert_between(years, 8.0, 11.0, "между кризисами 8–11 лет")
+func test_cycle_passes_all_phases_with_crises_every_5_to_7_years() -> void:
+	for seed_value in [7, 8, 9]:
+		var sim := SimWorld.new_game(data, seed_value)
+		var seen := {}
+		for i in 20 * 52:
+			sim.step()
+			seen[sim.phase_id()] = true
+		for id in ["recovery", "boom", "overheat", "crisis", "depression"]:
+			assert_true(seen.has(id), "фаза %s встречается" % id)
+		assert_between(sim.crisis_weeks.size(), 2, 4, "за 20 лет 2–4 кризиса")
+		for i in range(1, sim.crisis_weeks.size()):
+			var years := float(sim.crisis_weeks[i] - sim.crisis_weeks[i - 1]) / 52.0
+			assert_between(years, 5.0, 7.5, "между кризисами 5–7 лет")
 
 
 func test_crises_deepen_without_countertendencies() -> void:
 	var sim := SimWorld.new_game(data, 11)
 	var depths := []
 	var cycle := sim.cycle_number
-	for i in 40 * 52:
+	for i in 20 * 52:
 		sim.step()
 		if sim.cycle_number != cycle:
 			cycle = sim.cycle_number
 			depths.append(sim.depth)
-	assert_gt(depths.size(), 2)
+	assert_gt(depths.size(), 1)
 	for i in range(1, depths.size()):
 		assert_gt(depths[i], depths[i - 1], "каждый следующий кризис глубже")
 
 
-func test_indicators_stay_bounded_for_50_years() -> void:
-	var sim := SimWorld.new_game(data, 3, "BRA")
-	for i in 50 * 52:
+func test_indicators_stay_bounded_for_whole_game() -> void:
+	var sim := SimWorld.new_game(data, 3, "BRA", "councils")
+	for i in 20 * 52:
 		if sim.is_over():
 			break
 		BotPlayer.play_week(sim)
@@ -126,7 +131,7 @@ func test_revolutionary_situation_is_minimum_of_three() -> void:
 
 
 func test_save_then_load_gives_same_state() -> void:
-	var sim := SimWorld.new_game(data, 99, "IND")
+	var sim := SimWorld.new_game(data, 99, "IND", "syndicalism")
 	for i in 400:
 		BotPlayer.play_week(sim)
 		sim.step()
@@ -158,8 +163,10 @@ func test_upgrade_needs_solidarity_and_prerequisites() -> void:
 	sim.solidarity = 100.0
 	assert_has(PlayerActions.upgrade_blockers(sim, "workers_party"), "requires:trade_unions")
 	assert_false(PlayerActions.buy_upgrade(sim, "workers_party"))
+	assert_has(PlayerActions.upgrade_blockers(sim, "trade_unions"), "requires:study_circles")
+	assert_true(PlayerActions.buy_upgrade(sim, "study_circles"))
 	assert_true(PlayerActions.buy_upgrade(sim, "trade_unions"))
-	assert_almost_eq(sim.solidarity, 90.0, 0.001)
+	assert_almost_eq(sim.solidarity, 100.0 - 4.0 - 8.0, 0.001)
 	assert_true(sim.has_unlock("strikes"), "профсоюзы открывают стачки")
 	assert_has(PlayerActions.upgrade_blockers(sim, "trade_unions"), "owned")
 	var reaction_before := sim.reaction
@@ -169,18 +176,25 @@ func test_upgrade_needs_solidarity_and_prerequisites() -> void:
 	assert_has(PlayerActions.upgrade_blockers(sim, "leaflets"), "cost")
 
 
-func test_strikes_require_unions_and_have_cooldown() -> void:
-	var sim := SimWorld.new_game(data, 1, "FRA")
+func test_strikes_require_unions_cadres_and_have_cooldown() -> void:
+	var sim := SimWorld.new_game(data, 1, "FRA", "vanguard")
 	sim.solidarity = 100.0
 	var fra := sim.state_of("FRA")
 	fra.influence = 10.0
+	fra.organization = 40.0
+	fra.cadres = 0.0
 	assert_has(PlayerActions.action_blockers(sim, "factory_strike", fra), "unlock:strikes")
+	PlayerActions.buy_upgrade(sim, "study_circles")
 	PlayerActions.buy_upgrade(sim, "trade_unions")
+	assert_has(PlayerActions.action_blockers(sim, "factory_strike", fra), "cadres:2", "стачка стоит кадров")
+	fra.cadres = 5.0
 	assert_eq(PlayerActions.action_blockers(sim, "factory_strike", fra).size(), 0)
 	var chance := PlayerActions.action_chance(sim, "factory_strike", fra)
 	assert_between(chance, 0.05, 0.92)
 	var result := PlayerActions.perform(sim, "factory_strike", fra)
 	assert_true(result["ok"])
+	assert_almost_eq(sim.solidarity, 88.0, 0.001, "действие не тратит солидарность")
+	assert_between(fra.cadres, 2.0, 4.0, "кадры потрачены: 5 − 2, ±1 за исход")
 	assert_true(PlayerActions.action_blockers(sim, "factory_strike", fra)[0].begins_with("cooldown:"))
 
 
@@ -190,13 +204,14 @@ func test_uprising_needs_situation_and_organization() -> void:
 	var fra := sim.state_of("FRA")
 	fra.influence = 40.0
 	fra.organization = 30.0
+	fra.cadres = 20.0
 	fra.rev_situation = 75.0
 	assert_has(PlayerActions.action_blockers(sim, "uprising", fra), "min:organization:50")
 	fra.organization = 60.0
 	assert_eq(PlayerActions.action_blockers(sim, "uprising", fra).size(), 0)
 	sim.make_revolutionary(fra)
 	assert_true(fra.is_revolutionary())
-	assert_almost_eq(sim.reaction, 10.0, 0.001, "победа революции пугает Реакцию")
+	assert_almost_eq(sim.reaction, data.num("revolution.reaction"), 0.001, "победа революции пугает Реакцию")
 	assert_has(PlayerActions.action_blockers(sim, "uprising", fra), "revolutionary")
 
 
@@ -212,13 +227,13 @@ func test_periphery_revolution_cuts_core_superprofit() -> void:
 
 
 func test_movement_spreads_to_neighbors() -> void:
-	var sim := SimWorld.new_game(data, 1, "DEU")
-	sim.run_weeks(10 * 52)
+	var sim := SimWorld.new_game(data, 1, "DEU", "vanguard")
+	sim.run_weeks(8 * 52)
 	var reached := 0
 	for nid in sim.state_of("DEU").country.neighbors:
 		if sim.state_of(nid).influence > 0.0:
 			reached += 1
-	assert_gt(reached, 3, "за 10 лет движение приходит к соседям")
+	assert_gt(reached, 3, "за 8 лет движение приходит к соседям")
 
 
 func test_step_is_fast_enough() -> void:
@@ -232,10 +247,150 @@ func test_step_is_fast_enough() -> void:
 
 
 func test_bot_finishes_a_game() -> void:
-	var sim := SimWorld.new_game(data, 2024, "EGY")
+	var sim := SimWorld.new_game(data, 2024, "EGY", "peoples_war")
 	while not sim.is_over():
 		BotPlayer.play_week(sim)
 		sim.step()
 	assert_has([SimWorld.OUTCOME_FEDERATION, SimWorld.OUTCOME_WORLD_REVOLUTION, SimWorld.OUTCOME_TWO_SYSTEMS,
 		SimWorld.OUTCOME_DEFEAT], sim.outcome)
-	assert_lte(sim.week, 50 * 52)
+	assert_lte(sim.week, 20 * 52, "партия длится не дольше 20 лет")
+	assert_gt(sim.revolutionary_count(), 0, "бот совершает хотя бы одну революцию")
+	assert_false(sim.chronicle.is_empty(), "у партии есть хроника")
+	assert_gt(int(sim.score()["total"]), 0)
+
+
+func test_protests_flare_by_themselves_and_are_suppressed_without_support() -> void:
+	var sim := SimWorld.new_game(data, 4)
+	sim.run_weeks(5 * 52)
+	assert_gt(sim.protests_suppressed, 5, "без партии стихийные протесты вспыхивают и подавляются")
+	assert_eq(sim.protests_supported, 0)
+	var flared := 0
+	for item in sim.news:
+		if str(item["key"]).begins_with("NEWS_UNREST_"):
+			flared += 1
+	assert_gt(flared, 0, "о протестах пишут в новостях")
+
+
+func test_supporting_a_protest_gives_a_foothold() -> void:
+	var sim := SimWorld.new_game(data, 4, "FRA", "councils")
+	var bra := sim.state_of("BRA")
+	assert_eq(bra.influence, 0.0)
+	bra.unrest = 30.0
+	sim.add_bubble(UnrestSystem.PROTEST, "BRA", 8, 1.0)
+	var id := int(sim.bubbles[-1]["id"])
+	var before := sim.solidarity
+	var result := sim.collect_bubble(id)
+	assert_true(result["ok"])
+	assert_gt(sim.solidarity, before, "пузырёк даёт солидарность")
+	assert_gt(bra.influence, 0.0, "поддержка закрепляет движение в стране")
+	assert_gt(bra.cadres, 0.0, "и даёт кадры")
+	assert_false(sim.collect_bubble(id)["ok"], "пузырёк собирается один раз")
+
+
+func test_unsupported_protest_bubble_expires_into_repression() -> void:
+	var sim := SimWorld.new_game(data, 4, "FRA")
+	var nga := sim.state_of("NGA")
+	nga.unrest = 30.0
+	var repression := nga.repression
+	sim.add_bubble(UnrestSystem.PROTEST, "NGA", 1, 1.0)
+	sim.week += 1
+	UnrestSystem.expire(sim)
+	assert_false(UnrestSystem.has_bubble(sim, "NGA", UnrestSystem.PROTEST))
+	assert_gt(nga.repression, repression, "власть подавила протест")
+	assert_lt(nga.unrest, 30.0)
+
+
+func test_solidarity_bubbles_appear_where_the_movement_is() -> void:
+	var sim := SimWorld.new_game(data, 6, "IND", "mass_party")
+	sim.state_of("IND").influence = 20.0
+	var found := false
+	for i in 200:
+		sim.step()
+		for b in sim.bubbles:
+			if b["kind"] == UnrestSystem.SOLIDARITY:
+				found = true
+				assert_gt(sim.state_of(b["country"]).influence, 0.0, "солидарность — там, где есть движение")
+	assert_true(found, "пузырьки солидарности появляются")
+
+
+func test_cadres_grow_from_organization_up_to_cap() -> void:
+	var sim := SimWorld.new_game(data, 2, "DEU", "vanguard")
+	var deu := sim.state_of("DEU")
+	deu.organization = 40.0
+	deu.influence = 10.0
+	deu.cadres = 0.0
+	sim.run_weeks(52)
+	assert_gt(deu.cadres, 0.5, "кадры растут из организованности")
+	assert_lte(deu.cadres, deu.cadre_cap(sim) + 0.001)
+
+
+func test_send_organizers_turns_solidarity_into_cadres_anywhere() -> void:
+	var sim := SimWorld.new_game(data, 2, "DEU")
+	var chl := sim.state_of("CHL")
+	assert_eq(chl.influence, 0.0)
+	sim.solidarity = 3.0
+	assert_has(PlayerActions.action_blockers(sim, "send_organizers", chl), "cost")
+	sim.solidarity = 10.0
+	var result := PlayerActions.perform(sim, "send_organizers", chl)
+	assert_true(result["ok"])
+	assert_almost_eq(sim.solidarity, 4.0, 0.001)
+	assert_gte(chl.cadres, 3.0)
+	assert_gt(chl.influence, 0.0, "организаторы закладывают движение")
+
+
+func test_lines_change_rules() -> void:
+	var syn := SimWorld.new_game(data, 3, "FRA", "syndicalism")
+	var fra := syn.state_of("FRA")
+	fra.influence = 10.0
+	assert_has(PlayerActions.action_blockers(syn, "elections", fra), "line", "у синдикалистов нет выборов")
+	assert_lt(int(PlayerActions.action_cost(syn, "general_strike")["cadres"]), int(data.country_actions["general_strike"]["cadres"]),
+		"всеобщая стачка дешевле")
+	var councils := SimWorld.new_game(data, 3, "FRA", "councils")
+	assert_eq(PlayerActions.upgrade_requires(councils, "workers_councils"), PackedStringArray(["trade_unions"]),
+		"у советов рабочие советы — без партии")
+	var vanguard := SimWorld.new_game(data, 3, "FRA", "vanguard")
+	assert_lt(vanguard.mod("visibility"), 0.0, "авангард незаметнее")
+
+
+func test_lines_play_differently() -> void:
+	# Народная война сильна на периферии, массовая партия — в ядре.
+	var shares := {}
+	for line in ["peoples_war", "mass_party"]:
+		var sim := SimWorld.new_game(data, 77, "IND", line)
+		for i in 6 * 52:
+			BotPlayer.play_week(sim)
+			sim.step()
+		var periphery := 0.0
+		var core := 0.0
+		for cs in sim.countries:
+			var v := 100.0 if cs.is_revolutionary() else cs.influence
+			if cs.is_periphery:
+				periphery += v
+			elif cs.is_core:
+				core += v
+		shares[line] = periphery / maxf(periphery + core, 1.0)
+	assert_gt(shares["peoples_war"], shares["mass_party"], "у народной войны доля периферии выше")
+
+
+func test_line_change_once_halves_organization() -> void:
+	var sim := SimWorld.new_game(data, 5, "FRA", "vanguard")
+	var fra := sim.state_of("FRA")
+	fra.organization = 40.0
+	assert_true(sim.change_line("mass_party"))
+	assert_eq(sim.line, "mass_party")
+	assert_almost_eq(fra.organization, 20.0, 0.001)
+	assert_false(sim.change_line("councils"), "второй раз сменить нельзя")
+	assert_eq(sim.line, "mass_party")
+
+
+func test_save_keeps_bubbles_line_and_chronicle() -> void:
+	var sim := SimWorld.new_game(data, 12, "BRA", "peoples_war")
+	for i in 150:
+		sim.step()
+	sim.add_bubble(UnrestSystem.SOLIDARITY, "BRA", 5, 3.0)
+	var loaded := SimWorld.from_dict(data, JSON.parse_string(JSON.stringify(sim.to_dict(), "", true, true)))
+	assert_eq(loaded.line, "peoples_war")
+	assert_eq(loaded.bubbles.size(), sim.bubbles.size())
+	assert_eq(loaded.chronicle.size(), sim.chronicle.size())
+	assert_eq(loaded.next_bubble_id, sim.next_bubble_id)
+	assert_eq(_same_state(_plain(sim), _plain(loaded)), "")

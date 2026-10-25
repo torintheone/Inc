@@ -22,6 +22,7 @@ static func init_country(sim: SimWorld, cs: CountryState) -> void:
 	cs.legality = cs.zone_legality
 	cs.army_loyalty = cs.zone_army_loyalty
 	cs.elite_split = 20.0
+	cs.reformism = cs.zone_reformism
 	cs.base_unemployment = maxf(cs.unemployment, sim.data.num("economy.min_base_unemployment", 2.0))
 	cs.base_real_wage = cs.real_wage
 	cs.base_exploitation = cs.exploitation
@@ -49,7 +50,7 @@ static func advance_cycle(sim: SimWorld) -> void:
 		sim.add_news("NEWS_PHASE_" + phase_id, [])
 
 
-## Новый цикл: длина 8–10 лет, глубина следующего кризиса растёт.
+## Новый цикл: длина 5–7 лет, глубина следующего кризиса растёт.
 static func start_cycle(sim: SimWorld) -> void:
 	var d := sim.data
 	sim.cycle_number += 1
@@ -122,7 +123,8 @@ static func _try_countertendency(sim: SimWorld) -> void:
 ## эксплуатации, ядро делится сверхприбылью с верхушкой своих рабочих.
 static func update_imperialism(sim: SimWorld) -> void:
 	var d := sim.data
-	var drain_coef := d.num("imperialism.drain", 1.0)
+	# Поддержка освободительных движений урезает поток стоимости с периферии.
+	var drain_coef := d.num("imperialism.drain", 1.0) * maxf(1.0 - sim.mod("drain_cut"), 0.0)
 	var drain := 0.0
 	var core_share := 0.0
 	for cs in sim.countries:

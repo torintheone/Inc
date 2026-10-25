@@ -26,7 +26,9 @@ static func update(sim: SimWorld) -> void:
 	# Чем меньше в ядре осталось капиталистических стран, тем меньше у Реакции денег.
 	var funding := core_capitalist / maxf(sim.initial_core_share, 1e-9)
 	var floor_value := d.num("reaction.floor_per_revolution") * revolutionary
-	var delta := d.num("reaction.visibility") * visibility * funding - d.num("reaction.decay") * maxf(sim.reaction - floor_value, 0.0)
+	# Поддержка освободительных движений пугает капитал ядра: Реакция растёт быстрее.
+	var growth := d.num("reaction.visibility") * (1.0 + sim.mod("core_visibility"))
+	var delta := growth * visibility * funding - d.num("reaction.decay") * maxf(sim.reaction - floor_value, 0.0)
 	set_reaction(sim, sim.reaction + delta)
 	_ongoing_measures(sim)
 
@@ -64,9 +66,11 @@ static func _on_threshold(sim: SimWorld, threshold: int) -> void:
 static func _white_terror(sim: SimWorld) -> void:
 	var d := sim.data
 	var mult := d.num("reaction.white_terror_organization_mult")
+	var cadre_mult := d.num("cadres.white_terror_mult")
 	for cs in sim.countries:
 		if not cs.is_revolutionary():
 			cs.set_field("organization", cs.organization * mult)
+			cs.cadres *= cadre_mult
 	sim.white_terror_count += 1
 	sim.last_white_terror_week = sim.week
 	sim.reaction = d.num("reaction.white_terror_rollback")
@@ -79,12 +83,16 @@ static func _ongoing_measures(sim: SimWorld) -> void:
 	if sim.reaction < 20.0:
 		return
 	# Координация полиций: аресты лидеров-эмигрантов там, где движение на виду.
-	var chance := d.num("reaction.police_coordination_chance")
+	# Юридическая служба делает аресты реже, контрразведка — мягче.
+	var chance := d.num("reaction.police_coordination_chance") * maxf(1.0 + sim.mod("arrests"), 0.0)
 	var min_vis := d.num("reaction.police_coordination_min_visibility")
-	var org_hit := d.num("reaction.police_coordination_organization")
+	var damage := maxf(1.0 + sim.mod("arrest_damage"), 0.0)
+	var org_hit := d.num("reaction.police_coordination_organization") * damage
+	var cadre_keep := 1.0 - (1.0 - d.num("reaction.police_coordination_cadres_mult")) * damage
 	for cs in sim.countries:
 		if cs.is_revolutionary() or cs.visibility < min_vis:
 			continue
 		if sim.rng.randf() < chance:
 			cs.set_field("organization", cs.organization + org_hit)
+			cs.cadres *= clampf(cadre_keep, 0.0, 1.0)
 			sim.add_news("NEWS_POLICE_ARRESTS", [cs.country.name_ru], cs.country.id)

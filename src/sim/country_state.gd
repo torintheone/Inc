@@ -13,7 +13,7 @@ const FIELDS: PackedStringArray = [
 	# надстройка
 	"hegemony", "legitimacy", "repression", "army_loyalty", "elite_split", "legality",
 	# движение
-	"need", "consciousness", "organization", "influence", "trust", "visibility",
+	"need", "consciousness", "organization", "influence", "trust", "visibility", "cadres", "unrest", "reformism",
 	# революционная ситуация
 	"top_cant", "bottom_wont", "mass_activity", "rev_situation",
 	# память о недавних выступлениях и доля сверхприбыли
@@ -44,6 +44,12 @@ var organization := 0.0
 var influence := 0.0
 var trust := 50.0
 var visibility := 0.0
+## Кадры партии в стране: опытные организаторы, на них проводятся действия.
+var cadres := 0.0
+## Стихийное рабочее движение, которое партия не возглавляет (0–100).
+var unrest := 0.0
+## Реформизм: надежда добиться своего без борьбы за власть (0–100).
+var reformism := 10.0
 
 var top_cant := 0.0
 var bottom_wont := 0.0
@@ -68,6 +74,7 @@ var zone_legitimacy := 60.0
 var zone_repression := 40.0
 var zone_legality := 60.0
 var zone_army_loyalty := 70.0
+var zone_reformism := 10.0
 var zone_growth := 1.0
 ## Чувствительность к мировому циклу: зона и открытость торговле.
 var sensitivity := 1.0
@@ -76,7 +83,9 @@ var trade_factor := 0.5
 var internet := 0.5
 ## Потенциальная база движения, % населения.
 var potential := 50.0
-## Вес страны в доходе солидарности.
+## Доля крестьянства (0–1): к ней прибавляется база движения при союзе с крестьянством.
+var peasant_share := 0.0
+## Вес страны: чем больше население, тем чаще здесь вспыхивают протесты и появляется солидарность.
 var size := 1.0
 var is_core := false
 var is_periphery := false
@@ -88,6 +97,10 @@ var revolution_week := -1
 var cooldowns: Dictionary[String, int] = {}
 ## Опыт борьбы и прочие отметки: "strike_won", "industry_strike_won", "lessons_of_defeat", "reached".
 var flags: Dictionary[String, bool] = {}
+## Временные отметки: id → неделя, до которой действует ("underground", "port_cells", "supported"…).
+var timed: Dictionary[String, int] = {}
+## Влияние раз в 4 недели за последние два года — для графика в панели страны.
+var history := PackedFloat32Array()
 
 
 ## Пересчитать величины, которые зависят только от данных (после создания или загрузки).
@@ -105,6 +118,8 @@ func prepare(data: GameData) -> void:
 	internet = c.indicator("internet", 50.0) / 100.0
 	is_core = c.zone == "core"
 	is_periphery = c.zone == "periphery"
+	zone_reformism = data.num("reformism." + c.zone, 10.0)
+	peasant_share = float(c.classes.get("peasantry", 0.0))
 	var weights: Dictionary = data.section("movement.potential")
 	var total := 0.0
 	for key: String in c.classes:
@@ -120,6 +135,17 @@ func is_revolutionary() -> bool:
 
 func has_flag(flag: String) -> bool:
 	return flags.get(flag, false)
+
+
+## Отметка опыта или временная отметка, которая ещё действует на неделе week.
+func active(flag: String, week: int) -> bool:
+	return flags.get(flag, false) or timed.get(flag, -1) > week
+
+
+## Сколько кадров страна может удержать: растёт с организованностью.
+func cadre_cap(sim: SimWorld) -> float:
+	var d := sim.data
+	return d.num("cadres.cap_base") + d.num("cadres.cap_per_organization") * organization + sim.mod("cadre_cap")
 
 
 ## Стадия сознания: 0 — стихийное недовольство, 1 — экономическая борьба,
@@ -144,7 +170,7 @@ func to_dict() -> Dictionary:
 		"revolution_week": revolution_week, "cooldowns": cooldowns.duplicate(),
 		"base": {"unemployment": base_unemployment, "real_wage": base_real_wage,
 			"exploitation": base_exploitation, "inequality": base_inequality},
-		"flags": flags.duplicate()}
+		"flags": flags.duplicate(), "timed": timed.duplicate(), "history": Array(history)}
 	for f in FIELDS:
 		d[f] = get(f)
 	return d
@@ -170,3 +196,8 @@ func load_dict(d: Dictionary) -> void:
 	var fl: Dictionary = d.get("flags", {})
 	for k: String in fl:
 		flags[k] = bool(fl[k])
+	timed.clear()
+	var tm: Dictionary = d.get("timed", {})
+	for k: String in tm:
+		timed[k] = int(tm[k])
+	history = PackedFloat32Array(d.get("history", []))

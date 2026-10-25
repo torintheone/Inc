@@ -1,11 +1,12 @@
 class_name GameData
 extends RefCounted
 ## Все неизменные данные партии: мир, связи между странами, числа баланса,
-## улучшения и действия. Загружаются один раз из папки data/.
+## улучшения, действия и стратегические линии. Загружаются один раз из папки data/.
 
 const LINKS_PATH := "res://data/links.json"
 const BALANCE_PATH := "res://data/balance.json"
 const ACTIONS_PATH := "res://data/actions.json"
+const LINES_PATH := "res://data/lines.json"
 
 var world: WorldData
 var balance: Dictionary = {}
@@ -15,6 +16,14 @@ var upgrade_order: PackedStringArray
 ## id действия в стране → описание (data/actions.json, раздел "country_actions").
 var country_actions: Dictionary = {}
 var country_action_order: PackedStringArray
+## Ветви дерева развития и группы действий — в порядке показа.
+var branches: PackedStringArray
+var action_groups: PackedStringArray
+## id линии → описание (data/lines.json).
+var lines: Dictionary = {}
+var line_order: PackedStringArray
+## Во сколько раз падает организованность при смене линии.
+var line_change_organization_mult := 0.5
 
 ## Связи как параллельные массивы: так недельный шаг идёт быстрее.
 var link_a: PackedInt32Array
@@ -29,16 +38,18 @@ var population_share: PackedFloat64Array
 
 
 static func load_default() -> GameData:
-	return load_from(WorldData.load_default(), LINKS_PATH, BALANCE_PATH, ACTIONS_PATH)
+	return load_from(WorldData.load_default(), LINKS_PATH, BALANCE_PATH, ACTIONS_PATH, LINES_PATH)
 
 
-static func load_from(world: WorldData, links_path: String, balance_path: String, actions_path: String) -> GameData:
+static func load_from(world: WorldData, links_path: String, balance_path: String, actions_path: String,
+		lines_path: String) -> GameData:
 	if world == null:
 		return null
 	var links_doc: Variant = _read_json(links_path)
 	var balance_doc: Variant = _read_json(balance_path)
 	var actions_doc: Variant = _read_json(actions_path)
-	if not (links_doc is Dictionary and balance_doc is Dictionary and actions_doc is Dictionary):
+	var lines_doc: Variant = _read_json(lines_path)
+	if not (links_doc is Dictionary and balance_doc is Dictionary and actions_doc is Dictionary and lines_doc is Dictionary):
 		return null
 	var data := GameData.new()
 	data.world = world
@@ -50,6 +61,12 @@ static func load_from(world: WorldData, links_path: String, balance_path: String
 	for item: Dictionary in actions_doc.get("country_actions", []):
 		data.country_actions[item["id"]] = item
 		data.country_action_order.append(item["id"])
+	data.branches = PackedStringArray(actions_doc.get("branches", []))
+	data.action_groups = PackedStringArray(actions_doc.get("action_groups", []))
+	for item: Dictionary in lines_doc.get("lines", []):
+		data.lines[item["id"]] = item
+		data.line_order.append(item["id"])
+	data.line_change_organization_mult = float(lines_doc.get("change_organization_mult", 0.5))
 	for link: Dictionary in links_doc.get("links", []):
 		var a := world.get_country(link["a"])
 		var b := world.get_country(link["b"])
@@ -82,6 +99,24 @@ var _sections: Dictionary[String, Variant] = {}
 ## Число баланса по пути вида "movement.growth".
 func num(path: String, default: float = 0.0) -> float:
 	return _numbers.get(path, default)
+
+
+## Улучшения одной ветви в порядке показа.
+func upgrades_of(branch: String) -> PackedStringArray:
+	var out := PackedStringArray()
+	for id in upgrade_order:
+		if upgrades[id].get("branch", "") == branch:
+			out.append(id)
+	return out
+
+
+## Действия одной группы в порядке показа.
+func actions_of(group: String) -> PackedStringArray:
+	var out := PackedStringArray()
+	for id in country_action_order:
+		if country_actions[id].get("group", "") == group:
+			out.append(id)
+	return out
 
 
 ## Раздел баланса по пути вида "cycle.phases".

@@ -1,11 +1,13 @@
 class_name Hud
 extends CanvasLayer
-## Интерфейс поверх карты: верхняя строка, нижние вкладки, боковая панель,
-## панель страны, подсказка и окна поверх всего.
+## Интерфейс поверх карты: верхняя строка, нижние вкладки, боковая панель событий
+## и статистики, панель страны, подсказка и экраны поверх всего (развитие, действия,
+## линии, справка, итоги, сообщения).
 
 signal speed_selected(speed: int)
-signal upgrade_requested(id: String)
-signal action_requested(id: String)
+signal development_requested
+signal actions_requested
+signal help_requested
 signal country_requested(id: String)
 signal panel_button_pressed
 signal panel_closed
@@ -21,7 +23,10 @@ var panel: CountryPanel
 
 var _root: Control
 var _hint: Label
+var _toast: Label
+var _toast_time := 0.0
 var _overlay: Control
+var _overlay_content: Control
 var _fps_timer := 0.0
 var _drawer_signature := ""
 
@@ -35,16 +40,15 @@ func setup(world: WorldData) -> void:
 
 	top_bar = TopBar.new()
 	top_bar.speed_selected.connect(func(s: int) -> void: speed_selected.emit(s))
+	top_bar.help_requested.connect(func() -> void: help_requested.emit())
 	_root.add_child(top_bar)
 
 	bottom_bar = BottomBar.new()
-	bottom_bar.tab_selected.connect(toggle_tab)
+	bottom_bar.tab_selected.connect(_on_tab)
 	_root.add_child(bottom_bar)
 
 	drawer = SideDrawer.new()
 	drawer.hide()
-	drawer.upgrade_requested.connect(func(id: String) -> void: upgrade_requested.emit(id))
-	drawer.action_requested.connect(func(id: String) -> void: action_requested.emit(id))
 	drawer.country_requested.connect(func(id: String) -> void: country_requested.emit(id))
 	drawer.close_requested.connect(close_drawer)
 	_root.add_child(drawer)
@@ -56,16 +60,24 @@ func setup(world: WorldData) -> void:
 	panel.main_button_pressed.connect(func() -> void: panel_button_pressed.emit())
 	_root.add_child(panel)
 
-	_hint = GameTheme.make_label("", 22, GameTheme.BODY_BOLD_FONT, MapPalette.INK)
-	_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_hint.add_theme_color_override("font_outline_color", MapPalette.PAPER)
-	_hint.add_theme_constant_override("outline_size", 8)
-	_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hint = _floating_label(22)
 	_root.add_child(_hint)
+	_toast = _floating_label(20)
+	_toast.hide()
+	_root.add_child(_toast)
 
 	get_viewport().size_changed.connect(_layout)
 	panel.minimum_size_changed.connect(_layout, CONNECT_DEFERRED)
 	_layout()
+
+
+func _floating_label(size_px: int) -> Label:
+	var l := GameTheme.make_label("", size_px, GameTheme.BODY_BOLD_FONT, MapPalette.INK)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.add_theme_color_override("font_outline_color", MapPalette.PAPER)
+	l.add_theme_constant_override("outline_size", 8)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return l
 
 
 ## Элементы, касания по которым карта не обрабатывает.
@@ -88,11 +100,19 @@ func set_mode(mode: String) -> void:
 	_layout()
 
 
-func toggle_tab(tab: String) -> void:
-	if drawer.visible and drawer.tab == tab:
-		close_drawer()
-	else:
-		open_tab(tab)
+func _on_tab(tab: String) -> void:
+	match tab:
+		"upgrades":
+			bottom_bar.show_tab("")
+			development_requested.emit()
+		"actions":
+			bottom_bar.show_tab("")
+			actions_requested.emit()
+		_:
+			if drawer.visible and drawer.tab == tab:
+				close_drawer()
+			else:
+				open_tab(tab)
 
 
 func open_tab(tab: String) -> void:
@@ -109,16 +129,24 @@ func close_drawer() -> void:
 	bottom_bar.show_tab("")
 
 
+## Короткое сообщение посреди экрана, например «Выберите страну».
+func toast(text: String, seconds: float = 2.5) -> void:
+	_toast.text = text
+	_toast.show()
+	_toast_time = seconds
+	_layout()
+
+
 ## Обновить всё, что зависит от партии. selected — выбранная страна или null.
 func refresh(sim: SimWorld, selected: CountryState, panel_button: String) -> void:
 	top_bar.refresh(sim)
 	if not sim.news.is_empty():
 		bottom_bar.show_news("%s · %s" % [UiText.date(sim, int(sim.news[-1]["week"])), UiText.news(sim.news[-1])])
 	if drawer.visible:
-		var sig := _signature(sim, selected)
+		var sig := _signature(sim)
 		if sig != _drawer_signature:
 			_drawer_signature = sig
-			drawer.refresh(sim, selected)
+			drawer.refresh(sim)
 	if panel.visible and selected != null:
 		panel.show_country(selected.country, selected, sim, panel_button)
 
@@ -132,44 +160,54 @@ func hide_country() -> void:
 	panel.hide()
 
 
-## Окно поверх всего (меню, сообщение, итог). Предыдущее закрывается.
+## Экран поверх всего (меню, развитие, действия, сообщение, итог). Предыдущий закрывается.
+## Содержимое не заходит под вырез камеры; фон бумаги — на весь экран.
 func show_overlay(overlay: Control) -> void:
 	close_overlay()
-	_overlay = overlay
-	_root.add_child(overlay)
+	var holder := Control.new()
+	holder.set_anchors_preset(Control.PRESET_FULL_RECT)
+	holder.mouse_filter = Control.MOUSE_FILTER_STOP
+	if overlay.has_meta("paper"):
+		var bg := ColorRect.new()
+		bg.color = MapPalette.PAPER
+		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+		holder.add_child(bg)
+	var insets := _safe_insets(_root.get_viewport_rect().size)
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay.offset_left = insets.x
+	overlay.offset_top = insets.y
+	overlay.offset_right = -insets.z
+	overlay.offset_bottom = -insets.w
+	holder.add_child(overlay)
+	_overlay = holder
+	_overlay_content = overlay
+	_root.add_child(holder)
 
 
 func close_overlay() -> void:
 	if _overlay != null:
 		_overlay.queue_free()
 		_overlay = null
+		_overlay_content = null
 
 
 func has_overlay() -> bool:
 	return _overlay != null
 
 
-## Подпись изменилась — содержимое боковой панели нужно перестроить. Так кнопки не
-## пересоздаются каждую неделю и не теряют нажатие.
-func _signature(sim: SimWorld, cs: CountryState) -> String:
+## Экран, который сейчас открыт поверх карты (или null).
+func overlay() -> Control:
+	return _overlay_content
+
+
+## Подпись изменилась — содержимое боковой панели нужно перестроить. Так список не
+## пересоздаётся каждую неделю и не сбрасывает прокрутку.
+func _signature(sim: SimWorld) -> String:
 	match drawer.tab:
-		"upgrades":
-			var parts := PackedStringArray()
-			for id in sim.data.upgrade_order:
-				parts.append(",".join(PlayerActions.upgrade_blockers(sim, id)))
-			return "|".join(parts)
-		"actions":
-			if cs == null:
-				return "none"
-			var parts := PackedStringArray([cs.country.id])
-			for id in sim.data.country_action_order:
-				parts.append(",".join(PlayerActions.action_blockers(sim, id, cs)))
-				parts.append(str(int(PlayerActions.action_chance(sim, id, cs) * 20.0)))
-			return "|".join(parts)
 		"news":
 			return str(sim.news_count)
 		_:
-			return "%d|%d" % [sim.week / 13, sim.revolutionary_count()]
+			return "%d|%d" % [sim.week / 4, sim.revolutionary_count()]
 
 
 func _process(delta: float) -> void:
@@ -177,6 +215,11 @@ func _process(delta: float) -> void:
 	if _fps_timer <= 0.0:
 		_fps_timer = 0.5
 		top_bar.set_fps(Engine.get_frames_per_second())
+	if _toast_time > 0.0:
+		_toast_time -= delta
+		_toast.modulate.a = clampf(_toast_time / 0.5, 0.0, 1.0)
+		if _toast_time <= 0.0:
+			_toast.hide()
 
 
 func _layout() -> void:
@@ -194,10 +237,12 @@ func _layout() -> void:
 	var bottom := bottom_bar.position.y - MARGIN if bottom_bar.visible else view.y - insets.w - MARGIN
 	drawer.position = Vector2(left, top)
 	drawer.size = Vector2(SideDrawer.WIDTH, bottom - top)
-	panel.size = Vector2(CountryPanel.WIDTH, 0.0)   # высота по содержимому
+	panel.size = Vector2(CountryPanel.WIDTH, bottom - top)
 	panel.position = Vector2(right - CountryPanel.WIDTH, top)
 	_hint.size = Vector2(view.x, 0.0)
 	_hint.position = Vector2(0.0, top + 4.0)
+	_toast.size = Vector2(view.x, 0.0)
+	_toast.position = Vector2(0.0, view.y * 0.42)
 
 
 ## Отступы от выреза камеры и системных панелей: (лево, верх, право, низ) в координатах интерфейса.

@@ -1,6 +1,6 @@
 class_name Overlays
 extends RefCounted
-## Полноэкранные окна поверх карты: меню, сообщение о важном событии, итог партии.
+## Окна поверх карты: меню и сообщение о важном событии. Итог партии — ResultsScreen.
 
 
 ## Затемнение на весь экран с панелью по центру. Возвращает [затемнение, коробка для содержимого].
@@ -37,10 +37,16 @@ static func button(text: String, on_press: Callable, primary: bool = false) -> B
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = MapPalette.VERMILION
 		sb.set_content_margin_all(8)
+		var off := StyleBoxFlat.new()
+		off.bg_color = Color(MapPalette.INK, 0.12)
+		off.set_content_margin_all(8)
 		b.add_theme_stylebox_override("normal", sb)
 		b.add_theme_stylebox_override("hover", sb)
+		b.add_theme_stylebox_override("pressed", sb)
+		b.add_theme_stylebox_override("disabled", off)
 		b.add_theme_color_override("font_color", MapPalette.PAPER)
 		b.add_theme_color_override("font_hover_color", MapPalette.PAPER)
+		b.add_theme_color_override("font_pressed_color", MapPalette.OCHRE)
 	b.pressed.connect(on_press)
 	return b
 
@@ -79,23 +85,5 @@ static func alert(title: String, text: String, on_goto: Variant, on_ok: Callable
 	if on_goto is Callable:
 		row.add_child(button(TranslationServer.translate("ALERT_GOTO"), on_goto, true))
 	row.add_child(button(TranslationServer.translate("ALERT_OK"), on_ok))
-	box.add_child(row)
-	return parts[0]
-
-
-## Итог партии.
-static func ending(sim: SimWorld, peak_reaction: float, on_new: Callable) -> Control:
-	var parts := make_modal(620.0)
-	var box: VBoxContainer = parts[1]
-	var key := "OUTCOME_" + sim.outcome
-	var win := sim.outcome == SimWorld.OUTCOME_FEDERATION or sim.outcome == SimWorld.OUTCOME_WORLD_REVOLUTION
-	box.add_child(GameTheme.make_label(TranslationServer.translate(key).to_upper(), 44, GameTheme.display_font(600),
-		MapPalette.VERMILION if win else MapPalette.STEEL))
-	box.add_child(paragraph(TranslationServer.translate(key + "_TEXT"), 580.0, 20))
-	var stats := TranslationServer.translate("END_STATS") % [sim.week / 52, sim.revolutionary_count(), int(peak_reaction)]
-	box.add_child(paragraph(stats, 580.0, 16))
-	var row := HBoxContainer.new()
-	row.alignment = BoxContainer.ALIGNMENT_END
-	row.add_child(button(TranslationServer.translate("END_NEW"), on_new, true))
 	box.add_child(row)
 	return parts[0]

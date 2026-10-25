@@ -1,267 +1,314 @@
 {
-  "version": 1,
+  "version": 2,
   "_comment": "Улучшения движения и действия в стране. Формат — в data/README.md, раздел «actions.json».",
+  "branches": ["organization", "agitation", "struggle", "international", "defense"],
   "upgrades": [
     {
-      "id": "study_circles",
-      "branch": "organization",
-      "cost": 6,
-      "requires": [],
-      "modifiers": {
-        "consciousness_rate": 0.4,
-        "visibility": 0.02
-      }
+      "id": "study_circles", "branch": "organization", "tier": 0, "cost": 4, "requires": [],
+      "modifiers": {"consciousness_rate": 0.4, "visibility": 0.02}
     },
     {
-      "id": "leaflets",
-      "branch": "agitation",
-      "cost": 5,
-      "requires": [],
-      "modifiers": {
-        "influence_growth": 0.5,
-        "visibility": 0.05
-      }
+      "id": "trade_unions", "branch": "organization", "tier": 1, "cost": 8, "requires": ["study_circles"],
+      "modifiers": {"organization_cap": 30, "organization_rate": 0.5, "cadre_rate": 0.3, "visibility": 0.1},
+      "unlocks": ["strikes", "consciousness_stage_1"]
     },
     {
-      "id": "trade_unions",
-      "branch": "organization",
-      "cost": 10,
-      "requires": [],
-      "modifiers": {
-        "organization_cap": 30,
-        "organization_rate": 0.5,
-        "visibility": 0.1
-      },
-      "unlocks": [
-        "strikes",
-        "consciousness_stage_1"
-      ]
+      "id": "industry_federations", "branch": "organization", "tier": 2, "cost": 12, "requires": ["trade_unions"],
+      "modifiers": {"organization_cap": 15, "organization_rate": 0.3},
+      "unlocks": ["industry_strikes"]
     },
     {
-      "id": "industry_federations",
-      "branch": "organization",
-      "cost": 14,
-      "requires": [
-        "trade_unions"
-      ],
-      "modifiers": {
-        "organization_cap": 15,
-        "organization_rate": 0.3
-      },
-      "unlocks": [
-        "industry_strikes"
-      ]
+      "id": "workers_party", "branch": "organization", "tier": 2, "cost": 15, "requires": ["trade_unions"],
+      "modifiers": {"organization_cap": 20, "consciousness_rate": 0.3, "cadre_rate": 0.3, "visibility": 0.1},
+      "unlocks": ["consciousness_stage_2", "consciousness_stage_3", "elections", "army_work"],
+      "on_buy": {"reaction": 5}
     },
     {
-      "id": "workers_party",
-      "branch": "organization",
-      "cost": 18,
-      "requires": [
-        "trade_unions"
-      ],
-      "modifiers": {
-        "organization_cap": 20,
-        "consciousness_rate": 0.3,
-        "visibility": 0.1
-      },
-      "unlocks": [
-        "consciousness_stage_2",
-        "consciousness_stage_3"
-      ],
-      "on_buy": {
-        "reaction": 5
-      }
+      "id": "workers_councils", "branch": "organization", "tier": 3, "cost": 22, "requires": ["workers_party"],
+      "modifiers": {"organization_cap": 10, "trust_target": 8, "auto_support": 0.5, "activity": 8}
     },
     {
-      "id": "emigrant_links",
-      "branch": "international",
-      "cost": 8,
-      "requires": [],
-      "modifiers": {
-        "migration_channel": 0.5
-      }
+      "id": "underground", "branch": "organization", "tier": 3, "cost": 12, "requires": ["workers_party"],
+      "modifiers": {"underground": 0.5, "influence_growth": -0.1}
+    },
+    {
+      "id": "leaflets", "branch": "agitation", "tier": 0, "cost": 4, "requires": [],
+      "modifiers": {"influence_growth": 0.5, "visibility": 0.05}
+    },
+    {
+      "id": "workers_newspaper", "branch": "agitation", "tier": 1, "cost": 8, "requires": ["leaflets"],
+      "modifiers": {"consciousness_rate": 0.4, "influence_growth": 0.2, "visibility": 0.05}
+    },
+    {
+      "id": "clubs_culture", "branch": "agitation", "tier": 1, "cost": 10, "requires": ["leaflets"],
+      "modifiers": {"hegemony_culture": 12}
+    },
+    {
+      "id": "digital_media", "branch": "agitation", "tier": 2, "cost": 12, "requires": ["workers_newspaper"],
+      "modifiers": {"media_channel": 1.0, "fragile_consciousness": 1.0}
+    },
+    {
+      "id": "cadre_school", "branch": "agitation", "tier": 2, "cost": 16, "requires": ["workers_newspaper"],
+      "modifiers": {"action_discount": 0.15, "cadre_rate": 0.5, "cadre_cap": 5}
+    },
+    {
+      "id": "peasant_alliance", "branch": "agitation", "tier": 3, "cost": 14, "requires": ["clubs_culture"],
+      "modifiers": {"peasant_potential": 0.35, "periphery_growth": 0.5, "core_growth": -0.1}
+    },
+    {
+      "id": "strike_fund", "branch": "struggle", "tier": 0, "cost": 7, "requires": ["trade_unions"],
+      "modifiers": {"strike_chance": 0.08, "strike_loss": 0.5, "upkeep": 0.04}
+    },
+    {
+      "id": "self_defense", "branch": "struggle", "tier": 0, "cost": 10, "requires": ["trade_unions"],
+      "modifiers": {"demo_chance": 0.1, "uprising_chance": 0.06, "repression_target": 3, "trust_target": -3},
+      "unlocks": ["antifascist_defense"]
+    },
+    {
+      "id": "occupation_tactic", "branch": "struggle", "tier": 1, "cost": 10, "requires": ["strike_fund"],
+      "modifiers": {"strike_consciousness": 2},
+      "unlocks": ["factory_seizure"]
+    },
+    {
+      "id": "united_front", "branch": "struggle", "tier": 1, "cost": 14, "requires": ["workers_party"],
+      "modifiers": {"core_growth": 0.4, "reformism": 8}
+    },
+    {
+      "id": "general_strike_prep", "branch": "struggle", "tier": 2, "cost": 20,
+      "requires": ["occupation_tactic", "industry_federations"],
+      "modifiers": {"strike_chance": 0.04},
+      "unlocks": ["general_strike"]
+    },
+    {
+      "id": "emigrant_links", "branch": "international", "tier": 0, "cost": 6, "requires": [],
+      "modifiers": {"migration_channel": 0.5}
+    },
+    {
+      "id": "solidarity_strikes", "branch": "international", "tier": 1, "cost": 10, "requires": ["emigrant_links"],
+      "modifiers": {"trade_channel": 0.25},
+      "unlocks": ["solidarity_strike"]
+    },
+    {
+      "id": "liberation_support", "branch": "international", "tier": 1, "cost": 14, "requires": ["emigrant_links"],
+      "modifiers": {"periphery_growth": 0.3, "drain_cut": 0.15, "core_visibility": 0.15}
+    },
+    {
+      "id": "international", "branch": "international", "tier": 2, "cost": 20, "requires": ["solidarity_strikes"],
+      "modifiers": {"trade_channel": 0.25, "migration_channel": 0.25, "neighbor_channel": 0.25, "media_channel": 0.25,
+        "bubble_value": 0.25},
+      "on_buy": {"reaction": 10}
+    },
+    {
+      "id": "antiwar_network", "branch": "international", "tier": 3, "cost": 14, "requires": ["international"],
+      "modifiers": {"army_erosion": 10}
+    },
+    {
+      "id": "conspiracy", "branch": "defense", "tier": 0, "cost": 7, "requires": [],
+      "modifiers": {"visibility": -0.3, "influence_growth": -0.1}
+    },
+    {
+      "id": "legal_service", "branch": "defense", "tier": 0, "cost": 8, "requires": [],
+      "modifiers": {"arrests": -0.5, "legality_hold": 0.5}
+    },
+    {
+      "id": "counterintelligence", "branch": "defense", "tier": 1, "cost": 12, "requires": ["conspiracy"],
+      "modifiers": {"arrest_damage": -0.5, "action_loss": -0.3}
+    },
+    {
+      "id": "prisoner_aid", "branch": "defense", "tier": 1, "cost": 9, "requires": ["legal_service"],
+      "modifiers": {"trust_target": 5, "cadre_rate": 0.2}
+    },
+    {
+      "id": "safe_houses", "branch": "defense", "tier": 2, "cost": 10, "requires": ["counterintelligence"],
+      "modifiers": {"defeat_cushion": 0.5}
     }
   ],
+  "action_groups": ["economic", "political", "organizing"],
   "country_actions": [
     {
-      "id": "factory_strike",
-      "cost": 3,
-      "cooldown_weeks": 8,
-      "requires": {
-        "unlock": "strikes",
-        "min_influence": 1.0
-      },
+      "id": "factory_strike", "group": "economic", "tags": ["strike"], "art": "card_strike_factory",
+      "cadres": 2, "cooldown_weeks": 6,
+      "requires": {"unlock": "strikes", "min_influence": 1.0},
       "chance": {
-        "base": 0.6,
-        "terms": {
-          "organization": 0.006,
-          "consciousness": 0.003,
-          "repression": -0.004
-        },
-        "phase": {
-          "boom": 0.1,
-          "overheat": 0.05,
-          "crisis": -0.1,
-          "depression": -0.15
-        },
-        "above": [
-          {
-            "field": "unemployment",
-            "value": 15,
-            "add": -0.2
-          }
-        ],
-        "min": 0.05,
-        "max": 0.92
+        "base": 0.6, "terms": {"organization": 0.006, "consciousness": 0.003, "repression": -0.004},
+        "phase": {"boom": 0.1, "overheat": 0.05, "crisis": -0.1, "depression": -0.15},
+        "above": [{"field": "unemployment", "value": 15, "add": -0.2, "unless": "unemployed_organized"}],
+        "min": 0.05, "max": 0.92
       },
       "core_reaction": 0.5,
-      "success": {
-        "add": {
-          "real_wage": 2,
-          "consciousness": 4,
-          "organization": 2,
-          "trust": 2,
-          "strikes_recent": 1
-        },
-        "flags": [
-          "strike_won"
-        ]
-      },
-      "failure": {
-        "add": {
-          "organization": -4,
-          "trust": -2,
-          "strikes_recent": 0.5
-        },
-        "mult": {
-          "influence": 0.95
-        }
-      }
+      "success": {"add": {"real_wage": 2, "consciousness": 4, "organization": 2, "trust": 2, "strikes_recent": 1, "cadres": 1},
+        "flags": ["strike_won"]},
+      "failure": {"add": {"organization": -4, "trust": -2, "strikes_recent": 0.5, "cadres": -1}, "mult": {"influence": 0.95}}
     },
     {
-      "id": "industry_strike",
-      "cost": 8,
-      "cooldown_weeks": 16,
-      "requires": {
-        "unlock": "industry_strikes",
-        "min_influence": 5.0
-      },
+      "id": "industry_strike", "group": "economic", "tags": ["strike"],
+      "cadres": 5, "cooldown_weeks": 12,
+      "requires": {"unlock": "industry_strikes", "min_influence": 4.0},
       "chance": {
-        "base": 0.45,
-        "terms": {
-          "organization": 0.008,
-          "consciousness": 0.003,
-          "repression": -0.004
-        },
-        "phase": {
-          "boom": 0.1,
-          "overheat": 0.05,
-          "crisis": -0.1,
-          "depression": -0.15
-        },
-        "above": [
-          {
-            "field": "unemployment",
-            "value": 15,
-            "add": -0.25
-          }
-        ],
-        "min": 0.05,
-        "max": 0.9
+        "base": 0.45, "terms": {"organization": 0.008, "consciousness": 0.003, "repression": -0.004},
+        "phase": {"boom": 0.1, "overheat": 0.05, "crisis": -0.1, "depression": -0.15},
+        "above": [{"field": "unemployment", "value": 15, "add": -0.25, "unless": "unemployed_organized"}],
+        "min": 0.05, "max": 0.9
       },
       "core_reaction": 1.0,
-      "success": {
-        "add": {
-          "real_wage": 4,
-          "consciousness": 6,
-          "organization": 5,
-          "trust": 3,
-          "strikes_recent": 2,
-          "legitimacy": -2
-        },
-        "flags": [
-          "strike_won",
-          "industry_strike_won"
-        ]
-      },
-      "failure": {
-        "add": {
-          "organization": -8,
-          "trust": -3,
-          "strikes_recent": 1
-        },
-        "mult": {
-          "influence": 0.9
-        }
-      }
+      "success": {"add": {"real_wage": 4, "consciousness": 6, "organization": 5, "trust": 3, "strikes_recent": 2,
+        "legitimacy": -2, "cadres": 2}, "flags": ["strike_won", "industry_strike_won"]},
+      "failure": {"add": {"organization": -8, "trust": -3, "strikes_recent": 1, "cadres": -2}, "mult": {"influence": 0.9}}
     },
     {
-      "id": "demonstration",
-      "cost": 4,
-      "cooldown_weeks": 6,
-      "requires": {
-        "min_influence": 2.0
-      },
+      "id": "general_strike", "group": "economic", "tags": ["strike"],
+      "cadres": 10, "cooldown_weeks": 26,
+      "requires": {"unlock": "general_strike", "min_influence": 10.0, "min": {"organization": 35}},
       "chance": {
-        "base": 0.8,
-        "terms": {
-          "repression": -0.008,
-          "trust": 0.003
-        },
-        "min": 0.1,
-        "max": 0.95
+        "base": 0.4, "terms": {"organization": 0.008, "consciousness": 0.004, "trust": 0.003, "repression": -0.005},
+        "phase": {"crisis": 0.08, "depression": 0.04, "boom": -0.05},
+        "above": [{"field": "unemployment", "value": 18, "add": -0.15, "unless": "unemployed_organized"}],
+        "min": 0.05, "max": 0.85
       },
-      "success": {
-        "add": {
-          "demos_recent": 1,
-          "legitimacy": -2,
-          "trust": 1
-        }
-      },
-      "failure": {
-        "add": {
-          "organization": -4,
-          "trust": -4,
-          "legitimacy": -4,
-          "demos_recent": 0.5
-        },
-        "mult": {
-          "influence": 0.95
-        }
-      }
+      "core_reaction": 3.0,
+      "success": {"add": {"legitimacy": -15, "elite_split": 20, "strikes_recent": 3, "consciousness": 5, "organization": 4,
+        "cadres": 2}, "flags": ["strike_won", "general_strike_won"]},
+      "failure": {"add": {"organization": -30, "cadres": -4, "repression": 10, "trust": -5, "strikes_recent": 1}}
     },
     {
-      "id": "uprising",
-      "cost": 20,
-      "cooldown_weeks": 26,
-      "requires": {
-        "min_influence": 10.0,
-        "min": {
-          "rev_situation": 70,
-          "organization": 50
-        }
+      "id": "shorter_workday", "group": "economic", "art": "card_shorter_workday",
+      "cadres": 4, "cooldown_weeks": 20,
+      "requires": {"unlock": "strikes", "min_influence": 3.0},
+      "chance": {
+        "base": 0.45, "terms": {"organization": 0.006, "trust": 0.004, "legality": 0.003},
+        "phase": {"boom": 0.12, "recovery": 0.06, "crisis": -0.12, "depression": -0.1},
+        "min": 0.05, "max": 0.85
       },
+      "success": {"add": {"real_wage": 3, "exploitation": -3, "trust": 8, "consciousness": 2}},
+      "failure": {"add": {"organization": -3, "trust": -2}}
+    },
+    {
+      "id": "factory_seizure", "group": "economic", "tags": ["strike"],
+      "cadres": 5, "cooldown_weeks": 16,
+      "requires": {"unlock": "factory_seizure", "min_influence": 5.0},
+      "chance": {
+        "base": 0.45, "terms": {"organization": 0.007, "consciousness": 0.005, "repression": -0.006},
+        "phase": {"crisis": 0.1, "depression": 0.08},
+        "min": 0.05, "max": 0.85
+      },
+      "core_reaction": 1.5,
+      "success": {"add": {"consciousness": 8, "organization": 3, "strikes_recent": 1.5, "cadres": 1},
+        "flags": ["workers_control", "strike_won"]},
+      "failure": {"add": {"repression": 6, "cadres": -3, "organization": -5, "strikes_recent": 0.5}}
+    },
+    {
+      "id": "solidarity_strike", "group": "economic", "tags": ["strike"],
+      "cadres": 3, "cooldown_weeks": 16,
+      "requires": {"unlock": "solidarity_strike", "min_influence": 3.0},
+      "chance": {
+        "base": 0.6, "terms": {"organization": 0.005, "consciousness": 0.004, "repression": -0.004},
+        "min": 0.05, "max": 0.9
+      },
+      "core_reaction": 0.5,
+      "success": {"add": {"consciousness": 3, "strikes_recent": 1}, "special": "solidarity"},
+      "failure": {"add": {"organization": -3, "cadres": -1}}
+    },
+    {
+      "id": "demonstration", "group": "political",
+      "cadres": 2, "cooldown_weeks": 5,
+      "requires": {"min_influence": 2.0},
+      "chance": {
+        "base": 0.8, "terms": {"repression": -0.008, "trust": 0.003},
+        "min": 0.1, "max": 0.95
+      },
+      "success": {"add": {"demos_recent": 1, "legitimacy": -2, "trust": 1}},
+      "failure": {"add": {"organization": -4, "trust": -4, "legitimacy": -4, "demos_recent": 0.5, "cadres": -1},
+        "mult": {"influence": 0.95}}
+    },
+    {
+      "id": "elections", "group": "political",
+      "cadres": 4, "cooldown_weeks": 52,
+      "requires": {"unlock": "elections", "min_influence": 3.0, "min": {"legality": 35}},
+      "chance": {
+        "base": 0.5, "terms": {"trust": 0.005, "legality": 0.004, "hegemony": -0.004},
+        "phase": {"crisis": 0.08, "depression": 0.06, "boom": -0.06},
+        "min": 0.05, "max": 0.85
+      },
+      "core_reaction": 1.0,
+      "success": {"add": {"influence": 1.0, "hegemony": -5, "legitimacy": -2, "reformism": 6, "trust": 3},
+        "mult": {"influence": 1.12}},
+      "failure": {"add": {"reformism": 3, "trust": -2}}
+    },
+    {
+      "id": "army_work", "group": "political",
+      "cadres": 4, "cooldown_weeks": 16,
+      "requires": {"unlock": "army_work", "min_influence": 4.0, "min": {"organization": 25}},
+      "chance": {
+        "base": 0.5, "terms": {"consciousness": 0.005, "army_loyalty": -0.005, "repression": -0.004},
+        "phase": {"crisis": 0.08, "depression": 0.05},
+        "min": 0.05, "max": 0.85
+      },
+      "success": {"add": {"army_loyalty": -8}},
+      "failure": {"add": {"repression": 4, "cadres": -2}, "reaction": 2}
+    },
+    {
+      "id": "antifascist_defense", "group": "political", "art": "card_antifascist_defense",
+      "cadres": 4, "cooldown_weeks": 26,
+      "requires": {"unlock": "antifascist_defense", "min_influence": 3.0},
+      "chance": {
+        "base": 0.7, "terms": {"organization": 0.005, "repression": -0.004},
+        "min": 0.1, "max": 0.92
+      },
+      "success": {"add": {"demos_recent": 1, "repression": 3, "trust": 2}, "timed": {"antifascist": 104}},
+      "failure": {"add": {"repression": 6, "cadres": -2}}
+    },
+    {
+      "id": "uprising", "group": "political",
+      "cadres": 12, "cooldown_weeks": 26,
+      "requires": {"min_influence": 10.0, "min": {"rev_situation": 70, "organization": 50}},
       "chance": {
         "base": 0.25,
-        "terms": {
-          "organization": 0.008,
-          "rev_situation": 0.005,
-          "trust": 0.004,
-          "army_loyalty": -0.005,
-          "repression": -0.003
-        },
-        "flags": {
-          "lessons_of_defeat": 0.08
-        },
-        "min": 0.05,
-        "max": 0.9
+        "terms": {"organization": 0.008, "rev_situation": 0.005, "trust": 0.004, "army_loyalty": -0.005, "repression": -0.003},
+        "flags": {"lessons_of_defeat": 0.08, "workers_control": 0.04},
+        "min": 0.05, "max": 0.9
       },
-      "success": {
-        "special": "revolution"
-      },
-      "failure": {
-        "special": "defeat"
-      }
+      "success": {"special": "revolution"},
+      "failure": {"special": "defeat"}
+    },
+    {
+      "id": "send_organizers", "group": "organizing",
+      "cadres": 0, "solidarity": 6, "cooldown_weeks": 12,
+      "requires": {},
+      "chance": {"base": 1.0, "min": 1.0, "max": 1.0},
+      "success": {"add": {"cadres": 3, "organization": 2}, "special": "organizers"},
+      "failure": {}
+    },
+    {
+      "id": "cooperatives", "group": "organizing",
+      "cadres": 3, "cooldown_weeks": 16,
+      "requires": {"min_influence": 2.0},
+      "chance": {"base": 0.85, "terms": {"repression": -0.003}, "min": 0.3, "max": 0.95},
+      "success": {"add": {"trust": 6, "real_wage": 1.5, "consciousness": -1.5, "organization": 2}},
+      "failure": {"add": {"trust": -2}}
+    },
+    {
+      "id": "unemployed_agitation", "group": "organizing",
+      "cadres": 3, "cooldown_weeks": 26,
+      "requires": {"min_influence": 2.0, "min": {"unemployment": 6}},
+      "chance": {"base": 0.7, "terms": {"unemployment": 0.01, "repression": -0.003}, "min": 0.2, "max": 0.92},
+      "success": {"add": {"influence": 0.5, "trust": 2, "demos_recent": 0.5}, "timed": {"unemployed_organized": 52}},
+      "failure": {"add": {"trust": -2}}
+    },
+    {
+      "id": "port_cells", "group": "organizing",
+      "cadres": 4, "cooldown_weeks": 26,
+      "requires": {"min_influence": 3.0},
+      "chance": {"base": 0.7, "terms": {"organization": 0.004, "repression": -0.005}, "min": 0.1, "max": 0.92},
+      "success": {"add": {"visibility": 8}, "timed": {"port_cells": 104}},
+      "failure": {"add": {"organization": -3, "cadres": -1}}
+    },
+    {
+      "id": "go_underground", "group": "organizing",
+      "cadres": 2, "cooldown_weeks": 26,
+      "requires": {"min_influence": 1.0},
+      "chance": {"base": 1.0, "min": 1.0, "max": 1.0},
+      "success": {"mult": {"visibility": 0.4}, "timed": {"underground": 52}},
+      "failure": {}
     }
   ]
 }

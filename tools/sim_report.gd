@@ -1,8 +1,8 @@
 extends SceneTree
 ## Безголовый прогон симуляции без игрока и отчёт для проверки модели.
-## Запуск: godot --headless --script res://tools/sim_report.gd -- [seed] [страна] [лет] [bot]
+## Запуск: godot --headless --script res://tools/sim_report.gd -- [seed] [страна] [лет] [bot] [линия]
 ## Без страны движение не зарождается: проверяется только мир (цикл, империализм, Реакция).
-## С «bot» за движение играет BotPlayer.
+## С «bot» за движение играет BotPlayer; линия — vanguard, councils, syndicalism, mass_party, peoples_war.
 
 const FIELDS: PackedStringArray = [
 	"unemployment", "real_wage", "need", "exploitation", "productive_forces", "contradiction",
@@ -14,10 +14,11 @@ func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
 	var seed_value := int(args[0]) if args.size() > 0 else 1
 	var start := args[1] if args.size() > 1 else ""
-	var years := int(args[2]) if args.size() > 2 else 50
+	var years := int(args[2]) if args.size() > 2 else 20
 	var bot := args.size() > 3 and args[3] == "bot"
+	var line := args[4] if args.size() > 4 else ("vanguard" if bot else "")
 	var data := GameData.load_default()
-	var sim := SimWorld.new_game(data, seed_value, start)
+	var sim := SimWorld.new_game(data, seed_value, start, line)
 	var weeks_per_year := int(data.num("time.weeks_per_year"))
 	var mins := {}
 	var maxs := {}
@@ -27,8 +28,8 @@ func _initialize() -> void:
 	var step_usec := 0
 	var steps := 0
 	var peak := {"rev": -1.0}
-	print("seed=%d start=%s years=%d" % [seed_value, start if start != "" else "—", years])
-	print("year  phase        depth  reaction  aristo  infl(M)  rev  | FRA unemp wage need  | NGA unemp need hegem  | старт: infl cons org rev  солид.")
+	print("seed=%d start=%s years=%d line=%s" % [seed_value, start if start != "" else "—", years, line])
+	print("year  phase        depth  reaction  aristo  infl(M)  rev  | FRA unemp wage need  | NGA unemp need hegem  | старт: infl cons org rev кадры  солид. стран упгр")
 	for y in years:
 		for w in weeks_per_year:
 			if sim.is_over():
@@ -52,11 +53,16 @@ func _initialize() -> void:
 		var fra := sim.state_of("FRA")
 		var nga := sim.state_of("NGA")
 		var st := sim.state_of(start) if start != "" else fra
-		print("%4d  %-11s  %4.2f   %6.1f    %4.2f  %7.1f  %3d  |  %5.1f %5.1f %5.1f  |  %5.1f %5.1f %5.1f  |  %5.1f %4.1f %4.1f %4.1f  %5.1f" % [
+		var present := 0
+		for cs in sim.countries:
+			if cs.influence >= 1.0 and not cs.is_revolutionary():
+				present += 1
+		print("%4d  %-11s  %4.2f   %6.1f    %4.2f  %7.1f  %3d  |  %5.1f %5.1f %5.1f  |  %5.1f %5.1f %5.1f  |  %5.1f %4.1f %4.1f %4.1f %4.1f  %5.1f %4d %3d" % [
 			sim.year(), sim.phase_id(), sim.depth, sim.reaction, sim.core_aristocracy,
 			sim.influenced_people() / 1.0e6, sim.revolutionary_count(),
 			fra.unemployment, fra.real_wage, fra.need, nga.unemployment, nga.need, nga.hegemony,
-			st.influence, st.consciousness, st.organization, st.rev_situation, sim.solidarity])
+			st.influence, st.consciousness, st.organization, st.rev_situation, st.cadres, sim.solidarity,
+			present, sim.upgrades.size()])
 		if sim.is_over():
 			break
 	var elapsed := step_usec / 1000.0
@@ -83,5 +89,9 @@ func _initialize() -> void:
 	for cs: CountryState in top.slice(0, 8):
 		tops.append("%s %.0f%%" % [cs.country.id, cs.influence])
 	print("влияние: ", ", ".join(tops))
+	var unrest_news := 0
+	print("пузырьков собрано: %d, протестов поддержано: %d, подавлено: %d" % [sim.bubbles_collected,
+		sim.protests_supported, sim.protests_suppressed])
+	print("очки: ", sim.score())
 	print("исход: %s на неделе %d; шаг: %.3f мс" % [sim.outcome if sim.outcome != "" else "—", sim.week, elapsed / maxf(steps, 1)])
 	quit()
