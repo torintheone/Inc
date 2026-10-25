@@ -1,6 +1,8 @@
 # Сборка игры: тесты, APK для Android и архив для Windows.
 # На каждый push — сборка и тесты (файлы лежат в «Artifacts» запуска).
-# На тег v* — ещё и GitHub Release с prizrak-<версия>.apk и Windows-архивом.
+# Выпуск: если версии из project.godot (config/version) ещё нет в Releases, а в CHANGELOG.md
+# есть её раздел «## [версия]», сборка ставит тег v<версия> и публикует GitHub Release
+# с prizrak-<версия>.apk и Windows-архивом. Тег v*, поставленный вручную, тоже выпускает релиз.
 name: Сборка
 
 on:
@@ -94,11 +96,20 @@ jobs:
         run: |
           set -euo pipefail
           base=$(sed -n 's/^config\/version="\(.*\)"/\1/p' project.godot)
-          if [ "$GITHUB_REF_TYPE" = "tag" ]; then v="${GITHUB_REF_NAME#v}"; else v="${base}-dev.${GITHUB_RUN_NUMBER}"; fi
+          release=false
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            v="${GITHUB_REF_NAME#v}"; release=true
+          elif [ "$GITHUB_EVENT_NAME" != "pull_request" ] && grep -q "^## \[$base\]" CHANGELOG.md; then
+            # Тег ещё не поставлен или стоит на этом же коммите (повторный запуск) — выпускаем.
+            tag_sha=$(git ls-remote origin "refs/tags/v$base" | cut -f1)
+            if [ -z "$tag_sha" ] || [ "$tag_sha" = "$GITHUB_SHA" ]; then v="$base"; release=true; fi
+          fi
+          if [ "$release" != "true" ]; then v="${base}-dev.${GITHUB_RUN_NUMBER}"; fi
           echo "name=$v" >> "$GITHUB_OUTPUT"
+          echo "release=$release" >> "$GITHUB_OUTPUT"
           sed -i "s/^config\/version=.*/config\/version=\"$v\"/" project.godot
           sed -i "s/^version\/code=.*/version\/code=${GITHUB_RUN_NUMBER}/; s/^version\/name=.*/version\/name=\"$v\"/" export_presets.cfg
-          echo "Версия $v, код сборки ${GITHUB_RUN_NUMBER}"
+          echo "Версия $v, код сборки ${GITHUB_RUN_NUMBER}, выпуск: $release"
 
       - name: Ключ подписи
         env:
@@ -161,18 +172,19 @@ jobs:
           retention-days: 30
 
       - name: Релиз
-        if: github.ref_type == 'tag'
+        if: steps.version.outputs.release == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           v="${{ steps.version.outputs.name }}"
+          tag="v$v"
           awk -v ver="[$v]" '/^## /{p = index($0, ver) > 0; next} p' CHANGELOG.md > build/notes.md
-          [ -s build/notes.md ] || echo "Сборка $GITHUB_REF_NAME." > build/notes.md
+          [ -s build/notes.md ] || echo "Сборка $tag." > build/notes.md
           # Повторный запуск (например, после добавления ключа подписи) заменяет файлы релиза.
-          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" build/*.apk build/*.zip --clobber
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" build/*.apk build/*.zip --clobber
           else
-            gh release create "$GITHUB_REF_NAME" build/*.apk build/*.zip \
-              --title "Призрак $GITHUB_REF_NAME" --notes-file build/notes.md
+            gh release create "$tag" build/*.apk build/*.zip --target "$GITHUB_SHA" \
+              --title "Призрак $tag" --notes-file build/notes.md
           fi
