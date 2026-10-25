@@ -1,0 +1,7 @@
+# Godot
+.godot/
+/build/
+
+# Кэш скрипта данных мира (кроме ответов Всемирного банка)
+/tools/cache/*.geojson
+__pycache__/
