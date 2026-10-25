@@ -29,6 +29,7 @@
    "name_en": "Afghanistan",
    "continent": "Asia",
    "subregion": "Southern Asia",
+   "subregion_ru": "Южная Азия",
    "zone": "periphery",
    "label": [
     698.7,
@@ -53,7 +54,7 @@
     "wage_workers": 16.6,
     "self_employed": 83.4,
     "unemployment": 13.35,
-    "gini": 36.45,
+    "gini": 37.1,
     "trade": 83.76,
     "manuf_exports": 4.77,
     "fuel_exports": 8.05,
@@ -94,6 +95,7 @@
    "name_en": "Angola",
    "continent": "Africa",
    "subregion": "Middle Africa",
+   "subregion_ru": "Центральная Африка",
    "zone": "periphery",
    "label": [
     198.4,
@@ -156,6 +158,7 @@
    "name_en": "Albania",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "semi",
    "label": [
     205.2,
@@ -218,6 +221,7 @@
    "name_en": "United Arab Emirates",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     591.4,
@@ -279,6 +283,7 @@
    "name_en": "Argentina",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -675.9,
@@ -342,6 +347,7 @@
    "name_en": "Armenia",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     457.6,
@@ -398,70 +404,13 @@
    "estimated": []
   },
   {
-   "id": "ATC",
-   "wb_code": "AUS",
-   "name_ru": "Острова Ашмор и Картье",
-   "name_en": "Ashmore and Cartier Islands",
-   "continent": "Oceania",
-   "subregion": "Australia and New Zealand",
-   "zone": "semi",
-   "label": [
-    1363.3,
-    156.4
-   ],
-   "neighbors": [],
-   "indicators": {
-    "population": 27614411,
-    "gdp_usd": 1798518933689,
-    "gdp_per_capita": 65129.72,
-    "industry_va": 23.89,
-    "emp_agriculture": 2.18,
-    "emp_industry": 19.29,
-    "emp_services": 78.53,
-    "wage_workers": 83.9,
-    "self_employed": 16.1,
-    "unemployment": 4.09,
-    "gini": 33.8,
-    "trade": 45.9,
-    "manuf_exports": 9.84,
-    "fuel_exports": 26.89,
-    "internet": 96.13,
-    "urban": 87.72,
-    "migrant_stock": 30.4,
-    "women_labor": 47.68,
-    "external_debt": 36.62
-   },
-   "years": {
-    "population": 2025,
-    "gdp_usd": 2025,
-    "gdp_per_capita": 2025,
-    "industry_va": 2025,
-    "emp_agriculture": 2025,
-    "emp_industry": 2025,
-    "emp_services": 2025,
-    "wage_workers": 2025,
-    "self_employed": 2025,
-    "unemployment": 2025,
-    "gini": 2020,
-    "trade": 2025,
-    "manuf_exports": 2025,
-    "fuel_exports": 2025,
-    "internet": 2024,
-    "urban": 2025,
-    "migrant_stock": 2024,
-    "women_labor": 2025
-   },
-   "estimated": [
-    "external_debt"
-   ]
-  },
-  {
    "id": "AUS",
    "wb_code": "AUS",
    "name_ru": "Австралия",
    "name_en": "Australia",
    "continent": "Oceania",
    "subregion": "Australia and New Zealand",
+   "subregion_ru": "Австралия и Новая Зеландия",
    "zone": "core",
    "label": [
     1451.6,
@@ -520,6 +469,7 @@
    "name_en": "Austria",
    "continent": "Europe",
    "subregion": "Western Europe",
+   "subregion_ru": "Западная Европа",
    "zone": "core",
    "label": [
     138.5,
@@ -586,6 +536,7 @@
    "name_en": "Azerbaijan",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     482.4,
@@ -649,6 +600,7 @@
    "name_en": "Burundi",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     332.1,
@@ -671,7 +623,7 @@
     "self_employed": 84.85,
     "unemployment": 0.92,
     "gini": 37.5,
-    "trade": 49.1,
+    "trade": 50.2,
     "manuf_exports": 15.18,
     "fuel_exports": 1.89,
     "internet": 8.6,
@@ -711,6 +663,7 @@
    "name_en": "Belgium",
    "continent": "Europe",
    "subregion": "Western Europe",
+   "subregion_ru": "Западная Европа",
    "zone": "core",
    "label": [
     46.0,
@@ -774,6 +727,7 @@
    "name_en": "Benin",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     26.0,
@@ -836,6 +790,7 @@
    "name_en": "Burkina Faso",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -15.0,
@@ -900,6 +855,7 @@
    "name_en": "Bangladesh",
    "continent": "Asia",
    "subregion": "Southern Asia",
+   "subregion_ru": "Южная Азия",
    "zone": "periphery",
    "label": [
     971.0,
@@ -960,6 +916,7 @@
    "name_en": "Bulgaria",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "semi",
    "label": [
     254.0,
@@ -1023,6 +980,7 @@
    "name_en": "Bahrain",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     545.0,
@@ -1040,7 +998,7 @@
     "wage_workers": 97.56,
     "self_employed": 2.44,
     "unemployment": 1.1,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 157.48,
     "manuf_exports": 26.01,
     "fuel_exports": 0.0,
@@ -1081,6 +1039,7 @@
    "name_en": "The Bahamas",
    "continent": "North America",
    "subregion": "Caribbean",
+   "subregion_ru": "Карибский бассейн",
    "zone": "semi",
    "label": [
     -830.9,
@@ -1098,7 +1057,7 @@
     "wage_workers": 82.95,
     "self_employed": 17.05,
     "unemployment": 9.21,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 79.24,
     "manuf_exports": 31.15,
     "fuel_exports": 0.0,
@@ -1139,6 +1098,7 @@
    "name_en": "Bosnia and Herzegovina",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "semi",
    "label": [
     180.8,
@@ -1200,6 +1160,7 @@
    "name_en": "Belarus",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "semi",
    "label": [
     266.1,
@@ -1263,6 +1224,7 @@
    "name_en": "Belize",
    "continent": "North America",
    "subregion": "Central America",
+   "subregion_ru": "Центральная Америка",
    "zone": "semi",
    "label": [
     -972.5,
@@ -1323,6 +1285,7 @@
    "name_en": "Bolivia",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "periphery",
    "label": [
     -708.7,
@@ -1386,6 +1349,7 @@
    "name_en": "Brazil",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -546.9,
@@ -1454,6 +1418,7 @@
    "name_en": "Barbados",
    "continent": "North America",
    "subregion": "Caribbean",
+   "subregion_ru": "Карибский бассейн",
    "zone": "core",
    "label": [
     -656.6,
@@ -1472,7 +1437,7 @@
     "self_employed": 19.55,
     "unemployment": 6.52,
     "gini": 34.1,
-    "trade": 105.47,
+    "trade": 105.61,
     "manuf_exports": 41.2,
     "fuel_exports": 4.79,
     "internet": 70.36,
@@ -1512,6 +1477,7 @@
    "name_en": "Brunei",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "semi",
    "label": [
     1271.2,
@@ -1531,7 +1497,7 @@
     "wage_workers": 92.73,
     "self_employed": 7.27,
     "unemployment": 5.28,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 123.61,
     "manuf_exports": 24.35,
     "fuel_exports": 74.98,
@@ -1572,6 +1538,7 @@
    "name_en": "Bhutan",
    "continent": "Asia",
    "subregion": "Southern Asia",
+   "subregion_ru": "Южная Азия",
    "zone": "periphery",
    "label": [
     966.8,
@@ -1632,6 +1599,7 @@
    "name_en": "Botswana",
    "continent": "Africa",
    "subregion": "Southern Africa",
+   "subregion_ru": "Юг Африки",
    "zone": "semi",
    "label": [
     262.8,
@@ -1694,6 +1662,7 @@
    "name_en": "Central African Republic",
    "continent": "Africa",
    "subregion": "Middle Africa",
+   "subregion_ru": "Центральная Африка",
    "zone": "periphery",
    "label": [
     231.7,
@@ -1758,6 +1727,7 @@
    "name_en": "Canada",
    "continent": "North America",
    "subregion": "Northern America",
+   "subregion_ru": "Северная Америка",
    "zone": "core",
    "label": [
     -901.4,
@@ -1818,6 +1788,7 @@
    "name_en": "Switzerland",
    "continent": "Europe",
    "subregion": "Western Europe",
+   "subregion_ru": "Западная Европа",
    "zone": "core",
    "label": [
     73.5,
@@ -1881,6 +1852,7 @@
    "name_en": "Chile",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -746.8,
@@ -1943,6 +1915,7 @@
    "name_en": "People's Republic of China",
    "continent": "Asia",
    "subregion": "Eastern Asia",
+   "subregion_ru": "Восточная Азия",
    "zone": "semi",
    "label": [
     1124.1,
@@ -2017,6 +1990,7 @@
    "name_en": "Ivory Coast",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -61.7,
@@ -2080,6 +2054,7 @@
    "name_en": "Cameroon",
    "continent": "Africa",
    "subregion": "Middle Africa",
+   "subregion_ru": "Центральная Африка",
    "zone": "periphery",
    "label": [
     138.4,
@@ -2139,11 +2114,12 @@
   },
   {
    "id": "COD",
-   "wb_code": "ZAR",
+   "wb_code": "COD",
    "name_ru": "ДР Конго",
    "name_en": "Democratic Republic of the Congo",
    "continent": "Africa",
    "subregion": "Middle Africa",
+   "subregion_ru": "Центральная Африка",
    "zone": "periphery",
    "label": [
     260.5,
@@ -2161,52 +2137,48 @@
     "ZMB"
    ],
    "indicators": {
-    "population": 86790567,
-    "gdp_usd": 50400000000,
-    "gdp_per_capita": 580.71,
-    "industry_va": 23.89,
-    "emp_agriculture": 47.36,
-    "emp_industry": 13.39,
-    "emp_services": 36.89,
-    "wage_workers": 23.38,
-    "self_employed": 76.62,
-    "unemployment": 3.78,
-    "gini": 36.45,
-    "trade": 49.1,
-    "manuf_exports": 10.22,
-    "fuel_exports": 1.3,
-    "internet": 31.7,
-    "urban": 34.75,
-    "migrant_stock": 1.7,
-    "women_labor": 47.51,
-    "external_debt": 36.62
+    "population": 112832473,
+    "gdp_usd": 91030531317,
+    "gdp_per_capita": 806.78,
+    "industry_va": 39.71,
+    "emp_agriculture": 58.52,
+    "emp_industry": 8.02,
+    "emp_services": 33.45,
+    "wage_workers": 14.92,
+    "self_employed": 85.08,
+    "unemployment": 4.43,
+    "gini": 44.7,
+    "trade": 87.33,
+    "manuf_exports": 15.39,
+    "fuel_exports": 1.8,
+    "internet": 19.67,
+    "urban": 45.11,
+    "migrant_stock": 1.0,
+    "women_labor": 48.88,
+    "external_debt": 18.25
    },
    "years": {
-    "population": 2019,
-    "gdp_usd": 2019,
-    "gdp_per_capita": 2019
+    "population": 2025,
+    "gdp_usd": 2025,
+    "gdp_per_capita": 2025,
+    "industry_va": 2025,
+    "emp_agriculture": 2025,
+    "emp_industry": 2025,
+    "emp_services": 2025,
+    "wage_workers": 2025,
+    "self_employed": 2025,
+    "unemployment": 2025,
+    "gini": 2020,
+    "trade": 2025,
+    "manuf_exports": 2024,
+    "fuel_exports": 2024,
+    "internet": 2024,
+    "urban": 2025,
+    "migrant_stock": 2024,
+    "women_labor": 2025,
+    "external_debt": 2024
    },
-   "estimated": [
-    "emp_agriculture",
-    "emp_industry",
-    "emp_services",
-    "external_debt",
-    "fuel_exports",
-    "gdp_per_capita",
-    "gdp_usd",
-    "gini",
-    "industry_va",
-    "internet",
-    "manuf_exports",
-    "migrant_stock",
-    "population",
-    "self_employed",
-    "trade",
-    "unemployment",
-    "urban",
-    "wage_workers",
-    "women_labor"
-   ]
+   "estimated": []
   },
   {
    "id": "COG",
@@ -2215,6 +2187,7 @@
    "name_en": "Republic of the Congo",
    "continent": "Africa",
    "subregion": "Middle Africa",
+   "subregion_ru": "Центральная Африка",
    "zone": "periphery",
    "label": [
     176.7,
@@ -2278,6 +2251,7 @@
    "name_en": "Colombia",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -812.3,
@@ -2341,6 +2315,7 @@
    "name_en": "Comoros",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     478.2,
@@ -2398,6 +2373,7 @@
    "name_en": "Cape Verde",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -260.0,
@@ -2455,6 +2431,7 @@
    "name_en": "Costa Rica",
    "continent": "North America",
    "subregion": "Central America",
+   "subregion_ru": "Центральная Америка",
    "zone": "semi",
    "label": [
     -929.8,
@@ -2516,6 +2493,7 @@
    "name_en": "Cuba",
    "continent": "North America",
    "subregion": "Caribbean",
+   "subregion_ru": "Карибский бассейн",
    "zone": "semi",
    "label": [
     -848.8,
@@ -2533,7 +2511,7 @@
     "wage_workers": 75.1,
     "self_employed": 24.9,
     "unemployment": 1.75,
-    "gini": 39.15,
+    "gini": 39.1,
     "trade": 124.86,
     "manuf_exports": 7.79,
     "fuel_exports": 5.74,
@@ -2569,11 +2547,12 @@
   },
   {
    "id": "CYN",
-   "wb_code": "CYN",
+   "wb_code": null,
    "name_ru": "Северный Кипр",
    "name_en": "Turkish Republic of Northern Cyprus",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     352.6,
@@ -2586,21 +2565,21 @@
     "population": 326000,
     "gdp_usd": 3600000000,
     "gdp_per_capita": 11042.94,
-    "industry_va": 23.94,
-    "emp_agriculture": 10.65,
-    "emp_industry": 20.42,
-    "emp_services": 67.19,
-    "wage_workers": 73.12,
-    "self_employed": 26.88,
-    "unemployment": 7.13,
-    "gini": 39.15,
-    "trade": 83.67,
-    "manuf_exports": 25.23,
-    "fuel_exports": 5.98,
-    "internet": 83.93,
-    "urban": 70.7,
-    "migrant_stock": 5.4,
-    "women_labor": 42.87,
+    "industry_va": 24.02,
+    "emp_agriculture": 10.95,
+    "emp_industry": 20.62,
+    "emp_services": 66.95,
+    "wage_workers": 73.26,
+    "self_employed": 26.74,
+    "unemployment": 7.12,
+    "gini": 39.1,
+    "trade": 82.95,
+    "manuf_exports": 26.62,
+    "fuel_exports": 5.74,
+    "internet": 84.19,
+    "urban": 69.89,
+    "migrant_stock": 5.35,
+    "women_labor": 42.83,
     "external_debt": 49.2
    },
    "years": {
@@ -2637,6 +2616,7 @@
    "name_en": "Cyprus",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     346.6,
@@ -2697,6 +2677,7 @@
    "name_en": "Czech Republic",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "core",
    "label": [
     148.4,
@@ -2760,6 +2741,7 @@
    "name_en": "Germany",
    "continent": "Europe",
    "subregion": "Western Europe",
+   "subregion_ru": "Западная Европа",
    "zone": "core",
    "label": [
     92.7,
@@ -2828,6 +2810,7 @@
    "name_en": "Djibouti",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     469.0,
@@ -2889,6 +2872,7 @@
    "name_en": "Denmark",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "core",
    "label": [
     83.0,
@@ -2949,6 +2933,7 @@
    "name_en": "Dominican Republic",
    "continent": "North America",
    "subregion": "Caribbean",
+   "subregion_ru": "Карибский бассейн",
    "zone": "semi",
    "label": [
     -772.2,
@@ -3008,6 +2993,7 @@
    "name_en": "Algeria",
    "continent": "Africa",
    "subregion": "Northern Africa",
+   "subregion_ru": "Северная Африка",
    "zone": "periphery",
    "label": [
     30.2,
@@ -3073,6 +3059,7 @@
    "name_en": "Ecuador",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -868.5,
@@ -3133,6 +3120,7 @@
    "name_en": "Egypt",
    "continent": "Africa",
    "subregion": "Northern Africa",
+   "subregion_ru": "Северная Африка",
    "zone": "semi",
    "label": [
     317.3,
@@ -3195,6 +3183,7 @@
    "name_en": "Eritrea",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     420.6,
@@ -3216,7 +3205,7 @@
     "wage_workers": 47.63,
     "self_employed": 52.37,
     "unemployment": 5.98,
-    "gini": 36.45,
+    "gini": 37.1,
     "trade": 47.39,
     "manuf_exports": 30.27,
     "fuel_exports": 0.0,
@@ -3257,6 +3246,7 @@
    "name_en": "Spain",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "core",
    "label": [
     -35.5,
@@ -3318,6 +3308,7 @@
    "name_en": "Estonia",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "core",
    "label": [
     232.2,
@@ -3379,6 +3370,7 @@
    "name_en": "Ethiopia",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     432.9,
@@ -3444,6 +3436,7 @@
    "name_en": "Finland",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "core",
    "label": [
     234.4,
@@ -3506,6 +3499,7 @@
    "name_en": "Fiji",
    "continent": "Oceania",
    "subregion": "Melanesia",
+   "subregion_ru": "Меланезия",
    "zone": "periphery",
    "label": [
     1949.0,
@@ -3563,6 +3557,7 @@
    "name_en": "France",
    "continent": "Europe",
    "subregion": "Western Europe",
+   "subregion_ru": "Западная Европа",
    "zone": "core",
    "label": [
     25.1,
@@ -3630,6 +3625,7 @@
    "name_en": "Gabon",
    "continent": "Africa",
    "subregion": "Middle Africa",
+   "subregion_ru": "Центральная Африка",
    "zone": "semi",
    "label": [
     131.5,
@@ -3691,6 +3687,7 @@
    "name_en": "United Kingdom",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "core",
    "label": [
     -19.7,
@@ -3751,6 +3748,7 @@
    "name_en": "Georgia",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     443.2,
@@ -3813,6 +3811,7 @@
    "name_en": "Ghana",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -11.5,
@@ -3874,6 +3873,7 @@
    "name_en": "Guinea",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -110.7,
@@ -3938,6 +3938,7 @@
    "name_en": "The Gambia",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -165.2,
@@ -3997,6 +3998,7 @@
    "name_en": "Guinea-Bissau",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -160.3,
@@ -4057,6 +4059,7 @@
    "name_en": "Equatorial Guinea",
    "continent": "Africa",
    "subregion": "Middle Africa",
+   "subregion_ru": "Центральная Африка",
    "zone": "periphery",
    "label": [
     99.8,
@@ -4118,6 +4121,7 @@
    "name_en": "Greece",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "semi",
    "label": [
     223.0,
@@ -4181,6 +4185,7 @@
    "name_en": "Guatemala",
    "continent": "North America",
    "subregion": "Central America",
+   "subregion_ru": "Центральная Америка",
    "zone": "periphery",
    "label": [
     -995.5,
@@ -4243,6 +4248,7 @@
    "name_en": "Guyana",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -653.9,
@@ -4304,6 +4310,7 @@
    "name_en": "Hong Kong",
    "continent": "Asia",
    "subregion": "Eastern Asia",
+   "subregion_ru": "Восточная Азия",
    "zone": "core",
    "label": [
     1239.5,
@@ -4323,7 +4330,7 @@
     "wage_workers": 92.31,
     "self_employed": 7.69,
     "unemployment": 2.8,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 396.65,
     "manuf_exports": 85.66,
     "fuel_exports": 0.08,
@@ -4364,6 +4371,7 @@
    "name_en": "Honduras",
    "continent": "North America",
    "subregion": "Central America",
+   "subregion_ru": "Центральная Америка",
    "zone": "periphery",
    "label": [
     -956.0,
@@ -4425,6 +4433,7 @@
    "name_en": "Croatia",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "semi",
    "label": [
     162.2,
@@ -4489,6 +4498,7 @@
    "name_en": "Haiti",
    "continent": "North America",
    "subregion": "Caribbean",
+   "subregion_ru": "Карибский бассейн",
    "zone": "periphery",
    "label": [
     -789.1,
@@ -4548,6 +4558,7 @@
    "name_en": "Hungary",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "semi",
    "label": [
     191.1,
@@ -4614,6 +4625,7 @@
    "name_en": "Indonesia",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "semi",
    "label": [
     1131.8,
@@ -4675,6 +4687,7 @@
    "name_en": "India",
    "continent": "Asia",
    "subregion": "Southern Asia",
+   "subregion_ru": "Южная Азия",
    "zone": "semi",
    "label": [
     861.7,
@@ -4733,70 +4746,13 @@
    "estimated": []
   },
   {
-   "id": "IOA",
-   "wb_code": "AUS",
-   "name_ru": "Австралийские территории в Индийском океане",
-   "name_en": "Australian Indian Ocean Territories",
-   "continent": "Asia",
-   "subregion": "Seven seas (open ocean)",
-   "zone": "semi",
-   "label": [
-    1168.1,
-    132.0
-   ],
-   "neighbors": [],
-   "indicators": {
-    "population": 27614411,
-    "gdp_usd": 1798518933689,
-    "gdp_per_capita": 65129.72,
-    "industry_va": 23.89,
-    "emp_agriculture": 2.18,
-    "emp_industry": 19.29,
-    "emp_services": 78.53,
-    "wage_workers": 83.9,
-    "self_employed": 16.1,
-    "unemployment": 4.09,
-    "gini": 33.8,
-    "trade": 45.9,
-    "manuf_exports": 9.84,
-    "fuel_exports": 26.89,
-    "internet": 96.13,
-    "urban": 87.72,
-    "migrant_stock": 30.4,
-    "women_labor": 47.68,
-    "external_debt": 0.0
-   },
-   "years": {
-    "population": 2025,
-    "gdp_usd": 2025,
-    "gdp_per_capita": 2025,
-    "industry_va": 2025,
-    "emp_agriculture": 2025,
-    "emp_industry": 2025,
-    "emp_services": 2025,
-    "wage_workers": 2025,
-    "self_employed": 2025,
-    "unemployment": 2025,
-    "gini": 2020,
-    "trade": 2025,
-    "manuf_exports": 2025,
-    "fuel_exports": 2025,
-    "internet": 2024,
-    "urban": 2025,
-    "migrant_stock": 2024,
-    "women_labor": 2025
-   },
-   "estimated": [
-    "external_debt"
-   ]
-  },
-  {
    "id": "IRL",
    "wb_code": "IRL",
    "name_ru": "Ирландия",
    "name_en": "Ireland",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "core",
    "label": [
     -73.4,
@@ -4857,6 +4813,7 @@
    "name_en": "Iran",
    "continent": "Asia",
    "subregion": "Southern Asia",
+   "subregion_ru": "Южная Азия",
    "zone": "periphery",
    "label": [
     581.4,
@@ -4922,6 +4879,7 @@
    "name_en": "Iraq",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "periphery",
    "label": [
     456.3,
@@ -4986,6 +4944,7 @@
    "name_en": "Iceland",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "core",
    "label": [
     -158.0,
@@ -5044,6 +5003,7 @@
    "name_en": "Israel",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "core",
    "label": [
     370.5,
@@ -5108,6 +5068,7 @@
    "name_en": "Italy",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "core",
    "label": [
     110.5,
@@ -5171,6 +5132,7 @@
    "name_en": "Jamaica",
    "continent": "North America",
    "subregion": "Caribbean",
+   "subregion_ru": "Карибский бассейн",
    "zone": "semi",
    "label": [
     -846.3,
@@ -5189,7 +5151,7 @@
     "self_employed": 35.75,
     "unemployment": 3.29,
     "gini": 39.9,
-    "trade": 83.67,
+    "trade": 82.95,
     "manuf_exports": 3.93,
     "fuel_exports": 23.91,
     "internet": 90.11,
@@ -5229,6 +5191,7 @@
    "name_en": "Jordan",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "periphery",
    "label": [
     386.9,
@@ -5292,6 +5255,7 @@
    "name_en": "Japan",
    "continent": "Asia",
    "subregion": "Eastern Asia",
+   "subregion_ru": "Восточная Азия",
    "zone": "core",
    "label": [
     1442.7,
@@ -5350,6 +5314,7 @@
    "name_en": "Kazakhstan",
    "continent": "Asia",
    "subregion": "Central Asia",
+   "subregion_ru": "Центральная Азия",
    "zone": "semi",
    "label": [
     666.4,
@@ -5413,6 +5378,7 @@
    "name_en": "Kenya",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     421.1,
@@ -5476,6 +5442,7 @@
    "name_en": "Kyrgyzstan",
    "continent": "Asia",
    "subregion": "Central Asia",
+   "subregion_ru": "Центральная Азия",
    "zone": "periphery",
    "label": [
     756.2,
@@ -5538,6 +5505,7 @@
    "name_en": "Cambodia",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "periphery",
    "label": [
     1152.5,
@@ -5559,7 +5527,7 @@
     "wage_workers": 44.48,
     "self_employed": 55.52,
     "unemployment": 0.26,
-    "gini": 36.45,
+    "gini": 37.1,
     "trade": 136.09,
     "manuf_exports": 78.02,
     "fuel_exports": 0.0,
@@ -5600,6 +5568,7 @@
    "name_en": "South Korea",
    "continent": "Asia",
    "subregion": "Eastern Asia",
+   "subregion_ru": "Восточная Азия",
    "zone": "core",
    "label": [
     1333.8,
@@ -5660,6 +5629,7 @@
    "name_en": "Kosovo",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "semi",
    "label": [
     210.6,
@@ -5676,20 +5646,20 @@
     "gdp_usd": 12456403307,
     "gdp_per_capita": 7899.42,
     "industry_va": 24.97,
-    "emp_agriculture": 27.59,
-    "emp_industry": 21.47,
+    "emp_agriculture": 27.89,
+    "emp_industry": 21.3,
     "emp_services": 50.18,
-    "wage_workers": 55.03,
-    "self_employed": 44.97,
-    "unemployment": 5.06,
+    "wage_workers": 54.56,
+    "self_employed": 45.44,
+    "unemployment": 5.04,
     "gini": 38.3,
     "trade": 118.19,
-    "manuf_exports": 29.42,
-    "fuel_exports": 2.72,
+    "manuf_exports": 28.96,
+    "fuel_exports": 2.9,
     "internet": 89.44,
     "urban": 50.93,
-    "migrant_stock": 1.6,
-    "women_labor": 42.9,
+    "migrant_stock": 1.5,
+    "women_labor": 43.36,
     "external_debt": 38.61
    },
    "years": {
@@ -5723,6 +5693,7 @@
    "name_en": "Kuwait",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     505.5,
@@ -5743,7 +5714,7 @@
     "wage_workers": 96.84,
     "self_employed": 3.16,
     "unemployment": 2.18,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 93.99,
     "manuf_exports": 5.68,
     "fuel_exports": 93.04,
@@ -5784,6 +5755,7 @@
    "name_en": "Laos",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "periphery",
    "label": [
     1120.0,
@@ -5847,6 +5819,7 @@
    "name_en": "Lebanon",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "periphery",
    "label": [
     378.2,
@@ -5907,6 +5880,7 @@
    "name_en": "Liberia",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -104.9,
@@ -5929,7 +5903,7 @@
     "self_employed": 78.34,
     "unemployment": 2.88,
     "gini": 35.3,
-    "trade": 49.1,
+    "trade": 50.2,
     "manuf_exports": 9.9,
     "fuel_exports": 1.84,
     "internet": 32.23,
@@ -5969,6 +5943,7 @@
    "name_en": "Libya",
    "continent": "Africa",
    "subregion": "Northern Africa",
+   "subregion_ru": "Северная Африка",
    "zone": "periphery",
    "label": [
     193.9,
@@ -5993,7 +5968,7 @@
     "wage_workers": 74.12,
     "self_employed": 25.88,
     "unemployment": 18.76,
-    "gini": 39.15,
+    "gini": 39.1,
     "trade": 137.66,
     "manuf_exports": 0.64,
     "fuel_exports": 94.41,
@@ -6034,6 +6009,7 @@
    "name_en": "Sri Lanka",
    "continent": "Asia",
    "subregion": "Southern Asia",
+   "subregion_ru": "Южная Азия",
    "zone": "periphery",
    "label": [
     894.0,
@@ -6091,6 +6067,7 @@
    "name_en": "Lesotho",
    "continent": "Africa",
    "subregion": "Southern Africa",
+   "subregion_ru": "Юг Африки",
    "zone": "periphery",
    "label": [
     301.7,
@@ -6150,6 +6127,7 @@
    "name_en": "Lithuania",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "core",
    "label": [
     223.3,
@@ -6213,6 +6191,7 @@
    "name_en": "Luxembourg",
    "continent": "Europe",
    "subregion": "Western Europe",
+   "subregion_ru": "Западная Европа",
    "zone": "core",
    "label": [
     58.7,
@@ -6275,6 +6254,7 @@
    "name_en": "Latvia",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "semi",
    "label": [
     231.9,
@@ -6338,6 +6318,7 @@
    "name_en": "Macau",
    "continent": "Asia",
    "subregion": "Eastern Asia",
+   "subregion_ru": "Восточная Азия",
    "zone": "semi",
    "label": [
     1234.3,
@@ -6357,7 +6338,7 @@
     "wage_workers": 93.24,
     "self_employed": 6.76,
     "unemployment": 2.35,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 139.14,
     "manuf_exports": 5.85,
     "fuel_exports": 0.0,
@@ -6398,6 +6379,7 @@
    "name_en": "Morocco",
    "continent": "Africa",
    "subregion": "Northern Africa",
+   "subregion_ru": "Северная Африка",
    "zone": "periphery",
    "label": [
     -76.2,
@@ -6458,6 +6440,7 @@
    "name_en": "Moldova",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "semi",
    "label": [
     279.3,
@@ -6518,6 +6501,7 @@
    "name_en": "Madagascar",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     510.8,
@@ -6575,6 +6559,7 @@
    "name_en": "Maldives",
    "continent": "Seven seas (open ocean)",
    "subregion": "Southern Asia",
+   "subregion_ru": "Южная Азия",
    "zone": "semi",
    "label": [
     815.8,
@@ -6632,6 +6617,7 @@
    "name_en": "Mexico",
    "continent": "North America",
    "subregion": "Central America",
+   "subregion_ru": "Центральная Америка",
    "zone": "semi",
    "label": [
     -1108.1,
@@ -6693,6 +6679,7 @@
    "name_en": "North Macedonia",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "semi",
    "label": [
     218.8,
@@ -6756,6 +6743,7 @@
    "name_en": "Mali",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -22.3,
@@ -6821,6 +6809,7 @@
    "name_en": "Malta",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "core",
    "label": [
     150.6,
@@ -6879,6 +6868,7 @@
    "name_en": "Myanmar",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "periphery",
    "label": [
     1042.5,
@@ -6903,7 +6893,7 @@
     "self_employed": 65.47,
     "unemployment": 3.05,
     "gini": 30.7,
-    "trade": 49.1,
+    "trade": 50.2,
     "manuf_exports": 39.99,
     "fuel_exports": 21.5,
     "internet": 45.45,
@@ -6943,6 +6933,7 @@
    "name_en": "Montenegro",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "semi",
    "label": [
     193.0,
@@ -7006,6 +6997,7 @@
    "name_en": "Mongolia",
    "continent": "Asia",
    "subregion": "Eastern Asia",
+   "subregion_ru": "Восточная Азия",
    "zone": "semi",
    "label": [
     1030.6,
@@ -7066,6 +7058,7 @@
    "name_en": "Mozambique",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     416.7,
@@ -7130,6 +7123,7 @@
    "name_en": "Mauritania",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -106.4,
@@ -7192,6 +7186,7 @@
    "name_en": "Mauritius",
    "continent": "Seven seas (open ocean)",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "semi",
    "label": [
     627.9,
@@ -7249,6 +7244,7 @@
    "name_en": "Malawi",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     370.3,
@@ -7310,6 +7306,7 @@
    "name_en": "Malaysia",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "semi",
    "label": [
     1264.0,
@@ -7372,6 +7369,7 @@
    "name_en": "Namibia",
    "continent": "Africa",
    "subregion": "Southern Africa",
+   "subregion_ru": "Юг Африки",
    "zone": "periphery",
    "label": [
     186.5,
@@ -7436,6 +7434,7 @@
    "name_en": "New Caledonia",
    "continent": "Oceania",
    "subregion": "Melanesia",
+   "subregion_ru": "Меланезия",
    "zone": "core",
    "label": [
     1798.0,
@@ -7453,7 +7452,7 @@
     "wage_workers": 82.86,
     "self_employed": 17.14,
     "unemployment": 11.17,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 40.37,
     "manuf_exports": 59.05,
     "fuel_exports": 0.01,
@@ -7494,6 +7493,7 @@
    "name_en": "Niger",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     104.1,
@@ -7559,6 +7559,7 @@
    "name_en": "Nigeria",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     83.0,
@@ -7621,6 +7622,7 @@
    "name_en": "Nicaragua",
    "continent": "North America",
    "subregion": "Central America",
+   "subregion_ru": "Центральная Америка",
    "zone": "periphery",
    "label": [
     -938.1,
@@ -7681,6 +7683,7 @@
    "name_en": "Netherlands",
    "continent": "Europe",
    "subregion": "Western Europe",
+   "subregion_ru": "Западная Европа",
    "zone": "core",
    "label": [
     53.1,
@@ -7742,6 +7745,7 @@
    "name_en": "Norway",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "core",
    "label": [
     84.8,
@@ -7804,6 +7808,7 @@
    "name_en": "Nepal",
    "continent": "Asia",
    "subregion": "Southern Asia",
+   "subregion_ru": "Южная Азия",
    "zone": "periphery",
    "label": [
     896.3,
@@ -7864,6 +7869,7 @@
    "name_en": "New Zealand",
    "continent": "Oceania",
    "subregion": "Australia and New Zealand",
+   "subregion_ru": "Австралия и Новая Зеландия",
    "zone": "core",
    "label": [
     1771.3,
@@ -7922,6 +7928,7 @@
    "name_en": "Oman",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     623.2,
@@ -7943,7 +7950,7 @@
     "wage_workers": 95.04,
     "self_employed": 4.96,
     "unemployment": 3.25,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 114.85,
     "manuf_exports": 17.25,
     "fuel_exports": 72.35,
@@ -7984,6 +7991,7 @@
    "name_en": "Pakistan",
    "continent": "Asia",
    "subregion": "Southern Asia",
+   "subregion_ru": "Южная Азия",
    "zone": "periphery",
    "label": [
     732.5,
@@ -8046,6 +8054,7 @@
    "name_en": "Panama",
    "continent": "North America",
    "subregion": "Central America",
+   "subregion_ru": "Центральная Америка",
    "zone": "semi",
    "label": [
     -889.4,
@@ -8107,6 +8116,7 @@
    "name_en": "Peru",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -803.7,
@@ -8170,6 +8180,7 @@
    "name_en": "Philippines",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "periphery",
    "label": [
     1352.7,
@@ -8227,6 +8238,7 @@
    "name_en": "Papua New Guinea",
    "continent": "Oceania",
    "subregion": "Melanesia",
+   "subregion_ru": "Меланезия",
    "zone": "periphery",
    "label": [
     1596.1,
@@ -8286,6 +8298,7 @@
    "name_en": "Poland",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "core",
    "label": [
     185.1,
@@ -8352,6 +8365,7 @@
    "name_en": "Puerto Rico",
    "continent": "North America",
    "subregion": "Caribbean",
+   "subregion_ru": "Карибский бассейн",
    "zone": "semi",
    "label": [
     -727.6,
@@ -8369,10 +8383,10 @@
     "wage_workers": 87.39,
     "self_employed": 12.61,
     "unemployment": 5.99,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 90.46,
-    "manuf_exports": 25.15,
-    "fuel_exports": 6.7,
+    "manuf_exports": 25.98,
+    "fuel_exports": 3.6,
     "internet": 87.29,
     "urban": 94.34,
     "migrant_stock": 6.9,
@@ -8410,6 +8424,7 @@
    "name_en": "North Korea",
    "continent": "Asia",
    "subregion": "Eastern Asia",
+   "subregion_ru": "Восточная Азия",
    "zone": "periphery",
    "label": [
     1295.5,
@@ -8424,22 +8439,22 @@
     "population": 26571036,
     "gdp_usd": 40000000000,
     "gdp_per_capita": 1505.4,
-    "industry_va": 23.89,
+    "industry_va": 24.09,
     "emp_agriculture": 54.08,
     "emp_industry": 22.41,
     "emp_services": 23.51,
     "wage_workers": 37.95,
     "self_employed": 62.05,
     "unemployment": 3.54,
-    "gini": 36.45,
-    "trade": 49.1,
-    "manuf_exports": 10.22,
+    "gini": 37.1,
+    "trade": 50.2,
+    "manuf_exports": 10.38,
     "fuel_exports": 1.3,
     "internet": 0.0,
     "urban": 64.19,
     "migrant_stock": 0.2,
     "women_labor": 48.17,
-    "external_debt": 36.62
+    "external_debt": 35.85
    },
    "years": {
     "population": 2025,
@@ -8474,6 +8489,7 @@
    "name_en": "Portugal",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "core",
    "label": [
     -84.9,
@@ -8534,6 +8550,7 @@
    "name_en": "Paraguay",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -654.3,
@@ -8595,6 +8612,7 @@
    "name_en": "Palestine",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "periphery",
    "label": [
     373.7,
@@ -8624,7 +8642,7 @@
     "urban": 87.38,
     "migrant_stock": 5.0,
     "women_labor": 21.46,
-    "external_debt": 44.81
+    "external_debt": 44.72
    },
    "years": {
     "population": 2025,
@@ -8657,6 +8675,7 @@
    "name_en": "French Polynesia",
    "continent": "Oceania",
    "subregion": "Polynesia",
+   "subregion_ru": "Полинезия",
    "zone": "semi",
    "label": [
     -1637.3,
@@ -8674,7 +8693,7 @@
     "wage_workers": 81.8,
     "self_employed": 18.2,
     "unemployment": 11.66,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 64.47,
     "manuf_exports": 34.12,
     "fuel_exports": 0.03,
@@ -8715,6 +8734,7 @@
    "name_en": "Qatar",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     552.6,
@@ -8770,11 +8790,12 @@
   },
   {
    "id": "ROU",
-   "wb_code": "ROM",
+   "wb_code": "ROU",
    "name_ru": "Румыния",
    "name_en": "Romania",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "semi",
    "label": [
     247.5,
@@ -8788,51 +8809,48 @@
     "UKR"
    ],
    "indicators": {
-    "population": 19356544,
-    "gdp_usd": 250077000000,
-    "gdp_per_capita": 12919.51,
-    "industry_va": 23.94,
-    "emp_agriculture": 10.65,
-    "emp_industry": 20.42,
-    "emp_services": 67.19,
-    "wage_workers": 73.12,
-    "self_employed": 26.88,
-    "unemployment": 7.13,
-    "gini": 39.15,
-    "trade": 83.67,
-    "manuf_exports": 25.23,
-    "fuel_exports": 5.98,
-    "internet": 83.93,
-    "urban": 70.7,
-    "migrant_stock": 5.4,
-    "women_labor": 42.87,
+    "population": 19020271,
+    "gdp_usd": 428677977855,
+    "gdp_per_capita": 22537.95,
+    "industry_va": 25.34,
+    "emp_agriculture": 10.95,
+    "emp_industry": 32.57,
+    "emp_services": 56.48,
+    "wage_workers": 85.54,
+    "self_employed": 14.46,
+    "unemployment": 5.99,
+    "gini": 29.8,
+    "trade": 76.21,
+    "manuf_exports": 77.08,
+    "fuel_exports": 5.57,
+    "internet": 91.29,
+    "urban": 52.17,
+    "migrant_stock": 3.4,
+    "women_labor": 42.41,
     "external_debt": 49.2
    },
    "years": {
-    "population": 2019,
-    "gdp_usd": 2019,
-    "gdp_per_capita": 2019
+    "population": 2025,
+    "gdp_usd": 2025,
+    "gdp_per_capita": 2025,
+    "industry_va": 2025,
+    "emp_agriculture": 2025,
+    "emp_industry": 2025,
+    "emp_services": 2025,
+    "wage_workers": 2025,
+    "self_employed": 2025,
+    "unemployment": 2025,
+    "gini": 2023,
+    "trade": 2025,
+    "manuf_exports": 2025,
+    "fuel_exports": 2025,
+    "internet": 2024,
+    "urban": 2025,
+    "migrant_stock": 2024,
+    "women_labor": 2025
    },
    "estimated": [
-    "emp_agriculture",
-    "emp_industry",
-    "emp_services",
-    "external_debt",
-    "fuel_exports",
-    "gdp_per_capita",
-    "gdp_usd",
-    "gini",
-    "industry_va",
-    "internet",
-    "manuf_exports",
-    "migrant_stock",
-    "population",
-    "self_employed",
-    "trade",
-    "unemployment",
-    "urban",
-    "wage_workers",
-    "women_labor"
+    "external_debt"
    ]
   },
   {
@@ -8842,6 +8860,7 @@
    "name_en": "Russia",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "semi",
    "label": [
     402.8,
@@ -8914,6 +8933,7 @@
    "name_en": "Rwanda",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     334.3,
@@ -8971,11 +8991,12 @@
   },
   {
    "id": "SAH",
-   "wb_code": "ESH",
+   "wb_code": null,
    "name_ru": "Западная Сахара",
    "name_en": "Western Sahara",
    "continent": "Africa",
    "subregion": "Northern Africa",
+   "subregion_ru": "Северная Африка",
    "zone": "periphery",
    "label": [
     -136.8,
@@ -8990,22 +9011,22 @@
     "population": 603253,
     "gdp_usd": 907000000,
     "gdp_per_capita": 1503.52,
-    "industry_va": 23.89,
-    "emp_agriculture": 47.36,
-    "emp_industry": 13.39,
-    "emp_services": 36.89,
-    "wage_workers": 23.38,
-    "self_employed": 76.62,
+    "industry_va": 24.09,
+    "emp_agriculture": 51.63,
+    "emp_industry": 12.74,
+    "emp_services": 34.57,
+    "wage_workers": 23.17,
+    "self_employed": 76.83,
     "unemployment": 3.78,
-    "gini": 36.45,
-    "trade": 49.1,
-    "manuf_exports": 10.22,
+    "gini": 37.1,
+    "trade": 50.2,
+    "manuf_exports": 10.38,
     "fuel_exports": 1.3,
-    "internet": 31.7,
+    "internet": 31.16,
     "urban": 34.75,
-    "migrant_stock": 1.7,
+    "migrant_stock": 1.6,
     "women_labor": 47.51,
-    "external_debt": 36.62
+    "external_debt": 35.85
    },
    "years": {
     "population": 2017,
@@ -9041,6 +9062,7 @@
    "name_en": "Saudi Arabia",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     484.3,
@@ -9066,7 +9088,7 @@
     "wage_workers": 94.45,
     "self_employed": 5.55,
     "unemployment": 3.04,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 57.92,
     "manuf_exports": 16.71,
     "fuel_exports": 78.73,
@@ -9107,6 +9129,7 @@
    "name_en": "Sudan",
    "continent": "Africa",
    "subregion": "Northern Africa",
+   "subregion_ru": "Северная Африка",
    "zone": "periphery",
    "label": [
     321.2,
@@ -9172,6 +9195,7 @@
    "name_en": "South Sudan",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     336.7,
@@ -9198,13 +9222,13 @@
     "unemployment": 12.37,
     "gini": 44.0,
     "trade": 65.55,
-    "manuf_exports": 10.22,
+    "manuf_exports": 10.38,
     "fuel_exports": 1.3,
     "internet": 6.67,
     "urban": 21.68,
     "migrant_stock": 7.7,
     "women_labor": 49.6,
-    "external_debt": 36.62
+    "external_debt": 35.85
    },
    "years": {
     "population": 2025,
@@ -9237,6 +9261,7 @@
    "name_en": "Senegal",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -162.5,
@@ -9300,6 +9325,7 @@
    "name_en": "Singapore",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "core",
    "label": [
     1153.1,
@@ -9317,7 +9343,7 @@
     "wage_workers": 87.31,
     "self_employed": 12.69,
     "unemployment": 2.82,
-    "gini": 33.8,
+    "gini": 32.95,
     "trade": 320.31,
     "manuf_exports": 78.21,
     "fuel_exports": 9.41,
@@ -9358,6 +9384,7 @@
    "name_en": "Solomon Islands",
    "continent": "Oceania",
    "subregion": "Melanesia",
+   "subregion_ru": "Меланезия",
    "zone": "periphery",
    "label": [
     1762.7,
@@ -9415,6 +9442,7 @@
    "name_en": "Sierra Leone",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     -130.2,
@@ -9475,6 +9503,7 @@
    "name_en": "El Salvador",
    "continent": "North America",
    "subregion": "Central America",
+   "subregion_ru": "Центральная Америка",
    "zone": "periphery",
    "label": [
     -979.2,
@@ -9530,11 +9559,12 @@
   },
   {
    "id": "SOL",
-   "wb_code": "SOL",
+   "wb_code": null,
    "name_ru": "Сомалиленд",
    "name_en": "Somaliland",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     517.0,
@@ -9549,22 +9579,22 @@
     "population": 5096159,
     "gdp_usd": 17836000000,
     "gdp_per_capita": 3499.89,
-    "industry_va": 25.06,
-    "emp_agriculture": 27.59,
-    "emp_industry": 21.47,
+    "industry_va": 24.97,
+    "emp_agriculture": 27.89,
+    "emp_industry": 21.3,
     "emp_services": 50.18,
-    "wage_workers": 55.03,
-    "self_employed": 44.97,
-    "unemployment": 5.06,
-    "gini": 36.4,
-    "trade": 77.58,
-    "manuf_exports": 29.42,
-    "fuel_exports": 2.72,
-    "internet": 67.26,
+    "wage_workers": 54.56,
+    "self_employed": 45.44,
+    "unemployment": 5.04,
+    "gini": 36.3,
+    "trade": 78.47,
+    "manuf_exports": 28.96,
+    "fuel_exports": 2.9,
+    "internet": 66.87,
     "urban": 55.77,
-    "migrant_stock": 1.6,
-    "women_labor": 42.9,
-    "external_debt": 44.81
+    "migrant_stock": 1.5,
+    "women_labor": 43.36,
+    "external_debt": 44.72
    },
    "years": {
     "population": 2014,
@@ -9600,6 +9630,7 @@
    "name_en": "Somalia",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     501.6,
@@ -9621,7 +9652,7 @@
     "wage_workers": 47.82,
     "self_employed": 52.18,
     "unemployment": 18.95,
-    "gini": 36.45,
+    "gini": 37.1,
     "trade": 128.06,
     "manuf_exports": 1.34,
     "fuel_exports": 1.12,
@@ -9662,6 +9693,7 @@
    "name_en": "Serbia",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "semi",
    "label": [
     208.0,
@@ -9728,6 +9760,7 @@
    "name_en": "São Tomé and Príncipe",
    "continent": "Africa",
    "subregion": "Middle Africa",
+   "subregion_ru": "Центральная Африка",
    "zone": "periphery",
    "label": [
     78.0,
@@ -9785,6 +9818,7 @@
    "name_en": "Suriname",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -620.5,
@@ -9846,6 +9880,7 @@
    "name_en": "Slovakia",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "core",
    "label": [
     185.2,
@@ -9910,6 +9945,7 @@
    "name_en": "Slovenia",
    "continent": "Europe",
    "subregion": "Southern Europe",
+   "subregion_ru": "Южная Европа",
    "zone": "core",
    "label": [
     147.5,
@@ -9973,6 +10009,7 @@
    "name_en": "Sweden",
    "continent": "Europe",
    "subregion": "Northern Europe",
+   "subregion_ru": "Северная Европа",
    "zone": "core",
    "label": [
     159.0,
@@ -10034,6 +10071,7 @@
    "name_en": "Eswatini",
    "continent": "Africa",
    "subregion": "Southern Africa",
+   "subregion_ru": "Юг Африки",
    "zone": "periphery",
    "label": [
     338.8,
@@ -10094,6 +10132,7 @@
    "name_en": "Syria",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "periphery",
    "label": [
     400.9,
@@ -10157,6 +10196,7 @@
    "name_en": "Chad",
    "continent": "Africa",
    "subregion": "Middle Africa",
+   "subregion_ru": "Центральная Африка",
    "zone": "periphery",
    "label": [
     205.0,
@@ -10221,6 +10261,7 @@
    "name_en": "Togo",
    "continent": "Africa",
    "subregion": "Western Africa",
+   "subregion_ru": "Западная Африка",
    "zone": "periphery",
    "label": [
     11.7,
@@ -10282,6 +10323,7 @@
    "name_en": "Thailand",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "semi",
    "label": [
     1111.0,
@@ -10344,6 +10386,7 @@
    "name_en": "Tajikistan",
    "continent": "Asia",
    "subregion": "Central Asia",
+   "subregion_ru": "Центральная Азия",
    "zone": "periphery",
    "label": [
     749.4,
@@ -10406,6 +10449,7 @@
    "name_en": "Turkmenistan",
    "continent": "Asia",
    "subregion": "Central Asia",
+   "subregion_ru": "Центральная Азия",
    "zone": "periphery",
    "label": [
     601.2,
@@ -10463,11 +10507,12 @@
   },
   {
    "id": "TLS",
-   "wb_code": "TMP",
+   "wb_code": "TLS",
    "name_ru": "Восточный Тимор",
    "name_en": "East Timor",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "periphery",
    "label": [
     1393.0,
@@ -10477,52 +10522,48 @@
     "IDN"
    ],
    "indicators": {
-    "population": 1293119,
-    "gdp_usd": 2017000000,
-    "gdp_per_capita": 1559.79,
-    "industry_va": 25.06,
-    "emp_agriculture": 27.59,
-    "emp_industry": 21.47,
+    "population": 1418517,
+    "gdp_usd": 1902180258,
+    "gdp_per_capita": 1340.96,
+    "industry_va": 11.82,
+    "emp_agriculture": 46.02,
+    "emp_industry": 3.8,
     "emp_services": 50.18,
-    "wage_workers": 55.03,
-    "self_employed": 44.97,
-    "unemployment": 5.06,
-    "gini": 36.4,
-    "trade": 77.58,
-    "manuf_exports": 29.42,
-    "fuel_exports": 2.72,
-    "internet": 67.26,
-    "urban": 55.77,
-    "migrant_stock": 1.6,
-    "women_labor": 42.9,
-    "external_debt": 44.81
+    "wage_workers": 25.14,
+    "self_employed": 74.86,
+    "unemployment": 1.59,
+    "gini": 28.7,
+    "trade": 95.45,
+    "manuf_exports": 21.86,
+    "fuel_exports": 67.37,
+    "internet": 35.04,
+    "urban": 28.79,
+    "migrant_stock": 0.6,
+    "women_labor": 45.88,
+    "external_debt": 15.37
    },
    "years": {
-    "population": 2019,
-    "gdp_usd": 2019,
-    "gdp_per_capita": 2019
+    "population": 2025,
+    "gdp_usd": 2025,
+    "gdp_per_capita": 2025,
+    "industry_va": 2024,
+    "emp_agriculture": 2025,
+    "emp_industry": 2025,
+    "emp_services": 2025,
+    "wage_workers": 2025,
+    "self_employed": 2025,
+    "unemployment": 2025,
+    "gini": 2014,
+    "trade": 2024,
+    "manuf_exports": 2023,
+    "fuel_exports": 2023,
+    "internet": 2021,
+    "urban": 2025,
+    "migrant_stock": 2024,
+    "women_labor": 2025,
+    "external_debt": 2024
    },
-   "estimated": [
-    "emp_agriculture",
-    "emp_industry",
-    "emp_services",
-    "external_debt",
-    "fuel_exports",
-    "gdp_per_capita",
-    "gdp_usd",
-    "gini",
-    "industry_va",
-    "internet",
-    "manuf_exports",
-    "migrant_stock",
-    "population",
-    "self_employed",
-    "trade",
-    "unemployment",
-    "urban",
-    "wage_workers",
-    "women_labor"
-   ]
+   "estimated": []
   },
   {
    "id": "TTO",
@@ -10531,6 +10572,7 @@
    "name_en": "Trinidad and Tobago",
    "continent": "North America",
    "subregion": "Caribbean",
+   "subregion_ru": "Карибский бассейн",
    "zone": "semi",
    "label": [
     -673.0,
@@ -10549,7 +10591,7 @@
     "self_employed": 25.72,
     "unemployment": 3.33,
     "gini": 40.2,
-    "trade": 105.47,
+    "trade": 105.61,
     "manuf_exports": 58.47,
     "fuel_exports": 32.56,
     "internet": 82.16,
@@ -10589,6 +10631,7 @@
    "name_en": "Tunisia",
    "continent": "Africa",
    "subregion": "Northern Africa",
+   "subregion_ru": "Северная Африка",
    "zone": "periphery",
    "label": [
     94.8,
@@ -10649,6 +10692,7 @@
    "name_en": "Turkey",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "semi",
    "label": [
     354.4,
@@ -10710,11 +10754,12 @@
   },
   {
    "id": "TWN",
-   "wb_code": "TWN",
+   "wb_code": null,
    "name_ru": "Тайвань",
    "name_en": "Taiwan",
    "continent": "Asia",
    "subregion": "Eastern Asia",
+   "subregion_ru": "Восточная Азия",
    "zone": "core",
    "label": [
     1310.0,
@@ -10725,21 +10770,21 @@
     "population": 23568378,
     "gdp_usd": 1127000000000,
     "gdp_per_capita": 47818.31,
-    "industry_va": 18.45,
-    "emp_agriculture": 1.62,
-    "emp_industry": 17.74,
-    "emp_services": 79.18,
-    "wage_workers": 89.83,
-    "self_employed": 10.17,
-    "unemployment": 4.92,
-    "gini": 33.8,
-    "trade": 105.47,
-    "manuf_exports": 25.15,
-    "fuel_exports": 6.7,
+    "industry_va": 18.37,
+    "emp_agriculture": 1.57,
+    "emp_industry": 18.5,
+    "emp_services": 78.8,
+    "wage_workers": 88.61,
+    "self_employed": 11.39,
+    "unemployment": 4.13,
+    "gini": 32.95,
+    "trade": 105.61,
+    "manuf_exports": 25.98,
+    "fuel_exports": 3.6,
     "internet": 92.47,
-    "urban": 88.57,
-    "migrant_stock": 41.3,
-    "women_labor": 44.51,
+    "urban": 90.21,
+    "migrant_stock": 42.1,
+    "women_labor": 44.15,
     "external_debt": 0.0
    },
    "years": {
@@ -10776,6 +10821,7 @@
    "name_en": "Tanzania",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     387.6,
@@ -10842,6 +10888,7 @@
    "name_en": "Uganda",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     365.9,
@@ -10905,6 +10952,7 @@
    "name_en": "Ukraine",
    "continent": "Europe",
    "subregion": "Eastern Europe",
+   "subregion_ru": "Восточная Европа",
    "zone": "periphery",
    "label": [
     310.5,
@@ -10970,6 +11018,7 @@
    "name_en": "Uruguay",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "semi",
    "label": [
     -590.6,
@@ -11031,6 +11080,7 @@
    "name_en": "United States of America",
    "continent": "North America",
    "subregion": "Northern America",
+   "subregion_ru": "Северная Америка",
    "zone": "core",
    "label": [
     -1000.3,
@@ -11092,6 +11142,7 @@
    "name_en": "Uzbekistan",
    "continent": "Asia",
    "subregion": "Central Asia",
+   "subregion_ru": "Центральная Азия",
    "zone": "periphery",
    "label": [
     649.3,
@@ -11155,6 +11206,7 @@
    "name_en": "Venezuela",
    "continent": "South America",
    "subregion": "South America",
+   "subregion_ru": "Южная Америка",
    "zone": "periphery",
    "label": [
     -715.8,
@@ -11217,6 +11269,7 @@
    "name_en": "Vietnam",
    "continent": "Asia",
    "subregion": "South-Eastern Asia",
+   "subregion_ru": "Юго-Восточная Азия",
    "zone": "periphery",
    "label": [
     1146.4,
@@ -11278,6 +11331,7 @@
    "name_en": "Vanuatu",
    "continent": "Oceania",
    "subregion": "Melanesia",
+   "subregion_ru": "Меланезия",
    "zone": "periphery",
    "label": [
     1834.9,
@@ -11335,6 +11389,7 @@
    "name_en": "Samoa",
    "continent": "Oceania",
    "subregion": "Polynesia",
+   "subregion_ru": "Полинезия",
    "zone": "periphery",
    "label": [
     -1899.6,
@@ -11392,6 +11447,7 @@
    "name_en": "Yemen",
    "continent": "Asia",
    "subregion": "Western Asia",
+   "subregion_ru": "Западная Азия",
    "zone": "periphery",
    "label": [
     504.4,
@@ -11452,6 +11508,7 @@
    "name_en": "South Africa",
    "continent": "Africa",
    "subregion": "Southern Africa",
+   "subregion_ru": "Юг Африки",
    "zone": "periphery",
    "label": [
     252.6,
@@ -11516,6 +11573,7 @@
    "name_en": "Zambia",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     290.5,
@@ -11582,6 +11640,7 @@
    "name_en": "Zimbabwe",
    "continent": "Africa",
    "subregion": "Eastern Africa",
+   "subregion_ru": "Восточная Африка",
    "zone": "periphery",
    "label": [
     327.2,

@@ -1,0 +1,25 @@
+keys,ru,en
+GAME_TITLE,Призрак,Spectre
+STAGE_LABEL,"v%s · этап 0: карта","v%s · stage 0: map"
+HINT_TAP_COUNTRY,"Коснитесь страны, чтобы увидеть её показатели. Карту можно двигать пальцем и приближать щипком.","Tap a country to see its indicators. Drag to move the map, pinch to zoom."
+FPS,%d кадр/с,%d fps
+BTN_CLOSE,Закрыть,Close
+IND_POPULATION,Население,Population
+IND_GDP_PER_CAPITA,ВВП на душу,GDP per capita
+IND_EMP_INDUSTRY,Заняты в промышленности,Employed in industry
+IND_EMP_AGRICULTURE,Заняты в сельском хозяйстве,Employed in agriculture
+IND_UNEMPLOYMENT,Безработица,Unemployment
+IND_GINI,Коэффициент Джини,Gini index
+IND_TRADE,"Торговля, % ВВП","Trade, % of GDP"
+IND_ZONE,Зона мир-системы,World-system zone
+ZONE_core,ядро,core
+ZONE_semi,полупериферия,semi-periphery
+ZONE_periphery,периферия,periphery
+NEIGHBORS,Граничит с: %s,Borders: %s
+NO_NEIGHBORS,Сухопутных границ нет,No land borders
+NOTE_ESTIMATED,"≈ — оценка: у Всемирного банка нет данных, взята медиана стран с тем же уровнем дохода.","≈ — estimate: no World Bank data, median of countries with the same income level."
+SOURCE_LINE,"Данные: Всемирный банк (CC BY 4.0), %s. Границы: Natural Earth.","Data: World Bank (CC BY 4.0), %s. Borders: Natural Earth."
+NUM_BILLION,%s млрд,%s bn
+NUM_MILLION,%s млн,%s m
+NUM_THOUSAND,%s тыс.,%s k
+YEAR_SUFFIX,%s г.,%s

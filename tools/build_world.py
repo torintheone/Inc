@@ -113,6 +113,32 @@ NAME_RU_OVERRIDES = {
 # Коды Natural Earth, которые у Всемирного банка записаны иначе.
 WB_CODE_OVERRIDES = {"KOS": "XKX", "PSX": "PSE", "SDS": "SSD"}
 
+SUBREGION_RU = {
+    "Australia and New Zealand": "Австралия и Новая Зеландия",
+    "Caribbean": "Карибский бассейн",
+    "Central America": "Центральная Америка",
+    "Central Asia": "Центральная Азия",
+    "Eastern Africa": "Восточная Африка",
+    "Eastern Asia": "Восточная Азия",
+    "Eastern Europe": "Восточная Европа",
+    "Melanesia": "Меланезия",
+    "Micronesia": "Микронезия",
+    "Middle Africa": "Центральная Африка",
+    "Northern Africa": "Северная Африка",
+    "Northern America": "Северная Америка",
+    "Northern Europe": "Северная Европа",
+    "Polynesia": "Полинезия",
+    "South America": "Южная Америка",
+    "South-Eastern Asia": "Юго-Восточная Азия",
+    "Southern Africa": "Юг Африки",
+    "Southern Asia": "Южная Азия",
+    "Southern Europe": "Южная Европа",
+    "Western Africa": "Западная Африка",
+    "Western Asia": "Западная Азия",
+    "Western Europe": "Западная Европа",
+    "Seven seas (open ocean)": "Открытый океан",
+}
+
 ZONE_NAMES = {"core": "ядро", "semi": "полупериферия", "periphery": "периферия"}
 
 # Коэффициенты проекции Робинсона (Snyder, 1993), шаг 5°.
@@ -196,26 +222,44 @@ def load_worldbank(refresh: bool, offline: bool) -> dict:
     return cache
 
 
-def wb_code(props: dict) -> str:
-    a3 = props["ADM0_A3"]
-    if a3 in WB_CODE_OVERRIDES:
-        return WB_CODE_OVERRIDES[a3]
-    for key in ("WB_A3", "ISO_A3_EH", "ISO_A3"):
-        v = props.get(key)
-        if v and v != "-99":
-            return v
-    return a3
+def wb_codes(features: list[dict], wb: dict) -> dict[str, str | None]:
+    """Код страны у Всемирного банка для каждой территории Natural Earth.
+
+    В Natural Earth встречаются старые коды банка (ZAR, ROM, TMP), поэтому берётся первый
+    код-кандидат, который банк действительно знает. Мелкие владения иногда несут код
+    метрополии (острова Ашмор и Картье — AUS); такой код достаётся только самой метрополии,
+    иначе остров получил бы население всей Австралии.
+    """
+    known = set(wb.get("population", {}))
+    codes: dict[str, str | None] = {}
+    for f in features:
+        p = f["properties"]
+        a3 = p["ADM0_A3"]
+        candidates = [WB_CODE_OVERRIDES.get(a3), p.get("ISO_A3_EH"), p.get("WB_A3"), p.get("ISO_A3"), a3]
+        candidates = [c for c in candidates if c and c != "-99"]
+        found = [c for c in candidates if c in known]
+        codes[a3] = found[0] if found else None
+    owners: dict[str, list[str]] = {}
+    for a3, code in codes.items():
+        if code is not None:
+            owners.setdefault(code, []).append(a3)
+    for code, a3s in owners.items():
+        if len(a3s) > 1:
+            for a3 in a3s:
+                if a3 != code:
+                    codes[a3] = None
+    return codes
 
 
-def build_indicators(features: list[dict], wb: dict) -> dict[str, dict]:
+def build_indicators(features: list[dict], wb: dict, codes: dict[str, str | None]) -> dict[str, dict]:
     """Показатели по странам; пропуски заполняются медианой группы дохода."""
     result: dict[str, dict] = {}
     for f in features:
         p = f["properties"]
-        code = wb_code(p)
+        code = codes[p["ADM0_A3"]]
         values, years, estimated = {}, {}, []
         for key in INDICATORS:
-            hit = wb.get(key, {}).get(code)
+            hit = wb.get(key, {}).get(code) if code else None
             if hit is not None:
                 values[key] = hit[0]
                 years[key] = hit[1]
@@ -351,7 +395,8 @@ def main() -> int:
     features = [f for f in load_natural_earth() if f["properties"]["ADM0_A3"] != "ATA"]
     features.sort(key=lambda f: f["properties"]["ADM0_A3"])
     wb = load_worldbank(args.refresh, args.offline)
-    indicators = build_indicators(features, wb)
+    codes = wb_codes(features, wb)
+    indicators = build_indicators(features, wb, codes)
 
     by_id = {f["properties"]["ADM0_A3"]: f for f in features}
     playable = [a3 for a3, f in by_id.items()
@@ -378,11 +423,12 @@ def main() -> int:
         lx, ly = robinson(p["LABEL_X"], p["LABEL_Y"])
         countries.append({
             "id": a3,
-            "wb_code": wb_code(p),
+            "wb_code": codes[a3],
             "name_ru": name_ru,
             "name_en": p["NAME_EN"],
             "continent": p["CONTINENT"],
             "subregion": p["SUBREGION"],
+            "subregion_ru": SUBREGION_RU.get(p["SUBREGION"], p["SUBREGION"]),
             "zone": zone_of(a3, p, ind["values"]),
             "label": [round(float(lx), 1), round(float(ly), 1)],
             "neighbors": neighbors[a3],

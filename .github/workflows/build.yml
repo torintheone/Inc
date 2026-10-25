@@ -1,0 +1,178 @@
+# Сборка игры: тесты, APK для Android и архив для Windows.
+# На каждый push — сборка и тесты (файлы лежат в «Artifacts» запуска).
+# На тег v* — ещё и GitHub Release с prizrak-<версия>.apk и Windows-архивом.
+name: Сборка
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GODOT_VERSION: "4.7.2"
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Кэш Godot
+        id: godot-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/godot
+            ~/.local/share/godot/export_templates
+          key: godot-${{ env.GODOT_VERSION }}-v1
+
+      - name: Скачать Godot и шаблоны экспорта
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          set -euo pipefail
+          base="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable"
+          mkdir -p ~/godot
+          curl -fsSL --retry 4 -o /tmp/godot.zip "$base/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q /tmp/godot.zip -d ~/godot
+          mv ~/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64 ~/godot/godot
+          curl -fsSL --retry 4 -o /tmp/templates.tpz "$base/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          dest=~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          mkdir -p "$dest"
+          unzip -q -j /tmp/templates.tpz templates/version.txt templates/android_release.apk \
+            templates/android_debug.apk templates/windows_release_x86_64.exe -d "$dest"
+          rm /tmp/godot.zip /tmp/templates.tpz
+
+      - name: Сохранить кэш Godot
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/godot
+            ~/.local/share/godot/export_templates
+          key: godot-${{ env.GODOT_VERSION }}-v1
+
+      - name: Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Android SDK
+        run: |
+          set -euo pipefail
+          sdk="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          if ! ls "$sdk"/build-tools/*/apksigner >/dev/null 2>&1 || [ ! -x "$sdk/platform-tools/adb" ]; then
+            yes | "$sdk/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "build-tools;35.0.0" >/dev/null
+          fi
+          echo "ANDROID_SDK=$sdk" >> "$GITHUB_ENV"
+          ls "$sdk/build-tools"
+
+      - name: Импорт проекта и настройки редактора
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --editor --quit || true
+          f=$(ls ~/.config/godot/editor_settings-*.tres)
+          sed -i "s|^export/android/android_sdk_path = .*|export/android/android_sdk_path = \"$ANDROID_SDK\"|" "$f"
+          sed -i "s|^export/android/java_sdk_path = .*|export/android/java_sdk_path = \"$JAVA_HOME\"|" "$f"
+          grep -E '^export/android/(android|java)_sdk_path' "$f"
+          ~/godot/godot --headless --import
+
+      - name: Тесты
+        run: ~/godot/godot --headless -s res://addons/gut/gut_cmdln.gd
+
+      - name: Версия
+        id: version
+        run: |
+          set -euo pipefail
+          base=$(sed -n 's/^config\/version="\(.*\)"/\1/p' project.godot)
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then v="${GITHUB_REF_NAME#v}"; else v="${base}-dev.${GITHUB_RUN_NUMBER}"; fi
+          echo "name=$v" >> "$GITHUB_OUTPUT"
+          sed -i "s/^config\/version=.*/config\/version=\"$v\"/" project.godot
+          sed -i "s/^version\/code=.*/version\/code=${GITHUB_RUN_NUMBER}/; s/^version\/name=.*/version\/name=\"$v\"/" export_presets.cfg
+          echo "Версия $v, код сборки ${GITHUB_RUN_NUMBER}"
+
+      - name: Ключ подписи
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          ks="$RUNNER_TEMP/release.keystore"
+          if [ -n "${KEYSTORE_BASE64}" ]; then
+            echo "${KEYSTORE_BASE64}" | tr -d ' \r\n' | base64 -d > "$ks"
+            alias="$KEY_ALIAS"; pass="$KEYSTORE_PASSWORD"
+            if [ -n "${KEY_PASSWORD}" ] && [ "${KEY_PASSWORD}" != "${KEYSTORE_PASSWORD}" ]; then
+              echo "::warning::KEY_PASSWORD отличается от KEYSTORE_PASSWORD; Godot подписывает одним паролем, берётся KEYSTORE_PASSWORD."
+            fi
+            echo "Подпись постоянным ключом из секретов GitHub."
+          else
+            # Секретов нет: временный ключ только на эту сборку. Такой APK ставится, но следующая
+            # версия поверх него не встанет — старую придётся удалить. См. README, «Ключ подписи».
+            alias="temporary"; pass="$(openssl rand -hex 16)"
+            keytool -genkeypair -keystore "$ks" -storetype PKCS12 -alias "$alias" -keyalg RSA -keysize 2048 \
+              -validity 3650 -storepass "$pass" -keypass "$pass" -dname "CN=Prizrak temporary" >/dev/null 2>&1
+            echo "::warning::Секреты KEYSTORE_BASE64 и др. не заданы — APK подписан временным ключом."
+          fi
+          echo "::add-mask::$pass"
+          {
+            echo "GODOT_ANDROID_KEYSTORE_RELEASE_PATH=$ks"
+            echo "GODOT_ANDROID_KEYSTORE_RELEASE_USER=$alias"
+            echo "GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD=$pass"
+          } >> "$GITHUB_ENV"
+
+      - name: Сборка APK
+        run: |
+          set -euo pipefail
+          apk="build/prizrak-${{ steps.version.outputs.name }}.apk"
+          mkdir -p build
+          ~/godot/godot --headless --export-release "Android" "$PWD/$apk"
+          test -s "$apk"
+          signer=$(ls -d "$ANDROID_SDK"/build-tools/*/ | sort -V | tail -1)apksigner
+          "$signer" verify --print-certs "$apk" | head -5
+          ls -la build
+
+      - name: Сборка для Windows
+        run: |
+          set -euo pipefail
+          mkdir -p build/windows
+          ~/godot/godot --headless --export-release "Windows Desktop" "$PWD/build/windows/Prizrak.exe"
+          test -s build/windows/Prizrak.exe
+          (cd build/windows && zip -q -9 "../prizrak-${{ steps.version.outputs.name }}-windows.zip" Prizrak.exe)
+          ls -la build
+
+      - name: Файлы сборки
+        uses: actions/upload-artifact@v4
+        with:
+          name: prizrak-${{ steps.version.outputs.name }}
+          path: |
+            build/*.apk
+            build/*.zip
+          retention-days: 30
+
+      - name: Релиз
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          v="${{ steps.version.outputs.name }}"
+          awk -v ver="[$v]" '/^## /{p = index($0, ver) > 0; next} p' CHANGELOG.md > build/notes.md
+          [ -s build/notes.md ] || echo "Сборка $GITHUB_REF_NAME." > build/notes.md
+          # Повторный запуск (например, после добавления ключа подписи) заменяет файлы релиза.
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" build/*.apk build/*.zip --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" build/*.apk build/*.zip \
+              --title "Призрак $GITHUB_REF_NAME" --notes-file build/notes.md
+          fi
