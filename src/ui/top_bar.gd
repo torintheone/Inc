@@ -1,7 +1,7 @@
 class_name TopBar
 extends PanelContainer
 ## Верхняя строка: дата и год партии, фаза цикла, солидарность, шкала Реакции
-## с порогами, справка и скорость.
+## с порогами, справка и скорость. Сделана низкой, чтобы карте оставалось больше места.
 
 signal speed_selected(speed: int)
 signal help_requested
@@ -15,22 +15,19 @@ var _solidarity: Label
 var _reaction_label: Label
 var _reaction_next: Label
 var _reaction: Meter
-var _fps: Label
 var _speed_buttons: Array[Button] = []
 
 
 func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	add_theme_stylebox_override("panel", GameTheme.bar_panel())
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 16)
 	add_child(row)
 
-	var left := VBoxContainer.new()
-	left.add_theme_constant_override("separation", -2)
-	left.add_child(GameTheme.make_label(tr("GAME_TITLE").to_upper(), 22, GameTheme.display_font(600), MapPalette.VERMILION))
-	_date = GameTheme.make_label("", GameTheme.SMALL_SIZE)
-	left.add_child(_date)
-	row.add_child(left)
+	_date = GameTheme.make_label("", 16, GameTheme.BODY_BOLD_FONT)
+	_date.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(_date)
 
 	_phase = GameTheme.make_label("", 16, GameTheme.BODY_BOLD_FONT, MapPalette.PAPER)
 	_phase.add_theme_stylebox_override("normal", _chip(MapPalette.INK))
@@ -94,11 +91,6 @@ func _init() -> void:
 	speeds.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(speeds)
 
-	_fps = GameTheme.make_label("", 12, null, Color(MapPalette.INK, 0.5))
-	_fps.custom_minimum_size = Vector2(54, 0)
-	_fps.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	row.add_child(_fps)
-
 
 func show_speed(speed: int) -> void:
 	for i in SPEEDS.size():
@@ -124,10 +116,6 @@ static func _next_threshold(reaction: float) -> String:
 		if reaction < t:
 			return TranslationServer.translate("REACTION_NEXT_%d" % t)
 	return TranslationServer.translate("REACTION_NEXT_MAX")
-
-
-func set_fps(fps: float) -> void:
-	_fps.text = tr("FPS") % fps
 
 
 static func _chip(color: Color) -> StyleBoxFlat:

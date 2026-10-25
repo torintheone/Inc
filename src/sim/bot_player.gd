@@ -1,6 +1,6 @@
 class_name BotPlayer
 extends RefCounted
-## Простой бот-игрок для прогонов и тестов: собирает пузырьки, покупает улучшения по
+## Простой бот-игрок для прогонов и тестов: отвечает на события, собирает пузырьки, покупает улучшения по
 ## списку приоритетов, посылает организаторов в соседние страны, проводит стачки и
 ## демонстрации там, где движение сильнее всего, и поднимает восстание, как только оно доступно.
 
@@ -17,6 +17,7 @@ const ORGANIZERS_RESERVE := 6.0
 
 
 static func play_week(sim: SimWorld) -> void:
+	_answer_event(sim)
 	_collect_bubbles(sim)
 	_buy_upgrade(sim)
 	var ranked := sim.countries.filter(func(cs: CountryState) -> bool: return not cs.is_revolutionary() and cs.influence >= 1.0)
@@ -30,6 +31,16 @@ static func play_week(sim: SimWorld) -> void:
 					PlayerActions.perform(sim, id, cs)
 					break
 	_send_organizers(sim, ranked)
+
+
+## Решение по событию: первый вариант, который сейчас доступен.
+static func _answer_event(sim: SimWorld) -> void:
+	if sim.pending_event.is_empty():
+		return
+	for o: Dictionary in sim.data.events[sim.pending_event["id"]]["options"]:
+		if EventSystem.option_blockers(sim, o).is_empty():
+			EventSystem.resolve(sim, o["id"])
+			return
 
 
 static func _collect_bubbles(sim: SimWorld) -> void:

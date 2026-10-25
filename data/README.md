@@ -10,9 +10,10 @@
 | `balance.json` | Все числа модели: цикл, экономика, движение, протесты, Реакция, исходы | правится руками |
 | `actions.json` | Дерево развития (27 улучшений в пяти ветвях) и действия в стране | правится руками |
 | `lines.json` | Пять стратегических линий движения | правится руками |
+| `events.json` | События: условия, варианты решений, цепочки | правится руками |
 
 Файлы `world*.json` и `links.json` руками не правят: их перезаписывает скрипт.
-`balance.json`, `actions.json` и `lines.json` — для дизайнера: числа и тексты меняются без программиста.
+`balance.json`, `actions.json`, `lines.json` и `events.json` — для дизайнера: числа и тексты меняются без программиста.
 Перед сборкой их проверяет `python3 tools/validate_data.py` (он же запускается в GitHub Actions):
 ссылки между записями, диапазоны значений, тексты для каждого улучшения и действия. Чтобы пересобрать их, запусти
 в GitHub вкладку **Actions → «Данные мира» → Run workflow**. Тот же скрипт можно запустить
@@ -114,6 +115,7 @@
 | `reaction` | Рост и спад Реакции, меры на порогах 20/40/60/80/100 |
 | `solidarity` | Постоянный доход солидарности: небольшой взнос и помощь революционных стран |
 | `bubbles` | Пузырьки на карте: как часто появляются, сколько дают, сколько живут |
+| `events` | Как часто приходят события, сколько недель между ними, когда событие решается само |
 | `outcome` | Условия концовок |
 | `score` | Очки на экране итогов |
 
@@ -208,6 +210,49 @@
   `add` — побочные последствия, `revolution_chance` — шанс, что действие перерастёт в революцию.
 
 Тексты линий — `LINE_<id>`, `LINE_<id>_CURRENT`, `_PLUS`, `_MINUS`, `_WHERE` в `tools/locale_game.py`.
+
+## events.json
+
+События — главный источник разнообразия. Каждое — `id`, категория, условия, вес, перерывы и 2–3 варианта.
+
+```json
+{"id": "mass_layoffs", "category": "economy", "scope": "country", "art": "ev_mass_layoffs",
+ "weight": 1.0, "cooldown_weeks": 78, "country_cooldown_weeks": 260, "max_times": 2,
+ "trigger": {"phase": ["crisis", "depression"], "min": {"unemployment": 9, "influence": 2}},
+ "options": [
+   {"id": "seize", "requires": {"cadres": 2}, "chance": 0.6,
+    "effects": {"country": {"add": {"consciousness": 8, "organization": 3}}},
+    "fail": {"country": {"add": {"repression": 5, "cadres": -2}}}},
+   {"id": "accept", "default": true, "effects": {"country": {"add": {"trust": -4, "unrest": 8}}}}]}
+```
+
+- `scope`: `country` — событие в стране, где есть движение (страну выбирают пропорционально его силе);
+  `world` — в мире.
+- `category`: `economy`, `state`, `world`, `movement` — подпись в окне события.
+- `weight` — вес при выборе (события, которых игрок ещё не видел, втрое вероятнее); у ответных событий
+  (`on`) — шанс сработать.
+- `cooldown_weeks` — перерыв для события вообще, `country_cooldown_weeks` — для одной страны,
+  `max_times` — сколько раз за партию.
+- `on` — ответное событие: `action:<действие>`, `action_ok:<действие>`, `action_fail:<действие>`, `crisis_start`,
+  `revolution_neighbor` (у соседа победила революция), `defeat` (разгром восстания), `line_change`.
+- `chain_only` — событие приходит только как продолжение цепочки.
+- `trigger`: `phase`, `phase_week_min`, `reaction_min`, `reaction_max`, `zone`, `min` / `max` (показатели
+  страны), `upgrade`, `no_upgrade`, `unlock`, `line`, `flag` / `no_flag`, `timed` / `no_timed` (временные
+  отметки), `class_min` (доли классов), `indicator_min` (показатели Всемирного банка), `neighbor_flag_any`,
+  `revolutionary` (событие в революционной стране), `any_of` (хотя бы одно из условий).
+- Вариант: `requires` — `cadres` (списываются), `solidarity`, `upgrade`, `any_upgrade`, `unlock`, `min`,
+  `world.core_consciousness_max`; `chance` — шанс удачи, `effects` — последствия при удаче, `fail` — при
+  неудаче; `default` — вариант, который берётся, если решения нет 4 недели (в игре время в это время стоит).
+- Последствия: `country`, `movement` (все страны с движением), `core`, `periphery`, `neighbors` — в формате
+  исходов действий (`add`, `mult`, `flags`, `timed`, `special`); `reaction`, `solidarity` — общие;
+  `chain: {"event": "power_crisis", "after": [8, 16]}` — продолжение через 8–16 недель.
+- Временные отметки событий: `emergency` (действия в стране в 1,5 раза дороже), `theory` (сознание гаснет вдвое
+  медленнее), `peasant_ally` (влияние растёт в 1,3 раза быстрее), `reformist_cap` (сознание не выше
+  политического), `fascist_regime` (репрессии +40, легальности нет), `blockade` (революционная страна вдвое слабее
+  распространяет движение и не даёт солидарности).
+
+Названия, тексты и надписи вариантов — `EVENT_<id>`, `EVENT_<id>_TEXT`, `EVENT_<id>_<вариант>` в
+`tools/locale_events.py`.
 
 ## world_shapes.json
 

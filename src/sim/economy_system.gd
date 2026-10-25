@@ -46,6 +46,7 @@ static func advance_cycle(sim: SimWorld) -> void:
 	elif phase_id == "crisis":
 		sim.crisis_weeks.append(sim.week)
 		sim.add_news("NEWS_CRISIS", [NumberFormat.decimal(sim.depth, 1)], "", true)
+		EventSystem.notify(sim, "crisis_start", null)
 	else:
 		sim.add_news("NEWS_PHASE_" + phase_id, [])
 

@@ -66,11 +66,14 @@ static func _add_mods(sim: SimWorld, mods: Dictionary) -> void:
 		sim.mods[key] = sim.mods.get(key, 0.0) + float(mods[key])
 
 
-## Цена действия: {"cadres": int, "solidarity": int}. Школа кадров и линия её снижают.
-static func action_cost(sim: SimWorld, id: String) -> Dictionary:
+## Цена действия: {"cadres": int, "solidarity": int}. Школа кадров и линия её снижают,
+## чрезвычайное положение в стране — повышает в полтора раза.
+static func action_cost(sim: SimWorld, id: String, cs: CountryState = null) -> Dictionary:
 	var a: Dictionary = sim.data.country_actions.get(id, {})
 	var line: Dictionary = sim.data.lines.get(sim.line, {})
 	var line_mult := float(line.get("action_cost", {}).get(id, 1.0))
+	if cs != null and not cs.timed.is_empty() and cs.active("emergency", sim.week):
+		line_mult *= 1.5
 	var discount := clampf(1.0 - sim.mod("action_discount"), 0.2, 1.0)
 	var cadres := float(a.get("cadres", 0))
 	return {"cadres": int(ceilf(cadres * discount * line_mult - 0.001)) if cadres > 0.0 else 0,
@@ -102,7 +105,7 @@ static func action_blockers(sim: SimWorld, id: String, cs: CountryState) -> Pack
 			out.append("min:%s:%s" % [field, _num(mins[field])])
 	if cs.cooldowns.get(id, 0) > sim.week:
 		out.append("cooldown:%d" % (cs.cooldowns[id] - sim.week))
-	var cost := action_cost(sim, id)
+	var cost := action_cost(sim, id, cs)
 	if cs.cadres + 0.001 < float(cost["cadres"]):
 		out.append("cadres:%d" % cost["cadres"])
 	if sim.solidarity < float(cost["solidarity"]):
@@ -150,7 +153,7 @@ static func perform(sim: SimWorld, id: String, cs: CountryState) -> Dictionary:
 		return {"ok": false, "success": false, "chance": 0.0}
 	var a: Dictionary = sim.data.country_actions[id]
 	var chance := action_chance(sim, id, cs)
-	var cost := action_cost(sim, id)
+	var cost := action_cost(sim, id, cs)
 	cs.cadres = maxf(cs.cadres - float(cost["cadres"]), 0.0)
 	sim.solidarity -= float(cost["solidarity"])
 	cs.cooldowns[id] = sim.week + int(a.get("cooldown_weeks", 0))
@@ -176,6 +179,9 @@ static func perform(sim: SimWorld, id: String, cs: CountryState) -> Dictionary:
 		sim.add_news("NEWS_ACTION_%s_%s" % [id, "OK" if success else "FAIL"], [cs.country.name_ru], cs.country.id)
 	if success and not bonus.is_empty():
 		_line_bonus(sim, cs, bonus)
+	if not cs.is_revolutionary():
+		EventSystem.notify(sim, ("action_ok:" if success else "action_fail:") + id, cs)
+		EventSystem.notify(sim, "action:" + id, cs)
 	return {"ok": true, "success": success, "chance": chance}
 
 

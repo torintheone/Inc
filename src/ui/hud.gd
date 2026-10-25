@@ -27,11 +27,10 @@ var _toast: Label
 var _toast_time := 0.0
 var _overlay: Control
 var _overlay_content: Control
-var _fps_timer := 0.0
 var _drawer_signature := ""
 
 
-func setup(world: WorldData) -> void:
+func setup() -> void:
 	_root = Control.new()
 	_root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -54,7 +53,6 @@ func setup(world: WorldData) -> void:
 	_root.add_child(drawer)
 
 	panel = CountryPanel.new()
-	panel.world = world
 	panel.hide()
 	panel.close_requested.connect(func() -> void: panel_closed.emit())
 	panel.main_button_pressed.connect(func() -> void: panel_button_pressed.emit())
@@ -211,10 +209,6 @@ func _signature(sim: SimWorld) -> String:
 
 
 func _process(delta: float) -> void:
-	_fps_timer -= delta
-	if _fps_timer <= 0.0:
-		_fps_timer = 0.5
-		top_bar.set_fps(Engine.get_frames_per_second())
 	if _toast_time > 0.0:
 		_toast_time -= delta
 		_toast.modulate.a = clampf(_toast_time / 0.5, 0.0, 1.0)

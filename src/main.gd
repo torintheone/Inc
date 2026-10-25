@@ -65,7 +65,7 @@ func _ready() -> void:
 
 	hud = Hud.new()
 	add_child(hud)
-	hud.setup(data.world)
+	hud.setup()
 
 	camera.tapped.connect(_on_map_tapped)
 	camera.zoom_changed.connect(_on_zoom)
@@ -185,6 +185,9 @@ func _start_play() -> void:
 	if selected != null:
 		hud.show_country(selected, sim.state_of(selected.id), sim, _panel_button_text())
 	_refresh_ui()
+	# Сохранённая партия могла остановиться на нерешённом событии.
+	if not sim.pending_event.is_empty():
+		_show_event()
 
 
 func _show_help(first_time: bool) -> void:
@@ -219,8 +222,46 @@ func _advance_week() -> void:
 		SaveStore.save(sim)
 	if sim.is_over():
 		_finish()
-	elif not _alerts.is_empty():
+	else:
+		_show_next_popup()
+
+
+## Сначала важные сообщения, потом событие, которое ждёт решения.
+func _show_next_popup() -> void:
+	if not _alerts.is_empty():
 		_show_next_alert()
+	elif not sim.pending_event.is_empty():
+		_show_event()
+
+
+func _show_event() -> void:
+	var cs := EventSystem.pending_country(sim)
+	if cs != null:
+		_focus_country(cs.country.id)
+	var screen := EventScreen.new(sim)
+	screen.option_chosen.connect(_on_event_option)
+	hud.show_overlay(screen)
+
+
+func _on_event_option(option_id: String) -> void:
+	var e: Dictionary = data.events.get(sim.pending_event.get("id", ""), {})
+	var had_chance := false
+	for o: Dictionary in e.get("options", []):
+		if o["id"] == option_id and o.has("chance"):
+			had_chance = true
+	var result := EventSystem.resolve(sim, option_id)
+	if not result["ok"]:
+		return
+	hud.close_overlay()
+	if had_chance:
+		hud.toast(tr("EVENT_RESULT_OK" if result["success"] else "EVENT_RESULT_FAIL"))
+	map.apply_sim(sim)
+	_collect_alerts()
+	_refresh_ui()
+	if sim.is_over():
+		_finish()
+	else:
+		_show_next_popup()
 
 
 func _collect_alerts() -> void:
@@ -252,8 +293,7 @@ func _show_next_alert() -> void:
 
 func _close_alert() -> void:
 	hud.close_overlay()
-	if not _alerts.is_empty():
-		_show_next_alert()
+	_show_next_popup()
 
 
 func _finish() -> void:
@@ -404,8 +444,8 @@ func _on_action(screen: ActionsScreen, id: String) -> void:
 	_refresh_ui()
 	if sim.is_over():
 		_finish()
-	elif not _alerts.is_empty():
-		_show_next_alert()
+	elif not _alerts.is_empty() or not sim.pending_event.is_empty():
+		_show_next_popup()
 	else:
 		screen.refresh(sim, cs)
 		screen.show_result(result["success"])

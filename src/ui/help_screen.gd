@@ -39,6 +39,7 @@ func _init(first_time: bool = false) -> void:
 	res.add_child(_legend(Icons.IconView.new("solidarity", MapPalette.VERMILION, 30.0), tr("HELP_SOLIDARITY")))
 	res.add_child(_legend(Icons.IconView.new("cadres", MapPalette.INK, 30.0), tr("HELP_CADRES")))
 	res.add_child(_paragraph(tr("HELP_SPONTANEOUS")))
+	res.add_child(_paragraph(tr("HELP_PANEL")))
 	cols.add_child(res)
 
 	var win := _column(tr("HELP_WIN"))
@@ -48,7 +49,12 @@ func _init(first_time: bool = false) -> void:
 	cols.add_child(win)
 
 	var row := HBoxContainer.new()
-	row.alignment = BoxContainer.ALIGNMENT_END
+	row.add_theme_constant_override("separation", 20)
+	var credits := GameTheme.make_label(tr("HELP_CREDITS"), 12, null, Color(MapPalette.INK, 0.55))
+	credits.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	credits.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	credits.size_flags_vertical = Control.SIZE_SHRINK_END
+	row.add_child(credits)
 	row.add_child(Overlays.button(tr("HELP_START" if first_time else "ALERT_OK"), func() -> void: closed.emit(), true))
 	box.add_child(row)
 

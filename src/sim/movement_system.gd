@@ -35,6 +35,7 @@ static func update_superstructure(sim: SimWorld, phase: Dictionary) -> void:
 	var split_infl := d.num("superstructure.elite_split_per_influence")
 	var split_unrest := d.num("superstructure.elite_split_per_unrest")
 	var legal_reaction := sim.reaction * d.num("superstructure.legality_per_reaction") * maxf(1.0 - sim.mod("legality_hold"), 0.0)
+	var regime_rep := d.num("superstructure.fascist_regime_repression")
 	var army_speed := d.num("superstructure.army_speed")
 	var army_erosion := sim.mod("army_erosion")
 	var r_arist := d.num("reformism.per_aristocracy")
@@ -52,12 +53,16 @@ static func update_superstructure(sim: SimWorld, phase: Dictionary) -> void:
 		var rep := cs.zone_repression + rep_reaction + (rep_movement if cs.influence >= 3.0 else 0.0)
 		if fascism and cs.influence >= fascism_min and not cs.active("antifascist", sim.week):
 			rep += fascism_rep
+		# Фашистский режим держит репрессии и запрет легальной работы, пока не падёт.
+		var regime := not cs.timed.is_empty() and cs.active("fascist_regime", sim.week)
+		if regime:
+			rep += regime_rep
 		cs.repression = clampf(cs.repression + (rep - cs.repression) * speed, 0.0, 100.0)
 		var army := cs.zone_army_loyalty - (army_erosion if strong else 0.0)
 		cs.army_loyalty = clampf(cs.army_loyalty + (army - cs.army_loyalty) * army_speed, 0.0, 100.0)
 		var split := ph_split + split_infl * cs.influence + split_unrest * cs.unrest
 		cs.elite_split = clampf(cs.elite_split + (split - cs.elite_split) * split_speed, 0.0, 100.0)
-		var legal := cs.zone_legality - legal_reaction
+		var legal := 0.0 if regime else cs.zone_legality - legal_reaction
 		cs.legality = clampf(cs.legality + (legal - cs.legality) * speed, 0.0, 100.0)
 		# Реформизм питают подкуп верхушки рабочих и годы подъёма; кризис его размывает.
 		var reform := cs.zone_reformism + r_arist * cs.aristocracy + ph_reform + r_mod
@@ -80,7 +85,7 @@ static func compute_spread(sim: SimWorld) -> PackedFloat64Array:
 	for cs in sim.countries:
 		var s := 0.0
 		if cs.is_revolutionary():
-			s = rev_strength
+			s = rev_strength * (0.5 if cs.active("blockade", sim.week) else 1.0)
 		elif cs.influence >= min_source:
 			s = cs.influence / 100.0 * (0.5 + 0.5 * cs.organization / 100.0)
 		strength[cs.index] = s
@@ -167,6 +172,7 @@ static func update_movement(sim: SimWorld, incoming: PackedFloat64Array) -> void
 	var u_channel := d.num("unrest.channel")
 	var u_cons := d.num("unrest.consciousness")
 	var k_rate := d.num("cadres.rate") * maxf(1.0 + sim.mod("cadre_rate"), 0.1)
+	var peasant_ally := d.num("movement.peasant_ally_growth")
 	var k_base := d.num("cadres.cap_base") + sim.mod("cadre_cap")
 	var k_per_org := d.num("cadres.cap_per_organization")
 	for cs in sim.countries:
@@ -177,7 +183,8 @@ static func update_movement(sim: SimWorld, incoming: PackedFloat64Array) -> void
 			continue
 		var potential := minf(cs.potential + peasant * cs.peasant_share, 95.0)
 		var room := maxf(1.0 - cs.influence / potential, 0.0)
-		var underground := not cs.timed.is_empty() and cs.active("underground", week)
+		var has_timed := not cs.timed.is_empty()
+		var underground := has_timed and cs.active("underground", week)
 		# Влияние: логистический рост внутри страны плюс приток извне, минус потери от репрессий.
 		var influence := cs.influence
 		if influence > 0.0:
@@ -186,6 +193,8 @@ static func update_movement(sim: SimWorld, incoming: PackedFloat64Array) -> void
 				g *= 1.0 + rep_growth * (cs.repression - rep_over) / (100.0 - rep_over)
 			if underground:
 				g *= 0.5
+			if has_timed and cs.active("peasant_ally", week):
+				g *= peasant_ally
 			influence += g * susceptibility(cs) * (influence + seed) * room * (1.0 + org_bonus * cs.organization / 100.0) \
 				* (0.5 + c_bonus * cs.consciousness)
 			# Партия, у которой есть организация, вбирает стихийное движение.
@@ -202,9 +211,14 @@ static func update_movement(sim: SimWorld, incoming: PackedFloat64Array) -> void
 		# Сознание растёт от нужды, агитации и опыта стихийной борьбы; гаснет при сильной гегемонии и реформизме.
 		var reach := minf(1.0, cs.influence / 5.0 + 0.1)
 		var decay := c_decay * (1.0 + c_fragile if cs.organization < 20.0 else 1.0)
+		if has_timed and cs.active("theory", week):
+			decay *= 0.5
 		var dc := c_rate * reach * (0.3 + cs.need / 100.0) * (1.0 - 0.8 * cs.hegemony / 100.0) * (1.0 - r_damp * cs.reformism / 100.0) \
 			+ u_cons * cs.unrest * reach - decay * maxf(cs.consciousness - c_floor, 0.0)
-		cs.consciousness = clampf(minf(cs.consciousness + dc, consciousness_cap(caps, cs)), 0.0, 100.0)
+		var c_cap := consciousness_cap(caps, cs)
+		if has_timed and cs.active("reformist_cap", week):
+			c_cap = minf(c_cap, 49.9)
+		cs.consciousness = clampf(minf(cs.consciousness + dc, c_cap), 0.0, 100.0)
 
 		# Организованность растёт там, где есть влияние, до потолка, который задают профсоюзы и партия.
 		var dorg := o_rate * minf(1.0, cs.influence / 3.0) * maxf(o_cap - cs.organization, 0.0) / o_cap \

@@ -12,6 +12,7 @@ var _ticker: Label
 
 func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	add_theme_stylebox_override("panel", GameTheme.bar_panel())
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 6)
 	add_child(row)

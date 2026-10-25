@@ -175,7 +175,8 @@
     "fascism_repression": 15.0,
     "fascism_min_influence": 15.0,
     "elite_split_per_unrest": 0.15,
-    "army_speed": 0.03
+    "army_speed": 0.03,
+    "fascist_regime_repression": 40.0
   },
   "movement": {
     "growth": 0.055,
@@ -208,7 +209,8 @@
     "recent_decay": 0.88,
     "reached_influence": 1.0,
     "consciousness_growth_bonus": 0.02,
-    "repression_growth_over": 50.0
+    "repression_growth_over": 50.0,
+    "peasant_ally_growth": 1.3
   },
   "unrest": {
     "flare_base": 0.0015,
@@ -324,6 +326,15 @@
     "solidarity_weeks": 10,
     "max_solidarity": 4,
     "reached_value": 1
+  },
+  "events": {
+    "chance_per_week": 0.017,
+    "slump_mult": 1.5,
+    "min_gap_weeks": 8,
+    "auto_resolve_weeks": 4,
+    "unseen_mult": 3.0,
+    "country_min_influence": 1.0,
+    "reactive_gap_weeks": 6
   },
   "outcome": {
     "grace_weeks": 26,

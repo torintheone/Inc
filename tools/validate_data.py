@@ -272,7 +272,98 @@ def check_lines(lines: dict, upgrades: set[str], actions: set[str]) -> set[str]:
     return ids
 
 
-def check_locale(upgrades: set[str], actions: set[str], lines: set[str], branches: list[str], groups: list[str]) -> None:
+EVENT_SCOPES = {"country", "world"}
+EFFECT_SCOPES = {"country", "movement", "core", "periphery", "neighbors"}
+EVENT_TRIGGERS = {"phase", "phase_week_min", "reaction_min", "reaction_max", "upgrade", "no_upgrade", "unlock", "line",
+                  "revolutionary_count_min", "revolutionary", "min", "max", "zone", "flag", "no_flag", "timed", "no_timed",
+                  "class_min", "indicator_min", "neighbor_flag_any", "any_of"}
+EVENT_ON = {"crisis_start", "revolution_neighbor", "defeat", "line_change"}
+TIMED_FLAGS = {"underground", "port_cells", "antifascist", "unemployed_organized", "theory", "peasant_ally", "emergency",
+               "fascist_regime", "reformist_cap", "blockade"}
+
+
+def check_outcome(where: str, o: dict) -> None:
+    for field in list(o.get("add", {})) + list(o.get("mult", {})):
+        if field not in COUNTRY_FIELDS:
+            err(f"{where}: неизвестный показатель {field}")
+    for flag in o.get("timed", {}):
+        if flag not in TIMED_FLAGS:
+            err(f"{where}: неизвестная временная отметка {flag}")
+    if "special" in o and o["special"] not in {"revolution", "defeat"}:
+        err(f"{where}: неизвестный исход {o['special']}")
+
+
+def check_events(ev: dict, upgrades: set[str], actions: set[str]) -> list[tuple[str, list[str]]]:
+    events = {}
+    for e in ev.get("events", []):
+        eid = e.get("id")
+        if eid in events:
+            err(f"events.json: повторяется событие {eid}")
+        events[eid] = e
+    art = (ROOT / "ART_LIST.md").read_text(encoding="utf-8")
+    for eid, e in events.items():
+        where = f"events.json/{eid}"
+        if e.get("category") not in ev.get("categories", []):
+            err(f"{where}: неизвестная категория {e.get('category')}")
+        if e.get("scope") not in EVENT_SCOPES:
+            err(f"{where}: scope должен быть country или world")
+        if f"`{e.get('art')}.png`" not in art:
+            err(f"{where}: иллюстрации {e.get('art')} нет в ART_LIST.md")
+        trig = e.get("trigger", {})
+        for key in trig:
+            if key not in EVENT_TRIGGERS:
+                err(f"{where}: неизвестное условие {key}")
+        for field in list(trig.get("min", {})) + list(trig.get("max", {})):
+            if field not in COUNTRY_FIELDS:
+                err(f"{where}: неизвестный показатель в условии: {field}")
+        for phase in trig.get("phase", []):
+            if phase not in PHASES:
+                err(f"{where}: неизвестная фаза {phase}")
+        for key in ("upgrade", "no_upgrade"):
+            if key in trig and trig[key] not in upgrades:
+                err(f"{where}: неизвестное улучшение {trig[key]}")
+        for on in e.get("on", []):
+            kind, _, aid = on.partition(":")
+            if on not in EVENT_ON and not (kind in ("action", "action_ok", "action_fail") and aid in actions):
+                err(f"{where}: неизвестный повод {on}")
+        options = e.get("options", [])
+        if not 1 <= len(options) <= 3:
+            err(f"{where}: нужно от одного до трёх вариантов")
+        if len(options) > 1 and not any(o.get("default") for o in options):
+            err(f"{where}: нужен вариант по умолчанию (default)")
+        for o in options:
+            ow = f"{where}.{o.get('id')}"
+            req = o.get("requires", {})
+            for key in ("upgrade",):
+                if key in req and req[key] not in upgrades:
+                    err(f"{ow}: неизвестное улучшение {req[key]}")
+            for u in req.get("any_upgrade", []):
+                if u not in upgrades:
+                    err(f"{ow}: неизвестное улучшение {u}")
+            if o.get("default") and req:
+                err(f"{ow}: вариант по умолчанию не должен ничего требовать")
+            if "chance" in o and not 0 < o["chance"] <= 1:
+                err(f"{ow}: шанс должен быть в пределах 0 < шанс ≤ 1")
+            for part in ("effects", "fail"):
+                eff = o.get(part, {})
+                for scope in EFFECT_SCOPES:
+                    if scope in eff:
+                        check_outcome(f"{ow}.{part}.{scope}", eff[scope])
+                chain = eff.get("chain")
+                if chain and chain.get("event") not in events:
+                    err(f"{ow}: цепочка ведёт к неизвестному событию {chain.get('event')}")
+    chained = {o.get(part, {}).get("chain", {}).get("event") for e in events.values() for o in e["options"]
+               for part in ("effects", "fail")}
+    for eid, e in events.items():
+        if e.get("chain_only") and eid not in chained:
+            err(f"events.json/{eid}: событие только из цепочки, но к нему не ведёт ни одна цепочка")
+    if len(events) < 40:
+        err("events.json: на этапе 3 нужно не меньше 40 событий")
+    return [(eid, [o["id"] for o in e["options"]]) for eid, e in events.items()]
+
+
+def check_locale(upgrades: set[str], actions: set[str], lines: set[str], branches: list[str], groups: list[str],
+                 events: list) -> None:
     keys = set()
     for name in ("ui.csv", "game.csv"):
         path = ROOT / "locale" / name
@@ -294,6 +385,9 @@ def check_locale(upgrades: set[str], actions: set[str], lines: set[str], branche
         need += [f"LINE_{lid}"] + [f"LINE_{lid}_{part}" for part in ("CURRENT", "PLUS", "MINUS", "WHERE")]
     need += [f"BRANCH_{b}" for b in branches] + [f"GROUP_{g}" for g in groups]
     need += [f"MOD_{m}" for m in MODIFIERS] + [f"UNLOCK_{u}" for u in UNLOCKS]
+    for eid, options in events:
+        need += [f"EVENT_{eid}", f"EVENT_{eid}_TEXT"] + [f"EVENT_{eid}_{o}" for o in options]
+    need += [f"TIMED_{t}" for t in TIMED_FLAGS if t != "port_cells"]
     for key in need:
         if key not in keys:
             err(f"locale: нет текста {key}")
@@ -306,6 +400,7 @@ def main() -> int:
     balance = load("balance.json")
     actions = load("actions.json")
     lines = load("lines.json")
+    events = load("events.json")
     ids = check_world(world) if world else set()
     if shapes:
         check_shapes(shapes, ids)
@@ -313,10 +408,11 @@ def main() -> int:
         check_links(links, ids)
     if balance:
         check_balance(balance)
-    if actions and lines:
+    if actions and lines and events:
         upgrades, acts = check_actions(actions)
         line_ids = check_lines(lines, upgrades, acts)
-        check_locale(upgrades, acts, line_ids, actions.get("branches", []), actions.get("action_groups", []))
+        event_list = check_events(events, upgrades, acts)
+        check_locale(upgrades, acts, line_ids, actions.get("branches", []), actions.get("action_groups", []), event_list)
     if errors:
         print(f"Ошибок в данных: {len(errors)}")
         for e in errors:

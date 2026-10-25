@@ -4,7 +4,7 @@ extends RefCounted
 ## состояние используют игра, тесты и безголовые прогоны. При одинаковом seed
 ## партия повторяется в точности: весь случай берётся из rng.
 
-const SAVE_VERSION := 2
+const SAVE_VERSION := 3
 const NEWS_LIMIT := 120
 ## Точек в графике влияния у страны: раз в 4 недели за два года.
 const COUNTRY_HISTORY := 26
@@ -22,7 +22,7 @@ const IMPORTANT_NEWS: PackedStringArray = ["NEWS_WINDOW_OPENED", "NEWS_REVOLUTIO
 const CHRONICLE_NEWS: PackedStringArray = ["NEWS_START", "NEWS_LINE", "NEWS_LINE_CHANGED", "NEWS_CRISIS",
 	"NEWS_COUNTERTENDENCY", "NEWS_REVOLUTION", "NEWS_UPRISING_DEFEATED", "NEWS_REACTION_20", "NEWS_REACTION_40",
 	"NEWS_REACTION_60", "NEWS_REACTION_80", "NEWS_REACTION_100", "NEWS_OUTCOME", "NEWS_STRIKE_TO_REVOLUTION",
-	"NEWS_WINDOW_OPENED"]
+	"NEWS_WINDOW_OPENED", "NEWS_EVENT", "NEWS_EVENT_WORLD"]
 
 var data: GameData
 var seed_value := 0
@@ -72,6 +72,15 @@ var solidarity_earned := 0.0
 var protests_supported := 0
 var protests_suppressed := 0
 var peak_reaction := 0.0
+
+## Открытое событие, ждущее решения: {"id", "country", "week"} ("country" — "world" для мировых).
+var pending_event: Dictionary = {}
+## Продолжения цепочек: {"id", "country", "week"}.
+var event_queue: Array[Dictionary] = []
+## Сколько раз было каждое событие и с какой недели оно снова возможно.
+var events_seen: Dictionary[String, int] = {}
+var event_cooldowns: Dictionary[String, int] = {}
+var last_event_week := -100
 
 ## Ключевые события партии для экрана итогов.
 var chronicle: Array[Dictionary] = []
@@ -157,7 +166,17 @@ func change_line(id: String) -> bool:
 			cs.set_field("organization", cs.organization * mult)
 	PlayerActions.recompute_mods(self)
 	add_news("NEWS_LINE_CHANGED", ["LINE_" + id], "", true)
+	EventSystem.notify(self, "line_change", _strongest_country())
 	return true
+
+
+## Страна, где движение сильнее всего (null — движения нигде нет).
+func _strongest_country() -> CountryState:
+	var best: CountryState = null
+	for cs in countries:
+		if not cs.is_revolutionary() and (best == null or cs.influence > best.influence):
+			best = cs
+	return best if best != null and best.influence > 0.0 else null
 
 
 func state_of(id: String) -> CountryState:
@@ -211,6 +230,7 @@ func step() -> void:
 	solidarity_earned += maxf(income, 0.0)
 	UnrestSystem.spawn_solidarity(self)
 	UnrestSystem.expire(self)
+	EventSystem.update(self)
 	if week % 4 == 0:
 		_record_history()
 	_check_outcome()
@@ -232,7 +252,7 @@ func weekly_income() -> float:
 	var income := d.num("solidarity.base") - mod("upkeep")
 	var per_rev := d.num("solidarity.revolutionary_country") * (1.0 - (d.num("reaction.intervention_income_penalty") if reaction >= 60.0 else 0.0))
 	for cs in countries:
-		if cs.is_revolutionary():
+		if cs.is_revolutionary() and not cs.active("blockade", week):
 			income += per_rev * cs.size
 	return income
 
@@ -274,12 +294,16 @@ func make_revolutionary(cs: CountryState) -> void:
 			continue
 		other.demos_recent += d.num("revolution.world_activity")
 		other.set_field("influence", other.influence * boost)
+	var inspired: CountryState = null
 	for nid in cs.country.neighbors:
 		var n := state_of(nid)
 		if n != null and not n.is_revolutionary():
 			n.demos_recent += d.num("revolution.neighbor_activity")
 			n.set_field("repression", n.repression + d.num("revolution.neighbor_repression"))
+			if inspired == null or n.influence > inspired.influence:
+				inspired = n
 	add_news("NEWS_REVOLUTION", [cs.country.name_ru], cs.country.id, true)
+	EventSystem.notify(self, "revolution_neighbor", inspired)
 
 
 ## Разгром восстания: влияние падает, приходит белый террор, остаётся опыт.
@@ -297,6 +321,7 @@ func defeat_uprising(cs: CountryState) -> void:
 	cs.flags["lessons_of_defeat"] = true
 	cs.window_left = -1
 	add_news("NEWS_UPRISING_DEFEATED", [cs.country.name_ru], cs.country.id, true)
+	EventSystem.notify(self, "defeat", cs)
 
 
 func add_news(key: String, args: Array, country_id: String = "", important: bool = false) -> void:
@@ -442,6 +467,11 @@ func to_dict() -> Dictionary:
 		"protests_suppressed": protests_suppressed,
 		"peak_reaction": peak_reaction,
 		"chronicle": chronicle.duplicate(true),
+		"pending_event": pending_event.duplicate(),
+		"event_queue": event_queue.duplicate(true),
+		"events_seen": events_seen.duplicate(),
+		"event_cooldowns": event_cooldowns.duplicate(),
+		"last_event_week": last_event_week,
 		"news": news.duplicate(true),
 		"news_count": news_count,
 		"outcome": outcome,
@@ -510,6 +540,18 @@ static func from_dict(p_data: GameData, d: Dictionary) -> SimWorld:
 	sim.peak_reaction = float(d.get("peak_reaction", sim.reaction))
 	for item: Dictionary in d.get("chronicle", []):
 		sim.chronicle.append(item)
+	var pe: Dictionary = d.get("pending_event", {})
+	if not pe.is_empty():
+		sim.pending_event = {"id": str(pe["id"]), "country": str(pe["country"]), "week": int(pe["week"])}
+	for q: Dictionary in d.get("event_queue", []):
+		sim.event_queue.append({"id": str(q["id"]), "country": str(q["country"]), "week": int(q["week"])})
+	var seen: Dictionary = d.get("events_seen", {})
+	for k: String in seen:
+		sim.events_seen[k] = int(seen[k])
+	var cds: Dictionary = d.get("event_cooldowns", {})
+	for k: String in cds:
+		sim.event_cooldowns[k] = int(cds[k])
+	sim.last_event_week = int(d.get("last_event_week", -100))
 	for item: Dictionary in d.get("news", []):
 		sim.news.append(item)
 	sim.news_count = int(d.get("news_count", sim.news.size()))

@@ -57,6 +57,22 @@ static func build() -> Theme:
 	return theme
 
 
+## Плашка верхней и нижней строки: тоньше обычной панели, чтобы карте оставалось больше места.
+static func bar_panel() -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = MapPalette.PAPER
+	sb.border_color = MapPalette.INK
+	sb.set_border_width_all(2)
+	sb.content_margin_left = 14
+	sb.content_margin_right = 10
+	sb.content_margin_top = 6
+	sb.content_margin_bottom = 6
+	sb.shadow_color = Color(0, 0, 0, 0.18)
+	sb.shadow_size = 4
+	sb.shadow_offset = Vector2(2, 2)
+	return sb
+
+
 ## Шрифт заголовков: Oswald нужной насыщенности.
 static func display_font(weight: int = 600) -> Font:
 	var f := FontVariation.new()

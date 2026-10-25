@@ -7,6 +7,7 @@ const LINKS_PATH := "res://data/links.json"
 const BALANCE_PATH := "res://data/balance.json"
 const ACTIONS_PATH := "res://data/actions.json"
 const LINES_PATH := "res://data/lines.json"
+const EVENTS_PATH := "res://data/events.json"
 
 var world: WorldData
 var balance: Dictionary = {}
@@ -24,6 +25,9 @@ var lines: Dictionary = {}
 var line_order: PackedStringArray
 ## Во сколько раз падает организованность при смене линии.
 var line_change_organization_mult := 0.5
+## id события → описание (data/events.json).
+var events: Dictionary = {}
+var event_order: PackedStringArray
 
 ## Связи как параллельные массивы: так недельный шаг идёт быстрее.
 var link_a: PackedInt32Array
@@ -38,18 +42,20 @@ var population_share: PackedFloat64Array
 
 
 static func load_default() -> GameData:
-	return load_from(WorldData.load_default(), LINKS_PATH, BALANCE_PATH, ACTIONS_PATH, LINES_PATH)
+	return load_from(WorldData.load_default(), LINKS_PATH, BALANCE_PATH, ACTIONS_PATH, LINES_PATH, EVENTS_PATH)
 
 
 static func load_from(world: WorldData, links_path: String, balance_path: String, actions_path: String,
-		lines_path: String) -> GameData:
+		lines_path: String, events_path: String) -> GameData:
 	if world == null:
 		return null
 	var links_doc: Variant = _read_json(links_path)
 	var balance_doc: Variant = _read_json(balance_path)
 	var actions_doc: Variant = _read_json(actions_path)
 	var lines_doc: Variant = _read_json(lines_path)
-	if not (links_doc is Dictionary and balance_doc is Dictionary and actions_doc is Dictionary and lines_doc is Dictionary):
+	var events_doc: Variant = _read_json(events_path)
+	if not (links_doc is Dictionary and balance_doc is Dictionary and actions_doc is Dictionary and lines_doc is Dictionary
+			and events_doc is Dictionary):
 		return null
 	var data := GameData.new()
 	data.world = world
@@ -67,6 +73,9 @@ static func load_from(world: WorldData, links_path: String, balance_path: String
 		data.lines[item["id"]] = item
 		data.line_order.append(item["id"])
 	data.line_change_organization_mult = float(lines_doc.get("change_organization_mult", 0.5))
+	for item: Dictionary in events_doc.get("events", []):
+		data.events[item["id"]] = item
+		data.event_order.append(item["id"])
 	for link: Dictionary in links_doc.get("links", []):
 		var a := world.get_country(link["a"])
 		var b := world.get_country(link["b"])

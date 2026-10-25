@@ -34,7 +34,7 @@ static func news(item: Dictionary) -> String:
 	var template := TranslationServer.translate(item.get("key", ""))
 	var args := []
 	for a: Variant in item.get("args", []):
-		if a is String and (a.begins_with("UPGRADE_") or a.begins_with("OUTCOME_") or a.begins_with("ACTION_") or a.begins_with("LINE_")):
+		if a is String and (a.begins_with("UPGRADE_") or a.begins_with("OUTCOME_") or a.begins_with("ACTION_") or a.begins_with("LINE_") or a.begins_with("EVENT_")):
 			args.append(TranslationServer.translate(a))
 		elif a is float and a == floorf(a):
 			args.append(str(int(a)))
@@ -132,3 +132,57 @@ static func effect_lines(item: Dictionary) -> PackedStringArray:
 	if on_buy.has("reaction"):
 		out.append(TranslationServer.translate("EFFECT_REACTION") % NumberFormat.decimal(float(on_buy["reaction"]), 0))
 	return out
+
+
+## Цена варианта события: кадры, которые он забирает, и солидарность из его последствий.
+static func event_cost(option: Dictionary) -> String:
+	var parts := PackedStringArray()
+	var req: Dictionary = option.get("requires", {})
+	if req.has("cadres"):
+		parts.append(TranslationServer.translate("COST_CADRES") % int(req["cadres"]))
+	var sol := float(option.get("effects", {}).get("solidarity", 0.0))
+	if sol < 0.0:
+		parts.append(TranslationServer.translate("COST") % int(-sol))
+	return ", ".join(parts)
+
+
+## Последствия варианта одной строкой: «Сознание +8, Организованность +3; Реакция +5».
+static func event_effects(effects: Dictionary) -> String:
+	var t := TranslationServer.translate
+	var parts := PackedStringArray()
+	for scope in ["country", "movement", "core", "periphery", "neighbors"]:
+		if not effects.has(scope):
+			continue
+		var line := outcome_text(effects[scope])
+		if line == "":
+			continue
+		parts.append(line if scope == "country" else "%s: %s" % [t.call("SCOPE_" + scope), line])
+	if effects.has("reaction"):
+		parts.append("%s %s" % [t.call("F_reaction"), _signed(float(effects["reaction"]))])
+	var sol := float(effects.get("solidarity", 0.0))
+	if sol > 0.0:
+		parts.append("%s %s" % [t.call("F_solidarity"), _signed(sol)])
+	if effects.has("chain"):
+		parts.append(t.call("EVENT_CHAIN"))
+	return "; ".join(parts)
+
+
+## Исход для одной страны: прибавки, множители, временные отметки, особый исход.
+static func outcome_text(o: Dictionary) -> String:
+	var t := TranslationServer.translate
+	var parts := PackedStringArray()
+	if o.has("special"):
+		parts.append(t.call("SPECIAL_" + str(o["special"])))
+	var adds: Dictionary = o.get("add", {})
+	for f: String in adds:
+		var v := float(adds[f])
+		if v != 0.0:
+			parts.append("%s %s" % [t.call("F_" + f), _signed(v)])
+	var mults: Dictionary = o.get("mult", {})
+	for f: String in mults:
+		parts.append("%s %s%s%%" % [t.call("F_" + f), _signed((float(mults[f]) - 1.0) * 100.0), NumberFormat.NBSP])
+	var timed: Dictionary = o.get("timed", {})
+	for flag: String in timed:
+		if flag != "port_cells":
+			parts.append(t.call("TIMED_" + flag) % int(timed[flag]))
+	return ", ".join(parts)

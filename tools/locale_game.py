@@ -5,7 +5,11 @@
 чем в CSV руками: скрипт сам расставит кавычки. Запуск: python3 tools/locale_game.py
 """
 import csv
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import locale_events  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -374,6 +378,7 @@ ROWS = [
     ("BLOCK_min_rev_situation", "Революционная ситуация ниже %s", "Revolutionary situation below %s"),
     ("BLOCK_min_organization", "Организованность ниже %s", "Organization below %s"),
     ("BLOCK_min_legality", "Легальность ниже %s", "Legality below %s"),
+    ("BLOCK_min_consciousness", "Сознание ниже %s", "Consciousness below %s"),
     ("BLOCK_min_unemployment", "Безработица ниже %s%%", "Unemployment below %s%%"),
     ("BLOCK_cooldown", "Снова можно через %s нед.", "Available again in %s weeks"),
     ("BLOCK_revolutionary", "Страна уже революционная", "Already revolutionary"),
@@ -556,7 +561,6 @@ ROWS = [
     # --- панель страны ---
     ("PANEL_TAB_movement", "Движение", "Movement"),
     ("PANEL_TAB_country", "Страна", "Country"),
-    ("PANEL_HINT", "Коснитесь строки — здесь появится объяснение.", "Tap a row to see what it means."),
     ("PANEL_BASE_HINT", "Какие силы здесь могут встать за движение и как держится власть.",
      "Who could join the movement here and how strong the state is."),
     ("PANEL_REVOLUTIONARY",
@@ -652,6 +656,10 @@ ROWS = [
     ("HELP_SPONTANEOUS", "Рабочее движение возникает само — от нужды и в кризис. Но без партии власть его подавляет. "
      "Поддерживайте протесты, чтобы закрепиться в новых странах.",
      "The workers' movement arises by itself, but without the party the state crushes it."),
+    ("HELP_PANEL", "Коснитесь строки в панели страны — под списком появится объяснение показателя.",
+     "Tap a row in the country panel to see what it means."),
+    ("HELP_CREDITS", "Границы стран — Natural Earth. Показатели — Всемирный банк, World Development Indicators (CC BY 4.0). "
+     "Шрифты PT Sans и Oswald (OFL).", "Borders: Natural Earth. Indicators: World Bank WDI (CC BY 4.0). Fonts: PT Sans, Oswald (OFL)."),
     ("HELP_WIN", "Как победить", "How to win"),
     ("HELP_REV", "Революция возможна, когда сложились три условия — «верхи не могут», «низы не хотят», «активность масс», — "
      "каждое не ниже 70, а организованность не ниже 50. Обычно это бывает в кризис.",
@@ -676,6 +684,60 @@ ROWS = [
     ("RES_PROTESTS", "Протестов поддержано из всех", "Protests supported of all"),
     ("RES_UPGRADES", "Улучшений освоено", "Upgrades adopted"),
     ("RES_CHRONICLE", "Хроника", "Chronicle"),
+    # --- события ---
+    ("NEWS_EVENT", "%s: %s — %s.", "%s: %s — %s."),
+    ("NEWS_EVENT_WORLD", "%s — %s.", "%s — %s."),
+    ("EVENT_WORLD", "Весь мир", "The whole world"),
+    ("CATEGORY_economy", "Экономика и труд", "Economy and labour"),
+    ("CATEGORY_state", "Государство и Реакция", "State and Reaction"),
+    ("CATEGORY_world", "Международное", "International"),
+    ("CATEGORY_movement", "Внутри движения", "Inside the movement"),
+    ("EVENT_CHANCE", "шанс %s%%", "chance %s%%"),
+    ("EVENT_FAIL", "Если не выйдет: %s", "If it fails: %s"),
+    ("EVENT_NOTHING", "без последствий", "no effect"),
+    ("EVENT_CHAIN", "дело на этом не кончится", "this is not the end of it"),
+    ("EVENT_PAY", "Стоит: %s", "Costs: %s"),
+    ("EVENT_RESULT_OK", "Получилось!", "It worked!"),
+    ("EVENT_RESULT_FAIL", "Не вышло", "It failed"),
+    ("SCOPE_movement", "везде, где есть движение", "wherever the movement is"),
+    ("SCOPE_core", "в ядре", "in the core"),
+    ("SCOPE_periphery", "на периферии", "on the periphery"),
+    ("SCOPE_neighbors", "у соседей", "in neighbouring countries"),
+    ("BLOCK_core_consciousness", "Нужно революционное сознание хотя бы в одной стране ядра",
+     "Needs revolutionary consciousness in a core country"),
+    ("F_influence", "Влияние", "Influence"),
+    ("F_consciousness", "Сознание", "Consciousness"),
+    ("F_organization", "Организованность", "Organization"),
+    ("F_trust", "Доверие", "Trust"),
+    ("F_visibility", "Заметность", "Visibility"),
+    ("F_cadres", "Кадры", "Cadres"),
+    ("F_unrest", "Протесты", "Protests"),
+    ("F_reformism", "Реформизм", "Reformism"),
+    ("F_real_wage", "Зарплата", "Wages"),
+    ("F_unemployment", "Безработица", "Unemployment"),
+    ("F_exploitation", "Эксплуатация", "Exploitation"),
+    ("F_productive_forces", "Производительные силы", "Productive forces"),
+    ("F_hegemony", "Гегемония", "Hegemony"),
+    ("F_legitimacy", "Легитимность", "Legitimacy"),
+    ("F_repression", "Репрессии", "Repression"),
+    ("F_army_loyalty", "Верность армии", "Army loyalty"),
+    ("F_elite_split", "Раскол верхов", "Split at the top"),
+    ("F_legality", "Легальность", "Legality"),
+    ("F_strikes_recent", "Стачки", "Strikes"),
+    ("F_demos_recent", "Активность улиц", "Street activity"),
+    ("F_reaction", "Реакция", "Reaction"),
+    ("F_solidarity", "Солидарность", "Solidarity"),
+    ("TIMED_underground", "подполье на %s нед.", "underground for %s wk"),
+    ("TIMED_unemployed_organized", "безработные организованы на %s нед.", "unemployed organized for %s wk"),
+    ("TIMED_theory", "сознание держится в спаде %s нед.", "consciousness holds for %s wk"),
+    ("TIMED_peasant_ally", "крестьяне — союзники %s нед.", "peasants are allies for %s wk"),
+    ("TIMED_emergency", "действия в 1,5 раза дороже %s нед.", "actions cost ×1.5 for %s wk"),
+    ("TIMED_antifascist", "фашизм не пройдёт %s нед.", "fascism blocked for %s wk"),
+    ("TIMED_fascist_regime", "фашистский режим на %s нед.", "fascist regime for %s wk"),
+    ("TIMED_reformist_cap", "сознание не выше политического %s нед.", "consciousness capped for %s wk"),
+    ("TIMED_blockade", "блокада %s нед.", "blockade for %s wk"),
+    ("SPECIAL_revolution", "победа — революция", "victory: revolution"),
+    ("SPECIAL_defeat", "разгром и белый террор", "defeat and white terror"),
     # --- исходы ---
     ("OUTCOME_federation", "Мировая федерация", "World federation"),
     ("OUTCOME_world_revolution", "Мировая революция", "World revolution"),
@@ -702,13 +764,14 @@ ROWS = [
 
 def main() -> None:
     out = ROOT / "locale" / "game.csv"
-    keys = [r[0] for r in ROWS]
+    all_rows = ROWS + locale_events.rows()
+    keys = [r[0] for r in all_rows]
     assert len(keys) == len(set(keys)), "повторяется ключ"
     with out.open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(["keys", "ru", "en"])
-        w.writerows(ROWS)
-    print(f"{out.relative_to(ROOT)}: {len(ROWS)} строк")
+        w.writerows(all_rows)
+    print(f"{out.relative_to(ROOT)}: {len(all_rows)} строк")
 
 
 if __name__ == "__main__":

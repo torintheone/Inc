@@ -1,0 +1,2832 @@
+{
+ "version": 1,
+ "_comment": "События. Формат — в data/README.md, раздел «events.json».",
+ "categories": [
+  "economy",
+  "state",
+  "world",
+  "movement"
+ ],
+ "events": [
+  {
+   "id": "overproduction_crisis",
+   "category": "economy",
+   "scope": "world",
+   "art": "ev_overproduction_crisis",
+   "weight": 1.0,
+   "cooldown_weeks": 200,
+   "max_times": 3,
+   "trigger": {
+    "phase": [
+     "crisis"
+    ]
+   },
+   "options": [
+    {
+     "id": "rich_pay",
+     "effects": {
+      "movement": {
+       "add": {
+        "consciousness": 4,
+        "demos_recent": 0.5
+       }
+      },
+      "reaction": 5
+     }
+    },
+    {
+     "id": "mutual_aid",
+     "requires": {
+      "solidarity": 4
+     },
+     "effects": {
+      "movement": {
+       "add": {
+        "trust": 5,
+        "real_wage": 1
+       }
+      },
+      "solidarity": -4
+     }
+    },
+    {
+     "id": "wait",
+     "effects": {
+      "movement": {
+       "add": {
+        "unrest": 6
+       },
+       "mult": {
+        "influence": 0.95
+       }
+      }
+     },
+     "default": true
+    }
+   ],
+   "on": [
+    "crisis_start"
+   ]
+  },
+  {
+   "id": "mass_layoffs",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_mass_layoffs",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "crisis",
+     "depression"
+    ],
+    "min": {
+     "unemployment": 9,
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "seize",
+     "requires": {
+      "cadres": 2
+     },
+     "chance": 0.6,
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": 8,
+        "organization": 3
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "repression": 5,
+        "cadres": -2,
+        "organization": -3
+       }
+      }
+     }
+    },
+    {
+     "id": "negotiate",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 5,
+        "unemployment": -1
+       }
+      }
+     }
+    },
+    {
+     "id": "accept",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": -4,
+        "unrest": 8
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "lockout",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_lockout",
+   "weight": 0.35,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "on": [
+    "action_fail:factory_strike",
+    "action_fail:industry_strike"
+   ],
+   "trigger": {},
+   "options": [
+    {
+     "id": "fund",
+     "requires": {
+      "solidarity": 3
+     },
+     "chance": 0.65,
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 3,
+        "real_wage": 1
+       },
+       "flags": [
+        "strike_won"
+       ]
+      },
+      "solidarity": -3
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "organization": -4
+       }
+      },
+      "solidarity": -3
+     }
+    },
+    {
+     "id": "solidarity",
+     "chance": 0.5,
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 1.5,
+        "strikes_recent": 1
+       }
+      },
+      "neighbors": {
+       "add": {
+        "trust": 2
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "organization": -8,
+        "repression": 4
+       }
+      }
+     }
+    },
+    {
+     "id": "retreat",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -10
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "strikebreakers",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_strikebreakers",
+   "weight": 0.4,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "on": [
+    "action:factory_strike",
+    "action:industry_strike",
+    "action:general_strike"
+   ],
+   "trigger": {
+    "min": {
+     "unemployment": 15
+    }
+   },
+   "options": [
+    {
+     "id": "pickets",
+     "chance": 0.6,
+     "effects": {
+      "country": {
+       "add": {
+        "repression": 4,
+        "strikes_recent": 1,
+        "consciousness": 3
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "repression": 4,
+        "cadres": -1,
+        "organization": -3
+       }
+      }
+     }
+    },
+    {
+     "id": "agitate",
+     "requires": {
+      "cadres": 2
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 0.5
+       },
+       "timed": {
+        "unemployed_organized": 52
+       }
+      }
+     }
+    },
+    {
+     "id": "stop",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": -3
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "new_machines",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_new_machines",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "recovery",
+     "boom"
+    ],
+    "min": {
+     "productive_forces": 45,
+     "influence": 3
+    }
+   },
+   "options": [
+    {
+     "id": "luddite",
+     "chance": 0.7,
+     "effects": {
+      "country": {
+       "add": {
+        "real_wage": 1,
+        "unemployment": -1,
+        "repression": 5,
+        "trust": -4
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "repression": 5,
+        "trust": -4
+       }
+      }
+     }
+    },
+    {
+     "id": "shorter_day",
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": 5,
+        "trust": 2
+       }
+      }
+     }
+    },
+    {
+     "id": "accept",
+     "effects": {
+      "country": {
+       "add": {
+        "unemployment": 2,
+        "productive_forces": 2
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "bread_prices",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_bread_prices",
+   "weight": 1.5,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "overheat"
+    ],
+    "min": {
+     "need": 40,
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "lead",
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": 5,
+        "demos_recent": 1,
+        "unrest": 10
+       }
+      },
+      "reaction": 2
+     }
+    },
+    {
+     "id": "food_committees",
+     "requires": {
+      "cadres": 2
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 10,
+        "organization": 2
+       }
+      }
+     }
+    },
+    {
+     "id": "distance",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": -6
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "bank_crash",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_bank_crash",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "crisis"
+    ],
+    "class_min": {
+     "petty_bourgeoisie": 0.1
+    },
+    "min": {
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "agitate",
+     "requires": {
+      "cadres": 2
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 2,
+        "trust": 3
+       }
+      }
+     }
+    },
+    {
+     "id": "ignore",
+     "effects": {
+      "country": {
+       "add": {
+        "unrest": 5
+       },
+       "flags": [
+        "ruined_petty_bourgeoisie"
+       ]
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "long_boom",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_long_boom",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "boom"
+    ],
+    "phase_week_min": 40,
+    "min": {
+     "influence": 4
+    }
+   },
+   "options": [
+    {
+     "id": "economic",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 5,
+        "influence": 1,
+        "reformism": 3
+       }
+      }
+     }
+    },
+    {
+     "id": "school",
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": 6
+       },
+       "timed": {
+        "theory": 156
+       }
+      }
+     }
+    },
+    {
+     "id": "elections",
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 2,
+        "reformism": 8
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "mine_disaster",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_mine_disaster",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "min": {
+     "exploitation": 55,
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "mourning_strike",
+     "effects": {
+      "country": {
+       "add": {
+        "strikes_recent": 1.5,
+        "consciousness": 3,
+        "demos_recent": 0.5
+       }
+      }
+     }
+    },
+    {
+     "id": "inspection",
+     "effects": {
+      "country": {
+       "add": {
+        "exploitation": -4,
+        "legality": 5,
+        "trust": 3
+       }
+      }
+     },
+     "default": true
+    },
+    {
+     "id": "aid",
+     "requires": {
+      "solidarity": 3
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 8
+       }
+      },
+      "solidarity": -3
+     }
+    }
+   ]
+  },
+  {
+   "id": "crop_failure",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_crop_failure",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "zone": [
+     "periphery"
+    ],
+    "class_min": {
+     "peasantry": 0.25
+    },
+    "min": {
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "land",
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 2,
+        "unrest": 8
+       },
+       "timed": {
+        "peasant_ally": 156
+       }
+      }
+     }
+    },
+    {
+     "id": "city_aid",
+     "requires": {
+      "solidarity": 3
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 8
+       }
+      },
+      "solidarity": -3
+     }
+    },
+    {
+     "id": "nothing",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": -4,
+        "hegemony": 4
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "offshoring",
+   "category": "economy",
+   "scope": "world",
+   "art": "ev_offshoring",
+   "weight": 1.0,
+   "cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "depression",
+     "recovery"
+    ]
+   },
+   "options": [
+    {
+     "id": "equal_pay",
+     "requires": {
+      "solidarity": 2
+     },
+     "effects": {
+      "core": {
+       "add": {
+        "unemployment": 1
+       }
+      },
+      "movement": {
+       "add": {
+        "trust": 2,
+        "influence": 0.5
+       }
+      },
+      "reaction": 2,
+      "solidarity": -2
+     }
+    },
+    {
+     "id": "protectionism",
+     "effects": {
+      "core": {
+       "add": {
+        "unemployment": 1,
+        "real_wage": 2,
+        "reformism": 5
+       }
+      },
+      "periphery": {
+       "add": {
+        "trust": -3
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "migrant_workers",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_migrant_workers",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "indicator_min": {
+     "migrant_stock": 8
+    },
+    "min": {
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "accept",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 4,
+        "trust": 2
+       }
+      }
+     }
+    },
+    {
+     "id": "refuse",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -3,
+        "hegemony": 3
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "platform_work",
+   "category": "economy",
+   "scope": "country",
+   "art": "ev_platform_work",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "zone": [
+     "core"
+    ],
+    "min": {
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "couriers",
+     "requires": {
+      "cadres": 2
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 4,
+        "influence": 1
+       }
+      }
+     }
+    },
+    {
+     "id": "ignore",
+     "effects": {
+      "country": {
+       "mult": {
+        "influence": 0.97
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "union_ban",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_union_ban",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "reaction_min": 30,
+    "unlock": "strikes",
+    "min": {
+     "organization": 40,
+     "influence": 5
+    }
+   },
+   "options": [
+    {
+     "id": "underground",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -8
+       },
+       "mult": {
+        "visibility": 0.6
+       },
+       "timed": {
+        "underground": 52
+       }
+      }
+     }
+    },
+    {
+     "id": "courts",
+     "requires": {
+      "solidarity": 3
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -5,
+        "legality": 10
+       }
+      },
+      "solidarity": -3
+     }
+    },
+    {
+     "id": "protest",
+     "chance": 0.55,
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -8,
+        "legitimacy": -8,
+        "demos_recent": 1.5
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "organization": -8
+       }
+      },
+      "chain": {
+       "event": "demonstration_shot",
+       "after": [
+        1,
+        2
+       ]
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "demonstration_shot",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_demonstration_shot",
+   "weight": 0.5,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "on": [
+    "action_fail:demonstration"
+   ],
+   "trigger": {
+    "min": {
+     "repression": 55
+    }
+   },
+   "options": [
+    {
+     "id": "mourning_general_strike",
+     "requires": {
+      "cadres": 4
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "legitimacy": -20,
+        "strikes_recent": 2,
+        "demos_recent": 2,
+        "consciousness": 5
+       }
+      }
+     }
+    },
+    {
+     "id": "self_defense",
+     "requires": {
+      "upgrade": "self_defense"
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "legitimacy": -20,
+        "army_loyalty": -5,
+        "repression": 5,
+        "organization": 3
+       }
+      }
+     }
+    },
+    {
+     "id": "memory_march",
+     "effects": {
+      "country": {
+       "add": {
+        "legitimacy": -20,
+        "hegemony": -6,
+        "trust": 4
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "leaders_arrested",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_leaders_arrested",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "reaction_min": 20,
+    "min": {
+     "visibility": 50,
+     "influence": 5
+    }
+   },
+   "options": [
+    {
+     "id": "campaign",
+     "requires": {
+      "solidarity": 2
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -6,
+        "cadres": -2,
+        "trust": 5,
+        "legitimacy": -3
+       }
+      },
+      "solidarity": -2
+     }
+    },
+    {
+     "id": "new_leaders",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -4,
+        "cadres": 1
+       }
+      }
+     }
+    },
+    {
+     "id": "escape",
+     "chance": 0.5,
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -6,
+        "trust": 12,
+        "consciousness": 3
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "organization": -6,
+        "cadres": -4,
+        "repression": 5
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "provocateur",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_provocateur",
+   "weight": 2.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "timed": "underground",
+    "no_upgrade": "counterintelligence",
+    "min": {
+     "influence": 3
+    }
+   },
+   "options": [
+    {
+     "id": "purge",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -6,
+        "visibility": -10,
+        "trust": -3
+       }
+      }
+     }
+    },
+    {
+     "id": "test",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -2,
+        "cadres": -1
+       }
+      }
+     }
+    },
+    {
+     "id": "ignore",
+     "effects": {
+      "chain": {
+       "event": "provocateur_exposed",
+       "after": [
+        10,
+        20
+       ]
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "provocateur_exposed",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_provocateur",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "chain_only": true,
+   "trigger": {},
+   "options": [
+    {
+     "id": "ok",
+     "effects": {
+      "country": {
+       "add": {
+        "repression": 5
+       },
+       "mult": {
+        "organization": 0.6,
+        "cadres": 0.5
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "union_bribery",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_union_bribery",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "zone": [
+     "core"
+    ],
+    "unlock": "strikes",
+    "min": {
+     "organization": 35,
+     "influence": 4
+    }
+   },
+   "options": [
+    {
+     "id": "elections",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 4,
+        "reformism": -5,
+        "organization": -2
+       }
+      }
+     }
+    },
+    {
+     "id": "split",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -8,
+        "consciousness": 5,
+        "reformism": -8
+       }
+      }
+     }
+    },
+    {
+     "id": "tolerate",
+     "effects": {
+      "country": {
+       "add": {
+        "reformism": 10
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "reforms_from_above",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_reforms_from_above",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "min": {
+     "influence": 20,
+     "legitimacy": 45
+    }
+   },
+   "options": [
+    {
+     "id": "demand_more",
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": 5,
+        "real_wage": 2
+       }
+      }
+     }
+    },
+    {
+     "id": "reject",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": -5,
+        "consciousness": 2
+       }
+      }
+     }
+    },
+    {
+     "id": "support",
+     "effects": {
+      "country": {
+       "add": {
+        "real_wage": 4,
+        "unrest": -10,
+        "reformism": 15,
+        "elite_split": -8
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "state_of_emergency",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_state_of_emergency",
+   "weight": 1.5,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "min": {
+     "rev_situation": 50,
+     "influence": 5
+    }
+   },
+   "options": [
+    {
+     "id": "underground",
+     "effects": {
+      "country": {
+       "timed": {
+        "emergency": 26,
+        "underground": 26
+       }
+      }
+     }
+    },
+    {
+     "id": "disobedience",
+     "requires": {
+      "min": {
+       "influence": 30
+      }
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "legitimacy": -15,
+        "elite_split": 8,
+        "repression": 5
+       },
+       "timed": {
+        "emergency": 26
+       }
+      }
+     }
+    },
+    {
+     "id": "wait",
+     "effects": {
+      "country": {
+       "timed": {
+        "emergency": 26
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "newspaper_closed",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_newspaper_closed",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "upgrade": "workers_newspaper",
+    "reaction_min": 40,
+    "min": {
+     "influence": 3
+    }
+   },
+   "options": [
+    {
+     "id": "underground_press",
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": -1,
+        "visibility": -5,
+        "cadres": -1
+       }
+      }
+     }
+    },
+    {
+     "id": "from_abroad",
+     "requires": {
+      "upgrade": "emigrant_links"
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 1
+       }
+      }
+     }
+    },
+    {
+     "id": "oral",
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": -3,
+        "trust": 2
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "fascist_squads",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_fascist_squads",
+   "weight": 1.5,
+   "cooldown_weeks": 104,
+   "country_cooldown_weeks": 520,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "crisis",
+     "depression"
+    ],
+    "min": {
+     "influence": 15
+    },
+    "no_timed": "antifascist",
+    "no_flag": "fascist_regime",
+    "any_of": [
+     {
+      "class_min": {
+       "petty_bourgeoisie": 0.12
+      }
+     },
+     {
+      "flag": "ruined_petty_bourgeoisie"
+     }
+    ]
+   },
+   "options": [
+    {
+     "id": "self_defense",
+     "requires": {
+      "cadres": 4
+     },
+     "chance": 0.7,
+     "effects": {
+      "country": {
+       "add": {
+        "repression": 4
+       },
+       "timed": {
+        "antifascist": 104
+       }
+      }
+     },
+     "fail": {
+      "chain": {
+       "event": "power_crisis",
+       "after": [
+        8,
+        16
+       ]
+      }
+     }
+    },
+    {
+     "id": "united_front",
+     "requires": {
+      "any_upgrade": [
+       "united_front",
+       "self_defense"
+      ]
+     },
+     "chance": 0.6,
+     "effects": {
+      "country": {
+       "add": {
+        "reformism": 5
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "reformism": 5
+       }
+      },
+      "chain": {
+       "event": "power_crisis",
+       "after": [
+        8,
+        16
+       ]
+      }
+     }
+    },
+    {
+     "id": "ignore",
+     "effects": {
+      "chain": {
+       "event": "power_crisis",
+       "after": [
+        8,
+        16
+       ]
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "power_crisis",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_power_crisis",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "chain_only": true,
+   "trigger": {},
+   "options": [
+    {
+     "id": "general_strike",
+     "requires": {
+      "unlock": "general_strike",
+      "cadres": 8
+     },
+     "chance": 0.65,
+     "effects": {
+      "country": {
+       "add": {
+        "legitimacy": -10,
+        "strikes_recent": 2
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "organization": -10
+       }
+      },
+      "chain": {
+       "event": "fascist_regime",
+       "after": [
+        6,
+        10
+       ]
+      }
+     }
+    },
+    {
+     "id": "popular_front",
+     "requires": {
+      "min": {
+       "legality": 25
+      }
+     },
+     "chance": 0.5,
+     "effects": {
+      "country": {
+       "add": {
+        "reformism": 8,
+        "influence": 1
+       }
+      }
+     },
+     "fail": {
+      "chain": {
+       "event": "fascist_regime",
+       "after": [
+        6,
+        10
+       ]
+      }
+     }
+    },
+    {
+     "id": "nothing",
+     "effects": {
+      "chain": {
+       "event": "fascist_regime",
+       "after": [
+        6,
+        10
+       ]
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "fascist_regime",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_fascist_regime",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "chain_only": true,
+   "trigger": {},
+   "options": [
+    {
+     "id": "armed",
+     "requires": {
+      "cadres": 6
+     },
+     "chance": 0.25,
+     "effects": {
+      "country": {
+       "add": {
+        "elite_split": 20,
+        "army_loyalty": -15,
+        "demos_recent": 2
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "repression": 100,
+        "legality": -100
+       },
+       "mult": {
+        "influence": 0.2,
+        "organization": 0.25,
+        "cadres": 0.2
+       },
+       "flags": [
+        "fascist_regime"
+       ],
+       "timed": {
+        "fascist_regime": 260
+       }
+      },
+      "reaction": 5
+     }
+    },
+    {
+     "id": "underground",
+     "effects": {
+      "country": {
+       "add": {
+        "repression": 100,
+        "legality": -100
+       },
+       "mult": {
+        "influence": 0.3,
+        "organization": 0.35,
+        "cadres": 0.4
+       },
+       "flags": [
+        "fascist_regime"
+       ],
+       "timed": {
+        "fascist_regime": 260,
+        "underground": 104
+       }
+      },
+      "reaction": 5
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "military_coup",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_military_coup",
+   "weight": 0.2,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "on": [
+    "action_ok:elections"
+   ],
+   "trigger": {
+    "min": {
+     "influence": 25
+    }
+   },
+   "options": [
+    {
+     "id": "general_strike",
+     "requires": {
+      "unlock": "general_strike",
+      "cadres": 6
+     },
+     "chance": 0.6,
+     "effects": {
+      "country": {
+       "add": {
+        "legitimacy": -10,
+        "elite_split": 15,
+        "trust": 5
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "repression": 30,
+        "legality": -40
+       },
+       "mult": {
+        "organization": 0.5
+       }
+      }
+     }
+    },
+    {
+     "id": "armed",
+     "requires": {
+      "cadres": 6
+     },
+     "chance": 0.3,
+     "effects": {
+      "country": {
+       "add": {
+        "army_loyalty": -20,
+        "elite_split": 20
+       }
+      }
+     },
+     "fail": {
+      "country": {
+       "add": {
+        "repression": 35
+       },
+       "mult": {
+        "influence": 0.6,
+        "organization": 0.4
+       }
+      }
+     }
+    },
+    {
+     "id": "underground",
+     "effects": {
+      "country": {
+       "add": {
+        "repression": 20,
+        "legality": -40
+       },
+       "timed": {
+        "underground": 52
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "divide_and_rule",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_divide_and_rule",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "reaction_min": 20,
+    "min": {
+     "influence": 3
+    }
+   },
+   "options": [
+    {
+     "id": "internationalist",
+     "requires": {
+      "cadres": 2
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 3,
+        "consciousness": 3
+       }
+      }
+     }
+    },
+    {
+     "id": "mixed_committees",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 3
+       }
+      }
+     }
+    },
+    {
+     "id": "ignore",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -6,
+        "hegemony": 3
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "media_campaign",
+   "category": "state",
+   "scope": "world",
+   "art": "ev_media_campaign",
+   "weight": 1.0,
+   "cooldown_weeks": 156,
+   "max_times": 2,
+   "trigger": {
+    "reaction_min": 40
+   },
+   "options": [
+    {
+     "id": "own_media",
+     "requires": {
+      "any_upgrade": [
+       "digital_media",
+       "workers_newspaper"
+      ]
+     },
+     "effects": {
+      "movement": {
+       "add": {
+        "hegemony": -2
+       }
+      }
+     }
+    },
+    {
+     "id": "satire",
+     "requires": {
+      "upgrade": "clubs_culture"
+     },
+     "effects": {
+      "movement": {
+       "add": {
+        "hegemony": -3
+       }
+      }
+     }
+    },
+    {
+     "id": "ignore",
+     "effects": {
+      "movement": {
+       "add": {
+        "hegemony": 5
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "corruption_scandal",
+   "category": "state",
+   "scope": "country",
+   "art": "ev_corruption_scandal",
+   "weight": 0.8,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "min": {
+     "influence": 3
+    }
+   },
+   "options": [
+    {
+     "id": "expose",
+     "effects": {
+      "country": {
+       "add": {
+        "legitimacy": -8,
+        "elite_split": 8
+       }
+      }
+     }
+    },
+    {
+     "id": "demands",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 5,
+        "reformism": 3
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "imperialist_war",
+   "category": "world",
+   "scope": "world",
+   "art": "ev_imperialist_war",
+   "weight": 2.0,
+   "cooldown_weeks": 520,
+   "max_times": 1,
+   "trigger": {
+    "phase": [
+     "crisis",
+     "depression"
+    ],
+    "reaction_min": 50
+   },
+   "options": [
+    {
+     "id": "antiwar",
+     "effects": {
+      "core": {
+       "add": {
+        "unemployment": -2,
+        "consciousness": -3,
+        "organization": -5,
+        "repression": 5
+       }
+      },
+      "reaction": 8,
+      "chain": {
+       "event": "war_turn",
+       "after": [
+        40,
+        60
+       ]
+      }
+     }
+    },
+    {
+     "id": "civil_war",
+     "requires": {
+      "world": {
+       "core_consciousness_max": 75
+      }
+     },
+     "chance": 0.4,
+     "effects": {
+      "core": {
+       "add": {
+        "elite_split": 25,
+        "army_loyalty": -25,
+        "legitimacy": -15
+       }
+      }
+     },
+     "fail": {
+      "core": {
+       "add": {
+        "repression": 20
+       }
+      },
+      "reaction": 15
+     }
+    },
+    {
+     "id": "defencism",
+     "effects": {
+      "core": {
+       "add": {
+        "unemployment": -2,
+        "consciousness": -5,
+        "reformism": 8
+       },
+       "mult": {
+        "organization": 0.8
+       }
+      },
+      "chain": {
+       "event": "war_fatigue",
+       "after": [
+        52,
+        78
+       ]
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "war_fatigue",
+   "category": "world",
+   "scope": "world",
+   "art": "ev_imperialist_war",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "max_times": 2,
+   "chain_only": true,
+   "trigger": {},
+   "options": [
+    {
+     "id": "ok",
+     "effects": {
+      "core": {
+       "add": {
+        "army_loyalty": -10,
+        "elite_split": 10,
+        "legitimacy": -8
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "war_turn",
+   "category": "world",
+   "scope": "world",
+   "art": "ev_imperialist_war",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "max_times": 2,
+   "chain_only": true,
+   "trigger": {},
+   "options": [
+    {
+     "id": "ok",
+     "effects": {
+      "core": {
+       "add": {
+        "army_loyalty": -15,
+        "consciousness": 8,
+        "elite_split": 12
+       },
+       "mult": {
+        "influence": 1.25
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "liberation_uprising",
+   "category": "world",
+   "scope": "country",
+   "art": "ev_liberation_uprising",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "zone": [
+     "periphery"
+    ],
+    "min": {
+     "inequality": 55,
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "support",
+     "requires": {
+      "solidarity": 3
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 3,
+        "elite_split": 10,
+        "exploitation": -8
+       }
+      },
+      "solidarity": -3
+     }
+    },
+    {
+     "id": "program",
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 1.5,
+        "trust": 5,
+        "real_wage": 2
+       }
+      }
+     }
+    },
+    {
+     "id": "neutral",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": -2
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "intervention",
+   "category": "world",
+   "scope": "country",
+   "art": "ev_intervention",
+   "weight": 2.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 156,
+   "max_times": 2,
+   "trigger": {
+    "revolutionary": true,
+    "reaction_min": 60
+   },
+   "options": [
+    {
+     "id": "hands_off",
+     "requires": {
+      "any_upgrade": [
+       "solidarity_strikes",
+       "international"
+      ]
+     },
+     "chance": 0.7,
+     "effects": {
+      "reaction": -6
+     },
+     "fail": {
+      "country": {
+       "timed": {
+        "blockade": 52
+       }
+      }
+     }
+    },
+    {
+     "id": "volunteers",
+     "requires": {
+      "solidarity": 6
+     },
+     "effects": {
+      "reaction": 2,
+      "solidarity": -6
+     }
+    },
+    {
+     "id": "negotiate",
+     "effects": {
+      "country": {
+       "timed": {
+        "blockade": 26
+       }
+      },
+      "reaction": -3
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "blockade",
+   "category": "world",
+   "scope": "country",
+   "art": "ev_blockade",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 208,
+   "max_times": 2,
+   "trigger": {
+    "revolutionary": true
+   },
+   "options": [
+    {
+     "id": "trade_friends",
+     "requires": {
+      "solidarity": 2
+     },
+     "effects": {
+      "neighbors": {
+       "add": {
+        "influence": 0.5
+       }
+      },
+      "solidarity": -2
+     }
+    },
+    {
+     "id": "break",
+     "chance": 0.5,
+     "effects": {
+      "reaction": -3
+     },
+     "fail": {
+      "country": {
+       "timed": {
+        "blockade": 52
+       }
+      },
+      "reaction": 3
+     }
+    },
+    {
+     "id": "self_reliance",
+     "effects": {
+      "country": {
+       "timed": {
+        "blockade": 26
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "solidarity_congress",
+   "category": "world",
+   "scope": "world",
+   "art": "ev_solidarity_congress",
+   "weight": 1.0,
+   "cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "upgrade": "international"
+   },
+   "options": [
+    {
+     "id": "resolution",
+     "effects": {
+      "movement": {
+       "add": {
+        "trust": 2
+       }
+      },
+      "solidarity": 5
+     }
+    },
+    {
+     "id": "debate",
+     "chance": 0.6,
+     "effects": {
+      "movement": {
+       "add": {
+        "consciousness": 4
+       }
+      }
+     },
+     "fail": {
+      "movement": {
+       "mult": {
+        "organization": 0.9
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "trade_war",
+   "category": "world",
+   "scope": "world",
+   "art": "ev_trade_war",
+   "weight": 1.0,
+   "cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "overheat",
+     "crisis"
+    ]
+   },
+   "options": [
+    {
+     "id": "agitate",
+     "requires": {
+      "solidarity": 2
+     },
+     "effects": {
+      "movement": {
+       "add": {
+        "consciousness": 2
+       }
+      },
+      "solidarity": -2
+     }
+    },
+    {
+     "id": "silent",
+     "effects": {
+      "movement": {
+       "add": {
+        "hegemony": 3
+       }
+      },
+      "core": {
+       "add": {
+        "reformism": 3
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "debt_trap",
+   "category": "world",
+   "scope": "country",
+   "art": "ev_debt_trap",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "zone": [
+     "periphery",
+     "semi"
+    ],
+    "indicator_min": {
+     "external_debt": 40
+    },
+    "min": {
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "lead_protests",
+     "effects": {
+      "country": {
+       "add": {
+        "unrest": 15,
+        "demos_recent": 1,
+        "consciousness": 3,
+        "real_wage": -3
+       }
+      }
+     }
+    },
+    {
+     "id": "repudiate",
+     "requires": {
+      "min": {
+       "consciousness": 25
+      }
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": 5,
+        "legitimacy": -6
+       }
+      },
+      "reaction": 3
+     }
+    },
+    {
+     "id": "let_negotiate",
+     "effects": {
+      "country": {
+       "add": {
+        "real_wage": -5,
+        "exploitation": 4,
+        "trust": -3
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "refugees",
+   "category": "world",
+   "scope": "country",
+   "art": "ev_refugees",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "neighbor_flag_any": [
+     "fascist_regime",
+     "lessons_of_defeat"
+    ],
+    "min": {
+     "influence": 2
+    }
+   },
+   "options": [
+    {
+     "id": "welcome",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 3,
+        "influence": 1,
+        "hegemony": 2
+       }
+      }
+     }
+    },
+    {
+     "id": "cautious",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": -2
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "neighbors_example",
+   "category": "world",
+   "scope": "country",
+   "art": "ev_neighbors_example",
+   "weight": 0.5,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "on": [
+    "revolution_neighbor"
+   ],
+   "trigger": {
+    "min": {
+     "influence": 3
+    }
+   },
+   "options": [
+    {
+     "id": "seize_moment",
+     "effects": {
+      "country": {
+       "add": {
+        "demos_recent": 2,
+        "consciousness": 4,
+        "repression": 5
+       }
+      },
+      "reaction": 2
+     }
+    },
+    {
+     "id": "prepare",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 4,
+        "visibility": -5
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "reform_or_revolution",
+   "category": "movement",
+   "scope": "country",
+   "art": "ev_reform_or_revolution",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "recovery",
+     "boom"
+    ],
+    "min": {
+     "influence": 20
+    }
+   },
+   "options": [
+    {
+     "id": "reformists",
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 3,
+        "legality": 5,
+        "reformism": 15
+       },
+       "timed": {
+        "reformist_cap": 156
+       }
+      }
+     }
+    },
+    {
+     "id": "revolutionaries",
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": 8,
+        "reformism": -10,
+        "organization": 3
+       },
+       "mult": {
+        "influence": 0.85
+       }
+      }
+     }
+    },
+    {
+     "id": "compromise",
+     "effects": {
+      "chain": {
+       "event": "party_split",
+       "after": [
+        52,
+        104
+       ]
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "party_split",
+   "category": "movement",
+   "scope": "country",
+   "art": "ev_party_split",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "on": [
+    "line_change"
+   ],
+   "trigger": {
+    "min": {
+     "influence": 5
+    }
+   },
+   "options": [
+    {
+     "id": "unity",
+     "effects": {
+      "country": {
+       "add": {
+        "reformism": 6,
+        "consciousness": -3
+       }
+      }
+     }
+    },
+    {
+     "id": "separate",
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": 5
+       },
+       "mult": {
+        "organization": 0.7
+       }
+      }
+     }
+    },
+    {
+     "id": "merge",
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 2,
+        "reformism": 4,
+        "organization": 2
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "spontaneous_uprising",
+   "category": "movement",
+   "scope": "country",
+   "art": "ev_spontaneous_uprising",
+   "weight": 3.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "min": {
+     "rev_situation": 70,
+     "influence": 5
+    },
+    "max": {
+     "organization": 50
+    }
+   },
+   "options": [
+    {
+     "id": "lead",
+     "chance": 0.3,
+     "effects": {
+      "country": {
+       "special": "revolution"
+      }
+     },
+     "fail": {
+      "country": {
+       "special": "defeat"
+      }
+     }
+    },
+    {
+     "id": "restrain",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": -8,
+        "unrest": -10
+       }
+      }
+     }
+    },
+    {
+     "id": "retreat",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 4,
+        "unrest": -15
+       },
+       "flags": [
+        "lessons_of_defeat"
+       ]
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "charismatic_leader",
+   "category": "movement",
+   "scope": "country",
+   "art": "ev_charismatic_leader",
+   "weight": 0.7,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "min": {
+     "influence": 8
+    }
+   },
+   "options": [
+    {
+     "id": "cult",
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 4,
+        "trust": 5
+       },
+       "flags": [
+        "leader_cult"
+       ]
+      }
+     }
+    },
+    {
+     "id": "collective",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 4
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "activist_burnout",
+   "category": "movement",
+   "scope": "country",
+   "art": "ev_activist_burnout",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "depression"
+    ],
+    "min": {
+     "influence": 5,
+     "organization": 20
+    }
+   },
+   "options": [
+    {
+     "id": "school",
+     "requires": {
+      "upgrade": "cadre_school"
+     },
+     "effects": {
+      "country": {
+       "add": {
+        "cadres": 2,
+        "organization": 1
+       }
+      }
+     }
+    },
+    {
+     "id": "rest",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 3
+       },
+       "mult": {
+        "influence": 0.97
+       }
+      }
+     }
+    },
+    {
+     "id": "ignore",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -8,
+        "cadres": -2
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "equal_pay",
+   "category": "movement",
+   "scope": "country",
+   "art": "ev_equal_pay",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "indicator_min": {
+     "women_labor": 40
+    },
+    "min": {
+     "influence": 3
+    }
+   },
+   "options": [
+    {
+     "id": "include",
+     "effects": {
+      "country": {
+       "add": {
+        "influence": 2,
+        "trust": 3
+       }
+      }
+     }
+    },
+    {
+     "id": "postpone",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": -4
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "student_unrest",
+   "category": "movement",
+   "scope": "country",
+   "art": "ev_student_unrest",
+   "weight": 1.0,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "phase": [
+     "crisis",
+     "depression"
+    ],
+    "min": {
+     "influence": 3
+    }
+   },
+   "options": [
+    {
+     "id": "alliance",
+     "effects": {
+      "country": {
+       "add": {
+        "cadres": 2,
+        "influence": 1,
+        "visibility": 5
+       }
+      }
+     }
+    },
+    {
+     "id": "caution",
+     "effects": {
+      "country": {
+       "add": {
+        "consciousness": 1
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "ultraleft_adventure",
+   "category": "movement",
+   "scope": "country",
+   "art": "ev_ultraleft_adventure",
+   "weight": 1.5,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "trigger": {
+    "timed": "underground",
+    "min": {
+     "need": 45,
+     "influence": 3
+    }
+   },
+   "options": [
+    {
+     "id": "expel",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": -2,
+        "trust": 2
+       }
+      }
+     }
+    },
+    {
+     "id": "tolerate",
+     "effects": {
+      "country": {
+       "add": {
+        "repression": 12,
+        "trust": -10
+       }
+      },
+      "reaction": 3
+     },
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "lessons_of_defeat",
+   "category": "movement",
+   "scope": "country",
+   "art": "ev_lessons_of_defeat",
+   "weight": 0.7,
+   "cooldown_weeks": 78,
+   "country_cooldown_weeks": 260,
+   "max_times": 2,
+   "on": [
+    "defeat"
+   ],
+   "trigger": {},
+   "options": [
+    {
+     "id": "study",
+     "effects": {
+      "country": {
+       "add": {
+        "organization": 5,
+        "consciousness": 5
+       },
+       "flags": [
+        "lessons_of_defeat"
+       ]
+      }
+     }
+    },
+    {
+     "id": "martyrs",
+     "effects": {
+      "country": {
+       "add": {
+        "trust": 8,
+        "hegemony": -4
+       }
+      }
+     },
+     "default": true
+    }
+   ]
+  }
+ ]
+}

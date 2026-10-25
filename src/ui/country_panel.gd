@@ -18,7 +18,6 @@ const TAB_COUNTRY := "country"
 ## «остальные» — нейтральный серый.
 const CLASS_COLORS := [Color("#C62828"), Color("#D4A13A"), Color("#2F5D9A"), Color("#8A8A84")]
 
-var world: WorldData
 var tab := TAB_MOVEMENT
 
 var _title: Label
@@ -103,14 +102,14 @@ func show_country(c: Country, cs: CountryState, sim: SimWorld, button_text: Stri
 	var switched: bool = _last.is_empty() or _last[0] != c
 	_last = [c, cs, sim, button_text]
 	_title.text = c.name_ru
-	_subtitle.text = "%s · %s · %s · %s" % [tr("ZONE_" + c.zone), c.subregion_ru,
-		NumberFormat.population(c.indicator("population")), NumberFormat.dollars(c.indicator("gdp_per_capita"))]
+	_subtitle.text = "%s · %s · %s" % [tr("ZONE_" + c.zone), NumberFormat.population(c.indicator("population")),
+		NumberFormat.dollars(c.indicator("gdp_per_capita"))]
 	_main_button.text = button_text
 	_main_button.visible = button_text != ""
 	var started := sim != null and sim.start_country != ""
 	var revolutionary := cs != null and cs.is_revolutionary()
 	if switched:
-		_hint.text = tr("PANEL_HINT")
+		_set_hint("")
 		if not started:
 			tab = TAB_COUNTRY
 	if revolutionary:
@@ -139,7 +138,7 @@ func show_country(c: Country, cs: CountryState, sim: SimWorld, button_text: Stri
 
 func _set_tab(t: String) -> void:
 	tab = t
-	_hint.text = tr("PANEL_HINT")
+	_set_hint("")
 	if not _last.is_empty():
 		show_country(_last[0], _last[1], _last[2], _last[3])
 
@@ -215,10 +214,6 @@ func _build_country(c: Country, cs: CountryState, sim: SimWorld, started: bool) 
 		item.add_child(GameTheme.make_label("%s %s" % [tr("CLASS_GROUP_%d" % i), UiText.percent(groups[i] * 100.0)], 14))
 		legend.add_child(item)
 	_content.add_child(legend)
-	if c.is_estimated("unemployment") or c.is_estimated("gini"):
-		_caption(tr("NOTE_ESTIMATED"))
-	if not started:
-		_caption(tr("SOURCE_LINE") % (world.sources.get("indicators_fetched", "") if world != null else ""))
 
 
 ## Доли четырёх групп: пролетариат, крестьяне, служащие, остальные.
@@ -275,7 +270,13 @@ func _hook(row: Control) -> void:
 	var key: String = row.get_meta("hint")
 	row.gui_input.connect(func(e: InputEvent) -> void:
 		if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
-			_hint.text = tr(key))
+			_set_hint(tr(key)))
+
+
+## Объяснение показателя под списком; пустая строка — подсказка скрыта и не занимает места.
+func _set_hint(text: String) -> void:
+	_hint.text = text
+	_hint.visible = text != ""
 
 
 func _section(title: String) -> void:

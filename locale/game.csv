@@ -213,6 +213,7 @@ BLOCK_min_influence,Влияние движения ниже %s%%,Influence belo
 BLOCK_min_rev_situation,Революционная ситуация ниже %s,Revolutionary situation below %s
 BLOCK_min_organization,Организованность ниже %s,Organization below %s
 BLOCK_min_legality,Легальность ниже %s,Legality below %s
+BLOCK_min_consciousness,Сознание ниже %s,Consciousness below %s
 BLOCK_min_unemployment,Безработица ниже %s%%,Unemployment below %s%%
 BLOCK_cooldown,Снова можно через %s нед.,Available again in %s weeks
 BLOCK_revolutionary,Страна уже революционная,Already revolutionary
@@ -365,7 +366,6 @@ PHASE_HINT_depression,"Депрессия: стачкам тяжело, но р�
 STAGE_LINE,Стадия сознания: %s,Stage of consciousness: %s
 PANEL_TAB_movement,Движение,Movement
 PANEL_TAB_country,Страна,Country
-PANEL_HINT,Коснитесь строки — здесь появится объяснение.,Tap a row to see what it means.
 PANEL_BASE_HINT,Какие силы здесь могут встать за движение и как держится власть.,Who could join the movement here and how strong the state is.
 PANEL_REVOLUTIONARY,"Здесь победила революция. Страна помогает движению солидарностью и примером, движение из неё идёт к соседям. Как живёт новое общество — на следующих этапах.",The revolution has won here. It helps the movement with solidarity and example.
 STATUS_PROTEST,"Стихийный протест! Коснитесь охристого пузырька, чтобы его поддержать.",A spontaneous protest! Tap the ochre bubble to support it.
@@ -434,6 +434,8 @@ HELP_RESOURCES,Ресурсы,Resources
 HELP_SOLIDARITY,Солидарность — общая для всего движения. Её дают пузырьки. Тратится на «Развитие» и на организаторов.,Solidarity is shared. Bubbles give it. Spend it on Development and organizers.
 HELP_CADRES,"Кадры — свои в каждой стране. Растут из организованности, тратятся на стачки, демонстрации, восстание.",Cadres belong to each country. They grow from organization and pay for actions there.
 HELP_SPONTANEOUS,"Рабочее движение возникает само — от нужды и в кризис. Но без партии власть его подавляет. Поддерживайте протесты, чтобы закрепиться в новых странах.","The workers' movement arises by itself, but without the party the state crushes it."
+HELP_PANEL,Коснитесь строки в панели страны — под списком появится объяснение показателя.,Tap a row in the country panel to see what it means.
+HELP_CREDITS,"Границы стран — Natural Earth. Показатели — Всемирный банк, World Development Indicators (CC BY 4.0). Шрифты PT Sans и Oswald (OFL).","Borders: Natural Earth. Indicators: World Bank WDI (CC BY 4.0). Fonts: PT Sans, Oswald (OFL)."
 HELP_WIN,Как победить,How to win
 HELP_REV,"Революция возможна, когда сложились три условия — «верхи не могут», «низы не хотят», «активность масс», — каждое не ниже 70, а организованность не ниже 50. Обычно это бывает в кризис.",A revolution needs three conditions of 70 each and organization of 50. Usually in a crisis.
 HELP_REACTION,"Реакция — шкала правящих классов вверху. Чем заметнее движение и чем больше побед, тем она выше и жёстче ответ.","Reaction is the rulers' scale. The more visible the movement, the harsher the response."
@@ -451,6 +453,58 @@ RES_SOLIDARITY,Собрано солидарности,Solidarity collected
 RES_PROTESTS,Протестов поддержано из всех,Protests supported of all
 RES_UPGRADES,Улучшений освоено,Upgrades adopted
 RES_CHRONICLE,Хроника,Chronicle
+NEWS_EVENT,%s: %s — %s.,%s: %s — %s.
+NEWS_EVENT_WORLD,%s — %s.,%s — %s.
+EVENT_WORLD,Весь мир,The whole world
+CATEGORY_economy,Экономика и труд,Economy and labour
+CATEGORY_state,Государство и Реакция,State and Reaction
+CATEGORY_world,Международное,International
+CATEGORY_movement,Внутри движения,Inside the movement
+EVENT_CHANCE,шанс %s%%,chance %s%%
+EVENT_FAIL,Если не выйдет: %s,If it fails: %s
+EVENT_NOTHING,без последствий,no effect
+EVENT_CHAIN,дело на этом не кончится,this is not the end of it
+EVENT_PAY,Стоит: %s,Costs: %s
+EVENT_RESULT_OK,Получилось!,It worked!
+EVENT_RESULT_FAIL,Не вышло,It failed
+SCOPE_movement,"везде, где есть движение",wherever the movement is
+SCOPE_core,в ядре,in the core
+SCOPE_periphery,на периферии,on the periphery
+SCOPE_neighbors,у соседей,in neighbouring countries
+BLOCK_core_consciousness,Нужно революционное сознание хотя бы в одной стране ядра,Needs revolutionary consciousness in a core country
+F_influence,Влияние,Influence
+F_consciousness,Сознание,Consciousness
+F_organization,Организованность,Organization
+F_trust,Доверие,Trust
+F_visibility,Заметность,Visibility
+F_cadres,Кадры,Cadres
+F_unrest,Протесты,Protests
+F_reformism,Реформизм,Reformism
+F_real_wage,Зарплата,Wages
+F_unemployment,Безработица,Unemployment
+F_exploitation,Эксплуатация,Exploitation
+F_productive_forces,Производительные силы,Productive forces
+F_hegemony,Гегемония,Hegemony
+F_legitimacy,Легитимность,Legitimacy
+F_repression,Репрессии,Repression
+F_army_loyalty,Верность армии,Army loyalty
+F_elite_split,Раскол верхов,Split at the top
+F_legality,Легальность,Legality
+F_strikes_recent,Стачки,Strikes
+F_demos_recent,Активность улиц,Street activity
+F_reaction,Реакция,Reaction
+F_solidarity,Солидарность,Solidarity
+TIMED_underground,подполье на %s нед.,underground for %s wk
+TIMED_unemployed_organized,безработные организованы на %s нед.,unemployed organized for %s wk
+TIMED_theory,сознание держится в спаде %s нед.,consciousness holds for %s wk
+TIMED_peasant_ally,крестьяне — союзники %s нед.,peasants are allies for %s wk
+TIMED_emergency,"действия в 1,5 раза дороже %s нед.",actions cost ×1.5 for %s wk
+TIMED_antifascist,фашизм не пройдёт %s нед.,fascism blocked for %s wk
+TIMED_fascist_regime,фашистский режим на %s нед.,fascist regime for %s wk
+TIMED_reformist_cap,сознание не выше политического %s нед.,consciousness capped for %s wk
+TIMED_blockade,блокада %s нед.,blockade for %s wk
+SPECIAL_revolution,победа — революция,victory: revolution
+SPECIAL_defeat,разгром и белый террор,defeat and white terror
 OUTCOME_federation,Мировая федерация,World federation
 OUTCOME_world_revolution,Мировая революция,World revolution
 OUTCOME_two_systems,Мир двух систем,A world of two systems
@@ -459,3 +513,227 @@ OUTCOME_federation_TEXT,"Революционные страны дают три
 OUTCOME_world_revolution_TEXT,"Цепь империализма порвана: революционные страны дают половину мирового производства и населения, среди них — страны ядра. Призрак обрёл плоть.","Revolutionary countries hold half the world, including core countries."
 OUTCOME_two_systems_TEXT,"Прошло двадцать лет. Революционные страны выстояли, но остались в меньшинстве. Мир разделён надвое, и спор между системами продолжится без вас.","Twenty years later the revolutionary countries hold on, but remain a minority."
 OUTCOME_defeat_TEXT,"Движение разгромлено. Правящие классы празднуют, но противоречия, которые его породили, никуда не делись. Уроки поражения пригодятся следующим поколениям.","The movement is crushed, but the contradictions that gave birth to it remain."
+EVENT_overproduction_crisis,Кризис перепроизводства,Overproduction crisis
+EVENT_overproduction_crisis_TEXT,"Склады ломятся от товаров, а покупать их некому. Заводы закрываются, рабочих выбрасывают на улицу. Кто заплатит за кризис?",Overproduction crisis.
+EVENT_overproduction_crisis_rich_pay,«Кризис оплатят богатые»,Rich pay
+EVENT_overproduction_crisis_mutual_aid,Кассы взаимопомощи,Mutual aid
+EVENT_overproduction_crisis_wait,Переждать,Wait
+EVENT_mass_layoffs,Массовые увольнения,Mass layoffs
+EVENT_mass_layoffs_TEXT,%s: крупный завод объявил о сокращении тысяч рабочих. У проходной собирается толпа.,Mass layoffs: %s.
+EVENT_mass_layoffs_seize,Захватить завод,Seize
+EVENT_mass_layoffs_negotiate,Переговоры о сохранении мест,Negotiate
+EVENT_mass_layoffs_accept,Смириться,Accept
+EVENT_lockout,Локаут,Lockout
+EVENT_lockout_TEXT,%s: в ответ на стачку хозяева закрыли завод и уволили всех. Голод должен заставить рабочих вернуться на их условиях.,Lockout: %s.
+EVENT_lockout_fund,Платить из стачечного фонда,Fund
+EVENT_lockout_solidarity,Поднять соседние заводы,Solidarity
+EVENT_lockout_retreat,Отступить,Retreat
+EVENT_strikebreakers,Штрейкбрехеры,Strikebreakers
+EVENT_strikebreakers_TEXT,"%s: безработных много, и хозяева привозят их на место бастующих. У ворот назревает драка.",Strikebreakers: %s.
+EVENT_strikebreakers_pickets,Пикеты у ворот,Pickets
+EVENT_strikebreakers_agitate,Агитировать безработных,Agitate
+EVENT_strikebreakers_stop,Прекратить стачку,Stop
+EVENT_new_machines,Новые машины на фабриках,New machines
+EVENT_new_machines_TEXT,"%s: на заводы ставят автоматы, один станок заменяет десять рабочих. Прибыль растёт, рабочие места исчезают.",New machines: %s.
+EVENT_new_machines_luddite,Ломать машины,Luddite
+EVENT_new_machines_shorter_day,Короче день без потери в зарплате,Shorter day
+EVENT_new_machines_accept,Принять,Accept
+EVENT_bread_prices,Цены на хлеб,Bread prices
+EVENT_bread_prices_TEXT,%s: за месяц хлеб подорожал вдвое. Женщины с пустыми корзинами громят лавки.,Bread prices: %s.
+EVENT_bread_prices_lead,"Возглавить бунт, выдвинуть политические требования",Lead
+EVENT_bread_prices_food_committees,Продовольственные комитеты,Food committees
+EVENT_bread_prices_distance,Держаться в стороне,Distance
+EVENT_bank_crash,Крах банков,Bank crash
+EVENT_bank_crash_TEXT,"%s: лопнули банки, лавочники и ремесленники потеряли всё. Вчерашние хозяева становятся пролетариями — и ищут, кого обвинить.",Bank crash: %s.
+EVENT_bank_crash_agitate,Агитировать разорённых,Agitate
+EVENT_bank_crash_ignore,Не тратить на них силы,Ignore
+EVENT_long_boom,Долгий подъём,Long boom
+EVENT_long_boom_TEXT,"%s: годы роста, зарплаты растут, работа есть у всех. Рабочие спрашивают: зачем бороться, если и так неплохо?",Long boom: %s.
+EVENT_long_boom_economic,Экономические требования,Economic
+EVENT_long_boom_school,Школа и теория,School
+EVENT_long_boom_elections,Ставка на выборы,Elections
+EVENT_mine_disaster,Катастрофа на шахте,Mine disaster
+EVENT_mine_disaster_TEXT,"%s: взрыв газа в шахте, под землёй остались сотни горняков. Хозяева экономили на вентиляции.",Mine disaster: %s.
+EVENT_mine_disaster_mourning_strike,Траурная забастовка,Mourning strike
+EVENT_mine_disaster_inspection,Рабочая инспекция,Inspection
+EVENT_mine_disaster_aid,Помощь семьям,Aid
+EVENT_crop_failure,Неурожай,Crop failure
+EVENT_crop_failure_TEXT,"%s: засуха сожгла урожай. Крестьяне продают последнее, помещики требуют аренду.",Crop failure: %s.
+EVENT_crop_failure_land,«Земля — крестьянам»,Land
+EVENT_crop_failure_city_aid,Помощь города деревне,City aid
+EVENT_crop_failure_nothing,Ничего не делать,Nothing
+EVENT_offshoring,Перенос производства,Offshoring
+EVENT_offshoring_TEXT,"Корпорации ядра закрывают заводы дома и открывают их на периферии, где труд дешевле.",Offshoring.
+EVENT_offshoring_equal_pay,Кампания «равная плата везде»,Equal pay
+EVENT_offshoring_protectionism,Поддержать протекционизм,Protectionism
+EVENT_migrant_workers,Рабочие-мигранты,Migrant workers
+EVENT_migrant_workers_TEXT,%s: на заводах всё больше приезжих. Хозяева платят им меньше и натравливают на местных.,Migrant workers: %s.
+EVENT_migrant_workers_accept,Принимать в профсоюзы,Accept
+EVENT_migrant_workers_refuse,Не принимать,Refuse
+EVENT_platform_work,Работа через платформы,Platform work
+EVENT_platform_work_TEXT,"%s: курьеры и водители работают через приложения — без договора, без отпуска, без профсоюза.",Platform work: %s.
+EVENT_platform_work_couriers,Профсоюз курьеров,Couriers
+EVENT_platform_work_ignore,Не заниматься этим,Ignore
+EVENT_union_ban,Запрет профсоюзов,Union ban
+EVENT_union_ban_TEXT,%s: правительство запретило профсоюзы и закрыло их кассы. Организованность движения падает.,Union ban: %s.
+EVENT_union_ban_underground,Уйти в подполье,Underground
+EVENT_union_ban_courts,Бороться в судах,Courts
+EVENT_union_ban_protest,Массовый протест,Protest
+EVENT_demonstration_shot,Расстрел демонстрации,Demonstration shot
+EVENT_demonstration_shot_TEXT,%s: полиция открыла огонь по колонне демонстрантов. На мостовой лежат убитые. Власть потеряла лицо — что дальше?,Demonstration shot: %s.
+EVENT_demonstration_shot_mourning_general_strike,Траурная всеобщая стачка,Mourning general strike
+EVENT_demonstration_shot_self_defense,Рабочая самооборона,Self defense
+EVENT_demonstration_shot_memory_march,Марш памяти,Memory march
+EVENT_leaders_arrested,Арест лидеров,Leaders arrested
+EVENT_leaders_arrested_TEXT,%s: ночью арестованы руководители движения. Организация обезглавлена.,Leaders arrested: %s.
+EVENT_leaders_arrested_campaign,Кампания за освобождение,Campaign
+EVENT_leaders_arrested_new_leaders,Выдвинуть новых,New leaders
+EVENT_leaders_arrested_escape,Организовать побег,Escape
+EVENT_provocateur,Провокатор в организации,Provocateur
+EVENT_provocateur_TEXT,"%s: ходят слухи, что в подполье работает агент полиции. Явки проваливаются одна за другой.",Provocateur: %s.
+EVENT_provocateur_purge,Чистка,Purge
+EVENT_provocateur_test,Проверка заданиями,Test
+EVENT_provocateur_ignore,Не верить слухам,Ignore
+EVENT_provocateur_exposed,Провал сети,Provocateur exposed
+EVENT_provocateur_exposed_TEXT,"%s: провокатор, которому не верили слухи, сдал полиции всю сеть. Аресты по спискам.",Provocateur exposed: %s.
+EVENT_provocateur_exposed_ok,Понятно,Ok
+EVENT_union_bribery,Подкуп профсоюзных вождей,Union bribery
+EVENT_union_bribery_TEXT,%s: лидеры крупного профсоюза получают от хозяев деньги и места в правлениях. Стачки они срывают.,Union bribery: %s.
+EVENT_union_bribery_elections,Требовать выборности и ротации,Elections
+EVENT_union_bribery_split,Раскол и новый профсоюз,Split
+EVENT_union_bribery_tolerate,Терпеть,Tolerate
+EVENT_reforms_from_above,Реформы сверху,Reforms from above
+EVENT_reforms_from_above_TEXT,"%s: напуганное правительство обещает пенсии, пособия и восьмичасовой день. Чтобы не было революции.",Reforms from above: %s.
+EVENT_reforms_from_above_demand_more,"«Реформы — плод борьбы», требовать больше",Demand more
+EVENT_reforms_from_above_reject,Отвергнуть как подачку,Reject
+EVENT_reforms_from_above_support,Поддержать реформы,Support
+EVENT_state_of_emergency,Чрезвычайное положение,State of emergency
+EVENT_state_of_emergency_TEXT,"%s: власть ввела чрезвычайное положение. Собрания запрещены, на улицах патрули. Все действия обойдутся в полтора раза дороже.",State of emergency: %s.
+EVENT_state_of_emergency_underground,Уйти в подполье,Underground
+EVENT_state_of_emergency_disobedience,Массовое неповиновение,Disobedience
+EVENT_state_of_emergency_wait,Переждать,Wait
+EVENT_newspaper_closed,Закрытие газеты,Newspaper closed
+EVENT_newspaper_closed_TEXT,%s: полиция опечатала редакцию рабочей газеты и разбила наборные кассы.,Newspaper closed: %s.
+EVENT_newspaper_closed_underground_press,Подпольная печать,Underground press
+EVENT_newspaper_closed_from_abroad,Газета из-за границы,From abroad
+EVENT_newspaper_closed_oral,Устная агитация,Oral
+EVENT_fascist_squads,Фашистская угроза: отряды на улицах,Fascist squads
+EVENT_fascist_squads_TEXT,"%s: разорённые лавочники и бывшие офицеры сбиваются в отряды. Они громят рабочие клубы, а полиция не мешает. Капитал платит им за порядок.",Fascist squads: %s.
+EVENT_fascist_squads_self_defense,Рабочая самооборона,Self defense
+EVENT_fascist_squads_united_front,Единый фронт против фашизма,United front
+EVENT_fascist_squads_ignore,Не обращать внимания,Ignore
+EVENT_power_crisis,Фашистская угроза: кризис власти,Power crisis
+EVENT_power_crisis_TEXT,%s: правительство шатается. Фашисты требуют власти и грозят походом на столицу. Остался последний шанс.,Power crisis: %s.
+EVENT_power_crisis_general_strike,Всеобщая стачка,General strike
+EVENT_power_crisis_popular_front,Народный фронт на выборах,Popular front
+EVENT_power_crisis_nothing,Ничего не делать,Nothing
+EVENT_fascist_regime,Фашистский режим,Fascist regime
+EVENT_fascist_regime_TEXT,"%s: фашисты пришли к власти. Партии и профсоюзы запрещены, тюрьмы переполнены. Движение почти уничтожено.",Fascist regime: %s.
+EVENT_fascist_regime_armed,Вооружённое сопротивление,Armed
+EVENT_fascist_regime_underground,Уйти в глубокое подполье,Underground
+EVENT_military_coup,Военный переворот,Military coup
+EVENT_military_coup_TEXT,%s: после победы рабочих на выборах генералы вывели танки на улицы. Парламент разогнан.,Military coup: %s.
+EVENT_military_coup_general_strike,Всеобщая стачка против путча,General strike
+EVENT_military_coup_armed,Вооружённое сопротивление,Armed
+EVENT_military_coup_underground,Уйти в подполье,Underground
+EVENT_divide_and_rule,«Разделяй и властвуй»,Divide and rule
+EVENT_divide_and_rule_TEXT,%s: газеты разжигают рознь между рабочими разных наций и вер. Вчерашние товарищи косятся друг на друга.,Divide and rule: %s.
+EVENT_divide_and_rule_internationalist,Интернационалистская кампания,Internationalist
+EVENT_divide_and_rule_mixed_committees,Смешанные заводские комитеты,Mixed committees
+EVENT_divide_and_rule_ignore,Не обращать внимания,Ignore
+EVENT_media_campaign,Медийная кампания,Media campaign
+EVENT_media_campaign_TEXT,"Все крупные газеты и каналы мира разом начали кампанию: движение — это хаос, голод и террор.",Media campaign.
+EVENT_media_campaign_own_media,Ответить своими медиа,Own media
+EVENT_media_campaign_satire,Сатира и культура,Satire
+EVENT_media_campaign_ignore,Не отвечать,Ignore
+EVENT_corruption_scandal,Коррупционный скандал,Corruption scandal
+EVENT_corruption_scandal_TEXT,%s: министры брали взятки у банков. Документы попали в руки журналистов.,Corruption scandal: %s.
+EVENT_corruption_scandal_expose,Раздуть разоблачения,Expose
+EVENT_corruption_scandal_demands,Превратить в требования реформ,Demands
+EVENT_imperialist_war,Империалистическая война,Imperialist war
+EVENT_imperialist_war_TEXT,Державы ядра в кризисе и делят рынки силой. Объявлена мобилизация. Рабочих зовут убивать рабочих.,Imperialist war.
+EVENT_imperialist_war_antiwar,Антивоенная агитация,Antiwar
+EVENT_imperialist_war_civil_war,«Превратить войну империалистическую в гражданскую»,Civil war
+EVENT_imperialist_war_defencism,Оборончество,Defencism
+EVENT_war_fatigue,Усталость от войны,War fatigue
+EVENT_war_fatigue_TEXT,"Война затянулась. Солдаты в окопах голодают, генералы ссорятся, тыл ропщет.",War fatigue.
+EVENT_war_fatigue_ok,Понятно,Ok
+EVENT_war_turn,Война против войны,War turn
+EVENT_war_turn_TEXT,"Антивоенная агитация дала плоды: солдаты братаются на фронте, в тылу бастуют заводы.",War turn.
+EVENT_war_turn_ok,Понятно,Ok
+EVENT_liberation_uprising,Освободительное восстание,Liberation uprising
+EVENT_liberation_uprising_TEXT,%s: вспыхнуло восстание против иностранных компаний и их местных хозяев.,Liberation uprising: %s.
+EVENT_liberation_uprising_support,Поддержать,Support
+EVENT_liberation_uprising_program,Поддержать в обмен на социальную программу,Program
+EVENT_liberation_uprising_neutral,Нейтралитет,Neutral
+EVENT_intervention,Интервенция,Intervention
+EVENT_intervention_TEXT,%s: державы готовят интервенцию против революционной страны. Корабли с оружием уже в портах.,Intervention: %s.
+EVENT_intervention_hands_off,«Руки прочь!»: докеры не грузят оружие,Hands off
+EVENT_intervention_volunteers,Добровольцы из других стран,Volunteers
+EVENT_intervention_negotiate,Мирные переговоры,Negotiate
+EVENT_blockade,Блокада и санкции,Blockade
+EVENT_blockade_TEXT,"%s: революционная страна в блокаде — торговлю перекрыли, счета заморозили.",Blockade: %s.
+EVENT_blockade_trade_friends,Торговля через сочувствующие страны,Trade friends
+EVENT_blockade_break,Прорвать блокаду,Break
+EVENT_blockade_self_reliance,Опора на свои силы,Self reliance
+EVENT_solidarity_congress,Конгресс солидарности,Solidarity congress
+EVENT_solidarity_congress_TEXT,Делегаты движения со всего мира собрались на конгресс. Спорят о тактике.,Solidarity congress.
+EVENT_solidarity_congress_resolution,Единая резолюция,Resolution
+EVENT_solidarity_congress_debate,Открытый спор фракций,Debate
+EVENT_trade_war,Торговая война держав,Trade war
+EVENT_trade_war_TEXT,Державы ядра обложили друг друга пошлинами. Газеты кричат о защите «наших рабочих мест».,Trade war.
+EVENT_trade_war_agitate,Агитация «рабочим нечего делить»,Agitate
+EVENT_trade_war_silent,Промолчать,Silent
+EVENT_debt_trap,Долговая ловушка,Debt trap
+EVENT_debt_trap_TEXT,%s: Международный кредитный фонд требует урезать расходы в обмен на новый заём. Пособия и школы под ножом.,Debt trap: %s.
+EVENT_debt_trap_lead_protests,Возглавить протесты,Lead protests
+EVENT_debt_trap_repudiate,Требовать отказа от долга,Repudiate
+EVENT_debt_trap_let_negotiate,Дать правительству договориться,Let negotiate
+EVENT_refugees,Беженцы от террора,Refugees
+EVENT_refugees_TEXT,%s: из соседней страны бегут от террора. Среди беженцев — опытные организаторы. Реакция пугает «чужаками».,Refugees: %s.
+EVENT_refugees_welcome,Принять и включить в движение,Welcome
+EVENT_refugees_cautious,Держаться осторожно,Cautious
+EVENT_neighbors_example,Пример соседей,Neighbors example
+EVENT_neighbors_example_TEXT,%s: у соседей победила революция. Здесь все только об этом и говорят — и власть тоже готовится.,Neighbors example: %s.
+EVENT_neighbors_example_seize_moment,Ловить момент,Seize moment
+EVENT_neighbors_example_prepare,Готовиться исподволь,Prepare
+EVENT_reform_or_revolution,Реформа или революция,Reform or revolution
+EVENT_reform_or_revolution_TEXT,"%s: в движении спор. Одни говорят: власть можно взять голосами, шаг за шагом. Другие: без революции ничего не изменится.",Reform or revolution: %s.
+EVENT_reform_or_revolution_reformists,Побеждают реформисты,Reformists
+EVENT_reform_or_revolution_revolutionaries,Побеждают революционеры,Revolutionaries
+EVENT_reform_or_revolution_compromise,Компромисс,Compromise
+EVENT_party_split,Раскол партии,Party split
+EVENT_party_split_TEXT,%s: разногласия больше нельзя скрывать. Фракции готовы разойтись.,Party split: %s.
+EVENT_party_split_unity,Сохранить единство уступками,Unity
+EVENT_party_split_separate,Размежеваться,Separate
+EVENT_party_split_merge,Объединиться с союзниками,Merge
+EVENT_spontaneous_uprising,Стихийное восстание,Spontaneous uprising
+EVENT_spontaneous_uprising_TEXT,"%s: массы поднялись сами, не дожидаясь партии. Баррикады в рабочих кварталах, но организации не хватает.",Spontaneous uprising: %s.
+EVENT_spontaneous_uprising_lead,Возглавить восстание,Lead
+EVENT_spontaneous_uprising_restrain,Сдерживать массы,Restrain
+EVENT_spontaneous_uprising_retreat,Организованно отступить,Retreat
+EVENT_charismatic_leader,Харизматичный лидер,Charismatic leader
+EVENT_charismatic_leader_TEXT,%s: в движении появился яркий оратор. На его митинги приходят десятки тысяч.,Charismatic leader: %s.
+EVENT_charismatic_leader_cult,Сделать его вождём,Cult
+EVENT_charismatic_leader_collective,Коллективное руководство,Collective
+EVENT_activist_burnout,Выгорание активистов,Activist burnout
+EVENT_activist_burnout_TEXT,%s: годы спада вымотали людей. Опытные товарищи уходят из движения.,Activist burnout: %s.
+EVENT_activist_burnout_school,Школа кадров,School
+EVENT_activist_burnout_rest,Ротация и отдых,Rest
+EVENT_activist_burnout_ignore,Не обращать внимания,Ignore
+EVENT_equal_pay,Работницы требуют равной оплаты,Equal pay
+EVENT_equal_pay_TEXT,"%s: работницы ткацких фабрик требуют платить им столько же, сколько мужчинам.",Equal pay: %s.
+EVENT_equal_pay_include,Включить в программу,Include
+EVENT_equal_pay_postpone,Отложить,Postpone
+EVENT_student_unrest,Студенческие волнения,Student unrest
+EVENT_student_unrest_TEXT,%s: студенты захватили университет и зовут рабочих на митинг.,Student unrest: %s.
+EVENT_student_unrest_alliance,Союз с интеллигенцией,Alliance
+EVENT_student_unrest_caution,Осторожность,Caution
+EVENT_ultraleft_adventure,Ультралевая авантюра,Ultraleft adventure
+EVENT_ultraleft_adventure_TEXT,%s: группа нетерпеливых призывает к террору и экспроприациям. Полиция только этого и ждёт.,Ultraleft adventure: %s.
+EVENT_ultraleft_adventure_expel,Осудить и исключить,Expel
+EVENT_ultraleft_adventure_tolerate,Терпеть,Tolerate
+EVENT_lessons_of_defeat,Уроки поражения,Lessons of defeat
+EVENT_lessons_of_defeat_TEXT,"%s: восстание разгромлено. Уцелевшие спорят, что пошло не так.",Lessons of defeat: %s.
+EVENT_lessons_of_defeat_study,Изучить ошибки,Study
+EVENT_lessons_of_defeat_martyrs,Память павших,Martyrs
