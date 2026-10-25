@@ -21,6 +21,16 @@
   "semi": "полупериферия",
   "periphery": "периферия"
  },
+ "classes": [
+  "industrial_proletariat",
+  "rural_proletariat",
+  "peasantry",
+  "employees",
+  "petty_bourgeoisie",
+  "big_bourgeoisie",
+  "landowners",
+  "lumpenproletariat"
+ ],
  "countries": [
   {
    "id": "AFG",
@@ -86,7 +96,17 @@
    },
    "estimated": [
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.0778,
+    "rural_proletariat": 0.0454,
+    "peasantry": 0.4311,
+    "employees": 0.0318,
+    "petty_bourgeoisie": 0.3163,
+    "big_bourgeoisie": 0.0032,
+    "landowners": 0.0053,
+    "lumpenproletariat": 0.0893
+   }
   },
   {
    "id": "AGO",
@@ -149,7 +169,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0566,
+    "rural_proletariat": 0.0644,
+    "peasantry": 0.4106,
+    "employees": 0.0637,
+    "petty_bourgeoisie": 0.295,
+    "big_bourgeoisie": 0.0051,
+    "landowners": 0.0117,
+    "lumpenproletariat": 0.093
+   }
   },
   {
    "id": "ALB",
@@ -212,7 +242,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2117,
+    "rural_proletariat": 0.0859,
+    "peasantry": 0.2043,
+    "employees": 0.1556,
+    "petty_bourgeoisie": 0.2653,
+    "big_bourgeoisie": 0.0073,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0677
+   }
   },
   {
    "id": "ARE",
@@ -274,7 +314,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4762,
+    "rural_proletariat": 0.0069,
+    "peasantry": 0.006,
+    "employees": 0.4359,
+    "petty_bourgeoisie": 0.0358,
+    "big_bourgeoisie": 0.0088,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0283
+   }
   },
   {
    "id": "ARG",
@@ -338,7 +388,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3455,
+    "rural_proletariat": 0.0287,
+    "peasantry": 0.0371,
+    "employees": 0.3587,
+    "petty_bourgeoisie": 0.1698,
+    "big_bourgeoisie": 0.0073,
+    "landowners": 0.0028,
+    "lumpenproletariat": 0.0502
+   }
   },
   {
    "id": "ARM",
@@ -401,7 +461,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2672,
+    "rural_proletariat": 0.0991,
+    "peasantry": 0.1513,
+    "employees": 0.2238,
+    "petty_bourgeoisie": 0.1731,
+    "big_bourgeoisie": 0.0069,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0764
+   }
   },
   {
    "id": "AUS",
@@ -460,7 +530,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.377,
+    "rural_proletariat": 0.0097,
+    "peasantry": 0.0105,
+    "employees": 0.4496,
+    "petty_bourgeoisie": 0.1147,
+    "big_bourgeoisie": 0.0095,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0268
+   }
   },
   {
    "id": "AUT",
@@ -527,7 +607,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4176,
+    "rural_proletariat": 0.0131,
+    "peasantry": 0.0126,
+    "employees": 0.4305,
+    "petty_bourgeoisie": 0.0816,
+    "big_bourgeoisie": 0.0095,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.033
+   }
   },
   {
    "id": "AZE",
@@ -591,7 +681,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1298,
+    "rural_proletariat": 0.0656,
+    "peasantry": 0.2696,
+    "employees": 0.114,
+    "petty_bourgeoisie": 0.3692,
+    "big_bourgeoisie": 0.0063,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0435
+   }
   },
   {
    "id": "BDI",
@@ -654,7 +754,17 @@
    },
    "estimated": [
     "trade"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.0157,
+    "rural_proletariat": 0.0718,
+    "peasantry": 0.7526,
+    "employees": 0.0119,
+    "petty_bourgeoisie": 0.1051,
+    "big_bourgeoisie": 0.0029,
+    "landowners": 0.007,
+    "lumpenproletariat": 0.033
+   }
   },
   {
    "id": "BEL",
@@ -718,7 +828,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3797,
+    "rural_proletariat": 0.0039,
+    "peasantry": 0.0046,
+    "employees": 0.4608,
+    "petty_bourgeoisie": 0.1049,
+    "big_bourgeoisie": 0.0095,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0345
+   }
   },
   {
    "id": "BEN",
@@ -781,7 +901,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0977,
+    "rural_proletariat": 0.0465,
+    "peasantry": 0.3504,
+    "employees": 0.058,
+    "petty_bourgeoisie": 0.4036,
+    "big_bourgeoisie": 0.0038,
+    "landowners": 0.0034,
+    "lumpenproletariat": 0.0366
+   }
   },
   {
    "id": "BFA",
@@ -846,7 +976,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0769,
+    "rural_proletariat": 0.0502,
+    "peasantry": 0.4522,
+    "employees": 0.0375,
+    "petty_bourgeoisie": 0.3305,
+    "big_bourgeoisie": 0.0032,
+    "landowners": 0.0051,
+    "lumpenproletariat": 0.0444
+   }
   },
   {
    "id": "BGD",
@@ -907,7 +1047,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.146,
+    "rural_proletariat": 0.0993,
+    "peasantry": 0.3293,
+    "employees": 0.0999,
+    "petty_bourgeoisie": 0.273,
+    "big_bourgeoisie": 0.0045,
+    "landowners": 0.0023,
+    "lumpenproletariat": 0.0455
+   }
   },
   {
    "id": "BGR",
@@ -971,7 +1121,17 @@
     "women_labor": 2025,
     "external_debt": 2022
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.4357,
+    "rural_proletariat": 0.0228,
+    "peasantry": 0.0213,
+    "employees": 0.4017,
+    "petty_bourgeoisie": 0.0744,
+    "big_bourgeoisie": 0.0076,
+    "landowners": 0.0024,
+    "lumpenproletariat": 0.0341
+   }
   },
   {
    "id": "BHR",
@@ -1030,7 +1190,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.5135,
+    "rural_proletariat": 0.0038,
+    "peasantry": 0.0034,
+    "employees": 0.4251,
+    "petty_bourgeoisie": 0.0204,
+    "big_bourgeoisie": 0.008,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0239
+   }
   },
   {
    "id": "BHS",
@@ -1089,7 +1259,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3353,
+    "rural_proletariat": 0.0027,
+    "peasantry": 0.0037,
+    "employees": 0.463,
+    "petty_bourgeoisie": 0.1252,
+    "big_bourgeoisie": 0.0089,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0591
+   }
   },
   {
    "id": "BIH",
@@ -1151,7 +1331,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3955,
+    "rural_proletariat": 0.0721,
+    "peasantry": 0.0832,
+    "employees": 0.2689,
+    "petty_bourgeoisie": 0.1038,
+    "big_bourgeoisie": 0.0069,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0674
+   }
   },
   {
    "id": "BLR",
@@ -1215,7 +1405,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.4531,
+    "rural_proletariat": 0.0501,
+    "peasantry": 0.0403,
+    "employees": 0.3734,
+    "petty_bourgeoisie": 0.0412,
+    "big_bourgeoisie": 0.0065,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0334
+   }
   },
   {
    "id": "BLZ",
@@ -1276,7 +1476,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.252,
+    "rural_proletariat": 0.0585,
+    "peasantry": 0.0943,
+    "employees": 0.2974,
+    "petty_bourgeoisie": 0.2298,
+    "big_bourgeoisie": 0.0064,
+    "landowners": 0.0034,
+    "lumpenproletariat": 0.0582
+   }
   },
   {
    "id": "BOL",
@@ -1340,7 +1550,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1602,
+    "rural_proletariat": 0.0473,
+    "peasantry": 0.1944,
+    "employees": 0.1292,
+    "petty_bourgeoisie": 0.4166,
+    "big_bourgeoisie": 0.0056,
+    "landowners": 0.0042,
+    "lumpenproletariat": 0.0425
+   }
   },
   {
    "id": "BRA",
@@ -1409,7 +1629,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3214,
+    "rural_proletariat": 0.0293,
+    "peasantry": 0.0429,
+    "employees": 0.3406,
+    "petty_bourgeoisie": 0.2105,
+    "big_bourgeoisie": 0.0068,
+    "landowners": 0.0033,
+    "lumpenproletariat": 0.0451
+   }
   },
   {
    "id": "BRB",
@@ -1468,7 +1698,17 @@
    "estimated": [
     "external_debt",
     "trade"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3466,
+    "rural_proletariat": 0.0048,
+    "peasantry": 0.0062,
+    "employees": 0.4505,
+    "petty_bourgeoisie": 0.1439,
+    "big_bourgeoisie": 0.0084,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0374
+   }
   },
   {
    "id": "BRN",
@@ -1529,7 +1769,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3989,
+    "rural_proletariat": 0.0054,
+    "peasantry": 0.0051,
+    "employees": 0.4859,
+    "petty_bourgeoisie": 0.0529,
+    "big_bourgeoisie": 0.0083,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0414
+   }
   },
   {
    "id": "BTN",
@@ -1590,7 +1840,17 @@
     "women_labor": 2025,
     "external_debt": 2023
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1158,
+    "rural_proletariat": 0.0749,
+    "peasantry": 0.3388,
+    "employees": 0.0872,
+    "petty_bourgeoisie": 0.3325,
+    "big_bourgeoisie": 0.0053,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0434
+   }
   },
   {
    "id": "BWA",
@@ -1653,7 +1913,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2501,
+    "rural_proletariat": 0.0652,
+    "peasantry": 0.0891,
+    "employees": 0.2896,
+    "petty_bourgeoisie": 0.1567,
+    "big_bourgeoisie": 0.007,
+    "landowners": 0.0064,
+    "lumpenproletariat": 0.1357
+   }
   },
   {
    "id": "CAF",
@@ -1718,7 +1988,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0527,
+    "rural_proletariat": 0.0509,
+    "peasantry": 0.5744,
+    "employees": 0.02,
+    "petty_bourgeoisie": 0.234,
+    "big_bourgeoisie": 0.003,
+    "landowners": 0.009,
+    "lumpenproletariat": 0.0559
+   }
   },
   {
    "id": "CAN",
@@ -1779,7 +2059,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3776,
+    "rural_proletariat": 0.0046,
+    "peasantry": 0.0051,
+    "employees": 0.4693,
+    "petty_bourgeoisie": 0.0931,
+    "big_bourgeoisie": 0.0094,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0388
+   }
   },
   {
    "id": "CHE",
@@ -1843,7 +2133,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3759,
+    "rural_proletariat": 0.0099,
+    "peasantry": 0.0109,
+    "employees": 0.4419,
+    "petty_bourgeoisie": 0.119,
+    "big_bourgeoisie": 0.0102,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0301
+   }
   },
   {
    "id": "CHL",
@@ -1906,7 +2206,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3529,
+    "rural_proletariat": 0.025,
+    "peasantry": 0.0313,
+    "employees": 0.3661,
+    "petty_bourgeoisie": 0.156,
+    "big_bourgeoisie": 0.0077,
+    "landowners": 0.0027,
+    "lumpenproletariat": 0.0583
+   }
   },
   {
    "id": "CHN",
@@ -1981,7 +2291,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.338,
+    "rural_proletariat": 0.0771,
+    "peasantry": 0.1315,
+    "employees": 0.1968,
+    "petty_bourgeoisie": 0.2073,
+    "big_bourgeoisie": 0.0071,
+    "landowners": 0.0031,
+    "lumpenproletariat": 0.0391
+   }
   },
   {
    "id": "CIV",
@@ -2045,7 +2365,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1035,
+    "rural_proletariat": 0.0757,
+    "peasantry": 0.3678,
+    "employees": 0.0804,
+    "petty_bourgeoisie": 0.3244,
+    "big_bourgeoisie": 0.0047,
+    "landowners": 0.0039,
+    "lumpenproletariat": 0.0395
+   }
   },
   {
    "id": "CMR",
@@ -2110,7 +2440,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1116,
+    "rural_proletariat": 0.0724,
+    "peasantry": 0.3336,
+    "employees": 0.0915,
+    "petty_bourgeoisie": 0.3356,
+    "big_bourgeoisie": 0.0041,
+    "landowners": 0.0062,
+    "lumpenproletariat": 0.045
+   }
   },
   {
    "id": "COD",
@@ -2178,7 +2518,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0418,
+    "rural_proletariat": 0.0466,
+    "peasantry": 0.5176,
+    "employees": 0.0339,
+    "petty_bourgeoisie": 0.2995,
+    "big_bourgeoisie": 0.003,
+    "landowners": 0.009,
+    "lumpenproletariat": 0.0485
+   }
   },
   {
    "id": "COG",
@@ -2242,7 +2592,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1033,
+    "rural_proletariat": 0.0422,
+    "peasantry": 0.2808,
+    "employees": 0.0645,
+    "petty_bourgeoisie": 0.3732,
+    "big_bourgeoisie": 0.0049,
+    "landowners": 0.0084,
+    "lumpenproletariat": 0.1227
+   }
   },
   {
    "id": "COL",
@@ -2306,7 +2666,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2468,
+    "rural_proletariat": 0.0422,
+    "peasantry": 0.0919,
+    "employees": 0.2415,
+    "petty_bourgeoisie": 0.3101,
+    "big_bourgeoisie": 0.0066,
+    "landowners": 0.005,
+    "lumpenproletariat": 0.0559
+   }
   },
   {
    "id": "COM",
@@ -2364,7 +2734,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1536,
+    "rural_proletariat": 0.0819,
+    "peasantry": 0.2453,
+    "employees": 0.1488,
+    "petty_bourgeoisie": 0.318,
+    "big_bourgeoisie": 0.0042,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.046
+   }
   },
   {
    "id": "CPV",
@@ -2422,7 +2802,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2924,
+    "rural_proletariat": 0.0305,
+    "peasantry": 0.0545,
+    "employees": 0.2724,
+    "petty_bourgeoisie": 0.2586,
+    "big_bourgeoisie": 0.006,
+    "landowners": 0.0031,
+    "lumpenproletariat": 0.0825
+   }
   },
   {
    "id": "CRI",
@@ -2484,7 +2874,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3136,
+    "rural_proletariat": 0.0469,
+    "peasantry": 0.0617,
+    "employees": 0.3453,
+    "petty_bourgeoisie": 0.1725,
+    "big_bourgeoisie": 0.0078,
+    "landowners": 0.0035,
+    "lumpenproletariat": 0.0488
+   }
   },
   {
    "id": "CUB",
@@ -2543,7 +2943,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3073,
+    "rural_proletariat": 0.0671,
+    "peasantry": 0.0837,
+    "employees": 0.3486,
+    "petty_bourgeoisie": 0.1567,
+    "big_bourgeoisie": 0.0064,
+    "landowners": 0.0031,
+    "lumpenproletariat": 0.027
+   }
   },
   {
    "id": "CYN",
@@ -2607,7 +3017,17 @@
     "urban",
     "wage_workers",
     "women_labor"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3304,
+    "rural_proletariat": 0.0455,
+    "peasantry": 0.0597,
+    "employees": 0.3342,
+    "petty_bourgeoisie": 0.1704,
+    "big_bourgeoisie": 0.0069,
+    "landowners": 0.0029,
+    "lumpenproletariat": 0.0501
+   }
   },
   {
    "id": "CYP",
@@ -2668,7 +3088,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3634,
+    "rural_proletariat": 0.0102,
+    "peasantry": 0.0095,
+    "employees": 0.4915,
+    "petty_bourgeoisie": 0.0746,
+    "big_bourgeoisie": 0.0087,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.04
+   }
   },
   {
    "id": "CZE",
@@ -2732,7 +3162,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.489,
+    "rural_proletariat": 0.0124,
+    "peasantry": 0.0131,
+    "employees": 0.3602,
+    "petty_bourgeoisie": 0.0932,
+    "big_bourgeoisie": 0.0085,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0215
+   }
   },
   {
    "id": "DEU",
@@ -2801,7 +3241,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4421,
+    "rural_proletariat": 0.0047,
+    "peasantry": 0.0047,
+    "employees": 0.4552,
+    "petty_bourgeoisie": 0.057,
+    "big_bourgeoisie": 0.0093,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.025
+   }
   },
   {
    "id": "DJI",
@@ -2863,7 +3313,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1586,
+    "rural_proletariat": 0.002,
+    "peasantry": 0.0071,
+    "employees": 0.276,
+    "petty_bourgeoisie": 0.3893,
+    "big_bourgeoisie": 0.006,
+    "landowners": 0.0025,
+    "lumpenproletariat": 0.1586
+   }
   },
   {
    "id": "DNK",
@@ -2924,7 +3384,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.389,
+    "rural_proletariat": 0.0077,
+    "peasantry": 0.007,
+    "employees": 0.4937,
+    "petty_bourgeoisie": 0.0581,
+    "big_bourgeoisie": 0.0098,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0327
+   }
   },
   {
    "id": "DOM",
@@ -2984,7 +3454,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.271,
+    "rural_proletariat": 0.0226,
+    "peasantry": 0.0449,
+    "employees": 0.2942,
+    "petty_bourgeoisie": 0.3161,
+    "big_bourgeoisie": 0.0069,
+    "landowners": 0.0026,
+    "lumpenproletariat": 0.0417
+   }
   },
   {
    "id": "DZA",
@@ -3050,7 +3530,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3823,
+    "rural_proletariat": 0.036,
+    "peasantry": 0.0512,
+    "employees": 0.2643,
+    "petty_bourgeoisie": 0.1776,
+    "big_bourgeoisie": 0.006,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0804
+   }
   },
   {
    "id": "ECU",
@@ -3111,7 +3601,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.182,
+    "rural_proletariat": 0.0883,
+    "peasantry": 0.228,
+    "employees": 0.1671,
+    "petty_bourgeoisie": 0.2886,
+    "big_bourgeoisie": 0.0061,
+    "landowners": 0.0062,
+    "lumpenproletariat": 0.0338
+   }
   },
   {
    "id": "EGY",
@@ -3174,7 +3674,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3736,
+    "rural_proletariat": 0.0727,
+    "peasantry": 0.0945,
+    "employees": 0.2604,
+    "petty_bourgeoisie": 0.1434,
+    "big_bourgeoisie": 0.0048,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0485
+   }
   },
   {
    "id": "ERI",
@@ -3237,7 +3747,17 @@
    },
    "estimated": [
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.1257,
+    "rural_proletariat": 0.149,
+    "peasantry": 0.3785,
+    "employees": 0.1012,
+    "petty_bourgeoisie": 0.1825,
+    "big_bourgeoisie": 0.003,
+    "landowners": 0.0052,
+    "lumpenproletariat": 0.0548
+   }
   },
   {
    "id": "ESP",
@@ -3299,7 +3819,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3702,
+    "rural_proletariat": 0.0154,
+    "peasantry": 0.0156,
+    "employees": 0.4344,
+    "petty_bourgeoisie": 0.0988,
+    "big_bourgeoisie": 0.009,
+    "landowners": 0.0022,
+    "lumpenproletariat": 0.0544
+   }
   },
   {
    "id": "EST",
@@ -3361,7 +3891,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4216,
+    "rural_proletariat": 0.0139,
+    "peasantry": 0.0133,
+    "employees": 0.4169,
+    "petty_bourgeoisie": 0.0785,
+    "big_bourgeoisie": 0.0087,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.045
+   }
   },
   {
    "id": "ETH",
@@ -3427,7 +3967,17 @@
     "women_labor": 2025,
     "external_debt": 2022
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0379,
+    "rural_proletariat": 0.0542,
+    "peasantry": 0.5336,
+    "employees": 0.0359,
+    "petty_bourgeoisie": 0.2889,
+    "big_bourgeoisie": 0.003,
+    "landowners": 0.0026,
+    "lumpenproletariat": 0.0439
+   }
   },
   {
    "id": "FIN",
@@ -3490,7 +4040,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3819,
+    "rural_proletariat": 0.0164,
+    "peasantry": 0.0157,
+    "employees": 0.4392,
+    "petty_bourgeoisie": 0.0849,
+    "big_bourgeoisie": 0.0096,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0501
+   }
   },
   {
    "id": "FJI",
@@ -3548,7 +4108,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2021,
+    "rural_proletariat": 0.134,
+    "peasantry": 0.2063,
+    "employees": 0.2286,
+    "petty_bourgeoisie": 0.1689,
+    "big_bourgeoisie": 0.0059,
+    "landowners": 0.0022,
+    "lumpenproletariat": 0.052
+   }
   },
   {
    "id": "FRA",
@@ -3616,7 +4186,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3768,
+    "rural_proletariat": 0.0107,
+    "peasantry": 0.0107,
+    "employees": 0.4555,
+    "petty_bourgeoisie": 0.0934,
+    "big_bourgeoisie": 0.0092,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0416
+   }
   },
   {
    "id": "GAB",
@@ -3678,7 +4258,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2422,
+    "rural_proletariat": 0.1029,
+    "peasantry": 0.1532,
+    "employees": 0.221,
+    "petty_bourgeoisie": 0.157,
+    "big_bourgeoisie": 0.0069,
+    "landowners": 0.0043,
+    "lumpenproletariat": 0.1125
+   }
   },
   {
    "id": "GBR",
@@ -3739,7 +4329,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3619,
+    "rural_proletariat": 0.0033,
+    "peasantry": 0.004,
+    "employees": 0.4912,
+    "petty_bourgeoisie": 0.0987,
+    "big_bourgeoisie": 0.0093,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0295
+   }
   },
   {
    "id": "GEO",
@@ -3802,7 +4402,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1903,
+    "rural_proletariat": 0.1018,
+    "peasantry": 0.2158,
+    "employees": 0.1755,
+    "petty_bourgeoisie": 0.2334,
+    "big_bourgeoisie": 0.0069,
+    "landowners": 0.0033,
+    "lumpenproletariat": 0.0731
+   }
   },
   {
    "id": "GHA",
@@ -3864,7 +4474,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1393,
+    "rural_proletariat": 0.0634,
+    "peasantry": 0.2729,
+    "employees": 0.1054,
+    "petty_bourgeoisie": 0.3659,
+    "big_bourgeoisie": 0.0048,
+    "landowners": 0.0058,
+    "lumpenproletariat": 0.0424
+   }
   },
   {
    "id": "GIN",
@@ -3929,7 +4549,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0727,
+    "rural_proletariat": 0.049,
+    "peasantry": 0.4111,
+    "employees": 0.0473,
+    "petty_bourgeoisie": 0.3617,
+    "big_bourgeoisie": 0.0041,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.052
+   }
   },
   {
    "id": "GMB",
@@ -3989,7 +4619,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.143,
+    "rural_proletariat": 0.0485,
+    "peasantry": 0.2174,
+    "employees": 0.1146,
+    "petty_bourgeoisie": 0.4109,
+    "big_bourgeoisie": 0.0031,
+    "landowners": 0.0041,
+    "lumpenproletariat": 0.0583
+   }
   },
   {
    "id": "GNB",
@@ -4050,7 +4690,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0632,
+    "rural_proletariat": 0.0859,
+    "peasantry": 0.5082,
+    "employees": 0.0489,
+    "petty_bourgeoisie": 0.2462,
+    "big_bourgeoisie": 0.0032,
+    "landowners": 0.0037,
+    "lumpenproletariat": 0.0408
+   }
   },
   {
    "id": "GNQ",
@@ -4112,7 +4762,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.1566,
+    "rural_proletariat": 0.2224,
+    "peasantry": 0.2923,
+    "employees": 0.1649,
+    "petty_bourgeoisie": 0.0874,
+    "big_bourgeoisie": 0.006,
+    "landowners": 0.0059,
+    "lumpenproletariat": 0.0646
+   }
   },
   {
    "id": "GRC",
@@ -4176,7 +4836,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.285,
+    "rural_proletariat": 0.0415,
+    "peasantry": 0.0594,
+    "employees": 0.3394,
+    "petty_bourgeoisie": 0.2074,
+    "big_bourgeoisie": 0.0084,
+    "landowners": 0.0024,
+    "lumpenproletariat": 0.0566
+   }
   },
   {
    "id": "GTM",
@@ -4239,7 +4909,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2636,
+    "rural_proletariat": 0.1003,
+    "peasantry": 0.1787,
+    "employees": 0.1994,
+    "petty_bourgeoisie": 0.2065,
+    "big_bourgeoisie": 0.0058,
+    "landowners": 0.0055,
+    "lumpenproletariat": 0.0402
+   }
   },
   {
    "id": "GUY",
@@ -4301,7 +4981,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3674,
+    "rural_proletariat": 0.0455,
+    "peasantry": 0.0669,
+    "employees": 0.2552,
+    "petty_bourgeoisie": 0.1805,
+    "big_bourgeoisie": 0.0088,
+    "landowners": 0.0037,
+    "lumpenproletariat": 0.072
+   }
   },
   {
    "id": "HKG",
@@ -4362,7 +5052,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3656,
+    "rural_proletariat": 0.0,
+    "peasantry": 0.0008,
+    "employees": 0.5405,
+    "petty_bourgeoisie": 0.0607,
+    "big_bourgeoisie": 0.0092,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0213
+   }
   },
   {
    "id": "HND",
@@ -4424,7 +5124,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2492,
+    "rural_proletariat": 0.0703,
+    "peasantry": 0.1439,
+    "employees": 0.2114,
+    "petty_bourgeoisie": 0.2648,
+    "big_bourgeoisie": 0.005,
+    "landowners": 0.0049,
+    "lumpenproletariat": 0.0505
+   }
   },
   {
    "id": "HRV",
@@ -4489,7 +5199,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4217,
+    "rural_proletariat": 0.0208,
+    "peasantry": 0.0198,
+    "employees": 0.406,
+    "petty_bourgeoisie": 0.0812,
+    "big_bourgeoisie": 0.0081,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0404
+   }
   },
   {
    "id": "HTI",
@@ -4549,7 +5269,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0638,
+    "rural_proletariat": 0.0571,
+    "peasantry": 0.3714,
+    "employees": 0.0669,
+    "petty_bourgeoisie": 0.3316,
+    "big_bourgeoisie": 0.0049,
+    "landowners": 0.0067,
+    "lumpenproletariat": 0.0977
+   }
   },
   {
    "id": "HUN",
@@ -4616,7 +5346,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4536,
+    "rural_proletariat": 0.02,
+    "peasantry": 0.0186,
+    "employees": 0.3881,
+    "petty_bourgeoisie": 0.0715,
+    "big_bourgeoisie": 0.008,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0383
+   }
   },
   {
    "id": "IDN",
@@ -4678,7 +5418,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2173,
+    "rural_proletariat": 0.0739,
+    "peasantry": 0.1937,
+    "employees": 0.1615,
+    "petty_bourgeoisie": 0.3114,
+    "big_bourgeoisie": 0.0056,
+    "landowners": 0.003,
+    "lumpenproletariat": 0.0336
+   }
   },
   {
    "id": "IND",
@@ -4743,7 +5493,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1382,
+    "rural_proletariat": 0.0605,
+    "peasantry": 0.3467,
+    "employees": 0.0561,
+    "petty_bourgeoisie": 0.3542,
+    "big_bourgeoisie": 0.0046,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0377
+   }
   },
   {
    "id": "IRL",
@@ -4804,7 +5564,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3696,
+    "rural_proletariat": 0.0185,
+    "peasantry": 0.0179,
+    "employees": 0.4584,
+    "petty_bourgeoisie": 0.0945,
+    "big_bourgeoisie": 0.0102,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.029
+   }
   },
   {
    "id": "IRN",
@@ -4870,7 +5640,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3377,
+    "rural_proletariat": 0.043,
+    "peasantry": 0.085,
+    "employees": 0.1958,
+    "petty_bourgeoisie": 0.2651,
+    "big_bourgeoisie": 0.0053,
+    "landowners": 0.0027,
+    "lumpenproletariat": 0.0654
+   }
   },
   {
    "id": "IRQ",
@@ -4935,7 +5715,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.336,
+    "rural_proletariat": 0.0296,
+    "peasantry": 0.044,
+    "employees": 0.285,
+    "petty_bourgeoisie": 0.1979,
+    "big_bourgeoisie": 0.006,
+    "landowners": 0.0022,
+    "lumpenproletariat": 0.0993
+   }
   },
   {
    "id": "ISL",
@@ -4994,7 +5784,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3722,
+    "rural_proletariat": 0.0173,
+    "peasantry": 0.0169,
+    "employees": 0.4621,
+    "petty_bourgeoisie": 0.0947,
+    "big_bourgeoisie": 0.0101,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0248
+   }
   },
   {
    "id": "ISR",
@@ -5059,7 +5859,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3627,
+    "rural_proletariat": 0.0029,
+    "peasantry": 0.0035,
+    "employees": 0.5087,
+    "petty_bourgeoisie": 0.0866,
+    "big_bourgeoisie": 0.0093,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0242
+   }
   },
   {
    "id": "ITA",
@@ -5123,7 +5933,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4113,
+    "rural_proletariat": 0.0143,
+    "peasantry": 0.0171,
+    "employees": 0.3751,
+    "petty_bourgeoisie": 0.1343,
+    "big_bourgeoisie": 0.009,
+    "landowners": 0.0022,
+    "lumpenproletariat": 0.0368
+   }
   },
   {
    "id": "JAM",
@@ -5182,7 +6002,17 @@
    },
    "estimated": [
     "trade"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.2724,
+    "rural_proletariat": 0.0513,
+    "peasantry": 0.0842,
+    "employees": 0.3046,
+    "petty_bourgeoisie": 0.2444,
+    "big_bourgeoisie": 0.0063,
+    "landowners": 0.0032,
+    "lumpenproletariat": 0.0337
+   }
   },
   {
    "id": "JOR",
@@ -5246,7 +6076,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3349,
+    "rural_proletariat": 0.014,
+    "peasantry": 0.0131,
+    "employees": 0.4505,
+    "petty_bourgeoisie": 0.076,
+    "big_bourgeoisie": 0.006,
+    "landowners": 0.0022,
+    "lumpenproletariat": 0.1034
+   }
   },
   {
    "id": "JPN",
@@ -5305,7 +6145,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4196,
+    "rural_proletariat": 0.014,
+    "peasantry": 0.0125,
+    "employees": 0.4601,
+    "petty_bourgeoisie": 0.0634,
+    "big_bourgeoisie": 0.0085,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0198
+   }
   },
   {
    "id": "KAZ",
@@ -5369,7 +6219,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3287,
+    "rural_proletariat": 0.0477,
+    "peasantry": 0.0611,
+    "employees": 0.3448,
+    "petty_bourgeoisie": 0.1686,
+    "big_bourgeoisie": 0.0072,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0398
+   }
   },
   {
    "id": "KEN",
@@ -5433,7 +6293,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1091,
+    "rural_proletariat": 0.091,
+    "peasantry": 0.3489,
+    "employees": 0.0994,
+    "petty_bourgeoisie": 0.2891,
+    "big_bourgeoisie": 0.0044,
+    "landowners": 0.0052,
+    "lumpenproletariat": 0.0529
+   }
   },
   {
    "id": "KGZ",
@@ -5496,7 +6366,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3486,
+    "rural_proletariat": 0.0613,
+    "peasantry": 0.0871,
+    "employees": 0.2716,
+    "petty_bourgeoisie": 0.1805,
+    "big_bourgeoisie": 0.0047,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0442
+   }
   },
   {
    "id": "KHM",
@@ -5559,7 +6439,17 @@
    },
    "estimated": [
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.2326,
+    "rural_proletariat": 0.0858,
+    "peasantry": 0.2409,
+    "employees": 0.1155,
+    "petty_bourgeoisie": 0.2862,
+    "big_bourgeoisie": 0.0045,
+    "landowners": 0.0038,
+    "lumpenproletariat": 0.0306
+   }
   },
   {
    "id": "KOR",
@@ -5620,7 +6510,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3877,
+    "rural_proletariat": 0.0223,
+    "peasantry": 0.027,
+    "employees": 0.3814,
+    "petty_bourgeoisie": 0.1499,
+    "big_bourgeoisie": 0.0086,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.021
+   }
   },
   {
    "id": "KOS",
@@ -5684,7 +6584,17 @@
     "unemployment",
     "wage_workers",
     "women_labor"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.2359,
+    "rural_proletariat": 0.0875,
+    "peasantry": 0.1837,
+    "employees": 0.1876,
+    "petty_bourgeoisie": 0.2539,
+    "big_bourgeoisie": 0.0063,
+    "landowners": 0.004,
+    "lumpenproletariat": 0.0411
+   }
   },
   {
    "id": "KWT",
@@ -5746,7 +6656,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4387,
+    "rural_proletariat": 0.0096,
+    "peasantry": 0.0076,
+    "employees": 0.4806,
+    "petty_bourgeoisie": 0.0249,
+    "big_bourgeoisie": 0.0082,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0283
+   }
   },
   {
    "id": "LAO",
@@ -5810,7 +6730,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0471,
+    "rural_proletariat": 0.0897,
+    "peasantry": 0.5784,
+    "employees": 0.0375,
+    "petty_bourgeoisie": 0.2041,
+    "big_bourgeoisie": 0.0042,
+    "landowners": 0.0045,
+    "lumpenproletariat": 0.0344
+   }
   },
   {
    "id": "LBN",
@@ -5871,7 +6801,17 @@
     "women_labor": 2023,
     "external_debt": 2023
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3261,
+    "rural_proletariat": 0.0131,
+    "peasantry": 0.0187,
+    "employees": 0.3583,
+    "petty_bourgeoisie": 0.1983,
+    "big_bourgeoisie": 0.0055,
+    "landowners": 0.0023,
+    "lumpenproletariat": 0.0777
+   }
   },
   {
    "id": "LBR",
@@ -5934,7 +6874,17 @@
    },
    "estimated": [
     "trade"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.0671,
+    "rural_proletariat": 0.0511,
+    "peasantry": 0.3548,
+    "employees": 0.076,
+    "petty_bourgeoisie": 0.4017,
+    "big_bourgeoisie": 0.0031,
+    "landowners": 0.0038,
+    "lumpenproletariat": 0.0424
+   }
   },
   {
    "id": "LBY",
@@ -6000,7 +6950,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.2982,
+    "rural_proletariat": 0.0385,
+    "peasantry": 0.0496,
+    "employees": 0.3307,
+    "petty_bourgeoisie": 0.1582,
+    "big_bourgeoisie": 0.0064,
+    "landowners": 0.003,
+    "lumpenproletariat": 0.1154
+   }
   },
   {
    "id": "LKA",
@@ -6058,7 +7018,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2783,
+    "rural_proletariat": 0.0851,
+    "peasantry": 0.1629,
+    "employees": 0.1874,
+    "petty_bourgeoisie": 0.231,
+    "big_bourgeoisie": 0.0055,
+    "landowners": 0.0036,
+    "lumpenproletariat": 0.0463
+   }
   },
   {
    "id": "LSO",
@@ -6118,7 +7088,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3031,
+    "rural_proletariat": 0.1003,
+    "peasantry": 0.1759,
+    "employees": 0.1402,
+    "petty_bourgeoisie": 0.1682,
+    "big_bourgeoisie": 0.0034,
+    "landowners": 0.0061,
+    "lumpenproletariat": 0.1028
+   }
   },
   {
    "id": "LTU",
@@ -6182,7 +7162,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4206,
+    "rural_proletariat": 0.0227,
+    "peasantry": 0.021,
+    "employees": 0.4129,
+    "petty_bourgeoisie": 0.0739,
+    "big_bourgeoisie": 0.0086,
+    "landowners": 0.0023,
+    "lumpenproletariat": 0.038
+   }
   },
   {
    "id": "LUX",
@@ -6245,7 +7235,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3086,
+    "rural_proletariat": 0.0036,
+    "peasantry": 0.0039,
+    "employees": 0.552,
+    "petty_bourgeoisie": 0.0833,
+    "big_bourgeoisie": 0.0103,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0363
+   }
   },
   {
    "id": "LVA",
@@ -6309,7 +7309,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3804,
+    "rural_proletariat": 0.0318,
+    "peasantry": 0.0306,
+    "employees": 0.4117,
+    "petty_bourgeoisie": 0.0879,
+    "big_bourgeoisie": 0.0081,
+    "landowners": 0.0023,
+    "lumpenproletariat": 0.0472
+   }
   },
   {
    "id": "MAC",
@@ -6370,7 +7380,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3436,
+    "rural_proletariat": 0.0011,
+    "peasantry": 0.0016,
+    "employees": 0.5589,
+    "petty_bourgeoisie": 0.0542,
+    "big_bourgeoisie": 0.0095,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0291
+   }
   },
   {
    "id": "MAR",
@@ -6431,7 +7451,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2612,
+    "rural_proletariat": 0.0926,
+    "peasantry": 0.1683,
+    "employees": 0.1908,
+    "petty_bourgeoisie": 0.209,
+    "big_bourgeoisie": 0.0055,
+    "landowners": 0.0043,
+    "lumpenproletariat": 0.0683
+   }
   },
   {
    "id": "MDA",
@@ -6492,7 +7522,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1211,
+    "rural_proletariat": 0.1224,
+    "peasantry": 0.3756,
+    "employees": 0.1053,
+    "petty_bourgeoisie": 0.2412,
+    "big_bourgeoisie": 0.0063,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0261
+   }
   },
   {
    "id": "MDG",
@@ -6550,7 +7590,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0375,
+    "rural_proletariat": 0.0442,
+    "peasantry": 0.6241,
+    "employees": 0.0166,
+    "petty_bourgeoisie": 0.2266,
+    "big_bourgeoisie": 0.003,
+    "landowners": 0.0058,
+    "lumpenproletariat": 0.0422
+   }
   },
   {
    "id": "MDV",
@@ -6608,7 +7658,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3269,
+    "rural_proletariat": 0.0515,
+    "peasantry": 0.0569,
+    "employees": 0.3885,
+    "petty_bourgeoisie": 0.1285,
+    "big_bourgeoisie": 0.0072,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0385
+   }
   },
   {
    "id": "MEX",
@@ -6670,7 +7730,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3444,
+    "rural_proletariat": 0.0448,
+    "peasantry": 0.0654,
+    "employees": 0.3039,
+    "petty_bourgeoisie": 0.2003,
+    "big_bourgeoisie": 0.007,
+    "landowners": 0.0032,
+    "lumpenproletariat": 0.0309
+   }
   },
   {
    "id": "MKD",
@@ -6734,7 +7804,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.4199,
+    "rural_proletariat": 0.0385,
+    "peasantry": 0.0394,
+    "employees": 0.3299,
+    "petty_bourgeoisie": 0.09,
+    "big_bourgeoisie": 0.007,
+    "landowners": 0.0024,
+    "lumpenproletariat": 0.073
+   }
   },
   {
    "id": "MLI",
@@ -6800,7 +7880,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0561,
+    "rural_proletariat": 0.0847,
+    "peasantry": 0.5266,
+    "employees": 0.0458,
+    "petty_bourgeoisie": 0.2372,
+    "big_bourgeoisie": 0.0033,
+    "landowners": 0.0049,
+    "lumpenproletariat": 0.0414
+   }
   },
   {
    "id": "MLT",
@@ -6859,7 +7949,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3761,
+    "rural_proletariat": 0.0034,
+    "peasantry": 0.0041,
+    "employees": 0.4804,
+    "petty_bourgeoisie": 0.1032,
+    "big_bourgeoisie": 0.009,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0218
+   }
   },
   {
    "id": "MMR",
@@ -6924,7 +8024,17 @@
    },
    "estimated": [
     "trade"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.134,
+    "rural_proletariat": 0.0898,
+    "peasantry": 0.348,
+    "employees": 0.087,
+    "petty_bourgeoisie": 0.2928,
+    "big_bourgeoisie": 0.0036,
+    "landowners": 0.0023,
+    "lumpenproletariat": 0.0425
+   }
   },
   {
    "id": "MNE",
@@ -6988,7 +8098,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3428,
+    "rural_proletariat": 0.0182,
+    "peasantry": 0.0195,
+    "employees": 0.4148,
+    "petty_bourgeoisie": 0.1154,
+    "big_bourgeoisie": 0.0076,
+    "landowners": 0.0023,
+    "lumpenproletariat": 0.0794
+   }
   },
   {
    "id": "MNG",
@@ -7049,7 +8169,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2621,
+    "rural_proletariat": 0.0914,
+    "peasantry": 0.1696,
+    "employees": 0.1995,
+    "petty_bourgeoisie": 0.227,
+    "big_bourgeoisie": 0.0061,
+    "landowners": 0.0024,
+    "lumpenproletariat": 0.0419
+   }
   },
   {
    "id": "MOZ",
@@ -7114,7 +8244,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0298,
+    "rural_proletariat": 0.0547,
+    "peasantry": 0.6317,
+    "employees": 0.0201,
+    "petty_bourgeoisie": 0.1897,
+    "big_bourgeoisie": 0.003,
+    "landowners": 0.0137,
+    "lumpenproletariat": 0.0574
+   }
   },
   {
    "id": "MRT",
@@ -7177,7 +8317,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1531,
+    "rural_proletariat": 0.0765,
+    "peasantry": 0.2267,
+    "employees": 0.1491,
+    "petty_bourgeoisie": 0.3122,
+    "big_bourgeoisie": 0.0044,
+    "landowners": 0.0027,
+    "lumpenproletariat": 0.0753
+   }
   },
   {
    "id": "MUS",
@@ -7235,7 +8385,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3713,
+    "rural_proletariat": 0.0213,
+    "peasantry": 0.0229,
+    "employees": 0.413,
+    "petty_bourgeoisie": 0.1189,
+    "big_bourgeoisie": 0.007,
+    "landowners": 0.0023,
+    "lumpenproletariat": 0.0433
+   }
   },
   {
    "id": "MWI",
@@ -7297,7 +8457,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0722,
+    "rural_proletariat": 0.1418,
+    "peasantry": 0.4783,
+    "employees": 0.072,
+    "petty_bourgeoisie": 0.1754,
+    "big_bourgeoisie": 0.003,
+    "landowners": 0.0065,
+    "lumpenproletariat": 0.0508
+   }
   },
   {
    "id": "MYS",
@@ -7360,7 +8530,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.38,
+    "rural_proletariat": 0.0386,
+    "peasantry": 0.0493,
+    "employees": 0.3294,
+    "petty_bourgeoisie": 0.1575,
+    "big_bourgeoisie": 0.007,
+    "landowners": 0.0028,
+    "lumpenproletariat": 0.0354
+   }
   },
   {
    "id": "NAM",
@@ -7425,7 +8605,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.2267,
+    "rural_proletariat": 0.0726,
+    "peasantry": 0.1232,
+    "employees": 0.2419,
+    "petty_bourgeoisie": 0.2034,
+    "big_bourgeoisie": 0.006,
+    "landowners": 0.0079,
+    "lumpenproletariat": 0.1183
+   }
   },
   {
    "id": "NCL",
@@ -7484,7 +8674,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3733,
+    "rural_proletariat": 0.0074,
+    "peasantry": 0.0085,
+    "employees": 0.425,
+    "petty_bourgeoisie": 0.1169,
+    "big_bourgeoisie": 0.0086,
+    "landowners": 0.0022,
+    "lumpenproletariat": 0.0582
+   }
   },
   {
    "id": "NER",
@@ -7550,7 +8750,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0332,
+    "rural_proletariat": 0.0433,
+    "peasantry": 0.67,
+    "employees": 0.0128,
+    "petty_bourgeoisie": 0.203,
+    "big_bourgeoisie": 0.003,
+    "landowners": 0.0036,
+    "lumpenproletariat": 0.0311
+   }
   },
   {
    "id": "NGA",
@@ -7613,7 +8823,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0777,
+    "rural_proletariat": 0.0262,
+    "peasantry": 0.3056,
+    "employees": 0.0477,
+    "petty_bourgeoisie": 0.493,
+    "big_bourgeoisie": 0.0034,
+    "landowners": 0.0031,
+    "lumpenproletariat": 0.0433
+   }
   },
   {
    "id": "NIC",
@@ -7674,7 +8894,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.208,
+    "rural_proletariat": 0.0953,
+    "peasantry": 0.1954,
+    "employees": 0.1979,
+    "petty_bourgeoisie": 0.2416,
+    "big_bourgeoisie": 0.0048,
+    "landowners": 0.006,
+    "lumpenproletariat": 0.0509
+   }
   },
   {
    "id": "NLD",
@@ -7736,7 +8966,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.338,
+    "rural_proletariat": 0.0073,
+    "peasantry": 0.0083,
+    "employees": 0.4812,
+    "petty_bourgeoisie": 0.1275,
+    "big_bourgeoisie": 0.0097,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0259
+   }
   },
   {
    "id": "NOR",
@@ -7799,7 +9039,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3876,
+    "rural_proletariat": 0.0128,
+    "peasantry": 0.0103,
+    "employees": 0.5113,
+    "petty_bourgeoisie": 0.0371,
+    "big_bourgeoisie": 0.01,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0289
+   }
   },
   {
    "id": "NPL",
@@ -7860,7 +9110,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1515,
+    "rural_proletariat": 0.0271,
+    "peasantry": 0.1902,
+    "employees": 0.0654,
+    "petty_bourgeoisie": 0.4833,
+    "big_bourgeoisie": 0.0039,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0765
+   }
   },
   {
    "id": "NZL",
@@ -7919,7 +9179,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3675,
+    "rural_proletariat": 0.0248,
+    "peasantry": 0.0269,
+    "employees": 0.4144,
+    "petty_bourgeoisie": 0.1241,
+    "big_bourgeoisie": 0.0091,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.031
+   }
   },
   {
    "id": "OMN",
@@ -7982,7 +9252,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.5212,
+    "rural_proletariat": 0.0316,
+    "peasantry": 0.0246,
+    "employees": 0.3493,
+    "petty_bourgeoisie": 0.031,
+    "big_bourgeoisie": 0.0075,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0328
+   }
   },
   {
    "id": "PAK",
@@ -8045,7 +9325,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2011,
+    "rural_proletariat": 0.0886,
+    "peasantry": 0.2589,
+    "employees": 0.1116,
+    "petty_bourgeoisie": 0.2803,
+    "big_bourgeoisie": 0.0038,
+    "landowners": 0.0031,
+    "lumpenproletariat": 0.0526
+   }
   },
   {
    "id": "PAN",
@@ -8107,7 +9397,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.2441,
+    "rural_proletariat": 0.0527,
+    "peasantry": 0.0991,
+    "employees": 0.2672,
+    "petty_bourgeoisie": 0.2683,
+    "big_bourgeoisie": 0.0079,
+    "landowners": 0.0047,
+    "lumpenproletariat": 0.056
+   }
   },
   {
    "id": "PER",
@@ -8171,7 +9471,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1988,
+    "rural_proletariat": 0.0643,
+    "peasantry": 0.1605,
+    "employees": 0.2005,
+    "petty_bourgeoisie": 0.3236,
+    "big_bourgeoisie": 0.0067,
+    "landowners": 0.004,
+    "lumpenproletariat": 0.0418
+   }
   },
   {
    "id": "PHL",
@@ -8229,7 +9539,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2745,
+    "rural_proletariat": 0.0748,
+    "peasantry": 0.1233,
+    "employees": 0.2596,
+    "petty_bourgeoisie": 0.2204,
+    "big_bourgeoisie": 0.0052,
+    "landowners": 0.0035,
+    "lumpenproletariat": 0.0388
+   }
   },
   {
    "id": "PNG",
@@ -8289,7 +9609,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0675,
+    "rural_proletariat": 0.0442,
+    "peasantry": 0.3197,
+    "employees": 0.0821,
+    "petty_bourgeoisie": 0.435,
+    "big_bourgeoisie": 0.0048,
+    "landowners": 0.0056,
+    "lumpenproletariat": 0.0411
+   }
   },
   {
    "id": "POL",
@@ -8356,7 +9686,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4406,
+    "rural_proletariat": 0.0287,
+    "peasantry": 0.0313,
+    "employees": 0.3549,
+    "petty_bourgeoisie": 0.1122,
+    "big_bourgeoisie": 0.0082,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0221
+   }
   },
   {
    "id": "PRI",
@@ -8415,7 +9755,17 @@
     "fuel_exports",
     "gini",
     "manuf_exports"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3486,
+    "rural_proletariat": 0.0047,
+    "peasantry": 0.0052,
+    "employees": 0.4918,
+    "petty_bourgeoisie": 0.0941,
+    "big_bourgeoisie": 0.0088,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0447
+   }
   },
   {
    "id": "PRK",
@@ -8480,7 +9830,17 @@
     "industry_va",
     "manuf_exports",
     "trade"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.1509,
+    "rural_proletariat": 0.1162,
+    "peasantry": 0.4025,
+    "employees": 0.0602,
+    "petty_bourgeoisie": 0.2174,
+    "big_bourgeoisie": 0.0036,
+    "landowners": 0.0051,
+    "lumpenproletariat": 0.0441
+   }
   },
   {
    "id": "PRT",
@@ -8541,7 +9901,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4121,
+    "rural_proletariat": 0.0127,
+    "peasantry": 0.013,
+    "employees": 0.42,
+    "petty_bourgeoisie": 0.0958,
+    "big_bourgeoisie": 0.0085,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0356
+   }
   },
   {
    "id": "PRY",
@@ -8603,7 +9973,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2581,
+    "rural_proletariat": 0.0532,
+    "peasantry": 0.1011,
+    "employees": 0.2617,
+    "petty_bourgeoisie": 0.2757,
+    "big_bourgeoisie": 0.0061,
+    "landowners": 0.0039,
+    "lumpenproletariat": 0.0403
+   }
   },
   {
    "id": "PSX",
@@ -8666,7 +10046,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3727,
+    "rural_proletariat": 0.024,
+    "peasantry": 0.0296,
+    "employees": 0.2927,
+    "petty_bourgeoisie": 0.1275,
+    "big_bourgeoisie": 0.0054,
+    "landowners": 0.0026,
+    "lumpenproletariat": 0.1454
+   }
   },
   {
    "id": "PYF",
@@ -8725,7 +10115,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3233,
+    "rural_proletariat": 0.0078,
+    "peasantry": 0.0091,
+    "employees": 0.4481,
+    "petty_bourgeoisie": 0.1309,
+    "big_bourgeoisie": 0.0082,
+    "landowners": 0.0022,
+    "lumpenproletariat": 0.0705
+   }
   },
   {
    "id": "QAT",
@@ -8786,7 +10186,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.5341,
+    "rural_proletariat": 0.0082,
+    "peasantry": 0.0065,
+    "employees": 0.402,
+    "petty_bourgeoisie": 0.0179,
+    "big_bourgeoisie": 0.0092,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.02
+   }
   },
   {
    "id": "ROU",
@@ -8851,7 +10261,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4429,
+    "rural_proletariat": 0.0526,
+    "peasantry": 0.0508,
+    "employees": 0.3227,
+    "petty_bourgeoisie": 0.0764,
+    "big_bourgeoisie": 0.0079,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0446
+   }
   },
   {
    "id": "RUS",
@@ -8924,7 +10344,17 @@
     "women_labor": 2025,
     "external_debt": 2022
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.4328,
+    "rural_proletariat": 0.0268,
+    "peasantry": 0.0217,
+    "employees": 0.4382,
+    "petty_bourgeoisie": 0.043,
+    "big_bourgeoisie": 0.0073,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0282
+   }
   },
   {
    "id": "RWA",
@@ -8987,7 +10417,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.214,
+    "rural_proletariat": 0.1146,
+    "peasantry": 0.21,
+    "employees": 0.1808,
+    "petty_bourgeoisie": 0.193,
+    "big_bourgeoisie": 0.0033,
+    "landowners": 0.0049,
+    "lumpenproletariat": 0.0793
+   }
   },
   {
    "id": "SAH",
@@ -9053,7 +10493,17 @@
     "urban",
     "wage_workers",
     "women_labor"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.0778,
+    "rural_proletariat": 0.0682,
+    "peasantry": 0.4377,
+    "employees": 0.0552,
+    "petty_bourgeoisie": 0.3067,
+    "big_bourgeoisie": 0.0037,
+    "landowners": 0.005,
+    "lumpenproletariat": 0.0457
+   }
   },
   {
    "id": "SAU",
@@ -9120,7 +10570,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4207,
+    "rural_proletariat": 0.0126,
+    "peasantry": 0.0104,
+    "employees": 0.4737,
+    "petty_bourgeoisie": 0.0402,
+    "big_bourgeoisie": 0.0083,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0319
+   }
   },
   {
    "id": "SDN",
@@ -9186,7 +10646,17 @@
     "women_labor": 2022,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1687,
+    "rural_proletariat": 0.1201,
+    "peasantry": 0.2575,
+    "employees": 0.165,
+    "petty_bourgeoisie": 0.2199,
+    "big_bourgeoisie": 0.0033,
+    "landowners": 0.0034,
+    "lumpenproletariat": 0.062
+   }
   },
   {
    "id": "SDS",
@@ -9252,7 +10722,17 @@
     "external_debt",
     "fuel_exports",
     "manuf_exports"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.0227,
+    "rural_proletariat": 0.058,
+    "peasantry": 0.5327,
+    "employees": 0.0394,
+    "petty_bourgeoisie": 0.2494,
+    "big_bourgeoisie": 0.0033,
+    "landowners": 0.0097,
+    "lumpenproletariat": 0.0847
+   }
   },
   {
    "id": "SEN",
@@ -9316,7 +10796,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1736,
+    "rural_proletariat": 0.0605,
+    "peasantry": 0.2285,
+    "employees": 0.1177,
+    "petty_bourgeoisie": 0.3708,
+    "big_bourgeoisie": 0.0041,
+    "landowners": 0.0035,
+    "lumpenproletariat": 0.0414
+   }
   },
   {
    "id": "SGP",
@@ -9375,7 +10865,17 @@
    "estimated": [
     "external_debt",
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3541,
+    "rural_proletariat": 0.0,
+    "peasantry": 0.0004,
+    "employees": 0.5133,
+    "petty_bourgeoisie": 0.0987,
+    "big_bourgeoisie": 0.01,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0214
+   }
   },
   {
    "id": "SLB",
@@ -9433,7 +10933,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0823,
+    "rural_proletariat": 0.0738,
+    "peasantry": 0.3454,
+    "employees": 0.1043,
+    "petty_bourgeoisie": 0.3496,
+    "big_bourgeoisie": 0.0041,
+    "landowners": 0.0044,
+    "lumpenproletariat": 0.036
+   }
   },
   {
    "id": "SLE",
@@ -9494,7 +11004,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0501,
+    "rural_proletariat": 0.0276,
+    "peasantry": 0.4109,
+    "employees": 0.0342,
+    "petty_bourgeoisie": 0.4266,
+    "big_bourgeoisie": 0.0031,
+    "landowners": 0.0041,
+    "lumpenproletariat": 0.0435
+   }
   },
   {
    "id": "SLV",
@@ -9555,7 +11075,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3076,
+    "rural_proletariat": 0.0504,
+    "peasantry": 0.0826,
+    "employees": 0.2756,
+    "petty_bourgeoisie": 0.2316,
+    "big_bourgeoisie": 0.0057,
+    "landowners": 0.0031,
+    "lumpenproletariat": 0.0434
+   }
   },
   {
    "id": "SOL",
@@ -9621,7 +11151,17 @@
     "urban",
     "wage_workers",
     "women_labor"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.2338,
+    "rural_proletariat": 0.087,
+    "peasantry": 0.1821,
+    "employees": 0.186,
+    "petty_bourgeoisie": 0.2517,
+    "big_bourgeoisie": 0.005,
+    "landowners": 0.0035,
+    "lumpenproletariat": 0.0509
+   }
   },
   {
    "id": "SOM",
@@ -9684,7 +11224,17 @@
    },
    "estimated": [
     "gini"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.176,
+    "rural_proletariat": 0.076,
+    "peasantry": 0.193,
+    "employees": 0.1575,
+    "petty_bourgeoisie": 0.2725,
+    "big_bourgeoisie": 0.0033,
+    "landowners": 0.0041,
+    "lumpenproletariat": 0.1176
+   }
   },
   {
    "id": "SRB",
@@ -9751,7 +11301,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3554,
+    "rural_proletariat": 0.0743,
+    "peasantry": 0.0968,
+    "employees": 0.268,
+    "petty_bourgeoisie": 0.1457,
+    "big_bourgeoisie": 0.0073,
+    "landowners": 0.0025,
+    "lumpenproletariat": 0.0499
+   }
   },
   {
    "id": "STP",
@@ -9809,7 +11369,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2672,
+    "rural_proletariat": 0.0371,
+    "peasantry": 0.0761,
+    "employees": 0.2438,
+    "petty_bourgeoisie": 0.2976,
+    "big_bourgeoisie": 0.0054,
+    "landowners": 0.0032,
+    "lumpenproletariat": 0.0696
+   }
   },
   {
    "id": "SUR",
@@ -9871,7 +11441,17 @@
     "women_labor": 2025,
     "external_debt": 2023
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3912,
+    "rural_proletariat": 0.0297,
+    "peasantry": 0.0356,
+    "employees": 0.3463,
+    "petty_bourgeoisie": 0.1353,
+    "big_bourgeoisie": 0.0062,
+    "landowners": 0.0026,
+    "lumpenproletariat": 0.0531
+   }
   },
   {
    "id": "SVK",
@@ -9936,7 +11516,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4839,
+    "rural_proletariat": 0.0097,
+    "peasantry": 0.0102,
+    "employees": 0.365,
+    "petty_bourgeoisie": 0.0887,
+    "big_bourgeoisie": 0.0083,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0321
+   }
   },
   {
    "id": "SVN",
@@ -10000,7 +11590,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.4681,
+    "rural_proletariat": 0.0175,
+    "peasantry": 0.0173,
+    "employees": 0.3785,
+    "petty_bourgeoisie": 0.0852,
+    "big_bourgeoisie": 0.0086,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0229
+   }
   },
   {
    "id": "SWE",
@@ -10062,7 +11662,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3651,
+    "rural_proletariat": 0.0081,
+    "peasantry": 0.0077,
+    "employees": 0.4862,
+    "petty_bourgeoisie": 0.0745,
+    "big_bourgeoisie": 0.0097,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0466
+   }
   },
   {
    "id": "SWZ",
@@ -10123,7 +11733,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2907,
+    "rural_proletariat": 0.0468,
+    "peasantry": 0.0677,
+    "employees": 0.2297,
+    "petty_bourgeoisie": 0.1498,
+    "big_bourgeoisie": 0.0063,
+    "landowners": 0.0059,
+    "lumpenproletariat": 0.203
+   }
   },
   {
    "id": "SYR",
@@ -10187,7 +11807,17 @@
     "women_labor": 2025,
     "external_debt": 2023
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2752,
+    "rural_proletariat": 0.0513,
+    "peasantry": 0.099,
+    "employees": 0.2188,
+    "petty_bourgeoisie": 0.2598,
+    "big_bourgeoisie": 0.0033,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0905
+   }
   },
   {
    "id": "TCD",
@@ -10252,7 +11882,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0285,
+    "rural_proletariat": 0.0325,
+    "peasantry": 0.6659,
+    "employees": 0.0114,
+    "petty_bourgeoisie": 0.2187,
+    "big_bourgeoisie": 0.003,
+    "landowners": 0.0062,
+    "lumpenproletariat": 0.0338
+   }
   },
   {
    "id": "TGO",
@@ -10314,7 +11954,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1086,
+    "rural_proletariat": 0.05,
+    "peasantry": 0.3198,
+    "employees": 0.0716,
+    "petty_bourgeoisie": 0.4036,
+    "big_bourgeoisie": 0.0035,
+    "landowners": 0.0044,
+    "lumpenproletariat": 0.0383
+   }
   },
   {
    "id": "THA",
@@ -10377,7 +12027,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2255,
+    "rural_proletariat": 0.0826,
+    "peasantry": 0.1999,
+    "employees": 0.1688,
+    "petty_bourgeoisie": 0.291,
+    "big_bourgeoisie": 0.0062,
+    "landowners": 0.0028,
+    "lumpenproletariat": 0.0232
+   }
   },
   {
    "id": "TJK",
@@ -10440,7 +12100,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2246,
+    "rural_proletariat": 0.167,
+    "peasantry": 0.2407,
+    "employees": 0.178,
+    "petty_bourgeoisie": 0.1229,
+    "big_bourgeoisie": 0.0038,
+    "landowners": 0.0042,
+    "lumpenproletariat": 0.0587
+   }
   },
   {
    "id": "TKM",
@@ -10503,7 +12173,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3382,
+    "rural_proletariat": 0.084,
+    "peasantry": 0.1247,
+    "employees": 0.2261,
+    "petty_bourgeoisie": 0.17,
+    "big_bourgeoisie": 0.0059,
+    "landowners": 0.0039,
+    "lumpenproletariat": 0.0472
+   }
   },
   {
    "id": "TLS",
@@ -10563,7 +12243,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0548,
+    "rural_proletariat": 0.0681,
+    "peasantry": 0.3892,
+    "employees": 0.088,
+    "petty_bourgeoisie": 0.3575,
+    "big_bourgeoisie": 0.0035,
+    "landowners": 0.002,
+    "lumpenproletariat": 0.0368
+   }
   },
   {
    "id": "TTO",
@@ -10622,7 +12312,17 @@
    "estimated": [
     "external_debt",
     "trade"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3774,
+    "rural_proletariat": 0.0184,
+    "peasantry": 0.0243,
+    "employees": 0.3618,
+    "petty_bourgeoisie": 0.1746,
+    "big_bourgeoisie": 0.0075,
+    "landowners": 0.0024,
+    "lumpenproletariat": 0.0336
+   }
   },
   {
    "id": "TUN",
@@ -10683,7 +12383,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3983,
+    "rural_proletariat": 0.0499,
+    "peasantry": 0.0622,
+    "employees": 0.259,
+    "petty_bourgeoisie": 0.1256,
+    "big_bourgeoisie": 0.0057,
+    "landowners": 0.0025,
+    "lumpenproletariat": 0.0968
+   }
   },
   {
    "id": "TUR",
@@ -10750,7 +12460,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3562,
+    "rural_proletariat": 0.0562,
+    "peasantry": 0.0772,
+    "employees": 0.2779,
+    "petty_bourgeoisie": 0.1649,
+    "big_bourgeoisie": 0.0077,
+    "landowners": 0.0037,
+    "lumpenproletariat": 0.0562
+   }
   },
   {
    "id": "TWN",
@@ -10812,7 +12532,17 @@
     "urban",
     "wage_workers",
     "women_labor"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3841,
+    "rural_proletariat": 0.0072,
+    "peasantry": 0.0072,
+    "employees": 0.4804,
+    "petty_bourgeoisie": 0.083,
+    "big_bourgeoisie": 0.009,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0269
+   }
   },
   {
    "id": "TZA",
@@ -10879,7 +12609,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0393,
+    "rural_proletariat": 0.052,
+    "peasantry": 0.5769,
+    "employees": 0.0275,
+    "petty_bourgeoisie": 0.2575,
+    "big_bourgeoisie": 0.0034,
+    "landowners": 0.0074,
+    "lumpenproletariat": 0.0361
+   }
   },
   {
    "id": "UGA",
@@ -10943,7 +12683,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0439,
+    "rural_proletariat": 0.0708,
+    "peasantry": 0.558,
+    "employees": 0.037,
+    "petty_bourgeoisie": 0.2397,
+    "big_bourgeoisie": 0.0033,
+    "landowners": 0.0063,
+    "lumpenproletariat": 0.0411
+   }
   },
   {
    "id": "UKR",
@@ -11009,7 +12759,17 @@
     "women_labor": 2021,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3648,
+    "rural_proletariat": 0.0615,
+    "peasantry": 0.0693,
+    "employees": 0.313,
+    "petty_bourgeoisie": 0.1117,
+    "big_bourgeoisie": 0.0059,
+    "landowners": 0.0021,
+    "lumpenproletariat": 0.0718
+   }
   },
   {
    "id": "URY",
@@ -11071,7 +12831,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.317,
+    "rural_proletariat": 0.0322,
+    "peasantry": 0.0439,
+    "employees": 0.3534,
+    "petty_bourgeoisie": 0.1907,
+    "big_bourgeoisie": 0.0082,
+    "landowners": 0.0027,
+    "lumpenproletariat": 0.0519
+   }
   },
   {
    "id": "USA",
@@ -11133,7 +12903,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.3958,
+    "rural_proletariat": 0.0073,
+    "peasantry": 0.0064,
+    "employees": 0.5056,
+    "petty_bourgeoisie": 0.0457,
+    "big_bourgeoisie": 0.0099,
+    "landowners": 0.0022,
+    "lumpenproletariat": 0.027
+   }
   },
   {
    "id": "UZB",
@@ -11197,7 +12977,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2567,
+    "rural_proletariat": 0.0785,
+    "peasantry": 0.1638,
+    "employees": 0.1853,
+    "petty_bourgeoisie": 0.2588,
+    "big_bourgeoisie": 0.0052,
+    "landowners": 0.0026,
+    "lumpenproletariat": 0.0491
+   }
   },
   {
    "id": "VEN",
@@ -11260,7 +13050,17 @@
    },
    "estimated": [
     "external_debt"
-   ]
+   ],
+   "classes": {
+    "industrial_proletariat": 0.2583,
+    "rural_proletariat": 0.0293,
+    "peasantry": 0.0553,
+    "employees": 0.3009,
+    "petty_bourgeoisie": 0.2956,
+    "big_bourgeoisie": 0.005,
+    "landowners": 0.0031,
+    "lumpenproletariat": 0.0525
+   }
   },
   {
    "id": "VNM",
@@ -11322,7 +13122,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.282,
+    "rural_proletariat": 0.067,
+    "peasantry": 0.1764,
+    "employees": 0.1282,
+    "petty_bourgeoisie": 0.302,
+    "big_bourgeoisie": 0.0054,
+    "landowners": 0.0032,
+    "lumpenproletariat": 0.0358
+   }
   },
   {
    "id": "VUT",
@@ -11380,7 +13190,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1098,
+    "rural_proletariat": 0.1006,
+    "peasantry": 0.3294,
+    "employees": 0.1213,
+    "petty_bourgeoisie": 0.2796,
+    "big_bourgeoisie": 0.0052,
+    "landowners": 0.0029,
+    "lumpenproletariat": 0.0513
+   }
   },
   {
    "id": "WSM",
@@ -11438,7 +13258,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.2082,
+    "rural_proletariat": 0.0846,
+    "peasantry": 0.1732,
+    "employees": 0.2145,
+    "petty_bourgeoisie": 0.259,
+    "big_bourgeoisie": 0.0058,
+    "landowners": 0.0039,
+    "lumpenproletariat": 0.0508
+   }
   },
   {
    "id": "YEM",
@@ -11499,7 +13329,17 @@
     "women_labor": 2025,
     "external_debt": 2018
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.1426,
+    "rural_proletariat": 0.0803,
+    "peasantry": 0.2065,
+    "employees": 0.1731,
+    "petty_bourgeoisie": 0.2806,
+    "big_bourgeoisie": 0.0033,
+    "landowners": 0.0041,
+    "lumpenproletariat": 0.1096
+   }
   },
   {
    "id": "ZAF",
@@ -11564,7 +13404,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.3131,
+    "rural_proletariat": 0.0205,
+    "peasantry": 0.0221,
+    "employees": 0.3462,
+    "petty_bourgeoisie": 0.0963,
+    "big_bourgeoisie": 0.007,
+    "landowners": 0.0036,
+    "lumpenproletariat": 0.1911
+   }
   },
   {
    "id": "ZMB",
@@ -11631,7 +13481,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0763,
+    "rural_proletariat": 0.0833,
+    "peasantry": 0.4346,
+    "employees": 0.0669,
+    "petty_bourgeoisie": 0.2691,
+    "big_bourgeoisie": 0.0035,
+    "landowners": 0.0116,
+    "lumpenproletariat": 0.0548
+   }
   },
   {
    "id": "ZWE",
@@ -11695,7 +13555,17 @@
     "women_labor": 2025,
     "external_debt": 2024
    },
-   "estimated": []
+   "estimated": [],
+   "classes": {
+    "industrial_proletariat": 0.0817,
+    "rural_proletariat": 0.0846,
+    "peasantry": 0.4219,
+    "employees": 0.0658,
+    "petty_bourgeoisie": 0.2601,
+    "big_bourgeoisie": 0.0049,
+    "landowners": 0.0112,
+    "lumpenproletariat": 0.0698
+   }
   }
  ]
 }

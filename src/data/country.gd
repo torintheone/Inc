@@ -21,6 +21,8 @@ var neighbors: PackedStringArray
 var indicators: Dictionary[String, float] = {}
 ## Год, к которому относится каждый показатель.
 var years: Dictionary[String, int] = {}
+## Доли 8 классов в населении (0–1), оценка tools/build_world.py.
+var classes: Dictionary[String, float] = {}
 ## Показатели, которых нет у Всемирного банка: они оценены по группе дохода.
 var estimated: PackedStringArray
 var shapes: Array[CountryShape] = []
@@ -47,6 +49,9 @@ static func from_dict(data: Dictionary, index: int) -> Country:
 	for key: String in yrs:
 		c.years[key] = int(yrs[key])
 	c.estimated = PackedStringArray(data.get("estimated", []))
+	var cls: Dictionary = data.get("classes", {})
+	for key: String in cls:
+		c.classes[key] = float(cls[key])
 	return c
 
 

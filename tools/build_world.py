@@ -4,6 +4,7 @@
 Результат кладётся в репозиторий, поэтому игре интернет не нужен:
   data/world.json         — страны: названия, показатели, зона мир-системы, соседи
   data/world_shapes.json  — полигоны стран для карты (уже в проекции и триангулированы)
+  data/links.json         — связи между странами: торговля, миграция, соседство
 
 Источники:
   * Natural Earth 1:50m, admin 0 countries (общественное достояние) — границы и названия;
@@ -138,6 +139,15 @@ SUBREGION_RU = {
     "Western Europe": "Западная Европа",
     "Seven seas (open ocean)": "Открытый океан",
 }
+
+# Связи между странами (гравитационная модель): сколько сильнейших партнёров хранить.
+TRADE_PARTNERS = 8
+MIGRATION_PARTNERS = 4
+NEIGHBOR_TRADE_BONUS = 4.0
+NEIGHBOR_MIGRATION_BONUS = 3.0
+
+CLASS_KEYS = ["industrial_proletariat", "rural_proletariat", "peasantry", "employees",
+              "petty_bourgeoisie", "big_bourgeoisie", "landowners", "lumpenproletariat"]
 
 ZONE_NAMES = {"core": "ядро", "semi": "полупериферия", "periphery": "периферия"}
 
@@ -380,6 +390,99 @@ def find_neighbors(playable: list[str], geoms_lonlat: dict[str, object]) -> dict
     return {k: sorted(v) for k, v in result.items()}
 
 
+def estimate_classes(v: dict, zone: str) -> dict[str, float]:
+    """Доли 8 классов в населении по структуре занятости (оценка, см. data/README.md)."""
+    agri, ind, serv = v["emp_agriculture"] / 100, v["emp_industry"] / 100, v["emp_services"] / 100
+    total = max(agri + ind + serv, 1e-6)
+    agri, ind, serv = agri / total, ind / total, serv / total
+    wage = min(max(v["wage_workers"] / 100, 0.02), 0.98)
+    unemp = min(max(v["unemployment"] / 100, 0.0), 0.6)
+    gini = v["gini"]
+    gdp_pc = max(v["gdp_per_capita"], 100.0)
+
+    landowners = 0.002 + 0.00008 * agri * 100 * max(gini - 30, 0) / 10
+    agri_wage = agri * min(wage * 0.6, 1.0)
+    rural = max(agri_wage - landowners * 0.5, 0.0)
+    peasantry = max(agri - agri_wage, 0.0)
+    ind_wage = ind * min(wage + 0.2, 0.98)
+    industrial = ind_wage + serv * wage * 0.30
+    employees = serv * wage * 0.70
+    petty = (ind - ind_wage) + serv * (1 - wage) * 0.9
+    big = 0.003 + 0.007 * min(max(math.log10(gdp_pc / 1000) / 2, 0.0), 1.0)
+    lumpen = unemp * 0.4 + {"core": 0.01, "semi": 0.02, "periphery": 0.03}[zone]
+
+    employed = 1.0 - unemp
+    raw = {
+        "industrial_proletariat": industrial * employed,
+        "rural_proletariat": rural * employed,
+        "peasantry": peasantry * employed,
+        "employees": employees * employed,
+        "petty_bourgeoisie": petty * employed,
+        "big_bourgeoisie": big,
+        "landowners": landowners,
+        "lumpenproletariat": lumpen,
+    }
+    norm = sum(raw.values())
+    return {k: round(raw[k] / norm, 4) for k in CLASS_KEYS}
+
+
+def haversine_km(lon1: float, lat1: float, lon2: float, lat2: float) -> float:
+    r = 6371.0
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dp, dl = p2 - p1, math.radians(lon2 - lon1)
+    a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+    return 2 * r * math.asin(min(1.0, math.sqrt(a)))
+
+
+def build_links(countries: list[dict], lonlat: dict[str, tuple[float, float]]) -> list[dict]:
+    """Торговые и миграционные связи по гравитационной модели: произведение экономик
+    (населений), делённое на квадрат расстояния, с поправкой на соседство."""
+    ids = [c["id"] for c in countries]
+    by_id = {c["id"]: c for c in countries}
+    trade: dict[tuple[str, str], float] = {}
+    migr: dict[tuple[str, str], float] = {}
+    dist: dict[tuple[str, str], float] = {}
+    for i, a in enumerate(ids):
+        ca = by_id[a]["indicators"]
+        for b in ids[i + 1:]:
+            cb = by_id[b]["indicators"]
+            d = haversine_km(*lonlat[a], *lonlat[b])
+            neighbor = b in by_id[a]["neighbors"]
+            g = math.sqrt(ca["gdp_usd"] * cb["gdp_usd"]) * (ca["trade"] + cb["trade"]) / 200 / (d + 800) ** 2
+            m = math.sqrt(ca["population"] * cb["population"]) * (1 + (ca["migrant_stock"] + cb["migrant_stock"]) / 20) \
+                / (d + 500) ** 2
+            if neighbor:
+                g *= NEIGHBOR_TRADE_BONUS
+                m *= NEIGHBOR_MIGRATION_BONUS
+            trade[(a, b)] = g
+            migr[(a, b)] = m
+            dist[(a, b)] = d
+
+    def strongest(values: dict, a: str) -> list[tuple[float, str]]:
+        return sorted(((v, y if x == a else x) for (x, y), v in values.items() if a in (x, y)), reverse=True)
+
+    keep: set[tuple[str, str]] = set()
+    max_trade, max_migr = {}, {}
+    for a in ids:
+        st, sm = strongest(trade, a), strongest(migr, a)
+        max_trade[a], max_migr[a] = st[0][0], sm[0][0]
+        for _, b in st[:TRADE_PARTNERS] + sm[:MIGRATION_PARTNERS]:
+            keep.add(tuple(sorted((a, b))))
+        for b in by_id[a]["neighbors"]:
+            keep.add(tuple(sorted((a, b))))
+
+    links = []
+    for a, b in sorted(keep):
+        links.append({
+            "a": a, "b": b,
+            "trade": round(min(trade[(a, b)] / math.sqrt(max_trade[a] * max_trade[b]), 1.0), 4),
+            "migration": round(min(migr[(a, b)] / math.sqrt(max_migr[a] * max_migr[b]), 1.0), 4),
+            "neighbor": b in by_id[a]["neighbors"],
+            "distance_km": int(round(dist[(a, b)])),
+        })
+    return links
+
+
 def round_value(key: str, v: float):
     if key in ("population", "gdp_usd"):
         return int(round(v))
@@ -408,6 +511,7 @@ def main() -> int:
     neighbors = find_neighbors(playable, geoms_lonlat)
 
     countries, shapes, neutral = [], {}, []
+    lonlat: dict[str, tuple[float, float]] = {}
     for a3, f in by_id.items():
         p = f["properties"]
         polys = encode_polygons(simplified.get(a3, []))
@@ -436,6 +540,8 @@ def main() -> int:
             "years": {k: ind["years"][k] for k in INDICATORS if k in ind["years"]},
             "estimated": sorted(ind["estimated"]),
         })
+        countries[-1]["classes"] = estimate_classes(ind["values"], countries[-1]["zone"])
+        lonlat[a3] = (float(p["LABEL_X"]), float(p["LABEL_Y"]))
         shapes[a3] = polys
 
     all_x = [c for polys in list(shapes.values()) + [n["polygons"] for n in neutral]
@@ -455,8 +561,10 @@ def main() -> int:
         "sources": sources,
         "map": {"projection": "robinson", "width": MAP_WIDTH, "bounds": bounds},
         "zones": ZONE_NAMES,
+        "classes": CLASS_KEYS,
         "countries": countries,
     }
+    links = build_links(countries, lonlat)
     shapes_doc = {"version": 1, "bounds": bounds, "countries": shapes, "neutral": neutral}
 
     data = ROOT / "data"
@@ -464,11 +572,13 @@ def main() -> int:
     (data / "world.json").write_text(json.dumps(world, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     (data / "world_shapes.json").write_text(json.dumps(shapes_doc, ensure_ascii=False, separators=(",", ":")) + "\n",
                                             encoding="utf-8")
+    links_doc = {"version": 1, "generated_by": "tools/build_world.py", "links": links}
+    (data / "links.json").write_text(json.dumps(links_doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
     n_vert = sum(len(r) // 2 for polys in shapes.values() for poly in polys for r in poly["rings"])
     no_wb = sum(1 for c in countries if "population" in c["estimated"])
     log(f"Готово: стран {len(countries)}, нейтральных территорий {len(neutral)}, вершин {n_vert}, "
-        f"без данных Всемирного банка {no_wb}.")
+        f"без данных Всемирного банка {no_wb}, связей {len(links)}.")
     return 0
 
 

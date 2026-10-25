@@ -1,0 +1,267 @@
+{
+  "version": 1,
+  "_comment": "Улучшения движения и действия в стране. Формат — в data/README.md, раздел «actions.json».",
+  "upgrades": [
+    {
+      "id": "study_circles",
+      "branch": "organization",
+      "cost": 6,
+      "requires": [],
+      "modifiers": {
+        "consciousness_rate": 0.4,
+        "visibility": 0.02
+      }
+    },
+    {
+      "id": "leaflets",
+      "branch": "agitation",
+      "cost": 5,
+      "requires": [],
+      "modifiers": {
+        "influence_growth": 0.5,
+        "visibility": 0.05
+      }
+    },
+    {
+      "id": "trade_unions",
+      "branch": "organization",
+      "cost": 10,
+      "requires": [],
+      "modifiers": {
+        "organization_cap": 30,
+        "organization_rate": 0.5,
+        "visibility": 0.1
+      },
+      "unlocks": [
+        "strikes",
+        "consciousness_stage_1"
+      ]
+    },
+    {
+      "id": "industry_federations",
+      "branch": "organization",
+      "cost": 14,
+      "requires": [
+        "trade_unions"
+      ],
+      "modifiers": {
+        "organization_cap": 15,
+        "organization_rate": 0.3
+      },
+      "unlocks": [
+        "industry_strikes"
+      ]
+    },
+    {
+      "id": "workers_party",
+      "branch": "organization",
+      "cost": 18,
+      "requires": [
+        "trade_unions"
+      ],
+      "modifiers": {
+        "organization_cap": 20,
+        "consciousness_rate": 0.3,
+        "visibility": 0.1
+      },
+      "unlocks": [
+        "consciousness_stage_2",
+        "consciousness_stage_3"
+      ],
+      "on_buy": {
+        "reaction": 5
+      }
+    },
+    {
+      "id": "emigrant_links",
+      "branch": "international",
+      "cost": 8,
+      "requires": [],
+      "modifiers": {
+        "migration_channel": 0.5
+      }
+    }
+  ],
+  "country_actions": [
+    {
+      "id": "factory_strike",
+      "cost": 3,
+      "cooldown_weeks": 8,
+      "requires": {
+        "unlock": "strikes",
+        "min_influence": 1.0
+      },
+      "chance": {
+        "base": 0.6,
+        "terms": {
+          "organization": 0.006,
+          "consciousness": 0.003,
+          "repression": -0.004
+        },
+        "phase": {
+          "boom": 0.1,
+          "overheat": 0.05,
+          "crisis": -0.1,
+          "depression": -0.15
+        },
+        "above": [
+          {
+            "field": "unemployment",
+            "value": 15,
+            "add": -0.2
+          }
+        ],
+        "min": 0.05,
+        "max": 0.92
+      },
+      "core_reaction": 0.5,
+      "success": {
+        "add": {
+          "real_wage": 2,
+          "consciousness": 4,
+          "organization": 2,
+          "trust": 2,
+          "strikes_recent": 1
+        },
+        "flags": [
+          "strike_won"
+        ]
+      },
+      "failure": {
+        "add": {
+          "organization": -4,
+          "trust": -2,
+          "strikes_recent": 0.5
+        },
+        "mult": {
+          "influence": 0.95
+        }
+      }
+    },
+    {
+      "id": "industry_strike",
+      "cost": 8,
+      "cooldown_weeks": 16,
+      "requires": {
+        "unlock": "industry_strikes",
+        "min_influence": 5.0
+      },
+      "chance": {
+        "base": 0.45,
+        "terms": {
+          "organization": 0.008,
+          "consciousness": 0.003,
+          "repression": -0.004
+        },
+        "phase": {
+          "boom": 0.1,
+          "overheat": 0.05,
+          "crisis": -0.1,
+          "depression": -0.15
+        },
+        "above": [
+          {
+            "field": "unemployment",
+            "value": 15,
+            "add": -0.25
+          }
+        ],
+        "min": 0.05,
+        "max": 0.9
+      },
+      "core_reaction": 1.0,
+      "success": {
+        "add": {
+          "real_wage": 4,
+          "consciousness": 6,
+          "organization": 5,
+          "trust": 3,
+          "strikes_recent": 2,
+          "legitimacy": -2
+        },
+        "flags": [
+          "strike_won",
+          "industry_strike_won"
+        ]
+      },
+      "failure": {
+        "add": {
+          "organization": -8,
+          "trust": -3,
+          "strikes_recent": 1
+        },
+        "mult": {
+          "influence": 0.9
+        }
+      }
+    },
+    {
+      "id": "demonstration",
+      "cost": 4,
+      "cooldown_weeks": 6,
+      "requires": {
+        "min_influence": 2.0
+      },
+      "chance": {
+        "base": 0.8,
+        "terms": {
+          "repression": -0.008,
+          "trust": 0.003
+        },
+        "min": 0.1,
+        "max": 0.95
+      },
+      "success": {
+        "add": {
+          "demos_recent": 1,
+          "legitimacy": -2,
+          "trust": 1
+        }
+      },
+      "failure": {
+        "add": {
+          "organization": -4,
+          "trust": -4,
+          "legitimacy": -4,
+          "demos_recent": 0.5
+        },
+        "mult": {
+          "influence": 0.95
+        }
+      }
+    },
+    {
+      "id": "uprising",
+      "cost": 20,
+      "cooldown_weeks": 26,
+      "requires": {
+        "min_influence": 10.0,
+        "min": {
+          "rev_situation": 70,
+          "organization": 50
+        }
+      },
+      "chance": {
+        "base": 0.25,
+        "terms": {
+          "organization": 0.008,
+          "rev_situation": 0.005,
+          "trust": 0.004,
+          "army_loyalty": -0.005,
+          "repression": -0.003
+        },
+        "flags": {
+          "lessons_of_defeat": 0.08
+        },
+        "min": 0.05,
+        "max": 0.9
+      },
+      "success": {
+        "special": "revolution"
+      },
+      "failure": {
+        "special": "defeat"
+      }
+    }
+  ]
+}

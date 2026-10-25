@@ -1,0 +1,270 @@
+{
+  "version": 1,
+  "_comment": "Все числа баланса. Единицы и смысл — в data/README.md, раздел «balance.json».",
+  "time": {
+    "start_year": 2026,
+    "weeks_per_year": 52,
+    "max_years": 50,
+    "seconds_per_week": 1.2,
+    "autosave_every_weeks": 4
+  },
+  "start": {
+    "influence": 1.0,
+    "consciousness": 10.0,
+    "organization": 6.0,
+    "trust": 55.0,
+    "solidarity": 12.0
+  },
+  "zones": {
+    "core": {
+      "hegemony": 75,
+      "legitimacy": 65,
+      "repression": 30,
+      "legality": 85,
+      "army_loyalty": 75,
+      "growth": 1.0,
+      "crisis_sensitivity": 1.0
+    },
+    "semi": {
+      "hegemony": 58,
+      "legitimacy": 56,
+      "repression": 45,
+      "legality": 60,
+      "army_loyalty": 70,
+      "growth": 1.3,
+      "crisis_sensitivity": 1.2
+    },
+    "periphery": {
+      "hegemony": 45,
+      "legitimacy": 50,
+      "repression": 55,
+      "legality": 45,
+      "army_loyalty": 65,
+      "growth": 1.5,
+      "crisis_sensitivity": 1.4
+    }
+  },
+  "cycle": {
+    "min_weeks": 416,
+    "max_weeks": 520,
+    "max_weeks_with_countertendency": 572,
+    "phases": [
+      {
+        "id": "recovery",
+        "share": 0.25,
+        "wage": 0.03,
+        "unemployment": 1.05,
+        "growth": 0.008,
+        "elite_split": 20,
+        "legitimacy": 0,
+        "hegemony": 0,
+        "prices": 0,
+        "top_bonus": 0
+      },
+      {
+        "id": "boom",
+        "share": 0.3,
+        "wage": 0.05,
+        "unemployment": 0.75,
+        "growth": 0.012,
+        "elite_split": 12,
+        "legitimacy": 5,
+        "hegemony": 4,
+        "prices": 0,
+        "top_bonus": 0
+      },
+      {
+        "id": "overheat",
+        "share": 0.15,
+        "wage": -0.04,
+        "unemployment": 0.8,
+        "growth": 0.006,
+        "elite_split": 25,
+        "legitimacy": 0,
+        "hegemony": 0,
+        "prices": 8,
+        "top_bonus": 0
+      },
+      {
+        "id": "crisis",
+        "share": 0.1,
+        "wage": -0.2,
+        "unemployment": 1.9,
+        "growth": -0.015,
+        "elite_split": 55,
+        "legitimacy": -15,
+        "hegemony": -8,
+        "prices": 0,
+        "top_bonus": 15
+      },
+      {
+        "id": "depression",
+        "share": 0.2,
+        "wage": -0.06,
+        "unemployment": 1.6,
+        "growth": 0.0,
+        "elite_split": 40,
+        "legitimacy": -8,
+        "hegemony": -5,
+        "prices": 0,
+        "top_bonus": 8
+      }
+    ],
+    "first_depth": 1.0,
+    "depth_growth": 0.12,
+    "depth_per_contradiction": 0.006,
+    "depth_per_lost_superprofit": 0.4,
+    "min_depth": 0.8,
+    "max_depth": 2.5,
+    "countertendency": {
+      "min_reaction": 30,
+      "depth_relief": 0.2,
+      "postpone_weeks": 26,
+      "exploitation": 4,
+      "wage_cut": 3
+    }
+  },
+  "economy": {
+    "unemployment_speed": 0.04,
+    "min_base_unemployment": 2.0,
+    "wage_mean_reversion": 0.005,
+    "wage_per_aristocracy": 8.0,
+    "exploitation_speed": 0.02,
+    "exploitation_per_unemployment": 0.6,
+    "exploitation_per_organization": 0.15,
+    "exploitation_crisis": 6.0,
+    "inequality_speed": 0.005,
+    "inequality_per_exploitation": 0.4,
+    "contradiction_speed": 0.01,
+    "contradiction_per_forces": 0.45,
+    "contradiction_per_inequality": 0.45,
+    "contradiction_crisis_drop": 0.08,
+    "need_wage": 0.7,
+    "need_unemployment": 1.6,
+    "need_exploitation": 0.25,
+    "need_offset": -18.0,
+    "need_poverty": 35.0,
+    "poverty_forces": 60.0,
+    "unemployment_swing_cap": 10.0
+  },
+  "imperialism": {
+    "drain": 1.0,
+    "aristocracy": 12.0,
+    "aristocracy_max": 0.45,
+    "consciousness_damping": 0.6,
+    "hegemony_bonus": 10.0,
+    "legitimacy_bonus": 5.0
+  },
+  "superstructure": {
+    "speed": 0.02,
+    "elite_split_speed": 0.04,
+    "elite_split_per_influence": 0.2,
+    "repression_per_reaction": 0.3,
+    "legality_per_reaction": 0.25,
+    "hegemony_ideology_campaign": 5.0,
+    "fascism_repression": 15.0,
+    "fascism_min_influence": 15.0
+  },
+  "movement": {
+    "growth": 0.03,
+    "seed": 0.3,
+    "organization_growth_bonus": 0.5,
+    "repression_loss": 0.01,
+    "potential": {
+      "industrial_proletariat": 1.0,
+      "rural_proletariat": 0.85,
+      "peasantry": 0.45,
+      "employees": 0.6,
+      "petty_bourgeoisie": 0.25,
+      "big_bourgeoisie": 0.0,
+      "landowners": 0.0,
+      "lumpenproletariat": 0.3
+    },
+    "consciousness_rate": 0.06,
+    "consciousness_decay": 0.001,
+    "consciousness_floor": 3.0,
+    "organization_rate": 0.14,
+    "organization_base_cap": 15.0,
+    "organization_decay": 0.0005,
+    "organization_repression_decay": 0.002,
+    "visibility_per_influence": 0.9,
+    "visibility_speed": 0.05,
+    "visibility_per_strike": 15.0,
+    "visibility_per_demo": 12.0,
+    "trust_speed": 0.01,
+    "trust_target": 55.0,
+    "recent_decay": 0.92,
+    "reached_influence": 1.0,
+    "consciousness_growth_bonus": 0.02
+  },
+  "spread": {
+    "trade": 1.0,
+    "migration": 0.8,
+    "neighbor": 0.7,
+    "media": 0.25,
+    "min_source_influence": 0.5,
+    "revolutionary_source_influence": 60.0,
+    "revolutionary_source_organization": 80.0,
+    "scale": 0.6
+  },
+  "revolutionary_situation": {
+    "top_elite_split": 0.55,
+    "top_illegitimacy": 0.45,
+    "bottom_need": 1.15,
+    "bottom_unemployment_over": 8.0,
+    "bottom_unemployment": 2.0,
+    "activity_influence": 1.1,
+    "activity_consciousness": 0.5,
+    "activity_strikes": 15.0,
+    "activity_demos": 10.0,
+    "threshold": 70.0,
+    "organization_needed": 50.0,
+    "window_min_weeks": 10,
+    "window_max_weeks": 20,
+    "window_reset_below": 60.0,
+    "consolidation_elite_split": -20.0,
+    "consolidation_legitimacy": 12.0
+  },
+  "revolution": {
+    "reaction": 10.0,
+    "world_activity": 1.0,
+    "world_influence_boost": 1.1,
+    "neighbor_activity": 2.0,
+    "neighbor_repression": 10.0,
+    "defeat_influence_mult": 0.3,
+    "defeat_organization_mult": 0.5,
+    "defeat_repression": 25.0
+  },
+  "reaction": {
+    "visibility": 0.005,
+    "core_weight": 2.0,
+    "core_strike": 0.5,
+    "decay": 0.003,
+    "floor_per_revolution": 5.0,
+    "police_coordination_chance": 0.01,
+    "police_coordination_min_visibility": 30.0,
+    "police_coordination_organization": -4.0,
+    "ideology_campaign_hegemony": 10.0,
+    "intervention_income_penalty": 0.3,
+    "intervention_spread_penalty": 0.25,
+    "white_terror_organization_mult": 0.5,
+    "white_terror_rollback": 70.0
+  },
+  "solidarity": {
+    "base": 0.25,
+    "per_influence": 0.08,
+    "size_population": 50000000,
+    "size_min": 0.3,
+    "size_max": 3.0,
+    "new_country": 1.0,
+    "revolutionary_country": 1.0
+  },
+  "outcome": {
+    "grace_weeks": 26,
+    "defeat_influence": 1.0,
+    "federation_share": 0.75,
+    "world_revolution_share": 0.5,
+    "world_revolution_core": 2,
+    "white_terror_weeks": 52
+  }
+}

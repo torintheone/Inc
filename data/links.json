@@ -1,0 +1,9238 @@
+{
+ "version": 1,
+ "generated_by": "tools/build_world.py",
+ "links": [
+  {
+   "a": "AFG",
+   "b": "ARE",
+   "trade": 0.0634,
+   "migration": 0.0837,
+   "neighbor": false,
+   "distance_km": 1662
+  },
+  {
+   "a": "AFG",
+   "b": "CHN",
+   "trade": 0.0968,
+   "migration": 0.1244,
+   "neighbor": true,
+   "distance_km": 3682
+  },
+  {
+   "a": "AFG",
+   "b": "IND",
+   "trade": 0.0773,
+   "migration": 0.1091,
+   "neighbor": false,
+   "distance_km": 1789
+  },
+  {
+   "a": "AFG",
+   "b": "IRN",
+   "trade": 0.4205,
+   "migration": 0.3943,
+   "neighbor": true,
+   "distance_km": 1099
+  },
+  {
+   "a": "AFG",
+   "b": "PAK",
+   "trade": 0.489,
+   "migration": 0.7002,
+   "neighbor": true,
+   "distance_km": 572
+  },
+  {
+   "a": "AFG",
+   "b": "TJK",
+   "trade": 0.2577,
+   "migration": 0.4107,
+   "neighbor": true,
+   "distance_km": 707
+  },
+  {
+   "a": "AFG",
+   "b": "TKM",
+   "trade": 0.235,
+   "migration": 0.2137,
+   "neighbor": true,
+   "distance_km": 939
+  },
+  {
+   "a": "AFG",
+   "b": "UZB",
+   "trade": 0.3996,
+   "migration": 0.5008,
+   "neighbor": true,
+   "distance_km": 865
+  },
+  {
+   "a": "AGO",
+   "b": "ARE",
+   "trade": 0.0265,
+   "migration": 0.0208,
+   "neighbor": false,
+   "distance_km": 5615
+  },
+  {
+   "a": "AGO",
+   "b": "BWA",
+   "trade": 0.0822,
+   "migration": 0.0895,
+   "neighbor": false,
+   "distance_km": 1284
+  },
+  {
+   "a": "AGO",
+   "b": "COD",
+   "trade": 1.0,
+   "migration": 0.811,
+   "neighbor": true,
+   "distance_km": 1297
+  },
+  {
+   "a": "AGO",
+   "b": "COG",
+   "trade": 0.437,
+   "migration": 0.2904,
+   "neighbor": true,
+   "distance_km": 1390
+  },
+  {
+   "a": "AGO",
+   "b": "DEU",
+   "trade": 0.0097,
+   "migration": 0.0113,
+   "neighbor": false,
+   "distance_km": 7067
+  },
+  {
+   "a": "AGO",
+   "b": "GAB",
+   "trade": 0.1152,
+   "migration": 0.0893,
+   "neighbor": false,
+   "distance_km": 1472
+  },
+  {
+   "a": "AGO",
+   "b": "LSO",
+   "trade": 0.0254,
+   "migration": 0.0246,
+   "neighbor": false,
+   "distance_km": 2196
+  },
+  {
+   "a": "AGO",
+   "b": "NAM",
+   "trade": 0.6488,
+   "migration": 0.5388,
+   "neighbor": true,
+   "distance_km": 938
+  },
+  {
+   "a": "AGO",
+   "b": "SWZ",
+   "trade": 0.0355,
+   "migration": 0.033,
+   "neighbor": false,
+   "distance_km": 2129
+  },
+  {
+   "a": "AGO",
+   "b": "ZAF",
+   "trade": 0.1849,
+   "migration": 0.1684,
+   "neighbor": false,
+   "distance_km": 2035
+  },
+  {
+   "a": "AGO",
+   "b": "ZMB",
+   "trade": 0.773,
+   "migration": 0.7613,
+   "neighbor": true,
+   "distance_km": 950
+  },
+  {
+   "a": "AGO",
+   "b": "ZWE",
+   "trade": 0.0938,
+   "migration": 0.1269,
+   "neighbor": false,
+   "distance_km": 1481
+  },
+  {
+   "a": "ALB",
+   "b": "AUT",
+   "trade": 0.0399,
+   "migration": 0.0454,
+   "neighbor": false,
+   "distance_km": 900
+  },
+  {
+   "a": "ALB",
+   "b": "CHE",
+   "trade": 0.0361,
+   "migration": 0.0309,
+   "neighbor": false,
+   "distance_km": 1218
+  },
+  {
+   "a": "ALB",
+   "b": "DEU",
+   "trade": 0.0377,
+   "migration": 0.049,
+   "neighbor": false,
+   "distance_km": 1400
+  },
+  {
+   "a": "ALB",
+   "b": "GRC",
+   "trade": 0.789,
+   "migration": 0.8693,
+   "neighbor": true,
+   "distance_km": 188
+  },
+  {
+   "a": "ALB",
+   "b": "ITA",
+   "trade": 0.0569,
+   "migration": 0.0796,
+   "neighbor": false,
+   "distance_km": 866
+  },
+  {
+   "a": "ALB",
+   "b": "KOS",
+   "trade": 0.3202,
+   "migration": 0.2934,
+   "neighbor": true,
+   "distance_km": 224
+  },
+  {
+   "a": "ALB",
+   "b": "MKD",
+   "trade": 0.369,
+   "migration": 0.3984,
+   "neighbor": true,
+   "distance_km": 157
+  },
+  {
+   "a": "ALB",
+   "b": "MNE",
+   "trade": 0.2785,
+   "migration": 0.2943,
+   "neighbor": true,
+   "distance_km": 252
+  },
+  {
+   "a": "ARE",
+   "b": "ARM",
+   "trade": 0.0411,
+   "migration": 0.0402,
+   "neighbor": false,
+   "distance_km": 2098
+  },
+  {
+   "a": "ARE",
+   "b": "AZE",
+   "trade": 0.0626,
+   "migration": 0.0733,
+   "neighbor": false,
+   "distance_km": 2004
+  },
+  {
+   "a": "ARE",
+   "b": "BDI",
+   "trade": 0.0142,
+   "migration": 0.0173,
+   "neighbor": false,
+   "distance_km": 4000
+  },
+  {
+   "a": "ARE",
+   "b": "BHR",
+   "trade": 0.3629,
+   "migration": 0.3076,
+   "neighbor": false,
+   "distance_km": 495
+  },
+  {
+   "a": "ARE",
+   "b": "BWA",
+   "trade": 0.0088,
+   "migration": 0.0073,
+   "neighbor": false,
+   "distance_km": 6039
+  },
+  {
+   "a": "ARE",
+   "b": "CHN",
+   "trade": 0.0412,
+   "migration": 0.0607,
+   "neighbor": false,
+   "distance_km": 5134
+  },
+  {
+   "a": "ARE",
+   "b": "COM",
+   "trade": 0.0299,
+   "migration": 0.0211,
+   "neighbor": false,
+   "distance_km": 4100
+  },
+  {
+   "a": "ARE",
+   "b": "DJI",
+   "trade": 0.053,
+   "migration": 0.0325,
+   "neighbor": false,
+   "distance_km": 1804
+  },
+  {
+   "a": "ARE",
+   "b": "EGY",
+   "trade": 0.0678,
+   "migration": 0.1008,
+   "neighbor": false,
+   "distance_km": 2547
+  },
+  {
+   "a": "ARE",
+   "b": "ERI",
+   "trade": 0.051,
+   "migration": 0.0551,
+   "neighbor": false,
+   "distance_km": 1903
+  },
+  {
+   "a": "ARE",
+   "b": "ETH",
+   "trade": 0.1004,
+   "migration": 0.1126,
+   "neighbor": false,
+   "distance_km": 2379
+  },
+  {
+   "a": "ARE",
+   "b": "GEO",
+   "trade": 0.0376,
+   "migration": 0.0392,
+   "neighbor": false,
+   "distance_km": 2278
+  },
+  {
+   "a": "ARE",
+   "b": "IND",
+   "trade": 0.1347,
+   "migration": 0.1635,
+   "neighbor": false,
+   "distance_km": 2536
+  },
+  {
+   "a": "ARE",
+   "b": "IRN",
+   "trade": 0.3346,
+   "migration": 0.3595,
+   "neighbor": false,
+   "distance_km": 968
+  },
+  {
+   "a": "ARE",
+   "b": "IRQ",
+   "trade": 0.1195,
+   "migration": 0.1284,
+   "neighbor": false,
+   "distance_km": 1537
+  },
+  {
+   "a": "ARE",
+   "b": "KAZ",
+   "trade": 0.0615,
+   "migration": 0.0473,
+   "neighbor": false,
+   "distance_km": 3103
+  },
+  {
+   "a": "ARE",
+   "b": "KEN",
+   "trade": 0.0628,
+   "migration": 0.0447,
+   "neighbor": false,
+   "distance_km": 3117
+  },
+  {
+   "a": "ARE",
+   "b": "KGZ",
+   "trade": 0.0323,
+   "migration": 0.043,
+   "neighbor": false,
+   "distance_km": 2744
+  },
+  {
+   "a": "ARE",
+   "b": "KWT",
+   "trade": 0.1501,
+   "migration": 0.1305,
+   "neighbor": false,
+   "distance_km": 977
+  },
+  {
+   "a": "ARE",
+   "b": "LKA",
+   "trade": 0.0705,
+   "migration": 0.0536,
+   "neighbor": false,
+   "distance_km": 3302
+  },
+  {
+   "a": "ARE",
+   "b": "MDG",
+   "trade": 0.0551,
+   "migration": 0.0559,
+   "neighbor": false,
+   "distance_km": 4757
+  },
+  {
+   "a": "ARE",
+   "b": "MDV",
+   "trade": 0.0501,
+   "migration": 0.0275,
+   "neighbor": false,
+   "distance_km": 2957
+  },
+  {
+   "a": "ARE",
+   "b": "MOZ",
+   "trade": 0.0248,
+   "migration": 0.0244,
+   "neighbor": false,
+   "distance_km": 4539
+  },
+  {
+   "a": "ARE",
+   "b": "MUS",
+   "trade": 0.0527,
+   "migration": 0.0251,
+   "neighbor": false,
+   "distance_km": 4878
+  },
+  {
+   "a": "ARE",
+   "b": "MWI",
+   "trade": 0.0176,
+   "migration": 0.0181,
+   "neighbor": false,
+   "distance_km": 4688
+  },
+  {
+   "a": "ARE",
+   "b": "NPL",
+   "trade": 0.0212,
+   "migration": 0.0229,
+   "neighbor": false,
+   "distance_km": 2952
+  },
+  {
+   "a": "ARE",
+   "b": "OMN",
+   "trade": 0.9611,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 323
+  },
+  {
+   "a": "ARE",
+   "b": "PAK",
+   "trade": 0.1316,
+   "migration": 0.1617,
+   "neighbor": false,
+   "distance_km": 1538
+  },
+  {
+   "a": "ARE",
+   "b": "QAT",
+   "trade": 0.3572,
+   "migration": 0.3183,
+   "neighbor": false,
+   "distance_km": 397
+  },
+  {
+   "a": "ARE",
+   "b": "RWA",
+   "trade": 0.0224,
+   "migration": 0.0186,
+   "neighbor": false,
+   "distance_km": 3866
+  },
+  {
+   "a": "ARE",
+   "b": "SAU",
+   "trade": 1.0,
+   "migration": 0.8672,
+   "neighbor": true,
+   "distance_km": 1004
+  },
+  {
+   "a": "ARE",
+   "b": "SDN",
+   "trade": 0.0599,
+   "migration": 0.0671,
+   "neighbor": false,
+   "distance_km": 2756
+  },
+  {
+   "a": "ARE",
+   "b": "SDS",
+   "trade": 0.0346,
+   "migration": 0.0306,
+   "neighbor": false,
+   "distance_km": 3147
+  },
+  {
+   "a": "ARE",
+   "b": "SOL",
+   "trade": 0.0921,
+   "migration": 0.066,
+   "neighbor": false,
+   "distance_km": 1767
+  },
+  {
+   "a": "ARE",
+   "b": "SOM",
+   "trade": 0.0518,
+   "migration": 0.0554,
+   "neighbor": false,
+   "distance_km": 2430
+  },
+  {
+   "a": "ARE",
+   "b": "SYR",
+   "trade": 0.035,
+   "migration": 0.0613,
+   "neighbor": false,
+   "distance_km": 2029
+  },
+  {
+   "a": "ARE",
+   "b": "TJK",
+   "trade": 0.0404,
+   "migration": 0.0589,
+   "neighbor": false,
+   "distance_km": 2369
+  },
+  {
+   "a": "ARE",
+   "b": "TKM",
+   "trade": 0.0779,
+   "migration": 0.0641,
+   "neighbor": false,
+   "distance_km": 1863
+  },
+  {
+   "a": "ARE",
+   "b": "UGA",
+   "trade": 0.0401,
+   "migration": 0.0385,
+   "neighbor": false,
+   "distance_km": 3335
+  },
+  {
+   "a": "ARE",
+   "b": "UZB",
+   "trade": 0.0852,
+   "migration": 0.101,
+   "neighbor": false,
+   "distance_km": 2209
+  },
+  {
+   "a": "ARE",
+   "b": "YEM",
+   "trade": 0.0794,
+   "migration": 0.1609,
+   "neighbor": false,
+   "distance_km": 1282
+  },
+  {
+   "a": "ARE",
+   "b": "ZAF",
+   "trade": 0.0315,
+   "migration": 0.0227,
+   "neighbor": false,
+   "distance_km": 6771
+  },
+  {
+   "a": "ARE",
+   "b": "ZWE",
+   "trade": 0.0178,
+   "migration": 0.0165,
+   "neighbor": false,
+   "distance_km": 5417
+  },
+  {
+   "a": "ARG",
+   "b": "BOL",
+   "trade": 0.2501,
+   "migration": 0.3094,
+   "neighbor": true,
+   "distance_km": 1872
+  },
+  {
+   "a": "ARG",
+   "b": "BRA",
+   "trade": 0.5961,
+   "migration": 0.6512,
+   "neighbor": true,
+   "distance_km": 2805
+  },
+  {
+   "a": "ARG",
+   "b": "CHL",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 898
+  },
+  {
+   "a": "ARG",
+   "b": "MEX",
+   "trade": 0.0101,
+   "migration": 0.012,
+   "neighbor": false,
+   "distance_km": 7552
+  },
+  {
+   "a": "ARG",
+   "b": "PER",
+   "trade": 0.0881,
+   "migration": 0.1275,
+   "neighbor": false,
+   "distance_km": 2447
+  },
+  {
+   "a": "ARG",
+   "b": "PRY",
+   "trade": 0.3939,
+   "migration": 0.4215,
+   "neighbor": true,
+   "distance_km": 1373
+  },
+  {
+   "a": "ARG",
+   "b": "URY",
+   "trade": 0.6948,
+   "migration": 0.6745,
+   "neighbor": true,
+   "distance_km": 765
+  },
+  {
+   "a": "ARG",
+   "b": "USA",
+   "trade": 0.0157,
+   "migration": 0.0222,
+   "neighbor": false,
+   "distance_km": 8815
+  },
+  {
+   "a": "ARM",
+   "b": "AZE",
+   "trade": 0.7024,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 204
+  },
+  {
+   "a": "ARM",
+   "b": "DEU",
+   "trade": 0.0169,
+   "migration": 0.0209,
+   "neighbor": false,
+   "distance_km": 2932
+  },
+  {
+   "a": "ARM",
+   "b": "GEO",
+   "trade": 0.5528,
+   "migration": 0.7045,
+   "neighbor": true,
+   "distance_km": 180
+  },
+  {
+   "a": "ARM",
+   "b": "IRN",
+   "trade": 0.3296,
+   "migration": 0.2716,
+   "neighbor": true,
+   "distance_km": 1292
+  },
+  {
+   "a": "ARM",
+   "b": "IRQ",
+   "trade": 0.0877,
+   "migration": 0.1051,
+   "neighbor": false,
+   "distance_km": 830
+  },
+  {
+   "a": "ARM",
+   "b": "RUS",
+   "trade": 0.0614,
+   "migration": 0.068,
+   "neighbor": false,
+   "distance_km": 1978
+  },
+  {
+   "a": "ARM",
+   "b": "TUR",
+   "trade": 0.6753,
+   "migration": 0.4727,
+   "neighbor": true,
+   "distance_km": 886
+  },
+  {
+   "a": "AUS",
+   "b": "CHN",
+   "trade": 0.0659,
+   "migration": 0.1442,
+   "neighbor": false,
+   "distance_km": 6949
+  },
+  {
+   "a": "AUS",
+   "b": "FJI",
+   "trade": 0.1969,
+   "migration": 0.2069,
+   "neighbor": false,
+   "distance_km": 4596
+  },
+  {
+   "a": "AUS",
+   "b": "HKG",
+   "trade": 0.0753,
+   "migration": 0.0342,
+   "neighbor": false,
+   "distance_km": 5610
+  },
+  {
+   "a": "AUS",
+   "b": "IDN",
+   "trade": 0.0889,
+   "migration": 0.2168,
+   "neighbor": false,
+   "distance_km": 4314
+  },
+  {
+   "a": "AUS",
+   "b": "IND",
+   "trade": 0.0577,
+   "migration": 0.0894,
+   "neighbor": false,
+   "distance_km": 7872
+  },
+  {
+   "a": "AUS",
+   "b": "JPN",
+   "trade": 0.1055,
+   "migration": 0.1331,
+   "neighbor": false,
+   "distance_km": 6718
+  },
+  {
+   "a": "AUS",
+   "b": "MYS",
+   "trade": 0.1964,
+   "migration": 0.1536,
+   "neighbor": false,
+   "distance_km": 3683
+  },
+  {
+   "a": "AUS",
+   "b": "NCL",
+   "trade": 0.2145,
+   "migration": 0.2872,
+   "neighbor": false,
+   "distance_km": 3198
+  },
+  {
+   "a": "AUS",
+   "b": "NZL",
+   "trade": 0.445,
+   "migration": 0.492,
+   "neighbor": false,
+   "distance_km": 4007
+  },
+  {
+   "a": "AUS",
+   "b": "PHL",
+   "trade": 0.1831,
+   "migration": 0.3194,
+   "neighbor": false,
+   "distance_km": 4125
+  },
+  {
+   "a": "AUS",
+   "b": "PNG",
+   "trade": 0.5197,
+   "migration": 0.7094,
+   "neighbor": false,
+   "distance_km": 2305
+  },
+  {
+   "a": "AUS",
+   "b": "PYF",
+   "trade": 0.0595,
+   "migration": 0.0725,
+   "neighbor": false,
+   "distance_km": 7885
+  },
+  {
+   "a": "AUS",
+   "b": "SGP",
+   "trade": 0.2348,
+   "migration": 0.0619,
+   "neighbor": false,
+   "distance_km": 4323
+  },
+  {
+   "a": "AUS",
+   "b": "SLB",
+   "trade": 0.1939,
+   "migration": 0.3019,
+   "neighbor": false,
+   "distance_km": 3216
+  },
+  {
+   "a": "AUS",
+   "b": "TLS",
+   "trade": 0.196,
+   "migration": 0.3655,
+   "neighbor": false,
+   "distance_km": 1914
+  },
+  {
+   "a": "AUS",
+   "b": "TWN",
+   "trade": 0.1149,
+   "migration": 0.0986,
+   "neighbor": false,
+   "distance_km": 5500
+  },
+  {
+   "a": "AUS",
+   "b": "VNM",
+   "trade": 0.0485,
+   "migration": 0.0516,
+   "neighbor": false,
+   "distance_km": 5966
+  },
+  {
+   "a": "AUS",
+   "b": "VUT",
+   "trade": 0.1458,
+   "migration": 0.205,
+   "neighbor": false,
+   "distance_km": 3564
+  },
+  {
+   "a": "AUS",
+   "b": "WSM",
+   "trade": 0.0835,
+   "migration": 0.1196,
+   "neighbor": false,
+   "distance_km": 5716
+  },
+  {
+   "a": "AUT",
+   "b": "BIH",
+   "trade": 0.0902,
+   "migration": 0.1204,
+   "neighbor": false,
+   "distance_km": 488
+  },
+  {
+   "a": "AUT",
+   "b": "CHE",
+   "trade": 0.4784,
+   "migration": 0.3495,
+   "neighbor": true,
+   "distance_km": 512
+  },
+  {
+   "a": "AUT",
+   "b": "CZE",
+   "trade": 0.5036,
+   "migration": 0.5109,
+   "neighbor": true,
+   "distance_km": 278
+  },
+  {
+   "a": "AUT",
+   "b": "DEU",
+   "trade": 0.632,
+   "migration": 0.7509,
+   "neighbor": true,
+   "distance_km": 501
+  },
+  {
+   "a": "AUT",
+   "b": "HRV",
+   "trade": 0.1448,
+   "migration": 0.2389,
+   "neighbor": false,
+   "distance_km": 256
+  },
+  {
+   "a": "AUT",
+   "b": "HUN",
+   "trade": 0.587,
+   "migration": 0.5775,
+   "neighbor": true,
+   "distance_km": 404
+  },
+  {
+   "a": "AUT",
+   "b": "ITA",
+   "trade": 0.666,
+   "migration": 0.8777,
+   "neighbor": true,
+   "distance_km": 389
+  },
+  {
+   "a": "AUT",
+   "b": "LUX",
+   "trade": 0.0606,
+   "migration": 0.0441,
+   "neighbor": false,
+   "distance_km": 641
+  },
+  {
+   "a": "AUT",
+   "b": "MLT",
+   "trade": 0.0726,
+   "migration": 0.0615,
+   "neighbor": false,
+   "distance_km": 1293
+  },
+  {
+   "a": "AUT",
+   "b": "NLD",
+   "trade": 0.0728,
+   "migration": 0.0636,
+   "neighbor": false,
+   "distance_km": 817
+  },
+  {
+   "a": "AUT",
+   "b": "SVK",
+   "trade": 0.482,
+   "migration": 0.4511,
+   "neighbor": true,
+   "distance_km": 389
+  },
+  {
+   "a": "AUT",
+   "b": "SVN",
+   "trade": 0.4951,
+   "migration": 0.5113,
+   "neighbor": true,
+   "distance_km": 173
+  },
+  {
+   "a": "AZE",
+   "b": "DEU",
+   "trade": 0.0209,
+   "migration": 0.0295,
+   "neighbor": false,
+   "distance_km": 3102
+  },
+  {
+   "a": "AZE",
+   "b": "GEO",
+   "trade": 0.5671,
+   "migration": 0.6612,
+   "neighbor": true,
+   "distance_km": 334
+  },
+  {
+   "a": "AZE",
+   "b": "IRN",
+   "trade": 0.5062,
+   "migration": 0.4615,
+   "neighbor": true,
+   "distance_km": 1147
+  },
+  {
+   "a": "AZE",
+   "b": "IRQ",
+   "trade": 0.1108,
+   "migration": 0.1348,
+   "neighbor": false,
+   "distance_km": 885
+  },
+  {
+   "a": "AZE",
+   "b": "RUS",
+   "trade": 0.3133,
+   "migration": 0.2919,
+   "neighbor": true,
+   "distance_km": 1993
+  },
+  {
+   "a": "AZE",
+   "b": "TUR",
+   "trade": 0.7076,
+   "migration": 0.5303,
+   "neighbor": true,
+   "distance_km": 1089
+  },
+  {
+   "a": "BDI",
+   "b": "COD",
+   "trade": 0.5906,
+   "migration": 0.7952,
+   "neighbor": true,
+   "distance_km": 736
+  },
+  {
+   "a": "BDI",
+   "b": "DEU",
+   "trade": 0.0038,
+   "migration": 0.0063,
+   "neighbor": false,
+   "distance_km": 6337
+  },
+  {
+   "a": "BDI",
+   "b": "KEN",
+   "trade": 0.0703,
+   "migration": 0.1031,
+   "neighbor": false,
+   "distance_km": 987
+  },
+  {
+   "a": "BDI",
+   "b": "RWA",
+   "trade": 0.5548,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 161
+  },
+  {
+   "a": "BDI",
+   "b": "SAU",
+   "trade": 0.0121,
+   "migration": 0.0304,
+   "neighbor": false,
+   "distance_km": 3416
+  },
+  {
+   "a": "BDI",
+   "b": "TZA",
+   "trade": 0.4113,
+   "migration": 0.6763,
+   "neighbor": true,
+   "distance_km": 635
+  },
+  {
+   "a": "BDI",
+   "b": "UGA",
+   "trade": 0.0794,
+   "migration": 0.1695,
+   "neighbor": false,
+   "distance_km": 679
+  },
+  {
+   "a": "BEL",
+   "b": "CHE",
+   "trade": 0.1211,
+   "migration": 0.1056,
+   "neighbor": false,
+   "distance_km": 492
+  },
+  {
+   "a": "BEL",
+   "b": "DEU",
+   "trade": 0.8499,
+   "migration": 0.9106,
+   "neighbor": true,
+   "distance_km": 343
+  },
+  {
+   "a": "BEL",
+   "b": "DNK",
+   "trade": 0.0815,
+   "migration": 0.0695,
+   "neighbor": false,
+   "distance_km": 640
+  },
+  {
+   "a": "BEL",
+   "b": "FRA",
+   "trade": 0.6642,
+   "migration": 0.584,
+   "neighbor": true,
+   "distance_km": 484
+  },
+  {
+   "a": "BEL",
+   "b": "GBR",
+   "trade": 0.1317,
+   "migration": 0.2245,
+   "neighbor": false,
+   "distance_km": 616
+  },
+  {
+   "a": "BEL",
+   "b": "IRL",
+   "trade": 0.0708,
+   "migration": 0.0443,
+   "neighbor": false,
+   "distance_km": 899
+  },
+  {
+   "a": "BEL",
+   "b": "ISL",
+   "trade": 0.0393,
+   "migration": 0.0263,
+   "neighbor": false,
+   "distance_km": 2063
+  },
+  {
+   "a": "BEL",
+   "b": "ITA",
+   "trade": 0.0948,
+   "migration": 0.1125,
+   "neighbor": false,
+   "distance_km": 820
+  },
+  {
+   "a": "BEL",
+   "b": "LUX",
+   "trade": 0.5124,
+   "migration": 0.3629,
+   "neighbor": true,
+   "distance_km": 148
+  },
+  {
+   "a": "BEL",
+   "b": "NLD",
+   "trade": 0.7611,
+   "migration": 0.5935,
+   "neighbor": true,
+   "distance_km": 190
+  },
+  {
+   "a": "BEN",
+   "b": "BFA",
+   "trade": 0.4738,
+   "migration": 0.5761,
+   "neighbor": true,
+   "distance_km": 482
+  },
+  {
+   "a": "BEN",
+   "b": "CIV",
+   "trade": 0.081,
+   "migration": 0.103,
+   "neighbor": false,
+   "distance_km": 925
+  },
+  {
+   "a": "BEN",
+   "b": "DEU",
+   "trade": 0.0097,
+   "migration": 0.0099,
+   "neighbor": false,
+   "distance_km": 4568
+  },
+  {
+   "a": "BEN",
+   "b": "ESP",
+   "trade": 0.0179,
+   "migration": 0.018,
+   "neighbor": false,
+   "distance_km": 3359
+  },
+  {
+   "a": "BEN",
+   "b": "GHA",
+   "trade": 0.1846,
+   "migration": 0.1755,
+   "neighbor": false,
+   "distance_km": 472
+  },
+  {
+   "a": "BEN",
+   "b": "NER",
+   "trade": 0.2105,
+   "migration": 0.1853,
+   "neighbor": true,
+   "distance_km": 1106
+  },
+  {
+   "a": "BEN",
+   "b": "NGA",
+   "trade": 0.9471,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 573
+  },
+  {
+   "a": "BEN",
+   "b": "TGO",
+   "trade": 0.46,
+   "migration": 0.5965,
+   "neighbor": true,
+   "distance_km": 220
+  },
+  {
+   "a": "BFA",
+   "b": "CIV",
+   "trade": 0.4687,
+   "migration": 0.7205,
+   "neighbor": true,
+   "distance_km": 737
+  },
+  {
+   "a": "BFA",
+   "b": "ESP",
+   "trade": 0.0231,
+   "migration": 0.0372,
+   "neighbor": false,
+   "distance_km": 3056
+  },
+  {
+   "a": "BFA",
+   "b": "GHA",
+   "trade": 0.7263,
+   "migration": 0.7907,
+   "neighbor": true,
+   "distance_km": 552
+  },
+  {
+   "a": "BFA",
+   "b": "MLI",
+   "trade": 0.4922,
+   "migration": 0.8374,
+   "neighbor": true,
+   "distance_km": 673
+  },
+  {
+   "a": "BFA",
+   "b": "NER",
+   "trade": 0.2163,
+   "migration": 0.2649,
+   "neighbor": true,
+   "distance_km": 1282
+  },
+  {
+   "a": "BFA",
+   "b": "NGA",
+   "trade": 0.1686,
+   "migration": 0.2878,
+   "neighbor": false,
+   "distance_km": 1032
+  },
+  {
+   "a": "BFA",
+   "b": "TGO",
+   "trade": 0.319,
+   "migration": 0.5396,
+   "neighbor": true,
+   "distance_km": 505
+  },
+  {
+   "a": "BGD",
+   "b": "BTN",
+   "trade": 0.0653,
+   "migration": 0.1234,
+   "neighbor": false,
+   "distance_km": 371
+  },
+  {
+   "a": "BGD",
+   "b": "CHN",
+   "trade": 0.0785,
+   "migration": 0.1852,
+   "neighbor": false,
+   "distance_km": 1868
+  },
+  {
+   "a": "BGD",
+   "b": "HKG",
+   "trade": 0.049,
+   "migration": 0.0294,
+   "neighbor": false,
+   "distance_km": 2497
+  },
+  {
+   "a": "BGD",
+   "b": "IND",
+   "trade": 0.7205,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 1067
+  },
+  {
+   "a": "BGD",
+   "b": "LKA",
+   "trade": 0.0572,
+   "migration": 0.0629,
+   "neighbor": false,
+   "distance_km": 2082
+  },
+  {
+   "a": "BGD",
+   "b": "MMR",
+   "trade": 0.2881,
+   "migration": 0.5756,
+   "neighbor": true,
+   "distance_km": 692
+  },
+  {
+   "a": "BGD",
+   "b": "MNG",
+   "trade": 0.0135,
+   "migration": 0.0138,
+   "neighbor": false,
+   "distance_km": 2746
+  },
+  {
+   "a": "BGD",
+   "b": "NPL",
+   "trade": 0.0498,
+   "migration": 0.0983,
+   "neighbor": false,
+   "distance_km": 754
+  },
+  {
+   "a": "BGD",
+   "b": "SGP",
+   "trade": 0.0744,
+   "migration": 0.0257,
+   "neighbor": false,
+   "distance_km": 2961
+  },
+  {
+   "a": "BGD",
+   "b": "THA",
+   "trade": 0.1366,
+   "migration": 0.1151,
+   "neighbor": false,
+   "distance_km": 1537
+  },
+  {
+   "a": "BGD",
+   "b": "TWN",
+   "trade": 0.046,
+   "migration": 0.0549,
+   "neighbor": false,
+   "distance_km": 3163
+  },
+  {
+   "a": "BGD",
+   "b": "VNM",
+   "trade": 0.0623,
+   "migration": 0.0621,
+   "neighbor": false,
+   "distance_km": 1631
+  },
+  {
+   "a": "BGR",
+   "b": "DEU",
+   "trade": 0.057,
+   "migration": 0.0736,
+   "neighbor": false,
+   "distance_km": 1503
+  },
+  {
+   "a": "BGR",
+   "b": "GRC",
+   "trade": 0.8261,
+   "migration": 0.7832,
+   "neighbor": true,
+   "distance_km": 442
+  },
+  {
+   "a": "BGR",
+   "b": "HUN",
+   "trade": 0.1106,
+   "migration": 0.1178,
+   "neighbor": false,
+   "distance_km": 679
+  },
+  {
+   "a": "BGR",
+   "b": "ITA",
+   "trade": 0.0692,
+   "migration": 0.0917,
+   "neighbor": false,
+   "distance_km": 1158
+  },
+  {
+   "a": "BGR",
+   "b": "MKD",
+   "trade": 0.436,
+   "migration": 0.4422,
+   "neighbor": true,
+   "distance_km": 316
+  },
+  {
+   "a": "BGR",
+   "b": "ROU",
+   "trade": 0.8351,
+   "migration": 0.7711,
+   "neighbor": true,
+   "distance_km": 359
+  },
+  {
+   "a": "BGR",
+   "b": "SRB",
+   "trade": 0.5501,
+   "migration": 0.6149,
+   "neighbor": true,
+   "distance_km": 400
+  },
+  {
+   "a": "BGR",
+   "b": "TUR",
+   "trade": 0.8957,
+   "migration": 0.5699,
+   "neighbor": true,
+   "distance_km": 860
+  },
+  {
+   "a": "BHR",
+   "b": "IRN",
+   "trade": 0.2811,
+   "migration": 0.312,
+   "neighbor": false,
+   "distance_km": 801
+  },
+  {
+   "a": "BHR",
+   "b": "IRQ",
+   "trade": 0.1325,
+   "migration": 0.1491,
+   "neighbor": false,
+   "distance_km": 1053
+  },
+  {
+   "a": "BHR",
+   "b": "KWT",
+   "trade": 0.2002,
+   "migration": 0.2196,
+   "neighbor": false,
+   "distance_km": 491
+  },
+  {
+   "a": "BHR",
+   "b": "OMN",
+   "trade": 0.0826,
+   "migration": 0.0961,
+   "neighbor": false,
+   "distance_km": 816
+  },
+  {
+   "a": "BHR",
+   "b": "QAT",
+   "trade": 0.4382,
+   "migration": 0.5285,
+   "neighbor": false,
+   "distance_km": 108
+  },
+  {
+   "a": "BHR",
+   "b": "SAU",
+   "trade": 0.2694,
+   "migration": 0.3683,
+   "neighbor": false,
+   "distance_km": 641
+  },
+  {
+   "a": "BHR",
+   "b": "TUR",
+   "trade": 0.116,
+   "migration": 0.0766,
+   "neighbor": false,
+   "distance_km": 2100
+  },
+  {
+   "a": "BHR",
+   "b": "YEM",
+   "trade": 0.0542,
+   "migration": 0.108,
+   "neighbor": false,
+   "distance_km": 1288
+  },
+  {
+   "a": "BHS",
+   "b": "CAN",
+   "trade": 0.0232,
+   "migration": 0.0251,
+   "neighbor": false,
+   "distance_km": 4215
+  },
+  {
+   "a": "BHS",
+   "b": "COL",
+   "trade": 0.0512,
+   "migration": 0.0573,
+   "neighbor": false,
+   "distance_km": 2595
+  },
+  {
+   "a": "BHS",
+   "b": "CUB",
+   "trade": 0.3594,
+   "migration": 0.5511,
+   "neighbor": false,
+   "distance_km": 570
+  },
+  {
+   "a": "BHS",
+   "b": "DOM",
+   "trade": 0.1491,
+   "migration": 0.0987,
+   "neighbor": false,
+   "distance_km": 1049
+  },
+  {
+   "a": "BHS",
+   "b": "HTI",
+   "trade": 0.0615,
+   "migration": 0.0992,
+   "neighbor": false,
+   "distance_km": 940
+  },
+  {
+   "a": "BHS",
+   "b": "JAM",
+   "trade": 0.1409,
+   "migration": 0.1867,
+   "neighbor": false,
+   "distance_km": 919
+  },
+  {
+   "a": "BHS",
+   "b": "MEX",
+   "trade": 0.0419,
+   "migration": 0.0528,
+   "neighbor": false,
+   "distance_km": 2541
+  },
+  {
+   "a": "BHS",
+   "b": "PRI",
+   "trade": 0.1699,
+   "migration": 0.1044,
+   "neighbor": false,
+   "distance_km": 1423
+  },
+  {
+   "a": "BHS",
+   "b": "USA",
+   "trade": 0.1238,
+   "migration": 0.1289,
+   "neighbor": false,
+   "distance_km": 2384
+  },
+  {
+   "a": "BIH",
+   "b": "CHE",
+   "trade": 0.0669,
+   "migration": 0.0637,
+   "neighbor": false,
+   "distance_km": 877
+  },
+  {
+   "a": "BIH",
+   "b": "DEU",
+   "trade": 0.075,
+   "migration": 0.1052,
+   "neighbor": false,
+   "distance_km": 989
+  },
+  {
+   "a": "BIH",
+   "b": "HRV",
+   "trade": 0.5476,
+   "migration": 0.6652,
+   "neighbor": true,
+   "distance_km": 233
+  },
+  {
+   "a": "BIH",
+   "b": "HUN",
+   "trade": 0.1468,
+   "migration": 0.1733,
+   "neighbor": false,
+   "distance_km": 350
+  },
+  {
+   "a": "BIH",
+   "b": "ITA",
+   "trade": 0.1135,
+   "migration": 0.1737,
+   "neighbor": false,
+   "distance_km": 560
+  },
+  {
+   "a": "BIH",
+   "b": "MNE",
+   "trade": 0.4279,
+   "migration": 0.4919,
+   "neighbor": true,
+   "distance_km": 167
+  },
+  {
+   "a": "BIH",
+   "b": "SRB",
+   "trade": 0.6112,
+   "migration": 0.7476,
+   "neighbor": true,
+   "distance_km": 217
+  },
+  {
+   "a": "BLR",
+   "b": "DEU",
+   "trade": 0.0604,
+   "migration": 0.0897,
+   "neighbor": false,
+   "distance_km": 1307
+  },
+  {
+   "a": "BLR",
+   "b": "ITA",
+   "trade": 0.0409,
+   "migration": 0.0583,
+   "neighbor": false,
+   "distance_km": 1606
+  },
+  {
+   "a": "BLR",
+   "b": "LTU",
+   "trade": 0.499,
+   "migration": 0.5554,
+   "neighbor": true,
+   "distance_km": 314
+  },
+  {
+   "a": "BLR",
+   "b": "LVA",
+   "trade": 0.4783,
+   "migration": 0.51,
+   "neighbor": true,
+   "distance_km": 406
+  },
+  {
+   "a": "BLR",
+   "b": "NLD",
+   "trade": 0.0351,
+   "migration": 0.031,
+   "neighbor": false,
+   "distance_km": 1523
+  },
+  {
+   "a": "BLR",
+   "b": "POL",
+   "trade": 0.4184,
+   "migration": 0.4332,
+   "neighbor": true,
+   "distance_km": 632
+  },
+  {
+   "a": "BLR",
+   "b": "RUS",
+   "trade": 0.5962,
+   "migration": 0.5798,
+   "neighbor": true,
+   "distance_km": 1120
+  },
+  {
+   "a": "BLR",
+   "b": "UKR",
+   "trade": 0.5166,
+   "migration": 0.9255,
+   "neighbor": true,
+   "distance_km": 522
+  },
+  {
+   "a": "BLZ",
+   "b": "CRI",
+   "trade": 0.0551,
+   "migration": 0.0532,
+   "neighbor": false,
+   "distance_km": 938
+  },
+  {
+   "a": "BLZ",
+   "b": "CUB",
+   "trade": 0.0728,
+   "migration": 0.0856,
+   "neighbor": false,
+   "distance_km": 1217
+  },
+  {
+   "a": "BLZ",
+   "b": "GTM",
+   "trade": 0.4892,
+   "migration": 0.5992,
+   "neighbor": true,
+   "distance_km": 312
+  },
+  {
+   "a": "BLZ",
+   "b": "HND",
+   "trade": 0.1074,
+   "migration": 0.1569,
+   "neighbor": false,
+   "distance_km": 331
+  },
+  {
+   "a": "BLZ",
+   "b": "MEX",
+   "trade": 0.1481,
+   "migration": 0.1332,
+   "neighbor": true,
+   "distance_km": 1597
+  },
+  {
+   "a": "BLZ",
+   "b": "NIC",
+   "trade": 0.0522,
+   "migration": 0.0754,
+   "neighbor": false,
+   "distance_km": 638
+  },
+  {
+   "a": "BLZ",
+   "b": "SLV",
+   "trade": 0.0816,
+   "migration": 0.0972,
+   "neighbor": false,
+   "distance_km": 391
+  },
+  {
+   "a": "BLZ",
+   "b": "USA",
+   "trade": 0.0527,
+   "migration": 0.044,
+   "neighbor": false,
+   "distance_km": 2624
+  },
+  {
+   "a": "BOL",
+   "b": "BRA",
+   "trade": 0.8609,
+   "migration": 0.9558,
+   "neighbor": true,
+   "distance_km": 1696
+  },
+  {
+   "a": "BOL",
+   "b": "CHL",
+   "trade": 0.1712,
+   "migration": 0.1441,
+   "neighbor": true,
+   "distance_km": 2505
+  },
+  {
+   "a": "BOL",
+   "b": "COL",
+   "trade": 0.0492,
+   "migration": 0.0713,
+   "neighbor": false,
+   "distance_km": 2419
+  },
+  {
+   "a": "BOL",
+   "b": "ECU",
+   "trade": 0.0373,
+   "migration": 0.0435,
+   "neighbor": false,
+   "distance_km": 2269
+  },
+  {
+   "a": "BOL",
+   "b": "PER",
+   "trade": 0.7771,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 982
+  },
+  {
+   "a": "BOL",
+   "b": "PRY",
+   "trade": 0.5098,
+   "migration": 0.6429,
+   "neighbor": true,
+   "distance_km": 727
+  },
+  {
+   "a": "BOL",
+   "b": "URY",
+   "trade": 0.036,
+   "migration": 0.0377,
+   "neighbor": false,
+   "distance_km": 2008
+  },
+  {
+   "a": "BOL",
+   "b": "USA",
+   "trade": 0.0166,
+   "migration": 0.0225,
+   "neighbor": false,
+   "distance_km": 7120
+  },
+  {
+   "a": "BRA",
+   "b": "BRB",
+   "trade": 0.1548,
+   "migration": 0.1026,
+   "neighbor": false,
+   "distance_km": 3018
+  },
+  {
+   "a": "BRA",
+   "b": "CHL",
+   "trade": 0.107,
+   "migration": 0.1022,
+   "neighbor": false,
+   "distance_km": 3671
+  },
+  {
+   "a": "BRA",
+   "b": "COL",
+   "trade": 0.58,
+   "migration": 0.5675,
+   "neighbor": true,
+   "distance_km": 3126
+  },
+  {
+   "a": "BRA",
+   "b": "ECU",
+   "trade": 0.0915,
+   "migration": 0.0905,
+   "neighbor": false,
+   "distance_km": 3379
+  },
+  {
+   "a": "BRA",
+   "b": "FRA",
+   "trade": 0.0762,
+   "migration": 0.0648,
+   "neighbor": true,
+   "distance_km": 8336
+  },
+  {
+   "a": "BRA",
+   "b": "GUY",
+   "trade": 0.9696,
+   "migration": 0.3079,
+   "neighbor": true,
+   "distance_km": 2178
+  },
+  {
+   "a": "BRA",
+   "b": "PER",
+   "trade": 1.0,
+   "migration": 0.9759,
+   "neighbor": true,
+   "distance_km": 2534
+  },
+  {
+   "a": "BRA",
+   "b": "PRI",
+   "trade": 0.1767,
+   "migration": 0.0939,
+   "neighbor": false,
+   "distance_km": 3850
+  },
+  {
+   "a": "BRA",
+   "b": "PRY",
+   "trade": 0.996,
+   "migration": 0.9392,
+   "neighbor": true,
+   "distance_km": 1549
+  },
+  {
+   "a": "BRA",
+   "b": "SUR",
+   "trade": 0.4242,
+   "migration": 0.4831,
+   "neighbor": true,
+   "distance_km": 1938
+  },
+  {
+   "a": "BRA",
+   "b": "TTO",
+   "trade": 0.2536,
+   "migration": 0.1215,
+   "neighbor": false,
+   "distance_km": 2858
+  },
+  {
+   "a": "BRA",
+   "b": "URY",
+   "trade": 0.4952,
+   "migration": 0.3438,
+   "neighbor": true,
+   "distance_km": 2410
+  },
+  {
+   "a": "BRA",
+   "b": "VEN",
+   "trade": 0.3864,
+   "migration": 0.5446,
+   "neighbor": true,
+   "distance_km": 2713
+  },
+  {
+   "a": "BRB",
+   "b": "COL",
+   "trade": 0.1222,
+   "migration": 0.0854,
+   "neighbor": false,
+   "distance_km": 1849
+  },
+  {
+   "a": "BRB",
+   "b": "DOM",
+   "trade": 0.1559,
+   "migration": 0.0592,
+   "neighbor": false,
+   "distance_km": 1355
+  },
+  {
+   "a": "BRB",
+   "b": "GUY",
+   "trade": 0.1877,
+   "migration": 0.0709,
+   "neighbor": false,
+   "distance_km": 897
+  },
+  {
+   "a": "BRB",
+   "b": "PRI",
+   "trade": 0.383,
+   "migration": 0.1626,
+   "neighbor": false,
+   "distance_km": 930
+  },
+  {
+   "a": "BRB",
+   "b": "TTO",
+   "trade": 0.836,
+   "migration": 0.4169,
+   "neighbor": false,
+   "distance_km": 282
+  },
+  {
+   "a": "BRB",
+   "b": "USA",
+   "trade": 0.0609,
+   "migration": 0.0344,
+   "neighbor": false,
+   "distance_km": 4724
+  },
+  {
+   "a": "BRB",
+   "b": "VEN",
+   "trade": 0.1796,
+   "migration": 0.1944,
+   "neighbor": false,
+   "distance_km": 863
+  },
+  {
+   "a": "BRN",
+   "b": "CHN",
+   "trade": 0.0179,
+   "migration": 0.0261,
+   "neighbor": false,
+   "distance_km": 3234
+  },
+  {
+   "a": "BRN",
+   "b": "HKG",
+   "trade": 0.0177,
+   "migration": 0.0097,
+   "neighbor": false,
+   "distance_km": 2002
+  },
+  {
+   "a": "BRN",
+   "b": "IDN",
+   "trade": 0.0307,
+   "migration": 0.0555,
+   "neighbor": false,
+   "distance_km": 1529
+  },
+  {
+   "a": "BRN",
+   "b": "MYS",
+   "trade": 0.8157,
+   "migration": 0.7039,
+   "neighbor": true,
+   "distance_km": 228
+  },
+  {
+   "a": "BRN",
+   "b": "PHL",
+   "trade": 0.0755,
+   "migration": 0.1142,
+   "neighbor": false,
+   "distance_km": 1150
+  },
+  {
+   "a": "BRN",
+   "b": "SGP",
+   "trade": 0.0687,
+   "migration": 0.0226,
+   "neighbor": false,
+   "distance_km": 1240
+  },
+  {
+   "a": "BRN",
+   "b": "THA",
+   "trade": 0.034,
+   "migration": 0.0262,
+   "neighbor": false,
+   "distance_km": 1916
+  },
+  {
+   "a": "BRN",
+   "b": "TWN",
+   "trade": 0.0286,
+   "migration": 0.0225,
+   "neighbor": false,
+   "distance_km": 2240
+  },
+  {
+   "a": "BTN",
+   "b": "CHN",
+   "trade": 0.1375,
+   "migration": 0.21,
+   "neighbor": true,
+   "distance_km": 1661
+  },
+  {
+   "a": "BTN",
+   "b": "HKG",
+   "trade": 0.0116,
+   "migration": 0.0081,
+   "neighbor": false,
+   "distance_km": 2485
+  },
+  {
+   "a": "BTN",
+   "b": "IND",
+   "trade": 0.222,
+   "migration": 0.266,
+   "neighbor": true,
+   "distance_km": 1202
+  },
+  {
+   "a": "BTN",
+   "b": "MMR",
+   "trade": 0.0197,
+   "migration": 0.0449,
+   "neighbor": false,
+   "distance_km": 883
+  },
+  {
+   "a": "BTN",
+   "b": "NPL",
+   "trade": 0.0212,
+   "migration": 0.0374,
+   "neighbor": false,
+   "distance_km": 634
+  },
+  {
+   "a": "BTN",
+   "b": "SGP",
+   "trade": 0.0154,
+   "migration": 0.0059,
+   "neighbor": false,
+   "distance_km": 3259
+  },
+  {
+   "a": "BTN",
+   "b": "THA",
+   "trade": 0.0312,
+   "migration": 0.0285,
+   "neighbor": false,
+   "distance_km": 1760
+  },
+  {
+   "a": "BTN",
+   "b": "VNM",
+   "trade": 0.0155,
+   "migration": 0.0186,
+   "neighbor": false,
+   "distance_km": 1679
+  },
+  {
+   "a": "BWA",
+   "b": "COD",
+   "trade": 0.0498,
+   "migration": 0.0503,
+   "neighbor": false,
+   "distance_km": 2252
+  },
+  {
+   "a": "BWA",
+   "b": "LSO",
+   "trade": 0.0301,
+   "migration": 0.039,
+   "neighbor": false,
+   "distance_km": 916
+  },
+  {
+   "a": "BWA",
+   "b": "NAM",
+   "trade": 0.3319,
+   "migration": 0.3065,
+   "neighbor": true,
+   "distance_km": 752
+  },
+  {
+   "a": "BWA",
+   "b": "SWZ",
+   "trade": 0.0437,
+   "migration": 0.0513,
+   "neighbor": false,
+   "distance_km": 887
+  },
+  {
+   "a": "BWA",
+   "b": "ZAF",
+   "trade": 0.9812,
+   "migration": 0.7704,
+   "neighbor": true,
+   "distance_km": 847
+  },
+  {
+   "a": "BWA",
+   "b": "ZMB",
+   "trade": 0.3832,
+   "migration": 0.3776,
+   "neighbor": true,
+   "distance_km": 860
+  },
+  {
+   "a": "BWA",
+   "b": "ZWE",
+   "trade": 0.4174,
+   "migration": 0.4529,
+   "neighbor": true,
+   "distance_km": 696
+  },
+  {
+   "a": "CAF",
+   "b": "CMR",
+   "trade": 0.2478,
+   "migration": 0.2637,
+   "neighbor": true,
+   "distance_km": 970
+  },
+  {
+   "a": "CAF",
+   "b": "COD",
+   "trade": 0.4907,
+   "migration": 0.5863,
+   "neighbor": true,
+   "distance_km": 1024
+  },
+  {
+   "a": "CAF",
+   "b": "COG",
+   "trade": 0.255,
+   "migration": 0.2591,
+   "neighbor": true,
+   "distance_km": 942
+  },
+  {
+   "a": "CAF",
+   "b": "DEU",
+   "trade": 0.0067,
+   "migration": 0.0111,
+   "neighbor": false,
+   "distance_km": 4998
+  },
+  {
+   "a": "CAF",
+   "b": "NGA",
+   "trade": 0.0747,
+   "migration": 0.124,
+   "neighbor": false,
+   "distance_km": 1500
+  },
+  {
+   "a": "CAF",
+   "b": "SDN",
+   "trade": 0.1265,
+   "migration": 0.2884,
+   "neighbor": true,
+   "distance_km": 1380
+  },
+  {
+   "a": "CAF",
+   "b": "SDS",
+   "trade": 0.2048,
+   "migration": 0.2633,
+   "neighbor": true,
+   "distance_km": 1047
+  },
+  {
+   "a": "CAF",
+   "b": "TCD",
+   "trade": 0.2708,
+   "migration": 0.3991,
+   "neighbor": true,
+   "distance_km": 940
+  },
+  {
+   "a": "CAN",
+   "b": "CHN",
+   "trade": 0.0115,
+   "migration": 0.0232,
+   "neighbor": false,
+   "distance_km": 9376
+  },
+  {
+   "a": "CAN",
+   "b": "DEU",
+   "trade": 0.013,
+   "migration": 0.0163,
+   "neighbor": false,
+   "distance_km": 6220
+  },
+  {
+   "a": "CAN",
+   "b": "FRA",
+   "trade": 0.0121,
+   "migration": 0.0139,
+   "neighbor": false,
+   "distance_km": 6317
+  },
+  {
+   "a": "CAN",
+   "b": "GBR",
+   "trade": 0.015,
+   "migration": 0.0271,
+   "neighbor": false,
+   "distance_km": 5437
+  },
+  {
+   "a": "CAN",
+   "b": "IRL",
+   "trade": 0.016,
+   "migration": 0.0088,
+   "neighbor": false,
+   "distance_km": 5302
+  },
+  {
+   "a": "CAN",
+   "b": "MEX",
+   "trade": 0.0333,
+   "migration": 0.0463,
+   "neighbor": false,
+   "distance_km": 4048
+  },
+  {
+   "a": "CAN",
+   "b": "NLD",
+   "trade": 0.011,
+   "migration": 0.0078,
+   "neighbor": false,
+   "distance_km": 5926
+  },
+  {
+   "a": "CAN",
+   "b": "USA",
+   "trade": 0.8071,
+   "migration": 0.7616,
+   "neighbor": true,
+   "distance_km": 2332
+  },
+  {
+   "a": "CHE",
+   "b": "CZE",
+   "trade": 0.0818,
+   "migration": 0.0746,
+   "neighbor": false,
+   "distance_km": 682
+  },
+  {
+   "a": "CHE",
+   "b": "DEU",
+   "trade": 0.8087,
+   "migration": 0.7509,
+   "neighbor": true,
+   "distance_km": 499
+  },
+  {
+   "a": "CHE",
+   "b": "DNK",
+   "trade": 0.0621,
+   "migration": 0.0452,
+   "neighbor": false,
+   "distance_km": 1034
+  },
+  {
+   "a": "CHE",
+   "b": "DZA",
+   "trade": 0.0556,
+   "migration": 0.0568,
+   "neighbor": false,
+   "distance_km": 2187
+  },
+  {
+   "a": "CHE",
+   "b": "ESP",
+   "trade": 0.1037,
+   "migration": 0.0982,
+   "neighbor": false,
+   "distance_km": 1148
+  },
+  {
+   "a": "CHE",
+   "b": "FRA",
+   "trade": 0.9738,
+   "migration": 0.8707,
+   "neighbor": true,
+   "distance_km": 374
+  },
+  {
+   "a": "CHE",
+   "b": "GBR",
+   "trade": 0.0909,
+   "migration": 0.1294,
+   "neighbor": false,
+   "distance_km": 1088
+  },
+  {
+   "a": "CHE",
+   "b": "GMB",
+   "trade": 0.0052,
+   "migration": 0.0044,
+   "neighbor": false,
+   "distance_km": 4232
+  },
+  {
+   "a": "CHE",
+   "b": "GNB",
+   "trade": 0.0056,
+   "migration": 0.005,
+   "neighbor": false,
+   "distance_km": 4360
+  },
+  {
+   "a": "CHE",
+   "b": "GRC",
+   "trade": 0.0735,
+   "migration": 0.0569,
+   "neighbor": false,
+   "distance_km": 1406
+  },
+  {
+   "a": "CHE",
+   "b": "HRV",
+   "trade": 0.0908,
+   "migration": 0.0965,
+   "neighbor": false,
+   "distance_km": 692
+  },
+  {
+   "a": "CHE",
+   "b": "IRL",
+   "trade": 0.0577,
+   "migration": 0.0308,
+   "neighbor": false,
+   "distance_km": 1298
+  },
+  {
+   "a": "CHE",
+   "b": "ITA",
+   "trade": 0.9123,
+   "migration": 0.9523,
+   "neighbor": true,
+   "distance_km": 357
+  },
+  {
+   "a": "CHE",
+   "b": "LBY",
+   "trade": 0.0341,
+   "migration": 0.0231,
+   "neighbor": false,
+   "distance_km": 2418
+  },
+  {
+   "a": "CHE",
+   "b": "LUX",
+   "trade": 0.1084,
+   "migration": 0.0769,
+   "neighbor": false,
+   "distance_km": 351
+  },
+  {
+   "a": "CHE",
+   "b": "MAR",
+   "trade": 0.0611,
+   "migration": 0.0547,
+   "neighbor": false,
+   "distance_km": 2091
+  },
+  {
+   "a": "CHE",
+   "b": "MLT",
+   "trade": 0.0821,
+   "migration": 0.0575,
+   "neighbor": false,
+   "distance_km": 1336
+  },
+  {
+   "a": "CHE",
+   "b": "MNE",
+   "trade": 0.0417,
+   "migration": 0.0361,
+   "neighbor": false,
+   "distance_km": 1018
+  },
+  {
+   "a": "CHE",
+   "b": "NGA",
+   "trade": 0.0313,
+   "migration": 0.0232,
+   "neighbor": false,
+   "distance_km": 4145
+  },
+  {
+   "a": "CHE",
+   "b": "NLD",
+   "trade": 0.1101,
+   "migration": 0.0837,
+   "neighbor": false,
+   "distance_km": 648
+  },
+  {
+   "a": "CHE",
+   "b": "PRT",
+   "trade": 0.0409,
+   "migration": 0.0301,
+   "neighbor": false,
+   "distance_km": 1497
+  },
+  {
+   "a": "CHE",
+   "b": "SAH",
+   "trade": 0.0076,
+   "migration": 0.0101,
+   "neighbor": false,
+   "distance_km": 3098
+  },
+  {
+   "a": "CHE",
+   "b": "SVK",
+   "trade": 0.0713,
+   "migration": 0.0622,
+   "neighbor": false,
+   "distance_km": 894
+  },
+  {
+   "a": "CHE",
+   "b": "SVN",
+   "trade": 0.0749,
+   "migration": 0.0668,
+   "neighbor": false,
+   "distance_km": 576
+  },
+  {
+   "a": "CHE",
+   "b": "TCD",
+   "trade": 0.0177,
+   "migration": 0.0142,
+   "neighbor": false,
+   "distance_km": 3661
+  },
+  {
+   "a": "CHE",
+   "b": "TUN",
+   "trade": 0.0691,
+   "migration": 0.0649,
+   "neighbor": false,
+   "distance_km": 1455
+  },
+  {
+   "a": "CHL",
+   "b": "MEX",
+   "trade": 0.0095,
+   "migration": 0.0089,
+   "neighbor": false,
+   "distance_km": 7577
+  },
+  {
+   "a": "CHL",
+   "b": "PER",
+   "trade": 0.2947,
+   "migration": 0.2245,
+   "neighbor": true,
+   "distance_km": 2800
+  },
+  {
+   "a": "CHL",
+   "b": "PRY",
+   "trade": 0.0505,
+   "migration": 0.0514,
+   "neighbor": false,
+   "distance_km": 2171
+  },
+  {
+   "a": "CHL",
+   "b": "URY",
+   "trade": 0.0775,
+   "migration": 0.0611,
+   "neighbor": false,
+   "distance_km": 1585
+  },
+  {
+   "a": "CHL",
+   "b": "USA",
+   "trade": 0.0177,
+   "migration": 0.0153,
+   "neighbor": false,
+   "distance_km": 9012
+  },
+  {
+   "a": "CHN",
+   "b": "FJI",
+   "trade": 0.0198,
+   "migration": 0.0252,
+   "neighbor": false,
+   "distance_km": 9443
+  },
+  {
+   "a": "CHN",
+   "b": "HKG",
+   "trade": 1.0,
+   "migration": 0.8307,
+   "neighbor": true,
+   "distance_km": 1353
+  },
+  {
+   "a": "CHN",
+   "b": "IDN",
+   "trade": 0.0391,
+   "migration": 0.1242,
+   "neighbor": false,
+   "distance_km": 3749
+  },
+  {
+   "a": "CHN",
+   "b": "IND",
+   "trade": 0.4514,
+   "migration": 0.7442,
+   "neighbor": true,
+   "distance_km": 2863
+  },
+  {
+   "a": "CHN",
+   "b": "JPN",
+   "trade": 0.1467,
+   "migration": 0.2769,
+   "neighbor": false,
+   "distance_km": 2963
+  },
+  {
+   "a": "CHN",
+   "b": "KAZ",
+   "trade": 0.21,
+   "migration": 0.2719,
+   "neighbor": true,
+   "distance_km": 3613
+  },
+  {
+   "a": "CHN",
+   "b": "KGZ",
+   "trade": 0.1497,
+   "migration": 0.2275,
+   "neighbor": true,
+   "distance_km": 2980
+  },
+  {
+   "a": "CHN",
+   "b": "KHM",
+   "trade": 0.0544,
+   "migration": 0.0944,
+   "neighbor": false,
+   "distance_km": 2215
+  },
+  {
+   "a": "CHN",
+   "b": "KOR",
+   "trade": 0.2511,
+   "migration": 0.1971,
+   "neighbor": false,
+   "distance_km": 2040
+  },
+  {
+   "a": "CHN",
+   "b": "LAO",
+   "trade": 0.1819,
+   "migration": 0.3872,
+   "neighbor": true,
+   "distance_km": 1501
+  },
+  {
+   "a": "CHN",
+   "b": "LKA",
+   "trade": 0.0539,
+   "migration": 0.0766,
+   "neighbor": false,
+   "distance_km": 3830
+  },
+  {
+   "a": "CHN",
+   "b": "LSO",
+   "trade": 0.0023,
+   "migration": 0.0033,
+   "neighbor": false,
+   "distance_km": 10728
+  },
+  {
+   "a": "CHN",
+   "b": "MAC",
+   "trade": 0.3769,
+   "migration": 0.5191,
+   "neighbor": true,
+   "distance_km": 1355
+  },
+  {
+   "a": "CHN",
+   "b": "MDG",
+   "trade": 0.021,
+   "migration": 0.0352,
+   "neighbor": false,
+   "distance_km": 8513
+  },
+  {
+   "a": "CHN",
+   "b": "MDV",
+   "trade": 0.0384,
+   "migration": 0.0339,
+   "neighbor": false,
+   "distance_km": 4644
+  },
+  {
+   "a": "CHN",
+   "b": "MMR",
+   "trade": 0.2673,
+   "migration": 0.6362,
+   "neighbor": true,
+   "distance_km": 1599
+  },
+  {
+   "a": "CHN",
+   "b": "MNG",
+   "trade": 0.2863,
+   "migration": 0.3689,
+   "neighbor": true,
+   "distance_km": 1513
+  },
+  {
+   "a": "CHN",
+   "b": "MUS",
+   "trade": 0.0352,
+   "migration": 0.0209,
+   "neighbor": false,
+   "distance_km": 7832
+  },
+  {
+   "a": "CHN",
+   "b": "MYS",
+   "trade": 0.0808,
+   "migration": 0.0979,
+   "neighbor": false,
+   "distance_km": 3423
+  },
+  {
+   "a": "CHN",
+   "b": "NCL",
+   "trade": 0.0134,
+   "migration": 0.0317,
+   "neighbor": false,
+   "distance_km": 8625
+  },
+  {
+   "a": "CHN",
+   "b": "NPL",
+   "trade": 0.1281,
+   "migration": 0.2158,
+   "neighbor": true,
+   "distance_km": 2222
+  },
+  {
+   "a": "CHN",
+   "b": "NZL",
+   "trade": 0.028,
+   "migration": 0.056,
+   "neighbor": false,
+   "distance_km": 10547
+  },
+  {
+   "a": "CHN",
+   "b": "OMN",
+   "trade": 0.0132,
+   "migration": 0.0303,
+   "neighbor": false,
+   "distance_km": 4933
+  },
+  {
+   "a": "CHN",
+   "b": "PAK",
+   "trade": 0.1256,
+   "migration": 0.2344,
+   "neighbor": true,
+   "distance_km": 3604
+  },
+  {
+   "a": "CHN",
+   "b": "PHL",
+   "trade": 0.116,
+   "migration": 0.2652,
+   "neighbor": false,
+   "distance_km": 2886
+  },
+  {
+   "a": "CHN",
+   "b": "PNG",
+   "trade": 0.0418,
+   "migration": 0.0627,
+   "neighbor": false,
+   "distance_km": 5813
+  },
+  {
+   "a": "CHN",
+   "b": "PRK",
+   "trade": 0.1221,
+   "migration": 0.3835,
+   "neighbor": true,
+   "distance_km": 1977
+  },
+  {
+   "a": "CHN",
+   "b": "PYF",
+   "trade": 0.0092,
+   "migration": 0.0173,
+   "neighbor": false,
+   "distance_km": 12353
+  },
+  {
+   "a": "CHN",
+   "b": "RUS",
+   "trade": 0.1413,
+   "migration": 0.2102,
+   "neighbor": true,
+   "distance_km": 5350
+  },
+  {
+   "a": "CHN",
+   "b": "SGP",
+   "trade": 0.1261,
+   "migration": 0.0705,
+   "neighbor": false,
+   "distance_km": 3472
+  },
+  {
+   "a": "CHN",
+   "b": "SLB",
+   "trade": 0.0178,
+   "migration": 0.0316,
+   "neighbor": false,
+   "distance_km": 7179
+  },
+  {
+   "a": "CHN",
+   "b": "SOM",
+   "trade": 0.0129,
+   "migration": 0.0154,
+   "neighbor": false,
+   "distance_km": 7107
+  },
+  {
+   "a": "CHN",
+   "b": "SWZ",
+   "trade": 0.0033,
+   "migration": 0.0046,
+   "neighbor": false,
+   "distance_km": 10282
+  },
+  {
+   "a": "CHN",
+   "b": "THA",
+   "trade": 0.2194,
+   "migration": 0.2723,
+   "neighbor": false,
+   "distance_km": 1968
+  },
+  {
+   "a": "CHN",
+   "b": "TJK",
+   "trade": 0.1174,
+   "migration": 0.2257,
+   "neighbor": true,
+   "distance_km": 3108
+  },
+  {
+   "a": "CHN",
+   "b": "TKM",
+   "trade": 0.0182,
+   "migration": 0.0314,
+   "neighbor": false,
+   "distance_km": 4304
+  },
+  {
+   "a": "CHN",
+   "b": "TLS",
+   "trade": 0.0153,
+   "migration": 0.0314,
+   "neighbor": false,
+   "distance_km": 5038
+  },
+  {
+   "a": "CHN",
+   "b": "TWN",
+   "trade": 0.2579,
+   "migration": 0.5344,
+   "neighbor": false,
+   "distance_km": 1729
+  },
+  {
+   "a": "CHN",
+   "b": "UZB",
+   "trade": 0.039,
+   "migration": 0.0808,
+   "neighbor": false,
+   "distance_km": 3850
+  },
+  {
+   "a": "CHN",
+   "b": "VNM",
+   "trade": 0.8165,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 1203
+  },
+  {
+   "a": "CHN",
+   "b": "VUT",
+   "trade": 0.0118,
+   "migration": 0.0197,
+   "neighbor": false,
+   "distance_km": 8351
+  },
+  {
+   "a": "CHN",
+   "b": "WSM",
+   "trade": 0.0108,
+   "migration": 0.0195,
+   "neighbor": false,
+   "distance_km": 10018
+  },
+  {
+   "a": "CIV",
+   "b": "CPV",
+   "trade": 0.0641,
+   "migration": 0.0565,
+   "neighbor": false,
+   "distance_km": 2142
+  },
+  {
+   "a": "CIV",
+   "b": "DEU",
+   "trade": 0.0115,
+   "migration": 0.0153,
+   "neighbor": false,
+   "distance_km": 5034
+  },
+  {
+   "a": "CIV",
+   "b": "ESP",
+   "trade": 0.0223,
+   "migration": 0.029,
+   "neighbor": false,
+   "distance_km": 3631
+  },
+  {
+   "a": "CIV",
+   "b": "GHA",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 500
+  },
+  {
+   "a": "CIV",
+   "b": "GIN",
+   "trade": 0.7421,
+   "migration": 0.7283,
+   "neighbor": true,
+   "distance_km": 599
+  },
+  {
+   "a": "CIV",
+   "b": "GMB",
+   "trade": 0.0343,
+   "migration": 0.056,
+   "neighbor": false,
+   "distance_km": 1237
+  },
+  {
+   "a": "CIV",
+   "b": "GNB",
+   "trade": 0.0405,
+   "migration": 0.0705,
+   "neighbor": false,
+   "distance_km": 1110
+  },
+  {
+   "a": "CIV",
+   "b": "LBR",
+   "trade": 0.4452,
+   "migration": 0.6707,
+   "neighbor": true,
+   "distance_km": 445
+  },
+  {
+   "a": "CIV",
+   "b": "MLI",
+   "trade": 0.3029,
+   "migration": 0.4031,
+   "neighbor": true,
+   "distance_km": 1303
+  },
+  {
+   "a": "CIV",
+   "b": "NGA",
+   "trade": 0.1362,
+   "migration": 0.2037,
+   "neighbor": false,
+   "distance_km": 1454
+  },
+  {
+   "a": "CIV",
+   "b": "SLE",
+   "trade": 0.0833,
+   "migration": 0.1849,
+   "neighbor": false,
+   "distance_km": 693
+  },
+  {
+   "a": "CIV",
+   "b": "TGO",
+   "trade": 0.072,
+   "migration": 0.1326,
+   "neighbor": false,
+   "distance_km": 744
+  },
+  {
+   "a": "CMR",
+   "b": "COD",
+   "trade": 0.148,
+   "migration": 0.1328,
+   "neighbor": false,
+   "distance_km": 1415
+  },
+  {
+   "a": "CMR",
+   "b": "COG",
+   "trade": 0.6834,
+   "migration": 0.457,
+   "neighbor": true,
+   "distance_km": 624
+  },
+  {
+   "a": "CMR",
+   "b": "DEU",
+   "trade": 0.0111,
+   "migration": 0.0112,
+   "neighbor": false,
+   "distance_km": 5163
+  },
+  {
+   "a": "CMR",
+   "b": "GAB",
+   "trade": 0.8455,
+   "migration": 0.5107,
+   "neighbor": true,
+   "distance_km": 563
+  },
+  {
+   "a": "CMR",
+   "b": "GHA",
+   "trade": 0.0776,
+   "migration": 0.0557,
+   "neighbor": false,
+   "distance_km": 1533
+  },
+  {
+   "a": "CMR",
+   "b": "GNQ",
+   "trade": 0.7694,
+   "migration": 0.4949,
+   "neighbor": true,
+   "distance_km": 461
+  },
+  {
+   "a": "CMR",
+   "b": "NGA",
+   "trade": 1.0,
+   "migration": 0.992,
+   "neighbor": true,
+   "distance_km": 769
+  },
+  {
+   "a": "CMR",
+   "b": "STP",
+   "trade": 0.1153,
+   "migration": 0.0777,
+   "neighbor": false,
+   "distance_km": 727
+  },
+  {
+   "a": "CMR",
+   "b": "TCD",
+   "trade": 0.2932,
+   "migration": 0.2575,
+   "neighbor": true,
+   "distance_km": 1354
+  },
+  {
+   "a": "COD",
+   "b": "COG",
+   "trade": 0.9198,
+   "migration": 0.7408,
+   "neighbor": true,
+   "distance_km": 869
+  },
+  {
+   "a": "COD",
+   "b": "GAB",
+   "trade": 0.1673,
+   "migration": 0.1444,
+   "neighbor": false,
+   "distance_km": 1302
+  },
+  {
+   "a": "COD",
+   "b": "GNQ",
+   "trade": 0.0967,
+   "migration": 0.0782,
+   "neighbor": false,
+   "distance_km": 1675
+  },
+  {
+   "a": "COD",
+   "b": "KEN",
+   "trade": 0.1666,
+   "migration": 0.1448,
+   "neighbor": false,
+   "distance_km": 1629
+  },
+  {
+   "a": "COD",
+   "b": "MWI",
+   "trade": 0.0873,
+   "migration": 0.1095,
+   "neighbor": false,
+   "distance_km": 1700
+  },
+  {
+   "a": "COD",
+   "b": "NAM",
+   "trade": 0.0646,
+   "migration": 0.0684,
+   "neighbor": false,
+   "distance_km": 2192
+  },
+  {
+   "a": "COD",
+   "b": "RWA",
+   "trade": 0.896,
+   "migration": 0.8235,
+   "neighbor": true,
+   "distance_km": 739
+  },
+  {
+   "a": "COD",
+   "b": "SDS",
+   "trade": 0.5625,
+   "migration": 0.5187,
+   "neighbor": true,
+   "distance_km": 1270
+  },
+  {
+   "a": "COD",
+   "b": "TZA",
+   "trade": 0.7916,
+   "migration": 0.7234,
+   "neighbor": true,
+   "distance_km": 1358
+  },
+  {
+   "a": "COD",
+   "b": "UGA",
+   "trade": 0.7786,
+   "migration": 0.7636,
+   "neighbor": true,
+   "distance_km": 1138
+  },
+  {
+   "a": "COD",
+   "b": "ZMB",
+   "trade": 0.6175,
+   "migration": 0.555,
+   "neighbor": true,
+   "distance_km": 1460
+  },
+  {
+   "a": "COD",
+   "b": "ZWE",
+   "trade": 0.0894,
+   "migration": 0.1044,
+   "neighbor": false,
+   "distance_km": 2023
+  },
+  {
+   "a": "COG",
+   "b": "DEU",
+   "trade": 0.0085,
+   "migration": 0.0083,
+   "neighbor": false,
+   "distance_km": 5681
+  },
+  {
+   "a": "COG",
+   "b": "FRA",
+   "trade": 0.0092,
+   "migration": 0.0079,
+   "neighbor": false,
+   "distance_km": 5337
+  },
+  {
+   "a": "COG",
+   "b": "GAB",
+   "trade": 0.8834,
+   "migration": 0.5631,
+   "neighbor": true,
+   "distance_km": 457
+  },
+  {
+   "a": "COG",
+   "b": "GNQ",
+   "trade": 0.1085,
+   "migration": 0.0806,
+   "neighbor": false,
+   "distance_km": 806
+  },
+  {
+   "a": "COG",
+   "b": "NGA",
+   "trade": 0.1511,
+   "migration": 0.1421,
+   "neighbor": false,
+   "distance_km": 1390
+  },
+  {
+   "a": "COL",
+   "b": "CRI",
+   "trade": 0.1223,
+   "migration": 0.136,
+   "neighbor": false,
+   "distance_km": 1415
+  },
+  {
+   "a": "COL",
+   "b": "CUB",
+   "trade": 0.1507,
+   "migration": 0.1577,
+   "neighbor": false,
+   "distance_km": 2064
+  },
+  {
+   "a": "COL",
+   "b": "DOM",
+   "trade": 0.1197,
+   "migration": 0.0803,
+   "neighbor": false,
+   "distance_km": 1771
+  },
+  {
+   "a": "COL",
+   "b": "ECU",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 759
+  },
+  {
+   "a": "COL",
+   "b": "GUY",
+   "trade": 0.143,
+   "migration": 0.0644,
+   "neighbor": false,
+   "distance_km": 1590
+  },
+  {
+   "a": "COL",
+   "b": "HTI",
+   "trade": 0.0355,
+   "migration": 0.0658,
+   "neighbor": false,
+   "distance_km": 1770
+  },
+  {
+   "a": "COL",
+   "b": "JAM",
+   "trade": 0.1132,
+   "migration": 0.1285,
+   "neighbor": false,
+   "distance_km": 1703
+  },
+  {
+   "a": "COL",
+   "b": "MEX",
+   "trade": 0.0362,
+   "migration": 0.0426,
+   "neighbor": false,
+   "distance_km": 3870
+  },
+  {
+   "a": "COL",
+   "b": "PAN",
+   "trade": 0.7806,
+   "migration": 0.6584,
+   "neighbor": true,
+   "distance_km": 992
+  },
+  {
+   "a": "COL",
+   "b": "PER",
+   "trade": 0.6167,
+   "migration": 0.643,
+   "neighbor": true,
+   "distance_km": 1818
+  },
+  {
+   "a": "COL",
+   "b": "PRI",
+   "trade": 0.2139,
+   "migration": 0.1274,
+   "neighbor": false,
+   "distance_km": 1806
+  },
+  {
+   "a": "COL",
+   "b": "PRY",
+   "trade": 0.0339,
+   "migration": 0.0392,
+   "neighbor": false,
+   "distance_km": 3125
+  },
+  {
+   "a": "COL",
+   "b": "SUR",
+   "trade": 0.0409,
+   "migration": 0.062,
+   "neighbor": false,
+   "distance_km": 1917
+  },
+  {
+   "a": "COL",
+   "b": "TTO",
+   "trade": 0.2249,
+   "migration": 0.1186,
+   "neighbor": false,
+   "distance_km": 1595
+  },
+  {
+   "a": "COL",
+   "b": "USA",
+   "trade": 0.0559,
+   "migration": 0.073,
+   "neighbor": false,
+   "distance_km": 4709
+  },
+  {
+   "a": "COL",
+   "b": "VEN",
+   "trade": 0.5362,
+   "migration": 0.9183,
+   "neighbor": true,
+   "distance_km": 1039
+  },
+  {
+   "a": "COM",
+   "b": "KEN",
+   "trade": 0.0875,
+   "migration": 0.0703,
+   "neighbor": false,
+   "distance_km": 1490
+  },
+  {
+   "a": "COM",
+   "b": "MDG",
+   "trade": 0.3377,
+   "migration": 0.3813,
+   "neighbor": false,
+   "distance_km": 849
+  },
+  {
+   "a": "COM",
+   "b": "MOZ",
+   "trade": 0.2277,
+   "migration": 0.2192,
+   "neighbor": false,
+   "distance_km": 643
+  },
+  {
+   "a": "COM",
+   "b": "SAU",
+   "trade": 0.0199,
+   "migration": 0.0297,
+   "neighbor": false,
+   "distance_km": 3954
+  },
+  {
+   "a": "COM",
+   "b": "SGP",
+   "trade": 0.0194,
+   "migration": 0.0048,
+   "neighbor": false,
+   "distance_km": 6838
+  },
+  {
+   "a": "COM",
+   "b": "TZA",
+   "trade": 0.1183,
+   "migration": 0.1358,
+   "neighbor": false,
+   "distance_km": 1114
+  },
+  {
+   "a": "COM",
+   "b": "ZAF",
+   "trade": 0.0763,
+   "migration": 0.0546,
+   "neighbor": false,
+   "distance_km": 2850
+  },
+  {
+   "a": "CPV",
+   "b": "DEU",
+   "trade": 0.0177,
+   "migration": 0.0159,
+   "neighbor": false,
+   "distance_km": 4976
+  },
+  {
+   "a": "CPV",
+   "b": "ESP",
+   "trade": 0.0381,
+   "migration": 0.0331,
+   "neighbor": false,
+   "distance_km": 3401
+  },
+  {
+   "a": "CPV",
+   "b": "FRA",
+   "trade": 0.0222,
+   "migration": 0.0175,
+   "neighbor": false,
+   "distance_km": 4272
+  },
+  {
+   "a": "CPV",
+   "b": "GBR",
+   "trade": 0.0178,
+   "migration": 0.022,
+   "neighbor": false,
+   "distance_km": 4753
+  },
+  {
+   "a": "CPV",
+   "b": "GMB",
+   "trade": 0.0731,
+   "migration": 0.0794,
+   "neighbor": false,
+   "distance_km": 944
+  },
+  {
+   "a": "CPV",
+   "b": "IRL",
+   "trade": 0.0179,
+   "migration": 0.008,
+   "neighbor": false,
+   "distance_km": 4449
+  },
+  {
+   "a": "CPV",
+   "b": "NGA",
+   "trade": 0.0671,
+   "migration": 0.0467,
+   "neighbor": false,
+   "distance_km": 3438
+  },
+  {
+   "a": "CPV",
+   "b": "NLD",
+   "trade": 0.0132,
+   "migration": 0.007,
+   "neighbor": false,
+   "distance_km": 4888
+  },
+  {
+   "a": "CPV",
+   "b": "SEN",
+   "trade": 0.2184,
+   "migration": 0.158,
+   "neighbor": false,
+   "distance_km": 951
+  },
+  {
+   "a": "CPV",
+   "b": "USA",
+   "trade": 0.0288,
+   "migration": 0.0195,
+   "neighbor": false,
+   "distance_km": 7574
+  },
+  {
+   "a": "CRI",
+   "b": "CUB",
+   "trade": 0.1445,
+   "migration": 0.1538,
+   "neighbor": false,
+   "distance_km": 1412
+  },
+  {
+   "a": "CRI",
+   "b": "ECU",
+   "trade": 0.0797,
+   "migration": 0.0758,
+   "neighbor": false,
+   "distance_km": 1418
+  },
+  {
+   "a": "CRI",
+   "b": "GTM",
+   "trade": 0.1149,
+   "migration": 0.1532,
+   "neighbor": false,
+   "distance_km": 885
+  },
+  {
+   "a": "CRI",
+   "b": "HND",
+   "trade": 0.1603,
+   "migration": 0.1972,
+   "neighbor": false,
+   "distance_km": 608
+  },
+  {
+   "a": "CRI",
+   "b": "JAM",
+   "trade": 0.113,
+   "migration": 0.1227,
+   "neighbor": false,
+   "distance_km": 1156
+  },
+  {
+   "a": "CRI",
+   "b": "MEX",
+   "trade": 0.0454,
+   "migration": 0.0496,
+   "neighbor": false,
+   "distance_km": 2469
+  },
+  {
+   "a": "CRI",
+   "b": "NIC",
+   "trade": 0.8157,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 309
+  },
+  {
+   "a": "CRI",
+   "b": "PAN",
+   "trade": 1.0,
+   "migration": 0.8562,
+   "neighbor": true,
+   "distance_km": 435
+  },
+  {
+   "a": "CRI",
+   "b": "SLV",
+   "trade": 0.1251,
+   "migration": 0.1282,
+   "neighbor": false,
+   "distance_km": 660
+  },
+  {
+   "a": "CRI",
+   "b": "USA",
+   "trade": 0.0674,
+   "migration": 0.0611,
+   "neighbor": false,
+   "distance_km": 3536
+  },
+  {
+   "a": "CUB",
+   "b": "DOM",
+   "trade": 0.4009,
+   "migration": 0.2662,
+   "neighbor": false,
+   "distance_km": 803
+  },
+  {
+   "a": "CUB",
+   "b": "ECU",
+   "trade": 0.0691,
+   "migration": 0.0624,
+   "neighbor": false,
+   "distance_km": 2512
+  },
+  {
+   "a": "CUB",
+   "b": "GTM",
+   "trade": 0.1232,
+   "migration": 0.1413,
+   "neighbor": false,
+   "distance_km": 1499
+  },
+  {
+   "a": "CUB",
+   "b": "HND",
+   "trade": 0.1464,
+   "migration": 0.1624,
+   "neighbor": false,
+   "distance_km": 1189
+  },
+  {
+   "a": "CUB",
+   "b": "HTI",
+   "trade": 0.1983,
+   "migration": 0.2684,
+   "neighbor": false,
+   "distance_km": 642
+  },
+  {
+   "a": "CUB",
+   "b": "JAM",
+   "trade": 0.5918,
+   "migration": 0.873,
+   "neighbor": false,
+   "distance_km": 362
+  },
+  {
+   "a": "CUB",
+   "b": "MEX",
+   "trade": 0.0823,
+   "migration": 0.094,
+   "neighbor": false,
+   "distance_km": 2509
+  },
+  {
+   "a": "CUB",
+   "b": "NIC",
+   "trade": 0.111,
+   "migration": 0.1414,
+   "neighbor": false,
+   "distance_km": 1223
+  },
+  {
+   "a": "CUB",
+   "b": "PAN",
+   "trade": 0.1422,
+   "migration": 0.1473,
+   "neighbor": false,
+   "distance_km": 1425
+  },
+  {
+   "a": "CUB",
+   "b": "PRI",
+   "trade": 0.3793,
+   "migration": 0.2419,
+   "neighbor": false,
+   "distance_km": 1251
+  },
+  {
+   "a": "CUB",
+   "b": "SLV",
+   "trade": 0.0979,
+   "migration": 0.0888,
+   "neighbor": false,
+   "distance_km": 1435
+  },
+  {
+   "a": "CUB",
+   "b": "USA",
+   "trade": 0.2152,
+   "migration": 0.2152,
+   "neighbor": false,
+   "distance_km": 2743
+  },
+  {
+   "a": "CUB",
+   "b": "VEN",
+   "trade": 0.0841,
+   "migration": 0.1127,
+   "neighbor": false,
+   "distance_km": 2131
+  },
+  {
+   "a": "CYN",
+   "b": "CYP",
+   "trade": 0.7035,
+   "migration": 0.7429,
+   "neighbor": true,
+   "distance_km": 65
+  },
+  {
+   "a": "CYN",
+   "b": "DEU",
+   "trade": 0.0103,
+   "migration": 0.0157,
+   "neighbor": false,
+   "distance_km": 2599
+  },
+  {
+   "a": "CYN",
+   "b": "IRQ",
+   "trade": 0.0403,
+   "migration": 0.0543,
+   "neighbor": false,
+   "distance_km": 911
+  },
+  {
+   "a": "CYN",
+   "b": "ISR",
+   "trade": 0.0692,
+   "migration": 0.0671,
+   "neighbor": false,
+   "distance_km": 491
+  },
+  {
+   "a": "CYN",
+   "b": "ITA",
+   "trade": 0.0116,
+   "migration": 0.0179,
+   "neighbor": false,
+   "distance_km": 2188
+  },
+  {
+   "a": "CYN",
+   "b": "JOR",
+   "trade": 0.0338,
+   "migration": 0.0949,
+   "neighbor": false,
+   "distance_km": 551
+  },
+  {
+   "a": "CYN",
+   "b": "LBN",
+   "trade": 0.0496,
+   "migration": 0.1365,
+   "neighbor": false,
+   "distance_km": 242
+  },
+  {
+   "a": "CYN",
+   "b": "SAU",
+   "trade": 0.0231,
+   "migration": 0.0507,
+   "neighbor": false,
+   "distance_km": 1654
+  },
+  {
+   "a": "CYN",
+   "b": "TUR",
+   "trade": 0.1487,
+   "migration": 0.1945,
+   "neighbor": false,
+   "distance_km": 465
+  },
+  {
+   "a": "CYP",
+   "b": "DEU",
+   "trade": 0.041,
+   "migration": 0.0292,
+   "neighbor": false,
+   "distance_km": 2590
+  },
+  {
+   "a": "CYP",
+   "b": "IRQ",
+   "trade": 0.1512,
+   "migration": 0.1056,
+   "neighbor": false,
+   "distance_km": 959
+  },
+  {
+   "a": "CYP",
+   "b": "ISR",
+   "trade": 0.3012,
+   "migration": 0.1268,
+   "neighbor": false,
+   "distance_km": 474
+  },
+  {
+   "a": "CYP",
+   "b": "ITA",
+   "trade": 0.0486,
+   "migration": 0.0351,
+   "neighbor": false,
+   "distance_km": 2163
+  },
+  {
+   "a": "CYP",
+   "b": "JOR",
+   "trade": 0.1179,
+   "migration": 0.1641,
+   "neighbor": false,
+   "distance_km": 551
+  },
+  {
+   "a": "CYP",
+   "b": "LBN",
+   "trade": 0.181,
+   "migration": 0.2243,
+   "neighbor": false,
+   "distance_km": 280
+  },
+  {
+   "a": "CYP",
+   "b": "PSX",
+   "trade": 0.109,
+   "migration": 0.108,
+   "neighbor": false,
+   "distance_km": 379
+  },
+  {
+   "a": "CYP",
+   "b": "SAU",
+   "trade": 0.0955,
+   "migration": 0.0872,
+   "neighbor": false,
+   "distance_km": 1668
+  },
+  {
+   "a": "CYP",
+   "b": "SYR",
+   "trade": 0.1232,
+   "migration": 0.183,
+   "neighbor": false,
+   "distance_km": 473
+  },
+  {
+   "a": "CYP",
+   "b": "TUR",
+   "trade": 0.5956,
+   "migration": 0.3484,
+   "neighbor": false,
+   "distance_km": 509
+  },
+  {
+   "a": "CZE",
+   "b": "DEU",
+   "trade": 0.6439,
+   "migration": 0.7392,
+   "neighbor": true,
+   "distance_km": 421
+  },
+  {
+   "a": "CZE",
+   "b": "FRA",
+   "trade": 0.0717,
+   "migration": 0.0781,
+   "neighbor": false,
+   "distance_km": 1011
+  },
+  {
+   "a": "CZE",
+   "b": "ITA",
+   "trade": 0.1004,
+   "migration": 0.1366,
+   "neighbor": false,
+   "distance_km": 658
+  },
+  {
+   "a": "CZE",
+   "b": "LTU",
+   "trade": 0.0514,
+   "migration": 0.049,
+   "neighbor": false,
+   "distance_km": 827
+  },
+  {
+   "a": "CZE",
+   "b": "NLD",
+   "trade": 0.0703,
+   "migration": 0.059,
+   "neighbor": false,
+   "distance_km": 737
+  },
+  {
+   "a": "CZE",
+   "b": "POL",
+   "trade": 0.5558,
+   "migration": 0.5123,
+   "neighbor": true,
+   "distance_km": 371
+  },
+  {
+   "a": "CZE",
+   "b": "SVK",
+   "trade": 0.493,
+   "migration": 0.429,
+   "neighbor": true,
+   "distance_km": 295
+  },
+  {
+   "a": "CZE",
+   "b": "SVN",
+   "trade": 0.0679,
+   "migration": 0.073,
+   "neighbor": false,
+   "distance_km": 426
+  },
+  {
+   "a": "DEU",
+   "b": "DNK",
+   "trade": 0.6054,
+   "migration": 0.5804,
+   "neighbor": true,
+   "distance_km": 558
+  },
+  {
+   "a": "DEU",
+   "b": "DZA",
+   "trade": 0.0459,
+   "migration": 0.0779,
+   "neighbor": false,
+   "distance_km": 2684
+  },
+  {
+   "a": "DEU",
+   "b": "EGY",
+   "trade": 0.0276,
+   "migration": 0.0553,
+   "neighbor": false,
+   "distance_km": 3224
+  },
+  {
+   "a": "DEU",
+   "b": "ESP",
+   "trade": 0.0845,
+   "migration": 0.1274,
+   "neighbor": false,
+   "distance_km": 1579
+  },
+  {
+   "a": "DEU",
+   "b": "EST",
+   "trade": 0.0669,
+   "migration": 0.0679,
+   "neighbor": false,
+   "distance_km": 1343
+  },
+  {
+   "a": "DEU",
+   "b": "FIN",
+   "trade": 0.0516,
+   "migration": 0.0636,
+   "neighbor": false,
+   "distance_km": 1719
+  },
+  {
+   "a": "DEU",
+   "b": "FRA",
+   "trade": 0.7177,
+   "migration": 0.9343,
+   "neighbor": true,
+   "distance_km": 704
+  },
+  {
+   "a": "DEU",
+   "b": "GAB",
+   "trade": 0.0097,
+   "migration": 0.0073,
+   "neighbor": false,
+   "distance_km": 5719
+  },
+  {
+   "a": "DEU",
+   "b": "GBR",
+   "trade": 0.1372,
+   "migration": 0.3519,
+   "neighbor": false,
+   "distance_km": 881
+  },
+  {
+   "a": "DEU",
+   "b": "GEO",
+   "trade": 0.019,
+   "migration": 0.0236,
+   "neighbor": false,
+   "distance_km": 2770
+  },
+  {
+   "a": "DEU",
+   "b": "GHA",
+   "trade": 0.0142,
+   "migration": 0.014,
+   "neighbor": false,
+   "distance_km": 4909
+  },
+  {
+   "a": "DEU",
+   "b": "GMB",
+   "trade": 0.0052,
+   "migration": 0.0073,
+   "neighbor": false,
+   "distance_km": 4706
+  },
+  {
+   "a": "DEU",
+   "b": "GNB",
+   "trade": 0.0053,
+   "migration": 0.0079,
+   "neighbor": false,
+   "distance_km": 4838
+  },
+  {
+   "a": "DEU",
+   "b": "GNQ",
+   "trade": 0.0085,
+   "migration": 0.0067,
+   "neighbor": false,
+   "distance_km": 5408
+  },
+  {
+   "a": "DEU",
+   "b": "GRC",
+   "trade": 0.0787,
+   "migration": 0.0971,
+   "neighbor": false,
+   "distance_km": 1582
+  },
+  {
+   "a": "DEU",
+   "b": "HRV",
+   "trade": 0.1074,
+   "migration": 0.1767,
+   "neighbor": false,
+   "distance_km": 756
+  },
+  {
+   "a": "DEU",
+   "b": "HUN",
+   "trade": 0.1319,
+   "migration": 0.1788,
+   "neighbor": false,
+   "distance_km": 832
+  },
+  {
+   "a": "DEU",
+   "b": "IRL",
+   "trade": 0.0915,
+   "migration": 0.0708,
+   "neighbor": false,
+   "distance_km": 1216
+  },
+  {
+   "a": "DEU",
+   "b": "ISL",
+   "trade": 0.0535,
+   "migration": 0.0553,
+   "neighbor": false,
+   "distance_km": 2239
+  },
+  {
+   "a": "DEU",
+   "b": "ITA",
+   "trade": 0.1623,
+   "migration": 0.3262,
+   "neighbor": false,
+   "distance_km": 700
+  },
+  {
+   "a": "DEU",
+   "b": "KAZ",
+   "trade": 0.0234,
+   "migration": 0.0265,
+   "neighbor": false,
+   "distance_km": 4108
+  },
+  {
+   "a": "DEU",
+   "b": "KOS",
+   "trade": 0.046,
+   "migration": 0.0602,
+   "neighbor": false,
+   "distance_km": 1259
+  },
+  {
+   "a": "DEU",
+   "b": "LBN",
+   "trade": 0.0145,
+   "migration": 0.0228,
+   "neighbor": false,
+   "distance_km": 2827
+  },
+  {
+   "a": "DEU",
+   "b": "LBR",
+   "trade": 0.0053,
+   "migration": 0.0074,
+   "neighbor": false,
+   "distance_km": 5257
+  },
+  {
+   "a": "DEU",
+   "b": "LBY",
+   "trade": 0.0369,
+   "migration": 0.0367,
+   "neighbor": false,
+   "distance_km": 2795
+  },
+  {
+   "a": "DEU",
+   "b": "LTU",
+   "trade": 0.0738,
+   "migration": 0.0928,
+   "neighbor": false,
+   "distance_km": 1065
+  },
+  {
+   "a": "DEU",
+   "b": "LUX",
+   "trade": 0.7411,
+   "migration": 0.5872,
+   "neighbor": true,
+   "distance_km": 290
+  },
+  {
+   "a": "DEU",
+   "b": "LVA",
+   "trade": 0.0695,
+   "migration": 0.0845,
+   "neighbor": false,
+   "distance_km": 1230
+  },
+  {
+   "a": "DEU",
+   "b": "MAR",
+   "trade": 0.0576,
+   "migration": 0.0756,
+   "neighbor": false,
+   "distance_km": 2555
+  },
+  {
+   "a": "DEU",
+   "b": "MDA",
+   "trade": 0.0366,
+   "migration": 0.0462,
+   "neighbor": false,
+   "distance_km": 1417
+  },
+  {
+   "a": "DEU",
+   "b": "MKD",
+   "trade": 0.0411,
+   "migration": 0.0528,
+   "neighbor": false,
+   "distance_km": 1385
+  },
+  {
+   "a": "DEU",
+   "b": "MLI",
+   "trade": 0.0184,
+   "migration": 0.0297,
+   "neighbor": false,
+   "distance_km": 3734
+  },
+  {
+   "a": "DEU",
+   "b": "MLT",
+   "trade": 0.0854,
+   "migration": 0.0846,
+   "neighbor": false,
+   "distance_km": 1718
+  },
+  {
+   "a": "DEU",
+   "b": "MNE",
+   "trade": 0.0467,
+   "migration": 0.0619,
+   "neighbor": false,
+   "distance_km": 1156
+  },
+  {
+   "a": "DEU",
+   "b": "MRT",
+   "trade": 0.0182,
+   "migration": 0.0213,
+   "neighbor": false,
+   "distance_km": 3882
+  },
+  {
+   "a": "DEU",
+   "b": "NAM",
+   "trade": 0.0042,
+   "migration": 0.0049,
+   "neighbor": false,
+   "distance_km": 7988
+  },
+  {
+   "a": "DEU",
+   "b": "NER",
+   "trade": 0.0164,
+   "migration": 0.0219,
+   "neighbor": false,
+   "distance_km": 3727
+  },
+  {
+   "a": "DEU",
+   "b": "NGA",
+   "trade": 0.028,
+   "migration": 0.0367,
+   "neighbor": false,
+   "distance_km": 4621
+  },
+  {
+   "a": "DEU",
+   "b": "NLD",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 324
+  },
+  {
+   "a": "DEU",
+   "b": "NOR",
+   "trade": 0.1101,
+   "migration": 0.1483,
+   "neighbor": false,
+   "distance_km": 1156
+  },
+  {
+   "a": "DEU",
+   "b": "POL",
+   "trade": 0.6211,
+   "migration": 0.7345,
+   "neighbor": true,
+   "distance_km": 689
+  },
+  {
+   "a": "DEU",
+   "b": "PRT",
+   "trade": 0.0378,
+   "migration": 0.0428,
+   "neighbor": false,
+   "distance_km": 1879
+  },
+  {
+   "a": "DEU",
+   "b": "PSX",
+   "trade": 0.0095,
+   "migration": 0.0133,
+   "neighbor": false,
+   "distance_km": 2966
+  },
+  {
+   "a": "DEU",
+   "b": "ROU",
+   "trade": 0.0914,
+   "migration": 0.1225,
+   "neighbor": false,
+   "distance_km": 1268
+  },
+  {
+   "a": "DEU",
+   "b": "RWA",
+   "trade": 0.006,
+   "migration": 0.0067,
+   "neighbor": false,
+   "distance_km": 6188
+  },
+  {
+   "a": "DEU",
+   "b": "SAH",
+   "trade": 0.007,
+   "migration": 0.0154,
+   "neighbor": false,
+   "distance_km": 3559
+  },
+  {
+   "a": "DEU",
+   "b": "SDN",
+   "trade": 0.0137,
+   "migration": 0.0274,
+   "neighbor": false,
+   "distance_km": 4227
+  },
+  {
+   "a": "DEU",
+   "b": "SDS",
+   "trade": 0.0092,
+   "migration": 0.0111,
+   "neighbor": false,
+   "distance_km": 5224
+  },
+  {
+   "a": "DEU",
+   "b": "SEN",
+   "trade": 0.0167,
+   "migration": 0.0171,
+   "neighbor": false,
+   "distance_km": 4544
+  },
+  {
+   "a": "DEU",
+   "b": "SLE",
+   "trade": 0.006,
+   "migration": 0.0104,
+   "neighbor": false,
+   "distance_km": 5103
+  },
+  {
+   "a": "DEU",
+   "b": "SRB",
+   "trade": 0.0767,
+   "migration": 0.1181,
+   "neighbor": false,
+   "distance_km": 1121
+  },
+  {
+   "a": "DEU",
+   "b": "STP",
+   "trade": 0.0079,
+   "migration": 0.0057,
+   "neighbor": false,
+   "distance_km": 5564
+  },
+  {
+   "a": "DEU",
+   "b": "SVK",
+   "trade": 0.1242,
+   "migration": 0.1618,
+   "neighbor": false,
+   "distance_km": 716
+  },
+  {
+   "a": "DEU",
+   "b": "SVN",
+   "trade": 0.0903,
+   "migration": 0.1159,
+   "neighbor": false,
+   "distance_km": 667
+  },
+  {
+   "a": "DEU",
+   "b": "SWE",
+   "trade": 0.0834,
+   "migration": 0.1069,
+   "neighbor": false,
+   "distance_km": 1739
+  },
+  {
+   "a": "DEU",
+   "b": "TCD",
+   "trade": 0.0171,
+   "migration": 0.0234,
+   "neighbor": false,
+   "distance_km": 4063
+  },
+  {
+   "a": "DEU",
+   "b": "TGO",
+   "trade": 0.0062,
+   "migration": 0.009,
+   "neighbor": false,
+   "distance_km": 4754
+  },
+  {
+   "a": "DEU",
+   "b": "TUN",
+   "trade": 0.0611,
+   "migration": 0.0815,
+   "neighbor": false,
+   "distance_km": 1922
+  },
+  {
+   "a": "DEU",
+   "b": "TUR",
+   "trade": 0.0861,
+   "migration": 0.0847,
+   "neighbor": false,
+   "distance_km": 2319
+  },
+  {
+   "a": "DEU",
+   "b": "UKR",
+   "trade": 0.062,
+   "migration": 0.1325,
+   "neighbor": false,
+   "distance_km": 1594
+  },
+  {
+   "a": "DEU",
+   "b": "USA",
+   "trade": 0.0189,
+   "migration": 0.0211,
+   "neighbor": false,
+   "distance_km": 7722
+  },
+  {
+   "a": "DJI",
+   "b": "ERI",
+   "trade": 0.3234,
+   "migration": 0.1734,
+   "neighbor": true,
+   "distance_km": 622
+  },
+  {
+   "a": "DJI",
+   "b": "ETH",
+   "trade": 0.9422,
+   "migration": 0.5584,
+   "neighbor": true,
+   "distance_km": 576
+  },
+  {
+   "a": "DJI",
+   "b": "ISR",
+   "trade": 0.0323,
+   "migration": 0.0091,
+   "neighbor": false,
+   "distance_km": 2248
+  },
+  {
+   "a": "DJI",
+   "b": "QAT",
+   "trade": 0.0348,
+   "migration": 0.0224,
+   "neighbor": false,
+   "distance_km": 1732
+  },
+  {
+   "a": "DJI",
+   "b": "SAU",
+   "trade": 0.0781,
+   "migration": 0.071,
+   "neighbor": false,
+   "distance_km": 1336
+  },
+  {
+   "a": "DJI",
+   "b": "SOL",
+   "trade": 0.5896,
+   "migration": 0.2193,
+   "neighbor": true,
+   "distance_km": 541
+  },
+  {
+   "a": "DJI",
+   "b": "YEM",
+   "trade": 0.0863,
+   "migration": 0.1134,
+   "neighbor": false,
+   "distance_km": 521
+  },
+  {
+   "a": "DNK",
+   "b": "FIN",
+   "trade": 0.0488,
+   "migration": 0.0396,
+   "neighbor": false,
+   "distance_km": 1300
+  },
+  {
+   "a": "DNK",
+   "b": "FRA",
+   "trade": 0.074,
+   "migration": 0.071,
+   "neighbor": false,
+   "distance_km": 1123
+  },
+  {
+   "a": "DNK",
+   "b": "GBR",
+   "trade": 0.113,
+   "migration": 0.1857,
+   "neighbor": false,
+   "distance_km": 727
+  },
+  {
+   "a": "DNK",
+   "b": "IRL",
+   "trade": 0.0579,
+   "migration": 0.0331,
+   "neighbor": false,
+   "distance_km": 1129
+  },
+  {
+   "a": "DNK",
+   "b": "NLD",
+   "trade": 0.123,
+   "migration": 0.1038,
+   "neighbor": false,
+   "distance_km": 452
+  },
+  {
+   "a": "DNK",
+   "b": "NOR",
+   "trade": 0.1419,
+   "migration": 0.1402,
+   "neighbor": false,
+   "distance_km": 601
+  },
+  {
+   "a": "DNK",
+   "b": "POL",
+   "trade": 0.0851,
+   "migration": 0.0809,
+   "neighbor": false,
+   "distance_km": 814
+  },
+  {
+   "a": "DNK",
+   "b": "SWE",
+   "trade": 0.0839,
+   "migration": 0.0758,
+   "neighbor": false,
+   "distance_km": 1222
+  },
+  {
+   "a": "DOM",
+   "b": "HTI",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 166
+  },
+  {
+   "a": "DOM",
+   "b": "JAM",
+   "trade": 0.2676,
+   "migration": 0.1855,
+   "neighbor": false,
+   "distance_km": 710
+  },
+  {
+   "a": "DOM",
+   "b": "MEX",
+   "trade": 0.0404,
+   "migration": 0.0244,
+   "neighbor": false,
+   "distance_km": 3309
+  },
+  {
+   "a": "DOM",
+   "b": "PAN",
+   "trade": 0.097,
+   "migration": 0.0499,
+   "neighbor": false,
+   "distance_km": 1557
+  },
+  {
+   "a": "DOM",
+   "b": "PRI",
+   "trade": 0.7946,
+   "migration": 0.3255,
+   "neighbor": false,
+   "distance_km": 450
+  },
+  {
+   "a": "DOM",
+   "b": "TTO",
+   "trade": 0.2293,
+   "migration": 0.0639,
+   "neighbor": false,
+   "distance_km": 1379
+  },
+  {
+   "a": "DOM",
+   "b": "USA",
+   "trade": 0.0911,
+   "migration": 0.0554,
+   "neighbor": false,
+   "distance_km": 3429
+  },
+  {
+   "a": "DOM",
+   "b": "VEN",
+   "trade": 0.0839,
+   "migration": 0.0805,
+   "neighbor": false,
+   "distance_km": 1478
+  },
+  {
+   "a": "DZA",
+   "b": "ESP",
+   "trade": 0.1143,
+   "migration": 0.2029,
+   "neighbor": false,
+   "distance_km": 1525
+  },
+  {
+   "a": "DZA",
+   "b": "FRA",
+   "trade": 0.0601,
+   "migration": 0.0932,
+   "neighbor": false,
+   "distance_km": 2146
+  },
+  {
+   "a": "DZA",
+   "b": "ITA",
+   "trade": 0.0565,
+   "migration": 0.1002,
+   "neighbor": false,
+   "distance_km": 2063
+  },
+  {
+   "a": "DZA",
+   "b": "LBY",
+   "trade": 0.5155,
+   "migration": 0.4216,
+   "neighbor": true,
+   "distance_km": 1507
+  },
+  {
+   "a": "DZA",
+   "b": "MAR",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 1076
+  },
+  {
+   "a": "DZA",
+   "b": "MLI",
+   "trade": 0.5163,
+   "migration": 0.7758,
+   "neighbor": true,
+   "distance_km": 1087
+  },
+  {
+   "a": "DZA",
+   "b": "MRT",
+   "trade": 0.3942,
+   "migration": 0.3706,
+   "neighbor": true,
+   "distance_km": 1545
+  },
+  {
+   "a": "DZA",
+   "b": "NER",
+   "trade": 0.3487,
+   "migration": 0.4379,
+   "neighbor": true,
+   "distance_km": 1302
+  },
+  {
+   "a": "DZA",
+   "b": "SAH",
+   "trade": 0.1143,
+   "migration": 0.2102,
+   "neighbor": true,
+   "distance_km": 1592
+  },
+  {
+   "a": "DZA",
+   "b": "TUN",
+   "trade": 0.8442,
+   "migration": 0.8413,
+   "neighbor": true,
+   "distance_km": 917
+  },
+  {
+   "a": "ECU",
+   "b": "MEX",
+   "trade": 0.0239,
+   "migration": 0.0239,
+   "neighbor": false,
+   "distance_km": 3823
+  },
+  {
+   "a": "ECU",
+   "b": "PAN",
+   "trade": 0.1072,
+   "migration": 0.1018,
+   "neighbor": false,
+   "distance_km": 1135
+  },
+  {
+   "a": "ECU",
+   "b": "PER",
+   "trade": 0.5801,
+   "migration": 0.5147,
+   "neighbor": true,
+   "distance_km": 1427
+  },
+  {
+   "a": "ECU",
+   "b": "USA",
+   "trade": 0.0384,
+   "migration": 0.0375,
+   "neighbor": false,
+   "distance_km": 4944
+  },
+  {
+   "a": "ECU",
+   "b": "VEN",
+   "trade": 0.051,
+   "migration": 0.0773,
+   "neighbor": false,
+   "distance_km": 1776
+  },
+  {
+   "a": "EGY",
+   "b": "ERI",
+   "trade": 0.042,
+   "migration": 0.0765,
+   "neighbor": false,
+   "distance_km": 1475
+  },
+  {
+   "a": "EGY",
+   "b": "ISR",
+   "trade": 0.6923,
+   "migration": 0.6523,
+   "neighbor": true,
+   "distance_km": 744
+  },
+  {
+   "a": "EGY",
+   "b": "JOR",
+   "trade": 0.0911,
+   "migration": 0.3038,
+   "neighbor": false,
+   "distance_km": 850
+  },
+  {
+   "a": "EGY",
+   "b": "LBY",
+   "trade": 0.5678,
+   "migration": 0.6158,
+   "neighbor": true,
+   "distance_km": 1140
+  },
+  {
+   "a": "EGY",
+   "b": "PSX",
+   "trade": 0.2047,
+   "migration": 0.3235,
+   "neighbor": true,
+   "distance_km": 864
+  },
+  {
+   "a": "EGY",
+   "b": "SAU",
+   "trade": 0.0906,
+   "migration": 0.2912,
+   "neighbor": false,
+   "distance_km": 1559
+  },
+  {
+   "a": "EGY",
+   "b": "SDN",
+   "trade": 0.3274,
+   "migration": 0.9046,
+   "neighbor": true,
+   "distance_km": 1096
+  },
+  {
+   "a": "EGY",
+   "b": "TUR",
+   "trade": 0.1549,
+   "migration": 0.2134,
+   "neighbor": false,
+   "distance_km": 1537
+  },
+  {
+   "a": "ERI",
+   "b": "ETH",
+   "trade": 0.3692,
+   "migration": 0.4761,
+   "neighbor": true,
+   "distance_km": 867
+  },
+  {
+   "a": "ERI",
+   "b": "ISR",
+   "trade": 0.0312,
+   "migration": 0.0231,
+   "neighbor": false,
+   "distance_km": 1718
+  },
+  {
+   "a": "ERI",
+   "b": "QAT",
+   "trade": 0.0293,
+   "migration": 0.0426,
+   "neighbor": false,
+   "distance_km": 1700
+  },
+  {
+   "a": "ERI",
+   "b": "SAU",
+   "trade": 0.066,
+   "migration": 0.1602,
+   "neighbor": false,
+   "distance_km": 1116
+  },
+  {
+   "a": "ERI",
+   "b": "SDN",
+   "trade": 0.1743,
+   "migration": 0.3581,
+   "neighbor": true,
+   "distance_km": 966
+  },
+  {
+   "a": "ESP",
+   "b": "FRA",
+   "trade": 0.6488,
+   "migration": 0.7559,
+   "neighbor": true,
+   "distance_km": 880
+  },
+  {
+   "a": "ESP",
+   "b": "GBR",
+   "trade": 0.076,
+   "migration": 0.1627,
+   "neighbor": false,
+   "distance_km": 1595
+  },
+  {
+   "a": "ESP",
+   "b": "GHA",
+   "trade": 0.0269,
+   "migration": 0.0256,
+   "neighbor": false,
+   "distance_km": 3608
+  },
+  {
+   "a": "ESP",
+   "b": "GIN",
+   "trade": 0.0256,
+   "migration": 0.0259,
+   "neighbor": false,
+   "distance_km": 3340
+  },
+  {
+   "a": "ESP",
+   "b": "GMB",
+   "trade": 0.0114,
+   "migration": 0.0157,
+   "neighbor": false,
+   "distance_km": 3149
+  },
+  {
+   "a": "ESP",
+   "b": "GNB",
+   "trade": 0.0112,
+   "migration": 0.0166,
+   "neighbor": false,
+   "distance_km": 3289
+  },
+  {
+   "a": "ESP",
+   "b": "IRL",
+   "trade": 0.0835,
+   "migration": 0.0566,
+   "neighbor": false,
+   "distance_km": 1481
+  },
+  {
+   "a": "ESP",
+   "b": "ITA",
+   "trade": 0.0934,
+   "migration": 0.1542,
+   "neighbor": false,
+   "distance_km": 1298
+  },
+  {
+   "a": "ESP",
+   "b": "LBR",
+   "trade": 0.0103,
+   "migration": 0.0141,
+   "neighbor": false,
+   "distance_km": 3789
+  },
+  {
+   "a": "ESP",
+   "b": "MAR",
+   "trade": 0.2288,
+   "migration": 0.3319,
+   "neighbor": false,
+   "distance_km": 996
+  },
+  {
+   "a": "ESP",
+   "b": "MLI",
+   "trade": 0.0417,
+   "migration": 0.0676,
+   "neighbor": false,
+   "distance_km": 2383
+  },
+  {
+   "a": "ESP",
+   "b": "MLT",
+   "trade": 0.1066,
+   "migration": 0.0979,
+   "neighbor": false,
+   "distance_km": 1633
+  },
+  {
+   "a": "ESP",
+   "b": "MRT",
+   "trade": 0.0456,
+   "migration": 0.053,
+   "neighbor": false,
+   "distance_km": 2357
+  },
+  {
+   "a": "ESP",
+   "b": "NLD",
+   "trade": 0.0668,
+   "migration": 0.0581,
+   "neighbor": false,
+   "distance_km": 1536
+  },
+  {
+   "a": "ESP",
+   "b": "PRT",
+   "trade": 0.8374,
+   "migration": 0.9234,
+   "neighbor": true,
+   "distance_km": 414
+  },
+  {
+   "a": "ESP",
+   "b": "SAH",
+   "trade": 0.0193,
+   "migration": 0.0433,
+   "neighbor": false,
+   "distance_km": 1987
+  },
+  {
+   "a": "ESP",
+   "b": "SEN",
+   "trade": 0.0376,
+   "migration": 0.0378,
+   "neighbor": false,
+   "distance_km": 2984
+  },
+  {
+   "a": "ESP",
+   "b": "SLE",
+   "trade": 0.0121,
+   "migration": 0.0205,
+   "neighbor": false,
+   "distance_km": 3595
+  },
+  {
+   "a": "ESP",
+   "b": "STP",
+   "trade": 0.0128,
+   "migration": 0.009,
+   "neighbor": false,
+   "distance_km": 4477
+  },
+  {
+   "a": "ESP",
+   "b": "TGO",
+   "trade": 0.0115,
+   "migration": 0.0164,
+   "neighbor": false,
+   "distance_km": 3507
+  },
+  {
+   "a": "ESP",
+   "b": "TUN",
+   "trade": 0.1153,
+   "migration": 0.1526,
+   "neighbor": false,
+   "distance_km": 1316
+  },
+  {
+   "a": "EST",
+   "b": "FIN",
+   "trade": 0.1377,
+   "migration": 0.1345,
+   "neighbor": false,
+   "distance_km": 509
+  },
+  {
+   "a": "EST",
+   "b": "GBR",
+   "trade": 0.0444,
+   "migration": 0.058,
+   "neighbor": false,
+   "distance_km": 1766
+  },
+  {
+   "a": "EST",
+   "b": "LVA",
+   "trade": 0.7877,
+   "migration": 0.709,
+   "neighbor": true,
+   "distance_km": 186
+  },
+  {
+   "a": "EST",
+   "b": "NLD",
+   "trade": 0.0409,
+   "migration": 0.0265,
+   "neighbor": false,
+   "distance_km": 1445
+  },
+  {
+   "a": "EST",
+   "b": "POL",
+   "trade": 0.0888,
+   "migration": 0.0821,
+   "neighbor": false,
+   "distance_km": 850
+  },
+  {
+   "a": "EST",
+   "b": "RUS",
+   "trade": 0.7444,
+   "migration": 0.4848,
+   "neighbor": true,
+   "distance_km": 1091
+  },
+  {
+   "a": "EST",
+   "b": "SWE",
+   "trade": 0.1341,
+   "migration": 0.128,
+   "neighbor": false,
+   "distance_km": 868
+  },
+  {
+   "a": "ETH",
+   "b": "KEN",
+   "trade": 0.8989,
+   "migration": 0.954,
+   "neighbor": true,
+   "distance_km": 842
+  },
+  {
+   "a": "ETH",
+   "b": "SAU",
+   "trade": 0.0862,
+   "migration": 0.2222,
+   "neighbor": false,
+   "distance_km": 1853
+  },
+  {
+   "a": "ETH",
+   "b": "SDN",
+   "trade": 0.2314,
+   "migration": 0.6275,
+   "neighbor": true,
+   "distance_km": 1411
+  },
+  {
+   "a": "ETH",
+   "b": "SDS",
+   "trade": 0.5451,
+   "migration": 0.6638,
+   "neighbor": true,
+   "distance_km": 963
+  },
+  {
+   "a": "ETH",
+   "b": "SOL",
+   "trade": 0.7502,
+   "migration": 0.5371,
+   "neighbor": true,
+   "distance_km": 854
+  },
+  {
+   "a": "ETH",
+   "b": "SOM",
+   "trade": 0.8348,
+   "migration": 0.7431,
+   "neighbor": true,
+   "distance_km": 838
+  },
+  {
+   "a": "ETH",
+   "b": "UGA",
+   "trade": 0.1562,
+   "migration": 0.2809,
+   "neighbor": false,
+   "distance_km": 957
+  },
+  {
+   "a": "ETH",
+   "b": "YEM",
+   "trade": 0.0704,
+   "migration": 0.1909,
+   "neighbor": false,
+   "distance_km": 1097
+  },
+  {
+   "a": "FIN",
+   "b": "GBR",
+   "trade": 0.0404,
+   "migration": 0.0679,
+   "neighbor": false,
+   "distance_km": 1932
+  },
+  {
+   "a": "FIN",
+   "b": "NLD",
+   "trade": 0.0375,
+   "migration": 0.0268,
+   "neighbor": false,
+   "distance_km": 1743
+  },
+  {
+   "a": "FIN",
+   "b": "NOR",
+   "trade": 0.4367,
+   "migration": 0.3587,
+   "neighbor": true,
+   "distance_km": 930
+  },
+  {
+   "a": "FIN",
+   "b": "POL",
+   "trade": 0.0585,
+   "migration": 0.0576,
+   "neighbor": false,
+   "distance_km": 1333
+  },
+  {
+   "a": "FIN",
+   "b": "RUS",
+   "trade": 0.7094,
+   "migration": 0.6297,
+   "neighbor": true,
+   "distance_km": 1092
+  },
+  {
+   "a": "FIN",
+   "b": "SWE",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 489
+  },
+  {
+   "a": "FJI",
+   "b": "HKG",
+   "trade": 0.0123,
+   "migration": 0.0083,
+   "neighbor": false,
+   "distance_km": 8263
+  },
+  {
+   "a": "FJI",
+   "b": "JPN",
+   "trade": 0.0461,
+   "migration": 0.0378,
+   "neighbor": false,
+   "distance_km": 7300
+  },
+  {
+   "a": "FJI",
+   "b": "KOR",
+   "trade": 0.0319,
+   "migration": 0.0122,
+   "neighbor": false,
+   "distance_km": 7982
+  },
+  {
+   "a": "FJI",
+   "b": "NCL",
+   "trade": 0.3684,
+   "migration": 0.4934,
+   "neighbor": false,
+   "distance_km": 1398
+  },
+  {
+   "a": "FJI",
+   "b": "NZL",
+   "trade": 0.4692,
+   "migration": 0.5139,
+   "neighbor": false,
+   "distance_km": 2489
+  },
+  {
+   "a": "FJI",
+   "b": "SGP",
+   "trade": 0.0247,
+   "migration": 0.0094,
+   "neighbor": false,
+   "distance_km": 8381
+  },
+  {
+   "a": "FJI",
+   "b": "USA",
+   "trade": 0.0271,
+   "migration": 0.0219,
+   "neighbor": false,
+   "distance_km": 10806
+  },
+  {
+   "a": "FJI",
+   "b": "VUT",
+   "trade": 0.3115,
+   "migration": 0.3684,
+   "neighbor": false,
+   "distance_km": 1210
+  },
+  {
+   "a": "FJI",
+   "b": "WSM",
+   "trade": 0.4372,
+   "migration": 0.567,
+   "neighbor": false,
+   "distance_km": 1126
+  },
+  {
+   "a": "FRA",
+   "b": "GBR",
+   "trade": 0.1252,
+   "migration": 0.29,
+   "neighbor": false,
+   "distance_km": 918
+  },
+  {
+   "a": "FRA",
+   "b": "GHA",
+   "trade": 0.0167,
+   "migration": 0.0145,
+   "neighbor": false,
+   "distance_km": 4348
+  },
+  {
+   "a": "FRA",
+   "b": "GMB",
+   "trade": 0.0064,
+   "migration": 0.0082,
+   "neighbor": false,
+   "distance_km": 4023
+  },
+  {
+   "a": "FRA",
+   "b": "GNB",
+   "trade": 0.0065,
+   "migration": 0.0086,
+   "neighbor": false,
+   "distance_km": 4160
+  },
+  {
+   "a": "FRA",
+   "b": "GNQ",
+   "trade": 0.0095,
+   "migration": 0.0067,
+   "neighbor": false,
+   "distance_km": 4972
+  },
+  {
+   "a": "FRA",
+   "b": "IRL",
+   "trade": 0.1116,
+   "migration": 0.0787,
+   "neighbor": false,
+   "distance_km": 1025
+  },
+  {
+   "a": "FRA",
+   "b": "ISL",
+   "trade": 0.047,
+   "migration": 0.0439,
+   "neighbor": false,
+   "distance_km": 2384
+  },
+  {
+   "a": "FRA",
+   "b": "ITA",
+   "trade": 0.6221,
+   "migration": 0.8435,
+   "neighbor": true,
+   "distance_km": 697
+  },
+  {
+   "a": "FRA",
+   "b": "LBR",
+   "trade": 0.0063,
+   "migration": 0.0078,
+   "neighbor": false,
+   "distance_km": 4621
+  },
+  {
+   "a": "FRA",
+   "b": "LBY",
+   "trade": 0.0402,
+   "migration": 0.0354,
+   "neighbor": false,
+   "distance_km": 2611
+  },
+  {
+   "a": "FRA",
+   "b": "LUX",
+   "trade": 0.59,
+   "migration": 0.3865,
+   "neighbor": true,
+   "distance_km": 427
+  },
+  {
+   "a": "FRA",
+   "b": "MAR",
+   "trade": 0.0882,
+   "migration": 0.1038,
+   "neighbor": false,
+   "distance_km": 1868
+  },
+  {
+   "a": "FRA",
+   "b": "MLT",
+   "trade": 0.0974,
+   "migration": 0.0883,
+   "neighbor": false,
+   "distance_km": 1555
+  },
+  {
+   "a": "FRA",
+   "b": "MRT",
+   "trade": 0.024,
+   "migration": 0.0249,
+   "neighbor": false,
+   "distance_km": 3215
+  },
+  {
+   "a": "FRA",
+   "b": "NAM",
+   "trade": 0.0045,
+   "migration": 0.0045,
+   "neighbor": false,
+   "distance_km": 7622
+  },
+  {
+   "a": "FRA",
+   "b": "NGA",
+   "trade": 0.0308,
+   "migration": 0.0365,
+   "neighbor": false,
+   "distance_km": 4169
+  },
+  {
+   "a": "FRA",
+   "b": "NLD",
+   "trade": 0.1433,
+   "migration": 0.1424,
+   "neighbor": false,
+   "distance_km": 674
+  },
+  {
+   "a": "FRA",
+   "b": "PRT",
+   "trade": 0.067,
+   "migration": 0.0737,
+   "neighbor": false,
+   "distance_km": 1178
+  },
+  {
+   "a": "FRA",
+   "b": "SAH",
+   "trade": 0.0094,
+   "migration": 0.0186,
+   "neighbor": false,
+   "distance_km": 2867
+  },
+  {
+   "a": "FRA",
+   "b": "SEN",
+   "trade": 0.021,
+   "migration": 0.019,
+   "neighbor": false,
+   "distance_km": 3859
+  },
+  {
+   "a": "FRA",
+   "b": "SLE",
+   "trade": 0.0072,
+   "migration": 0.011,
+   "neighbor": false,
+   "distance_km": 4447
+  },
+  {
+   "a": "FRA",
+   "b": "STP",
+   "trade": 0.0086,
+   "migration": 0.0055,
+   "neighbor": false,
+   "distance_km": 5103
+  },
+  {
+   "a": "FRA",
+   "b": "SUR",
+   "trade": 0.0113,
+   "migration": 0.0114,
+   "neighbor": true,
+   "distance_km": 7313
+  },
+  {
+   "a": "FRA",
+   "b": "SVN",
+   "trade": 0.0626,
+   "migration": 0.065,
+   "neighbor": false,
+   "distance_km": 950
+  },
+  {
+   "a": "FRA",
+   "b": "TGO",
+   "trade": 0.0072,
+   "migration": 0.0093,
+   "neighbor": false,
+   "distance_km": 4215
+  },
+  {
+   "a": "FRA",
+   "b": "TUN",
+   "trade": 0.0799,
+   "migration": 0.0943,
+   "neighbor": false,
+   "distance_km": 1546
+  },
+  {
+   "a": "FRA",
+   "b": "USA",
+   "trade": 0.0181,
+   "migration": 0.0189,
+   "neighbor": false,
+   "distance_km": 7585
+  },
+  {
+   "a": "GAB",
+   "b": "GHA",
+   "trade": 0.073,
+   "migration": 0.0458,
+   "neighbor": false,
+   "distance_km": 1691
+  },
+  {
+   "a": "GAB",
+   "b": "GNQ",
+   "trade": 0.8347,
+   "migration": 0.4273,
+   "neighbor": true,
+   "distance_km": 442
+  },
+  {
+   "a": "GAB",
+   "b": "NGA",
+   "trade": 0.2051,
+   "migration": 0.179,
+   "neighbor": false,
+   "distance_km": 1199
+  },
+  {
+   "a": "GAB",
+   "b": "STP",
+   "trade": 0.1709,
+   "migration": 0.1009,
+   "neighbor": false,
+   "distance_km": 558
+  },
+  {
+   "a": "GBR",
+   "b": "IRL",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 402
+  },
+  {
+   "a": "GBR",
+   "b": "ISL",
+   "trade": 0.088,
+   "migration": 0.1386,
+   "neighbor": false,
+   "distance_km": 1474
+  },
+  {
+   "a": "GBR",
+   "b": "LTU",
+   "trade": 0.0398,
+   "migration": 0.0616,
+   "neighbor": false,
+   "distance_km": 1674
+  },
+  {
+   "a": "GBR",
+   "b": "LUX",
+   "trade": 0.0886,
+   "migration": 0.1009,
+   "neighbor": false,
+   "distance_km": 763
+  },
+  {
+   "a": "GBR",
+   "b": "LVA",
+   "trade": 0.0419,
+   "migration": 0.0649,
+   "neighbor": false,
+   "distance_km": 1739
+  },
+  {
+   "a": "GBR",
+   "b": "NLD",
+   "trade": 0.163,
+   "migration": 0.2618,
+   "neighbor": false,
+   "distance_km": 557
+  },
+  {
+   "a": "GBR",
+   "b": "NOR",
+   "trade": 0.1145,
+   "migration": 0.2226,
+   "neighbor": false,
+   "distance_km": 1038
+  },
+  {
+   "a": "GBR",
+   "b": "PRT",
+   "trade": 0.0398,
+   "migration": 0.0639,
+   "neighbor": false,
+   "distance_km": 1709
+  },
+  {
+   "a": "GBR",
+   "b": "SWE",
+   "trade": 0.0794,
+   "migration": 0.142,
+   "neighbor": false,
+   "distance_km": 1713
+  },
+  {
+   "a": "GBR",
+   "b": "USA",
+   "trade": 0.0203,
+   "migration": 0.0341,
+   "neighbor": false,
+   "distance_km": 6849
+  },
+  {
+   "a": "GEO",
+   "b": "IRQ",
+   "trade": 0.076,
+   "migration": 0.078,
+   "neighbor": false,
+   "distance_km": 977
+  },
+  {
+   "a": "GEO",
+   "b": "ISR",
+   "trade": 0.0469,
+   "migration": 0.0289,
+   "neighbor": false,
+   "distance_km": 1453
+  },
+  {
+   "a": "GEO",
+   "b": "RUS",
+   "trade": 0.283,
+   "migration": 0.2212,
+   "neighbor": true,
+   "distance_km": 1823
+  },
+  {
+   "a": "GEO",
+   "b": "TUR",
+   "trade": 0.745,
+   "migration": 0.5002,
+   "neighbor": true,
+   "distance_km": 827
+  },
+  {
+   "a": "GHA",
+   "b": "GIN",
+   "trade": 0.1257,
+   "migration": 0.0963,
+   "neighbor": false,
+   "distance_km": 1037
+  },
+  {
+   "a": "GHA",
+   "b": "GNQ",
+   "trade": 0.0847,
+   "migration": 0.056,
+   "neighbor": false,
+   "distance_km": 1261
+  },
+  {
+   "a": "GHA",
+   "b": "LBR",
+   "trade": 0.0693,
+   "migration": 0.075,
+   "neighbor": false,
+   "distance_km": 940
+  },
+  {
+   "a": "GHA",
+   "b": "NGA",
+   "trade": 0.2822,
+   "migration": 0.2827,
+   "neighbor": false,
+   "distance_km": 958
+  },
+  {
+   "a": "GHA",
+   "b": "SLE",
+   "trade": 0.0575,
+   "migration": 0.0717,
+   "neighbor": false,
+   "distance_km": 1185
+  },
+  {
+   "a": "GHA",
+   "b": "STP",
+   "trade": 0.0891,
+   "migration": 0.0475,
+   "neighbor": false,
+   "distance_km": 1166
+  },
+  {
+   "a": "GHA",
+   "b": "TGO",
+   "trade": 0.7358,
+   "migration": 0.8438,
+   "neighbor": true,
+   "distance_km": 260
+  },
+  {
+   "a": "GIN",
+   "b": "GMB",
+   "trade": 0.0703,
+   "migration": 0.0952,
+   "neighbor": false,
+   "distance_km": 637
+  },
+  {
+   "a": "GIN",
+   "b": "GNB",
+   "trade": 0.3683,
+   "migration": 0.3553,
+   "neighbor": true,
+   "distance_km": 521
+  },
+  {
+   "a": "GIN",
+   "b": "LBR",
+   "trade": 0.4529,
+   "migration": 0.435,
+   "neighbor": true,
+   "distance_km": 468
+  },
+  {
+   "a": "GIN",
+   "b": "MLI",
+   "trade": 0.3406,
+   "migration": 0.2971,
+   "neighbor": true,
+   "distance_km": 1241
+  },
+  {
+   "a": "GIN",
+   "b": "SEN",
+   "trade": 0.7549,
+   "migration": 0.4872,
+   "neighbor": true,
+   "distance_km": 720
+  },
+  {
+   "a": "GIN",
+   "b": "SLE",
+   "trade": 0.6576,
+   "migration": 0.846,
+   "neighbor": true,
+   "distance_km": 294
+  },
+  {
+   "a": "GMB",
+   "b": "GNB",
+   "trade": 0.0643,
+   "migration": 0.1695,
+   "neighbor": false,
+   "distance_km": 172
+  },
+  {
+   "a": "GMB",
+   "b": "IRL",
+   "trade": 0.0054,
+   "migration": 0.0033,
+   "neighbor": false,
+   "distance_km": 4431
+  },
+  {
+   "a": "GMB",
+   "b": "SEN",
+   "trade": 0.7542,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 168
+  },
+  {
+   "a": "GNB",
+   "b": "IRL",
+   "trade": 0.006,
+   "migration": 0.0036,
+   "neighbor": false,
+   "distance_km": 4589
+  },
+  {
+   "a": "GNB",
+   "b": "SEN",
+   "trade": 0.5875,
+   "migration": 0.6517,
+   "neighbor": true,
+   "distance_km": 332
+  },
+  {
+   "a": "GNQ",
+   "b": "NGA",
+   "trade": 0.2454,
+   "migration": 0.2379,
+   "neighbor": false,
+   "distance_km": 807
+  },
+  {
+   "a": "GNQ",
+   "b": "STP",
+   "trade": 0.2178,
+   "migration": 0.1516,
+   "neighbor": false,
+   "distance_km": 266
+  },
+  {
+   "a": "GRC",
+   "b": "ITA",
+   "trade": 0.113,
+   "migration": 0.1558,
+   "neighbor": false,
+   "distance_km": 1053
+  },
+  {
+   "a": "GRC",
+   "b": "KOS",
+   "trade": 0.1543,
+   "migration": 0.1989,
+   "neighbor": false,
+   "distance_km": 352
+  },
+  {
+   "a": "GRC",
+   "b": "MKD",
+   "trade": 0.7759,
+   "migration": 0.8368,
+   "neighbor": true,
+   "distance_km": 230
+  },
+  {
+   "a": "GRC",
+   "b": "MLT",
+   "trade": 0.2332,
+   "migration": 0.2197,
+   "neighbor": false,
+   "distance_km": 756
+  },
+  {
+   "a": "GRC",
+   "b": "ROU",
+   "trade": 0.1737,
+   "migration": 0.1937,
+   "neighbor": false,
+   "distance_km": 743
+  },
+  {
+   "a": "GRC",
+   "b": "TUR",
+   "trade": 0.9907,
+   "migration": 0.6275,
+   "neighbor": true,
+   "distance_km": 1097
+  },
+  {
+   "a": "GTM",
+   "b": "HND",
+   "trade": 0.8038,
+   "migration": 0.9295,
+   "neighbor": true,
+   "distance_km": 388
+  },
+  {
+   "a": "GTM",
+   "b": "MEX",
+   "trade": 0.3005,
+   "migration": 0.3096,
+   "neighbor": true,
+   "distance_km": 1585
+  },
+  {
+   "a": "GTM",
+   "b": "NIC",
+   "trade": 0.1087,
+   "migration": 0.1703,
+   "neighbor": false,
+   "distance_km": 640
+  },
+  {
+   "a": "GTM",
+   "b": "SLV",
+   "trade": 0.9031,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 225
+  },
+  {
+   "a": "GTM",
+   "b": "USA",
+   "trade": 0.0758,
+   "migration": 0.1076,
+   "neighbor": false,
+   "distance_km": 2814
+  },
+  {
+   "a": "GUY",
+   "b": "PER",
+   "trade": 0.0794,
+   "migration": 0.0369,
+   "neighbor": false,
+   "distance_km": 2535
+  },
+  {
+   "a": "GUY",
+   "b": "PRI",
+   "trade": 0.1593,
+   "migration": 0.0423,
+   "neighbor": false,
+   "distance_km": 1672
+  },
+  {
+   "a": "GUY",
+   "b": "SUR",
+   "trade": 0.6075,
+   "migration": 0.4392,
+   "neighbor": true,
+   "distance_km": 353
+  },
+  {
+   "a": "GUY",
+   "b": "TTO",
+   "trade": 0.3667,
+   "migration": 0.1085,
+   "neighbor": false,
+   "distance_km": 688
+  },
+  {
+   "a": "GUY",
+   "b": "USA",
+   "trade": 0.0469,
+   "migration": 0.0165,
+   "neighbor": false,
+   "distance_km": 5435
+  },
+  {
+   "a": "GUY",
+   "b": "VEN",
+   "trade": 0.9079,
+   "migration": 0.4724,
+   "neighbor": true,
+   "distance_km": 666
+  },
+  {
+   "a": "HKG",
+   "b": "IDN",
+   "trade": 0.0468,
+   "migration": 0.0511,
+   "neighbor": false,
+   "distance_km": 2919
+  },
+  {
+   "a": "HKG",
+   "b": "IND",
+   "trade": 0.0621,
+   "migration": 0.0452,
+   "neighbor": false,
+   "distance_km": 3559
+  },
+  {
+   "a": "HKG",
+   "b": "JPN",
+   "trade": 0.1267,
+   "migration": 0.0752,
+   "neighbor": false,
+   "distance_km": 2796
+  },
+  {
+   "a": "HKG",
+   "b": "KHM",
+   "trade": 0.0427,
+   "migration": 0.0464,
+   "neighbor": false,
+   "distance_km": 1490
+  },
+  {
+   "a": "HKG",
+   "b": "KOR",
+   "trade": 0.1428,
+   "migration": 0.047,
+   "neighbor": false,
+   "distance_km": 2056
+  },
+  {
+   "a": "HKG",
+   "b": "LAO",
+   "trade": 0.0355,
+   "migration": 0.0444,
+   "neighbor": false,
+   "distance_km": 1246
+  },
+  {
+   "a": "HKG",
+   "b": "LKA",
+   "trade": 0.0419,
+   "migration": 0.0195,
+   "neighbor": false,
+   "distance_km": 3935
+  },
+  {
+   "a": "HKG",
+   "b": "MAC",
+   "trade": 0.2612,
+   "migration": 0.248,
+   "neighbor": false,
+   "distance_km": 66
+  },
+  {
+   "a": "HKG",
+   "b": "MMR",
+   "trade": 0.04,
+   "migration": 0.0438,
+   "neighbor": false,
+   "distance_km": 1887
+  },
+  {
+   "a": "HKG",
+   "b": "MNG",
+   "trade": 0.0139,
+   "migration": 0.0123,
+   "neighbor": false,
+   "distance_km": 2768
+  },
+  {
+   "a": "HKG",
+   "b": "MYS",
+   "trade": 0.0717,
+   "migration": 0.042,
+   "neighbor": false,
+   "distance_km": 2215
+  },
+  {
+   "a": "HKG",
+   "b": "NCL",
+   "trade": 0.0148,
+   "migration": 0.0071,
+   "neighbor": false,
+   "distance_km": 7346
+  },
+  {
+   "a": "HKG",
+   "b": "NPL",
+   "trade": 0.0154,
+   "migration": 0.0104,
+   "neighbor": false,
+   "distance_km": 3120
+  },
+  {
+   "a": "HKG",
+   "b": "NZL",
+   "trade": 0.0269,
+   "migration": 0.0118,
+   "neighbor": false,
+   "distance_km": 9209
+  },
+  {
+   "a": "HKG",
+   "b": "PAK",
+   "trade": 0.0202,
+   "migration": 0.0129,
+   "neighbor": false,
+   "distance_km": 4592
+  },
+  {
+   "a": "HKG",
+   "b": "PHL",
+   "trade": 0.1893,
+   "migration": 0.1962,
+   "neighbor": false,
+   "distance_km": 1535
+  },
+  {
+   "a": "HKG",
+   "b": "PNG",
+   "trade": 0.03,
+   "migration": 0.0264,
+   "neighbor": false,
+   "distance_km": 4507
+  },
+  {
+   "a": "HKG",
+   "b": "PRK",
+   "trade": 0.0188,
+   "migration": 0.0274,
+   "neighbor": false,
+   "distance_km": 2262
+  },
+  {
+   "a": "HKG",
+   "b": "PYF",
+   "trade": 0.0071,
+   "migration": 0.0042,
+   "neighbor": false,
+   "distance_km": 11384
+  },
+  {
+   "a": "HKG",
+   "b": "SGP",
+   "trade": 0.0592,
+   "migration": 0.0163,
+   "neighbor": false,
+   "distance_km": 2594
+  },
+  {
+   "a": "HKG",
+   "b": "SLB",
+   "trade": 0.0125,
+   "migration": 0.0119,
+   "neighbor": false,
+   "distance_km": 5964
+  },
+  {
+   "a": "HKG",
+   "b": "THA",
+   "trade": 0.134,
+   "migration": 0.0909,
+   "neighbor": false,
+   "distance_km": 1574
+  },
+  {
+   "a": "HKG",
+   "b": "TLS",
+   "trade": 0.014,
+   "migration": 0.0143,
+   "neighbor": false,
+   "distance_km": 3704
+  },
+  {
+   "a": "HKG",
+   "b": "TWN",
+   "trade": 0.377,
+   "migration": 0.267,
+   "neighbor": false,
+   "distance_km": 705
+  },
+  {
+   "a": "HKG",
+   "b": "VNM",
+   "trade": 0.1077,
+   "migration": 0.1307,
+   "neighbor": false,
+   "distance_km": 901
+  },
+  {
+   "a": "HKG",
+   "b": "VUT",
+   "trade": 0.0098,
+   "migration": 0.0069,
+   "neighbor": false,
+   "distance_km": 7123
+  },
+  {
+   "a": "HKG",
+   "b": "WSM",
+   "trade": 0.0085,
+   "migration": 0.0061,
+   "neighbor": false,
+   "distance_km": 8948
+  },
+  {
+   "a": "HND",
+   "b": "MEX",
+   "trade": 0.0558,
+   "migration": 0.0637,
+   "neighbor": false,
+   "distance_km": 1906
+  },
+  {
+   "a": "HND",
+   "b": "NIC",
+   "trade": 0.6814,
+   "migration": 0.8373,
+   "neighbor": true,
+   "distance_km": 307
+  },
+  {
+   "a": "HND",
+   "b": "PAN",
+   "trade": 0.101,
+   "migration": 0.1073,
+   "neighbor": false,
+   "distance_km": 981
+  },
+  {
+   "a": "HND",
+   "b": "SLV",
+   "trade": 0.812,
+   "migration": 0.7714,
+   "neighbor": true,
+   "distance_km": 249
+  },
+  {
+   "a": "HND",
+   "b": "USA",
+   "trade": 0.0814,
+   "migration": 0.0823,
+   "neighbor": false,
+   "distance_km": 2939
+  },
+  {
+   "a": "HRV",
+   "b": "HUN",
+   "trade": 0.7215,
+   "migration": 0.8259,
+   "neighbor": true,
+   "distance_km": 275
+  },
+  {
+   "a": "HRV",
+   "b": "ITA",
+   "trade": 0.1506,
+   "migration": 0.2864,
+   "neighbor": false,
+   "distance_km": 431
+  },
+  {
+   "a": "HRV",
+   "b": "MNE",
+   "trade": 0.3001,
+   "migration": 0.335,
+   "neighbor": true,
+   "distance_km": 400
+  },
+  {
+   "a": "HRV",
+   "b": "SRB",
+   "trade": 0.4808,
+   "migration": 0.6189,
+   "neighbor": true,
+   "distance_km": 391
+  },
+  {
+   "a": "HRV",
+   "b": "SVN",
+   "trade": 0.548,
+   "migration": 0.6659,
+   "neighbor": true,
+   "distance_km": 116
+  },
+  {
+   "a": "HTI",
+   "b": "JAM",
+   "trade": 0.1234,
+   "migration": 0.1924,
+   "neighbor": false,
+   "distance_km": 551
+  },
+  {
+   "a": "HTI",
+   "b": "MEX",
+   "trade": 0.016,
+   "migration": 0.021,
+   "neighbor": false,
+   "distance_km": 3145
+  },
+  {
+   "a": "HTI",
+   "b": "PAN",
+   "trade": 0.0389,
+   "migration": 0.0463,
+   "neighbor": false,
+   "distance_km": 1463
+  },
+  {
+   "a": "HTI",
+   "b": "PRI",
+   "trade": 0.233,
+   "migration": 0.1948,
+   "neighbor": false,
+   "distance_km": 615
+  },
+  {
+   "a": "HTI",
+   "b": "USA",
+   "trade": 0.0259,
+   "migration": 0.051,
+   "neighbor": false,
+   "distance_km": 3305
+  },
+  {
+   "a": "HUN",
+   "b": "ITA",
+   "trade": 0.1397,
+   "migration": 0.1912,
+   "neighbor": false,
+   "distance_km": 698
+  },
+  {
+   "a": "HUN",
+   "b": "MDA",
+   "trade": 0.0664,
+   "migration": 0.0684,
+   "neighbor": false,
+   "distance_km": 683
+  },
+  {
+   "a": "HUN",
+   "b": "ROU",
+   "trade": 0.8361,
+   "migration": 0.7002,
+   "neighbor": true,
+   "distance_km": 449
+  },
+  {
+   "a": "HUN",
+   "b": "SRB",
+   "trade": 0.6894,
+   "migration": 0.7709,
+   "neighbor": true,
+   "distance_km": 339
+  },
+  {
+   "a": "HUN",
+   "b": "SVK",
+   "trade": 0.8748,
+   "migration": 0.8577,
+   "neighbor": true,
+   "distance_km": 186
+  },
+  {
+   "a": "HUN",
+   "b": "SVN",
+   "trade": 0.4338,
+   "migration": 0.3789,
+   "neighbor": true,
+   "distance_km": 365
+  },
+  {
+   "a": "HUN",
+   "b": "UKR",
+   "trade": 0.3736,
+   "migration": 0.4713,
+   "neighbor": true,
+   "distance_km": 980
+  },
+  {
+   "a": "IDN",
+   "b": "IND",
+   "trade": 0.0462,
+   "migration": 0.1058,
+   "neighbor": false,
+   "distance_km": 3587
+  },
+  {
+   "a": "IDN",
+   "b": "KHM",
+   "trade": 0.0514,
+   "migration": 0.1054,
+   "neighbor": false,
+   "distance_km": 1540
+  },
+  {
+   "a": "IDN",
+   "b": "LKA",
+   "trade": 0.0612,
+   "migration": 0.0983,
+   "neighbor": false,
+   "distance_km": 2534
+  },
+  {
+   "a": "IDN",
+   "b": "MDV",
+   "trade": 0.0402,
+   "migration": 0.0411,
+   "neighbor": false,
+   "distance_km": 3205
+  },
+  {
+   "a": "IDN",
+   "b": "MUS",
+   "trade": 0.0404,
+   "migration": 0.0274,
+   "neighbor": false,
+   "distance_km": 5273
+  },
+  {
+   "a": "IDN",
+   "b": "MYS",
+   "trade": 0.6876,
+   "migration": 0.8014,
+   "neighbor": true,
+   "distance_km": 1383
+  },
+  {
+   "a": "IDN",
+   "b": "NZL",
+   "trade": 0.0254,
+   "migration": 0.0552,
+   "neighbor": false,
+   "distance_km": 8317
+  },
+  {
+   "a": "IDN",
+   "b": "PNG",
+   "trade": 0.1379,
+   "migration": 0.1751,
+   "neighbor": true,
+   "distance_km": 4692
+  },
+  {
+   "a": "IDN",
+   "b": "SGP",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": false,
+   "distance_km": 335
+  },
+  {
+   "a": "IDN",
+   "b": "THA",
+   "trade": 0.1385,
+   "migration": 0.1926,
+   "neighbor": false,
+   "distance_km": 1827
+  },
+  {
+   "a": "IDN",
+   "b": "TLS",
+   "trade": 0.0925,
+   "migration": 0.1676,
+   "neighbor": true,
+   "distance_km": 2792
+  },
+  {
+   "a": "IDN",
+   "b": "TWN",
+   "trade": 0.0531,
+   "migration": 0.1085,
+   "neighbor": false,
+   "distance_km": 3419
+  },
+  {
+   "a": "IDN",
+   "b": "VNM",
+   "trade": 0.0412,
+   "migration": 0.0655,
+   "neighbor": false,
+   "distance_km": 2549
+  },
+  {
+   "a": "IND",
+   "b": "KAZ",
+   "trade": 0.0738,
+   "migration": 0.0941,
+   "neighbor": false,
+   "distance_km": 3079
+  },
+  {
+   "a": "IND",
+   "b": "KGZ",
+   "trade": 0.0649,
+   "migration": 0.1023,
+   "neighbor": false,
+   "distance_km": 2158
+  },
+  {
+   "a": "IND",
+   "b": "LKA",
+   "trade": 0.206,
+   "migration": 0.237,
+   "neighbor": false,
+   "distance_km": 1686
+  },
+  {
+   "a": "IND",
+   "b": "MDG",
+   "trade": 0.0454,
+   "migration": 0.0566,
+   "neighbor": false,
+   "distance_km": 5804
+  },
+  {
+   "a": "IND",
+   "b": "MDV",
+   "trade": 0.1359,
+   "migration": 0.1001,
+   "neighbor": false,
+   "distance_km": 2153
+  },
+  {
+   "a": "IND",
+   "b": "MMR",
+   "trade": 0.2693,
+   "migration": 0.4575,
+   "neighbor": true,
+   "distance_km": 1698
+  },
+  {
+   "a": "IND",
+   "b": "MNG",
+   "trade": 0.0225,
+   "migration": 0.0255,
+   "neighbor": false,
+   "distance_km": 3421
+  },
+  {
+   "a": "IND",
+   "b": "MUS",
+   "trade": 0.0728,
+   "migration": 0.0336,
+   "neighbor": false,
+   "distance_km": 5333
+  },
+  {
+   "a": "IND",
+   "b": "NPL",
+   "trade": 0.5309,
+   "migration": 0.7966,
+   "neighbor": true,
+   "distance_km": 757
+  },
+  {
+   "a": "IND",
+   "b": "NZL",
+   "trade": 0.0245,
+   "migration": 0.0349,
+   "neighbor": false,
+   "distance_km": 11876
+  },
+  {
+   "a": "IND",
+   "b": "OMN",
+   "trade": 0.0487,
+   "migration": 0.0919,
+   "neighbor": false,
+   "distance_km": 2263
+  },
+  {
+   "a": "IND",
+   "b": "PAK",
+   "trade": 0.6171,
+   "migration": 0.9515,
+   "neighbor": true,
+   "distance_km": 1308
+  },
+  {
+   "a": "IND",
+   "b": "QAT",
+   "trade": 0.0544,
+   "migration": 0.0858,
+   "neighbor": false,
+   "distance_km": 2876
+  },
+  {
+   "a": "IND",
+   "b": "SGP",
+   "trade": 0.1242,
+   "migration": 0.0531,
+   "neighbor": false,
+   "distance_km": 3549
+  },
+  {
+   "a": "IND",
+   "b": "SOL",
+   "trade": 0.0383,
+   "migration": 0.0285,
+   "neighbor": false,
+   "distance_km": 3772
+  },
+  {
+   "a": "IND",
+   "b": "SOM",
+   "trade": 0.0332,
+   "migration": 0.0311,
+   "neighbor": false,
+   "distance_km": 4247
+  },
+  {
+   "a": "IND",
+   "b": "TJK",
+   "trade": 0.0696,
+   "migration": 0.1407,
+   "neighbor": false,
+   "distance_km": 1842
+  },
+  {
+   "a": "IND",
+   "b": "TKM",
+   "trade": 0.0427,
+   "migration": 0.0548,
+   "neighbor": false,
+   "distance_km": 2727
+  },
+  {
+   "a": "IND",
+   "b": "UZB",
+   "trade": 0.0815,
+   "migration": 0.1292,
+   "neighbor": false,
+   "distance_km": 2551
+  },
+  {
+   "a": "IND",
+   "b": "VNM",
+   "trade": 0.07,
+   "migration": 0.0754,
+   "neighbor": false,
+   "distance_km": 2679
+  },
+  {
+   "a": "IND",
+   "b": "YEM",
+   "trade": 0.0209,
+   "migration": 0.0457,
+   "neighbor": false,
+   "distance_km": 3605
+  },
+  {
+   "a": "IRL",
+   "b": "ISL",
+   "trade": 0.0857,
+   "migration": 0.0443,
+   "neighbor": false,
+   "distance_km": 1438
+  },
+  {
+   "a": "IRL",
+   "b": "ITA",
+   "trade": 0.0564,
+   "migration": 0.0411,
+   "neighbor": false,
+   "distance_km": 1655
+  },
+  {
+   "a": "IRL",
+   "b": "LBR",
+   "trade": 0.0053,
+   "migration": 0.0031,
+   "neighbor": false,
+   "distance_km": 5187
+  },
+  {
+   "a": "IRL",
+   "b": "MAR",
+   "trade": 0.0539,
+   "migration": 0.0351,
+   "neighbor": false,
+   "distance_km": 2383
+  },
+  {
+   "a": "IRL",
+   "b": "NLD",
+   "trade": 0.0805,
+   "migration": 0.0464,
+   "neighbor": false,
+   "distance_km": 904
+  },
+  {
+   "a": "IRL",
+   "b": "NOR",
+   "trade": 0.0772,
+   "migration": 0.0459,
+   "neighbor": false,
+   "distance_km": 1390
+  },
+  {
+   "a": "IRL",
+   "b": "PRT",
+   "trade": 0.0441,
+   "migration": 0.0247,
+   "neighbor": false,
+   "distance_km": 1498
+  },
+  {
+   "a": "IRL",
+   "b": "SAH",
+   "trade": 0.0079,
+   "migration": 0.0074,
+   "neighbor": false,
+   "distance_km": 3262
+  },
+  {
+   "a": "IRL",
+   "b": "USA",
+   "trade": 0.028,
+   "migration": 0.0115,
+   "neighbor": false,
+   "distance_km": 6587
+  },
+  {
+   "a": "IRN",
+   "b": "IRQ",
+   "trade": 0.6991,
+   "migration": 0.5477,
+   "neighbor": true,
+   "distance_km": 1097
+  },
+  {
+   "a": "IRN",
+   "b": "KWT",
+   "trade": 0.1915,
+   "migration": 0.3222,
+   "neighbor": false,
+   "distance_km": 789
+  },
+  {
+   "a": "IRN",
+   "b": "OMN",
+   "trade": 0.0868,
+   "migration": 0.1363,
+   "neighbor": false,
+   "distance_km": 1142
+  },
+  {
+   "a": "IRN",
+   "b": "PAK",
+   "trade": 0.4714,
+   "migration": 0.535,
+   "neighbor": true,
+   "distance_km": 1338
+  },
+  {
+   "a": "IRN",
+   "b": "QAT",
+   "trade": 0.1944,
+   "migration": 0.2736,
+   "neighbor": false,
+   "distance_km": 854
+  },
+  {
+   "a": "IRN",
+   "b": "SAU",
+   "trade": 0.1543,
+   "migration": 0.2984,
+   "neighbor": false,
+   "distance_km": 1367
+  },
+  {
+   "a": "IRN",
+   "b": "TKM",
+   "trade": 0.5645,
+   "migration": 0.491,
+   "neighbor": true,
+   "distance_km": 919
+  },
+  {
+   "a": "IRN",
+   "b": "TUR",
+   "trade": 0.6236,
+   "migration": 0.3773,
+   "neighbor": true,
+   "distance_km": 2002
+  },
+  {
+   "a": "IRQ",
+   "b": "ISR",
+   "trade": 0.151,
+   "migration": 0.1082,
+   "neighbor": false,
+   "distance_km": 829
+  },
+  {
+   "a": "IRQ",
+   "b": "JOR",
+   "trade": 0.3895,
+   "migration": 0.6582,
+   "neighbor": true,
+   "distance_km": 698
+  },
+  {
+   "a": "IRQ",
+   "b": "KWT",
+   "trade": 0.6774,
+   "migration": 0.9767,
+   "neighbor": true,
+   "distance_km": 562
+  },
+  {
+   "a": "IRQ",
+   "b": "LBN",
+   "trade": 0.086,
+   "migration": 0.1568,
+   "neighbor": false,
+   "distance_km": 683
+  },
+  {
+   "a": "IRQ",
+   "b": "PSX",
+   "trade": 0.0549,
+   "migration": 0.072,
+   "neighbor": false,
+   "distance_km": 756
+  },
+  {
+   "a": "IRQ",
+   "b": "QAT",
+   "trade": 0.0896,
+   "migration": 0.1252,
+   "neighbor": false,
+   "distance_km": 1161
+  },
+  {
+   "a": "IRQ",
+   "b": "SAU",
+   "trade": 0.5718,
+   "migration": 0.8854,
+   "neighbor": true,
+   "distance_km": 1042
+  },
+  {
+   "a": "IRQ",
+   "b": "SYR",
+   "trade": 0.3582,
+   "migration": 0.686,
+   "neighbor": true,
+   "distance_km": 506
+  },
+  {
+   "a": "IRQ",
+   "b": "TUR",
+   "trade": 0.9687,
+   "migration": 0.6284,
+   "neighbor": true,
+   "distance_km": 1048
+  },
+  {
+   "a": "ISL",
+   "b": "NLD",
+   "trade": 0.0487,
+   "migration": 0.0306,
+   "neighbor": false,
+   "distance_km": 1943
+  },
+  {
+   "a": "ISL",
+   "b": "NOR",
+   "trade": 0.0962,
+   "migration": 0.0847,
+   "neighbor": false,
+   "distance_km": 1464
+  },
+  {
+   "a": "ISL",
+   "b": "SWE",
+   "trade": 0.0981,
+   "migration": 0.0864,
+   "neighbor": false,
+   "distance_km": 1728
+  },
+  {
+   "a": "ISR",
+   "b": "JOR",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 146
+  },
+  {
+   "a": "ISR",
+   "b": "KWT",
+   "trade": 0.0768,
+   "migration": 0.0523,
+   "neighbor": false,
+   "distance_km": 1209
+  },
+  {
+   "a": "ISR",
+   "b": "LBN",
+   "trade": 0.5354,
+   "migration": 0.4248,
+   "neighbor": true,
+   "distance_km": 374
+  },
+  {
+   "a": "ISR",
+   "b": "PSX",
+   "trade": 0.5904,
+   "migration": 0.521,
+   "neighbor": true,
+   "distance_km": 133
+  },
+  {
+   "a": "ISR",
+   "b": "SAU",
+   "trade": 0.1087,
+   "migration": 0.1034,
+   "neighbor": false,
+   "distance_km": 1252
+  },
+  {
+   "a": "ISR",
+   "b": "SYR",
+   "trade": 0.2998,
+   "migration": 0.3913,
+   "neighbor": true,
+   "distance_km": 556
+  },
+  {
+   "a": "ISR",
+   "b": "TUR",
+   "trade": 0.2548,
+   "migration": 0.1415,
+   "neighbor": false,
+   "distance_km": 938
+  },
+  {
+   "a": "ISR",
+   "b": "YEM",
+   "trade": 0.0234,
+   "migration": 0.028,
+   "neighbor": false,
+   "distance_km": 2064
+  },
+  {
+   "a": "ITA",
+   "b": "KOS",
+   "trade": 0.0656,
+   "migration": 0.0894,
+   "neighbor": false,
+   "distance_km": 822
+  },
+  {
+   "a": "ITA",
+   "b": "LBY",
+   "trade": 0.0504,
+   "migration": 0.052,
+   "neighbor": false,
+   "distance_km": 2105
+  },
+  {
+   "a": "ITA",
+   "b": "LUX",
+   "trade": 0.0942,
+   "migration": 0.0856,
+   "neighbor": false,
+   "distance_km": 672
+  },
+  {
+   "a": "ITA",
+   "b": "MAR",
+   "trade": 0.0651,
+   "migration": 0.0836,
+   "neighbor": false,
+   "distance_km": 2150
+  },
+  {
+   "a": "ITA",
+   "b": "MDA",
+   "trade": 0.0333,
+   "migration": 0.0417,
+   "neighbor": false,
+   "distance_km": 1373
+  },
+  {
+   "a": "ITA",
+   "b": "MKD",
+   "trade": 0.0591,
+   "migration": 0.081,
+   "neighbor": false,
+   "distance_km": 920
+  },
+  {
+   "a": "ITA",
+   "b": "MLT",
+   "trade": 0.1485,
+   "migration": 0.1694,
+   "neighbor": false,
+   "distance_km": 1023
+  },
+  {
+   "a": "ITA",
+   "b": "MNE",
+   "trade": 0.0716,
+   "migration": 0.1085,
+   "neighbor": false,
+   "distance_km": 682
+  },
+  {
+   "a": "ITA",
+   "b": "MRT",
+   "trade": 0.0198,
+   "migration": 0.023,
+   "neighbor": false,
+   "distance_km": 3393
+  },
+  {
+   "a": "ITA",
+   "b": "NLD",
+   "trade": 0.093,
+   "migration": 0.0975,
+   "neighbor": false,
+   "distance_km": 944
+  },
+  {
+   "a": "ITA",
+   "b": "PRT",
+   "trade": 0.0381,
+   "migration": 0.0446,
+   "neighbor": false,
+   "distance_km": 1688
+  },
+  {
+   "a": "ITA",
+   "b": "ROU",
+   "trade": 0.0942,
+   "migration": 0.1281,
+   "neighbor": false,
+   "distance_km": 1092
+  },
+  {
+   "a": "ITA",
+   "b": "SRB",
+   "trade": 0.1011,
+   "migration": 0.1686,
+   "neighbor": false,
+   "distance_km": 773
+  },
+  {
+   "a": "ITA",
+   "b": "SVK",
+   "trade": 0.1067,
+   "migration": 0.1311,
+   "neighbor": false,
+   "distance_km": 752
+  },
+  {
+   "a": "ITA",
+   "b": "SVN",
+   "trade": 0.5423,
+   "migration": 0.6093,
+   "neighbor": true,
+   "distance_km": 334
+  },
+  {
+   "a": "ITA",
+   "b": "TCD",
+   "trade": 0.0196,
+   "migration": 0.0281,
+   "neighbor": false,
+   "distance_km": 3366
+  },
+  {
+   "a": "ITA",
+   "b": "TUN",
+   "trade": 0.0953,
+   "migration": 0.1313,
+   "neighbor": false,
+   "distance_km": 1241
+  },
+  {
+   "a": "JAM",
+   "b": "MEX",
+   "trade": 0.0464,
+   "migration": 0.0514,
+   "neighbor": false,
+   "distance_km": 2666
+  },
+  {
+   "a": "JAM",
+   "b": "PAN",
+   "trade": 0.1215,
+   "migration": 0.1282,
+   "neighbor": false,
+   "distance_km": 1097
+  },
+  {
+   "a": "JAM",
+   "b": "PRI",
+   "trade": 0.264,
+   "migration": 0.1646,
+   "neighbor": false,
+   "distance_km": 1145
+  },
+  {
+   "a": "JAM",
+   "b": "USA",
+   "trade": 0.101,
+   "migration": 0.106,
+   "neighbor": false,
+   "distance_km": 3070
+  },
+  {
+   "a": "JOR",
+   "b": "LBN",
+   "trade": 0.072,
+   "migration": 0.205,
+   "neighbor": false,
+   "distance_km": 372
+  },
+  {
+   "a": "JOR",
+   "b": "PSX",
+   "trade": 0.2985,
+   "migration": 0.7369,
+   "neighbor": true,
+   "distance_km": 172
+  },
+  {
+   "a": "JOR",
+   "b": "SAU",
+   "trade": 0.2867,
+   "migration": 0.4896,
+   "neighbor": true,
+   "distance_km": 1131
+  },
+  {
+   "a": "JOR",
+   "b": "SYR",
+   "trade": 0.2128,
+   "migration": 0.7038,
+   "neighbor": true,
+   "distance_km": 500
+  },
+  {
+   "a": "JOR",
+   "b": "TUR",
+   "trade": 0.1495,
+   "migration": 0.2131,
+   "neighbor": false,
+   "distance_km": 965
+  },
+  {
+   "a": "JPN",
+   "b": "KOR",
+   "trade": 1.0,
+   "migration": 0.5742,
+   "neighbor": false,
+   "distance_km": 925
+  },
+  {
+   "a": "JPN",
+   "b": "MAC",
+   "trade": 0.0472,
+   "migration": 0.0448,
+   "neighbor": false,
+   "distance_km": 2862
+  },
+  {
+   "a": "JPN",
+   "b": "MNG",
+   "trade": 0.0374,
+   "migration": 0.0368,
+   "neighbor": false,
+   "distance_km": 3048
+  },
+  {
+   "a": "JPN",
+   "b": "NCL",
+   "trade": 0.0299,
+   "migration": 0.0414,
+   "neighbor": false,
+   "distance_km": 6951
+  },
+  {
+   "a": "JPN",
+   "b": "NZL",
+   "trade": 0.0546,
+   "migration": 0.0638,
+   "neighbor": false,
+   "distance_km": 9143
+  },
+  {
+   "a": "JPN",
+   "b": "PNG",
+   "trade": 0.0879,
+   "migration": 0.0865,
+   "neighbor": false,
+   "distance_km": 4687
+  },
+  {
+   "a": "JPN",
+   "b": "PRK",
+   "trade": 0.0949,
+   "migration": 0.2752,
+   "neighbor": false,
+   "distance_km": 1129
+  },
+  {
+   "a": "JPN",
+   "b": "PYF",
+   "trade": 0.0217,
+   "migration": 0.0249,
+   "neighbor": false,
+   "distance_km": 9638
+  },
+  {
+   "a": "JPN",
+   "b": "SGP",
+   "trade": 0.089,
+   "migration": 0.0287,
+   "neighbor": false,
+   "distance_km": 5257
+  },
+  {
+   "a": "JPN",
+   "b": "SLB",
+   "trade": 0.0434,
+   "migration": 0.0504,
+   "neighbor": false,
+   "distance_km": 5369
+  },
+  {
+   "a": "JPN",
+   "b": "THA",
+   "trade": 0.0916,
+   "migration": 0.0644,
+   "neighbor": false,
+   "distance_km": 4350
+  },
+  {
+   "a": "JPN",
+   "b": "TWN",
+   "trade": 0.2702,
+   "migration": 0.3163,
+   "neighbor": false,
+   "distance_km": 2184
+  },
+  {
+   "a": "JPN",
+   "b": "VNM",
+   "trade": 0.0614,
+   "migration": 0.0543,
+   "neighbor": false,
+   "distance_km": 3570
+  },
+  {
+   "a": "JPN",
+   "b": "VUT",
+   "trade": 0.0277,
+   "migration": 0.0296,
+   "neighbor": false,
+   "distance_km": 6462
+  },
+  {
+   "a": "JPN",
+   "b": "WSM",
+   "trade": 0.0267,
+   "migration": 0.0307,
+   "neighbor": false,
+   "distance_km": 7562
+  },
+  {
+   "a": "KAZ",
+   "b": "KGZ",
+   "trade": 0.484,
+   "migration": 0.5512,
+   "neighbor": true,
+   "distance_km": 939
+  },
+  {
+   "a": "KAZ",
+   "b": "RUS",
+   "trade": 0.5684,
+   "migration": 0.5154,
+   "neighbor": true,
+   "distance_km": 1868
+  },
+  {
+   "a": "KAZ",
+   "b": "TJK",
+   "trade": 0.0765,
+   "migration": 0.1332,
+   "neighbor": false,
+   "distance_km": 1247
+  },
+  {
+   "a": "KAZ",
+   "b": "TKM",
+   "trade": 0.3328,
+   "migration": 0.2806,
+   "neighbor": true,
+   "distance_km": 1293
+  },
+  {
+   "a": "KAZ",
+   "b": "UZB",
+   "trade": 0.8416,
+   "migration": 0.9687,
+   "neighbor": true,
+   "distance_km": 896
+  },
+  {
+   "a": "KEN",
+   "b": "MDG",
+   "trade": 0.1223,
+   "migration": 0.1146,
+   "neighbor": false,
+   "distance_km": 2339
+  },
+  {
+   "a": "KEN",
+   "b": "MOZ",
+   "trade": 0.1082,
+   "migration": 0.0855,
+   "neighbor": false,
+   "distance_km": 1611
+  },
+  {
+   "a": "KEN",
+   "b": "MWI",
+   "trade": 0.0572,
+   "migration": 0.0666,
+   "neighbor": false,
+   "distance_km": 1620
+  },
+  {
+   "a": "KEN",
+   "b": "RWA",
+   "trade": 0.1201,
+   "migration": 0.1194,
+   "neighbor": false,
+   "distance_km": 909
+  },
+  {
+   "a": "KEN",
+   "b": "SAU",
+   "trade": 0.0486,
+   "migration": 0.0764,
+   "neighbor": false,
+   "distance_km": 2688
+  },
+  {
+   "a": "KEN",
+   "b": "SDS",
+   "trade": 0.4476,
+   "migration": 0.3485,
+   "neighbor": true,
+   "distance_km": 1117
+  },
+  {
+   "a": "KEN",
+   "b": "SOM",
+   "trade": 0.7618,
+   "migration": 0.455,
+   "neighbor": true,
+   "distance_km": 876
+  },
+  {
+   "a": "KEN",
+   "b": "TZA",
+   "trade": 0.8783,
+   "migration": 0.8308,
+   "neighbor": true,
+   "distance_km": 804
+  },
+  {
+   "a": "KEN",
+   "b": "UGA",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 574
+  },
+  {
+   "a": "KGZ",
+   "b": "PAK",
+   "trade": 0.0492,
+   "migration": 0.0863,
+   "neighbor": false,
+   "distance_km": 1474
+  },
+  {
+   "a": "KGZ",
+   "b": "RUS",
+   "trade": 0.0418,
+   "migration": 0.0561,
+   "neighbor": false,
+   "distance_km": 2780
+  },
+  {
+   "a": "KGZ",
+   "b": "TJK",
+   "trade": 0.4281,
+   "migration": 0.8842,
+   "neighbor": true,
+   "distance_km": 420
+  },
+  {
+   "a": "KGZ",
+   "b": "UZB",
+   "trade": 0.4309,
+   "migration": 0.6169,
+   "neighbor": true,
+   "distance_km": 874
+  },
+  {
+   "a": "KHM",
+   "b": "LAO",
+   "trade": 0.1132,
+   "migration": 0.1841,
+   "neighbor": true,
+   "distance_km": 783
+  },
+  {
+   "a": "KHM",
+   "b": "MYS",
+   "trade": 0.0657,
+   "migration": 0.0715,
+   "neighbor": false,
+   "distance_km": 1524
+  },
+  {
+   "a": "KHM",
+   "b": "SGP",
+   "trade": 0.1093,
+   "migration": 0.0694,
+   "neighbor": false,
+   "distance_km": 1257
+  },
+  {
+   "a": "KHM",
+   "b": "THA",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 485
+  },
+  {
+   "a": "KHM",
+   "b": "VNM",
+   "trade": 0.2247,
+   "migration": 0.2477,
+   "neighbor": true,
+   "distance_km": 1013
+  },
+  {
+   "a": "KOR",
+   "b": "MAC",
+   "trade": 0.0591,
+   "migration": 0.0277,
+   "neighbor": false,
+   "distance_km": 2119
+  },
+  {
+   "a": "KOR",
+   "b": "MNG",
+   "trade": 0.0475,
+   "migration": 0.0233,
+   "neighbor": false,
+   "distance_km": 2261
+  },
+  {
+   "a": "KOR",
+   "b": "PHL",
+   "trade": 0.1557,
+   "migration": 0.0963,
+   "neighbor": false,
+   "distance_km": 2858
+  },
+  {
+   "a": "KOR",
+   "b": "PRK",
+   "trade": 0.8916,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 416
+  },
+  {
+   "a": "KOR",
+   "b": "SGP",
+   "trade": 0.0802,
+   "migration": 0.0136,
+   "neighbor": false,
+   "distance_km": 4628
+  },
+  {
+   "a": "KOR",
+   "b": "SLB",
+   "trade": 0.0302,
+   "migration": 0.0162,
+   "neighbor": false,
+   "distance_km": 5907
+  },
+  {
+   "a": "KOR",
+   "b": "THA",
+   "trade": 0.1026,
+   "migration": 0.0353,
+   "neighbor": false,
+   "distance_km": 3545
+  },
+  {
+   "a": "KOR",
+   "b": "TWN",
+   "trade": 0.3528,
+   "migration": 0.1983,
+   "neighbor": false,
+   "distance_km": 1578
+  },
+  {
+   "a": "KOR",
+   "b": "VNM",
+   "trade": 0.0718,
+   "migration": 0.0329,
+   "neighbor": false,
+   "distance_km": 2735
+  },
+  {
+   "a": "KOS",
+   "b": "MKD",
+   "trade": 0.398,
+   "migration": 0.4575,
+   "neighbor": true,
+   "distance_km": 129
+  },
+  {
+   "a": "KOS",
+   "b": "MNE",
+   "trade": 0.3605,
+   "migration": 0.4246,
+   "neighbor": true,
+   "distance_km": 142
+  },
+  {
+   "a": "KOS",
+   "b": "ROU",
+   "trade": 0.1106,
+   "migration": 0.1195,
+   "neighbor": false,
+   "distance_km": 479
+  },
+  {
+   "a": "KOS",
+   "b": "SRB",
+   "trade": 0.527,
+   "migration": 0.6704,
+   "neighbor": true,
+   "distance_km": 178
+  },
+  {
+   "a": "KWT",
+   "b": "QAT",
+   "trade": 0.1319,
+   "migration": 0.1511,
+   "neighbor": false,
+   "distance_km": 599
+  },
+  {
+   "a": "KWT",
+   "b": "SAU",
+   "trade": 0.6866,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 675
+  },
+  {
+   "a": "KWT",
+   "b": "TUR",
+   "trade": 0.1105,
+   "migration": 0.1169,
+   "neighbor": false,
+   "distance_km": 1610
+  },
+  {
+   "a": "KWT",
+   "b": "YEM",
+   "trade": 0.0279,
+   "migration": 0.082,
+   "neighbor": false,
+   "distance_km": 1573
+  },
+  {
+   "a": "LAO",
+   "b": "MMR",
+   "trade": 0.109,
+   "migration": 0.2647,
+   "neighbor": true,
+   "distance_km": 740
+  },
+  {
+   "a": "LAO",
+   "b": "SGP",
+   "trade": 0.0379,
+   "migration": 0.025,
+   "neighbor": false,
+   "distance_km": 2014
+  },
+  {
+   "a": "LAO",
+   "b": "THA",
+   "trade": 0.5984,
+   "migration": 0.7671,
+   "neighbor": true,
+   "distance_km": 468
+  },
+  {
+   "a": "LAO",
+   "b": "TWN",
+   "trade": 0.0324,
+   "migration": 0.0629,
+   "neighbor": false,
+   "distance_km": 1952
+  },
+  {
+   "a": "LAO",
+   "b": "VNM",
+   "trade": 0.3174,
+   "migration": 0.5305,
+   "neighbor": true,
+   "distance_km": 391
+  },
+  {
+   "a": "LBN",
+   "b": "PSX",
+   "trade": 0.0561,
+   "migration": 0.1449,
+   "neighbor": false,
+   "distance_km": 241
+  },
+  {
+   "a": "LBN",
+   "b": "SAU",
+   "trade": 0.045,
+   "migration": 0.0959,
+   "neighbor": false,
+   "distance_km": 1425
+  },
+  {
+   "a": "LBN",
+   "b": "SYR",
+   "trade": 0.2661,
+   "migration": 0.9359,
+   "neighbor": true,
+   "distance_km": 231
+  },
+  {
+   "a": "LBN",
+   "b": "TUR",
+   "trade": 0.1958,
+   "migration": 0.2784,
+   "neighbor": false,
+   "distance_km": 594
+  },
+  {
+   "a": "LBR",
+   "b": "SLE",
+   "trade": 0.277,
+   "migration": 0.5046,
+   "neighbor": true,
+   "distance_km": 350
+  },
+  {
+   "a": "LBY",
+   "b": "NER",
+   "trade": 0.3663,
+   "migration": 0.2491,
+   "neighbor": true,
+   "distance_km": 1346
+  },
+  {
+   "a": "LBY",
+   "b": "SDN",
+   "trade": 0.3317,
+   "migration": 0.2964,
+   "neighbor": true,
+   "distance_km": 1632
+  },
+  {
+   "a": "LBY",
+   "b": "TCD",
+   "trade": 0.4528,
+   "migration": 0.3399,
+   "neighbor": true,
+   "distance_km": 1280
+  },
+  {
+   "a": "LBY",
+   "b": "TUN",
+   "trade": 0.5093,
+   "migration": 0.3698,
+   "neighbor": true,
+   "distance_km": 1167
+  },
+  {
+   "a": "LBY",
+   "b": "TUR",
+   "trade": 0.1206,
+   "migration": 0.075,
+   "neighbor": false,
+   "distance_km": 2082
+  },
+  {
+   "a": "LKA",
+   "b": "MDV",
+   "trade": 0.3299,
+   "migration": 0.1892,
+   "neighbor": false,
+   "distance_km": 882
+  },
+  {
+   "a": "LKA",
+   "b": "SGP",
+   "trade": 0.1568,
+   "migration": 0.045,
+   "neighbor": false,
+   "distance_km": 2652
+  },
+  {
+   "a": "LKA",
+   "b": "THA",
+   "trade": 0.1362,
+   "migration": 0.0804,
+   "neighbor": false,
+   "distance_km": 2384
+  },
+  {
+   "a": "LKA",
+   "b": "VNM",
+   "trade": 0.0445,
+   "migration": 0.0305,
+   "neighbor": false,
+   "distance_km": 3077
+  },
+  {
+   "a": "LSO",
+   "b": "NAM",
+   "trade": 0.0197,
+   "migration": 0.0256,
+   "neighbor": false,
+   "distance_km": 1495
+  },
+  {
+   "a": "LSO",
+   "b": "SWZ",
+   "trade": 0.0411,
+   "migration": 0.0684,
+   "neighbor": false,
+   "distance_km": 455
+  },
+  {
+   "a": "LSO",
+   "b": "ZAF",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 444
+  },
+  {
+   "a": "LSO",
+   "b": "ZMB",
+   "trade": 0.0252,
+   "migration": 0.0312,
+   "neighbor": false,
+   "distance_km": 1659
+  },
+  {
+   "a": "LSO",
+   "b": "ZWE",
+   "trade": 0.0367,
+   "migration": 0.0478,
+   "neighbor": false,
+   "distance_km": 1187
+  },
+  {
+   "a": "LTU",
+   "b": "LVA",
+   "trade": 0.6049,
+   "migration": 0.5901,
+   "neighbor": true,
+   "distance_km": 234
+  },
+  {
+   "a": "LTU",
+   "b": "NLD",
+   "trade": 0.0417,
+   "migration": 0.032,
+   "neighbor": false,
+   "distance_km": 1247
+  },
+  {
+   "a": "LTU",
+   "b": "POL",
+   "trade": 0.5108,
+   "migration": 0.4436,
+   "neighbor": true,
+   "distance_km": 460
+  },
+  {
+   "a": "LTU",
+   "b": "RUS",
+   "trade": 0.4972,
+   "migration": 0.3478,
+   "neighbor": true,
+   "distance_km": 1300
+  },
+  {
+   "a": "LUX",
+   "b": "NLD",
+   "trade": 0.1089,
+   "migration": 0.0851,
+   "neighbor": false,
+   "distance_km": 301
+  },
+  {
+   "a": "LVA",
+   "b": "NLD",
+   "trade": 0.042,
+   "migration": 0.0314,
+   "neighbor": false,
+   "distance_km": 1368
+  },
+  {
+   "a": "LVA",
+   "b": "POL",
+   "trade": 0.1034,
+   "migration": 0.1144,
+   "neighbor": false,
+   "distance_km": 683
+  },
+  {
+   "a": "LVA",
+   "b": "RUS",
+   "trade": 0.635,
+   "migration": 0.4852,
+   "neighbor": true,
+   "distance_km": 1147
+  },
+  {
+   "a": "MAC",
+   "b": "SGP",
+   "trade": 0.0363,
+   "migration": 0.0095,
+   "neighbor": false,
+   "distance_km": 2538
+  },
+  {
+   "a": "MAC",
+   "b": "THA",
+   "trade": 0.0681,
+   "migration": 0.0598,
+   "neighbor": false,
+   "distance_km": 1508
+  },
+  {
+   "a": "MAC",
+   "b": "TWN",
+   "trade": 0.1569,
+   "migration": 0.1372,
+   "neighbor": false,
+   "distance_km": 768
+  },
+  {
+   "a": "MAC",
+   "b": "VNM",
+   "trade": 0.0599,
+   "migration": 0.0888,
+   "neighbor": false,
+   "distance_km": 844
+  },
+  {
+   "a": "MAR",
+   "b": "MRT",
+   "trade": 0.1296,
+   "migration": 0.132,
+   "neighbor": false,
+   "distance_km": 1365
+  },
+  {
+   "a": "MAR",
+   "b": "PRT",
+   "trade": 0.1454,
+   "migration": 0.1562,
+   "neighbor": false,
+   "distance_km": 890
+  },
+  {
+   "a": "MAR",
+   "b": "SAH",
+   "trade": 0.2563,
+   "migration": 0.3593,
+   "neighbor": true,
+   "distance_km": 1008
+  },
+  {
+   "a": "MDA",
+   "b": "POL",
+   "trade": 0.0553,
+   "migration": 0.0584,
+   "neighbor": false,
+   "distance_km": 821
+  },
+  {
+   "a": "MDA",
+   "b": "ROU",
+   "trade": 0.5235,
+   "migration": 0.4871,
+   "neighbor": true,
+   "distance_km": 329
+  },
+  {
+   "a": "MDA",
+   "b": "SVK",
+   "trade": 0.0513,
+   "migration": 0.0483,
+   "neighbor": false,
+   "distance_km": 715
+  },
+  {
+   "a": "MDA",
+   "b": "TUR",
+   "trade": 0.1094,
+   "migration": 0.0884,
+   "neighbor": false,
+   "distance_km": 1022
+  },
+  {
+   "a": "MDA",
+   "b": "UKR",
+   "trade": 0.4424,
+   "migration": 0.7284,
+   "neighbor": true,
+   "distance_km": 370
+  },
+  {
+   "a": "MDG",
+   "b": "MOZ",
+   "trade": 0.3302,
+   "migration": 0.3799,
+   "neighbor": false,
+   "distance_km": 1080
+  },
+  {
+   "a": "MDG",
+   "b": "MUS",
+   "trade": 0.8222,
+   "migration": 0.4255,
+   "neighbor": false,
+   "distance_km": 1154
+  },
+  {
+   "a": "MDG",
+   "b": "MWI",
+   "trade": 0.1254,
+   "migration": 0.1834,
+   "neighbor": false,
+   "distance_km": 1515
+  },
+  {
+   "a": "MDG",
+   "b": "SAU",
+   "trade": 0.0375,
+   "migration": 0.0744,
+   "neighbor": false,
+   "distance_km": 4724
+  },
+  {
+   "a": "MDG",
+   "b": "SGP",
+   "trade": 0.0479,
+   "migration": 0.0176,
+   "neighbor": false,
+   "distance_km": 6622
+  },
+  {
+   "a": "MDG",
+   "b": "TZA",
+   "trade": 0.1567,
+   "migration": 0.2046,
+   "neighbor": false,
+   "distance_km": 1891
+  },
+  {
+   "a": "MDG",
+   "b": "ZAF",
+   "trade": 0.2187,
+   "migration": 0.208,
+   "neighbor": false,
+   "distance_km": 2635
+  },
+  {
+   "a": "MDV",
+   "b": "PAK",
+   "trade": 0.042,
+   "migration": 0.0287,
+   "neighbor": false,
+   "distance_km": 2845
+  },
+  {
+   "a": "MDV",
+   "b": "SAU",
+   "trade": 0.0309,
+   "migration": 0.0252,
+   "neighbor": false,
+   "distance_km": 3782
+  },
+  {
+   "a": "MDV",
+   "b": "SGP",
+   "trade": 0.0569,
+   "migration": 0.0132,
+   "neighbor": false,
+   "distance_km": 3380
+  },
+  {
+   "a": "MDV",
+   "b": "THA",
+   "trade": 0.0553,
+   "migration": 0.0273,
+   "neighbor": false,
+   "distance_km": 3265
+  },
+  {
+   "a": "MEX",
+   "b": "NIC",
+   "trade": 0.0357,
+   "migration": 0.0456,
+   "neighbor": false,
+   "distance_km": 2203
+  },
+  {
+   "a": "MEX",
+   "b": "PAN",
+   "trade": 0.0363,
+   "migration": 0.0373,
+   "neighbor": false,
+   "distance_km": 2879
+  },
+  {
+   "a": "MEX",
+   "b": "PER",
+   "trade": 0.0253,
+   "migration": 0.0302,
+   "neighbor": false,
+   "distance_km": 5199
+  },
+  {
+   "a": "MEX",
+   "b": "PRI",
+   "trade": 0.054,
+   "migration": 0.032,
+   "neighbor": false,
+   "distance_km": 3759
+  },
+  {
+   "a": "MEX",
+   "b": "PYF",
+   "trade": 0.0176,
+   "migration": 0.0224,
+   "neighbor": false,
+   "distance_km": 6894
+  },
+  {
+   "a": "MEX",
+   "b": "SLV",
+   "trade": 0.0504,
+   "migration": 0.0495,
+   "neighbor": false,
+   "distance_km": 1810
+  },
+  {
+   "a": "MEX",
+   "b": "URY",
+   "trade": 0.0054,
+   "migration": 0.0044,
+   "neighbor": false,
+   "distance_km": 8006
+  },
+  {
+   "a": "MEX",
+   "b": "USA",
+   "trade": 1.0,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 1794
+  },
+  {
+   "a": "MKD",
+   "b": "ROU",
+   "trade": 0.1016,
+   "migration": 0.1167,
+   "neighbor": false,
+   "distance_km": 539
+  },
+  {
+   "a": "MKD",
+   "b": "SRB",
+   "trade": 0.4152,
+   "migration": 0.5048,
+   "neighbor": true,
+   "distance_km": 299
+  },
+  {
+   "a": "MLI",
+   "b": "MRT",
+   "trade": 0.5594,
+   "migration": 0.6199,
+   "neighbor": true,
+   "distance_km": 815
+  },
+  {
+   "a": "MLI",
+   "b": "NER",
+   "trade": 0.2665,
+   "migration": 0.3317,
+   "neighbor": true,
+   "distance_km": 1228
+  },
+  {
+   "a": "MLI",
+   "b": "SEN",
+   "trade": 0.3453,
+   "migration": 0.3,
+   "neighbor": true,
+   "distance_km": 1411
+  },
+  {
+   "a": "MLT",
+   "b": "NLD",
+   "trade": 0.0451,
+   "migration": 0.0304,
+   "neighbor": false,
+   "distance_km": 1965
+  },
+  {
+   "a": "MLT",
+   "b": "TUN",
+   "trade": 0.2979,
+   "migration": 0.384,
+   "neighbor": false,
+   "distance_km": 553
+  },
+  {
+   "a": "MMR",
+   "b": "SGP",
+   "trade": 0.056,
+   "migration": 0.0345,
+   "neighbor": false,
+   "distance_km": 2409
+  },
+  {
+   "a": "MMR",
+   "b": "THA",
+   "trade": 0.6185,
+   "migration": 0.6879,
+   "neighbor": true,
+   "distance_km": 878
+  },
+  {
+   "a": "MMR",
+   "b": "VNM",
+   "trade": 0.0651,
+   "migration": 0.1142,
+   "neighbor": false,
+   "distance_km": 990
+  },
+  {
+   "a": "MNE",
+   "b": "SRB",
+   "trade": 0.4635,
+   "migration": 0.6062,
+   "neighbor": true,
+   "distance_km": 203
+  },
+  {
+   "a": "MNG",
+   "b": "RUS",
+   "trade": 0.0636,
+   "migration": 0.0468,
+   "neighbor": true,
+   "distance_km": 4127
+  },
+  {
+   "a": "MNG",
+   "b": "TWN",
+   "trade": 0.025,
+   "migration": 0.0316,
+   "neighbor": false,
+   "distance_km": 2902
+  },
+  {
+   "a": "MNG",
+   "b": "VNM",
+   "trade": 0.0118,
+   "migration": 0.0132,
+   "neighbor": false,
+   "distance_km": 2702
+  },
+  {
+   "a": "MOZ",
+   "b": "MUS",
+   "trade": 0.1505,
+   "migration": 0.0653,
+   "neighbor": false,
+   "distance_km": 2210
+  },
+  {
+   "a": "MOZ",
+   "b": "MWI",
+   "trade": 0.8775,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 461
+  },
+  {
+   "a": "MOZ",
+   "b": "SWZ",
+   "trade": 0.163,
+   "migration": 0.1263,
+   "neighbor": true,
+   "distance_km": 1549
+  },
+  {
+   "a": "MOZ",
+   "b": "TZA",
+   "trade": 0.7861,
+   "migration": 0.7071,
+   "neighbor": true,
+   "distance_km": 932
+  },
+  {
+   "a": "MOZ",
+   "b": "ZAF",
+   "trade": 0.5319,
+   "migration": 0.3264,
+   "neighbor": true,
+   "distance_km": 2279
+  },
+  {
+   "a": "MOZ",
+   "b": "ZMB",
+   "trade": 0.4815,
+   "migration": 0.4111,
+   "neighbor": true,
+   "distance_km": 1235
+  },
+  {
+   "a": "MOZ",
+   "b": "ZWE",
+   "trade": 0.557,
+   "migration": 0.5088,
+   "neighbor": true,
+   "distance_km": 1008
+  },
+  {
+   "a": "MRT",
+   "b": "NGA",
+   "trade": 0.0921,
+   "migration": 0.0883,
+   "neighbor": false,
+   "distance_km": 2169
+  },
+  {
+   "a": "MRT",
+   "b": "SAH",
+   "trade": 0.2743,
+   "migration": 0.4412,
+   "neighbor": true,
+   "distance_km": 571
+  },
+  {
+   "a": "MRT",
+   "b": "SEN",
+   "trade": 0.7747,
+   "migration": 0.5744,
+   "neighbor": true,
+   "distance_km": 728
+  },
+  {
+   "a": "MUS",
+   "b": "SAU",
+   "trade": 0.0433,
+   "migration": 0.0307,
+   "neighbor": false,
+   "distance_km": 5099
+  },
+  {
+   "a": "MUS",
+   "b": "SGP",
+   "trade": 0.0594,
+   "migration": 0.0114,
+   "neighbor": false,
+   "distance_km": 5582
+  },
+  {
+   "a": "MUS",
+   "b": "TZA",
+   "trade": 0.1182,
+   "migration": 0.051,
+   "neighbor": false,
+   "distance_km": 2909
+  },
+  {
+   "a": "MUS",
+   "b": "ZAF",
+   "trade": 0.1768,
+   "migration": 0.062,
+   "neighbor": false,
+   "distance_km": 3558
+  },
+  {
+   "a": "MWI",
+   "b": "TZA",
+   "trade": 0.4769,
+   "migration": 0.6456,
+   "neighbor": true,
+   "distance_km": 829
+  },
+  {
+   "a": "MWI",
+   "b": "ZAF",
+   "trade": 0.0896,
+   "migration": 0.099,
+   "neighbor": false,
+   "distance_km": 2083
+  },
+  {
+   "a": "MWI",
+   "b": "ZMB",
+   "trade": 0.4687,
+   "migration": 0.584,
+   "neighbor": true,
+   "distance_km": 791
+  },
+  {
+   "a": "MWI",
+   "b": "ZWE",
+   "trade": 0.1058,
+   "migration": 0.2007,
+   "neighbor": false,
+   "distance_km": 729
+  },
+  {
+   "a": "MYS",
+   "b": "NZL",
+   "trade": 0.0493,
+   "migration": 0.0352,
+   "neighbor": false,
+   "distance_km": 7607
+  },
+  {
+   "a": "MYS",
+   "b": "PHL",
+   "trade": 0.3019,
+   "migration": 0.3741,
+   "neighbor": false,
+   "distance_km": 1355
+  },
+  {
+   "a": "MYS",
+   "b": "PNG",
+   "trade": 0.0729,
+   "migration": 0.0671,
+   "neighbor": false,
+   "distance_km": 3463
+  },
+  {
+   "a": "MYS",
+   "b": "SGP",
+   "trade": 0.3645,
+   "migration": 0.1355,
+   "neighbor": false,
+   "distance_km": 1121
+  },
+  {
+   "a": "MYS",
+   "b": "THA",
+   "trade": 0.6101,
+   "migration": 0.315,
+   "neighbor": true,
+   "distance_km": 2006
+  },
+  {
+   "a": "MYS",
+   "b": "TLS",
+   "trade": 0.0597,
+   "migration": 0.0741,
+   "neighbor": false,
+   "distance_km": 1834
+  },
+  {
+   "a": "MYS",
+   "b": "VNM",
+   "trade": 0.0551,
+   "migration": 0.0512,
+   "neighbor": false,
+   "distance_km": 2321
+  },
+  {
+   "a": "NAM",
+   "b": "ZAF",
+   "trade": 0.8547,
+   "migration": 0.6244,
+   "neighbor": true,
+   "distance_km": 1211
+  },
+  {
+   "a": "NAM",
+   "b": "ZMB",
+   "trade": 0.3474,
+   "migration": 0.321,
+   "neighbor": true,
+   "distance_km": 1183
+  },
+  {
+   "a": "NAM",
+   "b": "ZWE",
+   "trade": 0.2717,
+   "migration": 0.2458,
+   "neighbor": true,
+   "distance_km": 1354
+  },
+  {
+   "a": "NCL",
+   "b": "NZL",
+   "trade": 0.3452,
+   "migration": 0.4658,
+   "neighbor": false,
+   "distance_km": 2204
+  },
+  {
+   "a": "NCL",
+   "b": "SGP",
+   "trade": 0.0312,
+   "migration": 0.0086,
+   "neighbor": false,
+   "distance_km": 7106
+  },
+  {
+   "a": "NCL",
+   "b": "TWN",
+   "trade": 0.0238,
+   "migration": 0.0223,
+   "neighbor": false,
+   "distance_km": 6901
+  },
+  {
+   "a": "NCL",
+   "b": "VUT",
+   "trade": 0.3982,
+   "migration": 0.8293,
+   "neighbor": false,
+   "distance_km": 662
+  },
+  {
+   "a": "NER",
+   "b": "NGA",
+   "trade": 0.7151,
+   "migration": 0.8646,
+   "neighbor": true,
+   "distance_km": 916
+  },
+  {
+   "a": "NER",
+   "b": "TCD",
+   "trade": 0.3549,
+   "migration": 0.4239,
+   "neighbor": true,
+   "distance_km": 1008
+  },
+  {
+   "a": "NGA",
+   "b": "STP",
+   "trade": 0.1787,
+   "migration": 0.1461,
+   "neighbor": false,
+   "distance_km": 943
+  },
+  {
+   "a": "NGA",
+   "b": "TCD",
+   "trade": 0.5859,
+   "migration": 0.6712,
+   "neighbor": true,
+   "distance_km": 1366
+  },
+  {
+   "a": "NGA",
+   "b": "TGO",
+   "trade": 0.1516,
+   "migration": 0.2567,
+   "neighbor": false,
+   "distance_km": 711
+  },
+  {
+   "a": "NIC",
+   "b": "PAN",
+   "trade": 0.1157,
+   "migration": 0.1532,
+   "neighbor": false,
+   "distance_km": 677
+  },
+  {
+   "a": "NIC",
+   "b": "SLV",
+   "trade": 0.1164,
+   "migration": 0.1511,
+   "neighbor": false,
+   "distance_km": 429
+  },
+  {
+   "a": "NIC",
+   "b": "USA",
+   "trade": 0.056,
+   "migration": 0.0632,
+   "neighbor": false,
+   "distance_km": 3227
+  },
+  {
+   "a": "NLD",
+   "b": "NOR",
+   "trade": 0.0947,
+   "migration": 0.0765,
+   "neighbor": false,
+   "distance_km": 1023
+  },
+  {
+   "a": "NLD",
+   "b": "POL",
+   "trade": 0.0817,
+   "migration": 0.0708,
+   "neighbor": false,
+   "distance_km": 946
+  },
+  {
+   "a": "NLD",
+   "b": "PRT",
+   "trade": 0.0301,
+   "migration": 0.0202,
+   "neighbor": false,
+   "distance_km": 1777
+  },
+  {
+   "a": "NLD",
+   "b": "SWE",
+   "trade": 0.063,
+   "migration": 0.0498,
+   "neighbor": false,
+   "distance_km": 1670
+  },
+  {
+   "a": "NLD",
+   "b": "TUN",
+   "trade": 0.0386,
+   "migration": 0.0299,
+   "neighbor": false,
+   "distance_km": 2101
+  },
+  {
+   "a": "NLD",
+   "b": "USA",
+   "trade": 0.0178,
+   "migration": 0.0099,
+   "neighbor": false,
+   "distance_km": 7400
+  },
+  {
+   "a": "NOR",
+   "b": "RUS",
+   "trade": 0.4231,
+   "migration": 0.364,
+   "neighbor": true,
+   "distance_km": 1963
+  },
+  {
+   "a": "NOR",
+   "b": "SWE",
+   "trade": 0.9794,
+   "migration": 0.9085,
+   "neighbor": true,
+   "distance_km": 680
+  },
+  {
+   "a": "NPL",
+   "b": "PAK",
+   "trade": 0.0254,
+   "migration": 0.0503,
+   "neighbor": false,
+   "distance_km": 1474
+  },
+  {
+   "a": "NPL",
+   "b": "SGP",
+   "trade": 0.0234,
+   "migration": 0.009,
+   "neighbor": false,
+   "distance_km": 3683
+  },
+  {
+   "a": "NPL",
+   "b": "THA",
+   "trade": 0.0364,
+   "migration": 0.0315,
+   "neighbor": false,
+   "distance_km": 2291
+  },
+  {
+   "a": "NPL",
+   "b": "VNM",
+   "trade": 0.0174,
+   "migration": 0.0184,
+   "neighbor": false,
+   "distance_km": 2306
+  },
+  {
+   "a": "NZL",
+   "b": "PYF",
+   "trade": 0.1502,
+   "migration": 0.1842,
+   "neighbor": false,
+   "distance_km": 4379
+  },
+  {
+   "a": "NZL",
+   "b": "SGP",
+   "trade": 0.0645,
+   "migration": 0.0161,
+   "neighbor": false,
+   "distance_km": 8328
+  },
+  {
+   "a": "NZL",
+   "b": "TWN",
+   "trade": 0.0433,
+   "migration": 0.0352,
+   "neighbor": false,
+   "distance_km": 8869
+  },
+  {
+   "a": "NZL",
+   "b": "USA",
+   "trade": 0.0324,
+   "migration": 0.0343,
+   "neighbor": false,
+   "distance_km": 12660
+  },
+  {
+   "a": "NZL",
+   "b": "VUT",
+   "trade": 0.1949,
+   "migration": 0.2703,
+   "neighbor": false,
+   "distance_km": 2771
+  },
+  {
+   "a": "NZL",
+   "b": "WSM",
+   "trade": 0.1944,
+   "migration": 0.2819,
+   "neighbor": false,
+   "distance_km": 3244
+  },
+  {
+   "a": "OMN",
+   "b": "PAK",
+   "trade": 0.0441,
+   "migration": 0.0892,
+   "neighbor": false,
+   "distance_km": 1378
+  },
+  {
+   "a": "OMN",
+   "b": "QAT",
+   "trade": 0.0738,
+   "migration": 0.0975,
+   "neighbor": false,
+   "distance_km": 719
+  },
+  {
+   "a": "OMN",
+   "b": "SAU",
+   "trade": 0.2284,
+   "migration": 0.3197,
+   "neighbor": true,
+   "distance_km": 1307
+  },
+  {
+   "a": "OMN",
+   "b": "SOL",
+   "trade": 0.0288,
+   "migration": 0.0298,
+   "neighbor": false,
+   "distance_km": 1808
+  },
+  {
+   "a": "OMN",
+   "b": "YEM",
+   "trade": 0.0865,
+   "migration": 0.1936,
+   "neighbor": true,
+   "distance_km": 1423
+  },
+  {
+   "a": "PAK",
+   "b": "SAU",
+   "trade": 0.0391,
+   "migration": 0.1025,
+   "neighbor": false,
+   "distance_km": 2445
+  },
+  {
+   "a": "PAK",
+   "b": "TJK",
+   "trade": 0.0601,
+   "migration": 0.1486,
+   "neighbor": false,
+   "distance_km": 1055
+  },
+  {
+   "a": "PAN",
+   "b": "SLV",
+   "trade": 0.076,
+   "migration": 0.0671,
+   "neighbor": false,
+   "distance_km": 1082
+  },
+  {
+   "a": "PAN",
+   "b": "USA",
+   "trade": 0.0625,
+   "migration": 0.0525,
+   "neighbor": false,
+   "distance_km": 3826
+  },
+  {
+   "a": "PER",
+   "b": "PRY",
+   "trade": 0.0997,
+   "migration": 0.1329,
+   "neighbor": false,
+   "distance_km": 1662
+  },
+  {
+   "a": "PER",
+   "b": "URY",
+   "trade": 0.0448,
+   "migration": 0.0413,
+   "neighbor": false,
+   "distance_km": 2809
+  },
+  {
+   "a": "PER",
+   "b": "USA",
+   "trade": 0.0424,
+   "migration": 0.0508,
+   "neighbor": false,
+   "distance_km": 6370
+  },
+  {
+   "a": "PHL",
+   "b": "PNG",
+   "trade": 0.1219,
+   "migration": 0.1715,
+   "neighbor": false,
+   "distance_km": 3027
+  },
+  {
+   "a": "PHL",
+   "b": "SGP",
+   "trade": 0.2118,
+   "migration": 0.1185,
+   "neighbor": false,
+   "distance_km": 2331
+  },
+  {
+   "a": "PHL",
+   "b": "THA",
+   "trade": 0.1634,
+   "migration": 0.173,
+   "neighbor": false,
+   "distance_km": 2361
+  },
+  {
+   "a": "PHL",
+   "b": "TLS",
+   "trade": 0.0565,
+   "migration": 0.1081,
+   "neighbor": false,
+   "distance_km": 2255
+  },
+  {
+   "a": "PHL",
+   "b": "TWN",
+   "trade": 0.3432,
+   "migration": 0.6314,
+   "neighbor": false,
+   "distance_km": 1395
+  },
+  {
+   "a": "PHL",
+   "b": "VNM",
+   "trade": 0.0878,
+   "migration": 0.1165,
+   "neighbor": false,
+   "distance_km": 2161
+  },
+  {
+   "a": "PNG",
+   "b": "SGP",
+   "trade": 0.0614,
+   "migration": 0.0307,
+   "neighbor": false,
+   "distance_km": 4521
+  },
+  {
+   "a": "PNG",
+   "b": "SLB",
+   "trade": 0.176,
+   "migration": 0.2694,
+   "neighbor": false,
+   "distance_km": 1704
+  },
+  {
+   "a": "PNG",
+   "b": "TWN",
+   "trade": 0.0676,
+   "migration": 0.0871,
+   "neighbor": false,
+   "distance_km": 4111
+  },
+  {
+   "a": "POL",
+   "b": "ROU",
+   "trade": 0.1242,
+   "migration": 0.131,
+   "neighbor": false,
+   "distance_km": 803
+  },
+  {
+   "a": "POL",
+   "b": "RUS",
+   "trade": 0.4279,
+   "migration": 0.3377,
+   "neighbor": true,
+   "distance_km": 1734
+  },
+  {
+   "a": "POL",
+   "b": "SVK",
+   "trade": 0.6604,
+   "migration": 0.5754,
+   "neighbor": true,
+   "distance_km": 363
+  },
+  {
+   "a": "POL",
+   "b": "SWE",
+   "trade": 0.0786,
+   "migration": 0.0866,
+   "neighbor": false,
+   "distance_km": 1542
+  },
+  {
+   "a": "POL",
+   "b": "UKR",
+   "trade": 0.3909,
+   "migration": 0.5526,
+   "neighbor": true,
+   "distance_km": 922
+  },
+  {
+   "a": "PRI",
+   "b": "SUR",
+   "trade": 0.0554,
+   "migration": 0.043,
+   "neighbor": false,
+   "distance_km": 1943
+  },
+  {
+   "a": "PRI",
+   "b": "TTO",
+   "trade": 0.5306,
+   "migration": 0.1634,
+   "neighbor": false,
+   "distance_km": 1002
+  },
+  {
+   "a": "PRI",
+   "b": "USA",
+   "trade": 0.1471,
+   "migration": 0.0754,
+   "neighbor": false,
+   "distance_km": 3803
+  },
+  {
+   "a": "PRI",
+   "b": "VEN",
+   "trade": 0.1992,
+   "migration": 0.1693,
+   "neighbor": false,
+   "distance_km": 1246
+  },
+  {
+   "a": "PRK",
+   "b": "RUS",
+   "trade": 0.0208,
+   "migration": 0.0389,
+   "neighbor": true,
+   "distance_km": 5883
+  },
+  {
+   "a": "PRK",
+   "b": "SGP",
+   "trade": 0.011,
+   "migration": 0.0085,
+   "neighbor": false,
+   "distance_km": 4856
+  },
+  {
+   "a": "PRK",
+   "b": "TWN",
+   "trade": 0.037,
+   "migration": 0.103,
+   "neighbor": false,
+   "distance_km": 1879
+  },
+  {
+   "a": "PRK",
+   "b": "VNM",
+   "trade": 0.0097,
+   "migration": 0.0191,
+   "neighbor": false,
+   "distance_km": 2836
+  },
+  {
+   "a": "PRY",
+   "b": "URY",
+   "trade": 0.0621,
+   "migration": 0.0608,
+   "neighbor": false,
+   "distance_km": 1321
+  },
+  {
+   "a": "PRY",
+   "b": "USA",
+   "trade": 0.0149,
+   "migration": 0.0158,
+   "neighbor": false,
+   "distance_km": 7833
+  },
+  {
+   "a": "PSX",
+   "b": "SAU",
+   "trade": 0.0353,
+   "migration": 0.0768,
+   "neighbor": false,
+   "distance_km": 1300
+  },
+  {
+   "a": "PSX",
+   "b": "TUR",
+   "trade": 0.1016,
+   "migration": 0.1104,
+   "neighbor": false,
+   "distance_km": 815
+  },
+  {
+   "a": "PYF",
+   "b": "SGP",
+   "trade": 0.0134,
+   "migration": 0.0044,
+   "neighbor": false,
+   "distance_km": 11825
+  },
+  {
+   "a": "PYF",
+   "b": "USA",
+   "trade": 0.0318,
+   "migration": 0.0362,
+   "neighbor": false,
+   "distance_km": 8332
+  },
+  {
+   "a": "QAT",
+   "b": "SAU",
+   "trade": 0.7603,
+   "migration": 0.9195,
+   "neighbor": true,
+   "distance_km": 671
+  },
+  {
+   "a": "QAT",
+   "b": "SOL",
+   "trade": 0.0469,
+   "migration": 0.0409,
+   "neighbor": false,
+   "distance_km": 1817
+  },
+  {
+   "a": "QAT",
+   "b": "SOM",
+   "trade": 0.0286,
+   "migration": 0.0345,
+   "neighbor": false,
+   "distance_km": 2492
+  },
+  {
+   "a": "QAT",
+   "b": "YEM",
+   "trade": 0.042,
+   "migration": 0.1106,
+   "neighbor": false,
+   "distance_km": 1231
+  },
+  {
+   "a": "ROU",
+   "b": "SRB",
+   "trade": 0.766,
+   "migration": 0.8444,
+   "neighbor": true,
+   "distance_km": 371
+  },
+  {
+   "a": "ROU",
+   "b": "UKR",
+   "trade": 0.5877,
+   "migration": 0.861,
+   "neighbor": true,
+   "distance_km": 695
+  },
+  {
+   "a": "RUS",
+   "b": "SWE",
+   "trade": 0.1943,
+   "migration": 0.2312,
+   "neighbor": false,
+   "distance_km": 1566
+  },
+  {
+   "a": "RUS",
+   "b": "UKR",
+   "trade": 0.6454,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 1249
+  },
+  {
+   "a": "RWA",
+   "b": "SAU",
+   "trade": 0.0201,
+   "migration": 0.0335,
+   "neighbor": false,
+   "distance_km": 3265
+  },
+  {
+   "a": "RWA",
+   "b": "TZA",
+   "trade": 0.5799,
+   "migration": 0.6199,
+   "neighbor": true,
+   "distance_km": 709
+  },
+  {
+   "a": "RWA",
+   "b": "UGA",
+   "trade": 0.6042,
+   "migration": 0.6856,
+   "neighbor": true,
+   "distance_km": 534
+  },
+  {
+   "a": "SAU",
+   "b": "SDN",
+   "trade": 0.0505,
+   "migration": 0.1791,
+   "neighbor": false,
+   "distance_km": 1812
+  },
+  {
+   "a": "SAU",
+   "b": "SDS",
+   "trade": 0.0375,
+   "migration": 0.0666,
+   "neighbor": false,
+   "distance_km": 2393
+  },
+  {
+   "a": "SAU",
+   "b": "SOL",
+   "trade": 0.078,
+   "migration": 0.1006,
+   "neighbor": false,
+   "distance_km": 1612
+  },
+  {
+   "a": "SAU",
+   "b": "SOM",
+   "trade": 0.0502,
+   "migration": 0.0826,
+   "neighbor": false,
+   "distance_km": 2251
+  },
+  {
+   "a": "SAU",
+   "b": "SYR",
+   "trade": 0.0353,
+   "migration": 0.1468,
+   "neighbor": false,
+   "distance_km": 1391
+  },
+  {
+   "a": "SAU",
+   "b": "UGA",
+   "trade": 0.0361,
+   "migration": 0.0726,
+   "neighbor": false,
+   "distance_km": 2737
+  },
+  {
+   "a": "SAU",
+   "b": "YEM",
+   "trade": 0.3052,
+   "migration": 0.9612,
+   "neighbor": true,
+   "distance_km": 951
+  },
+  {
+   "a": "SDN",
+   "b": "SDS",
+   "trade": 0.3023,
+   "migration": 0.5116,
+   "neighbor": true,
+   "distance_km": 1019
+  },
+  {
+   "a": "SDN",
+   "b": "TCD",
+   "trade": 0.2654,
+   "migration": 0.5768,
+   "neighbor": true,
+   "distance_km": 1144
+  },
+  {
+   "a": "SDS",
+   "b": "UGA",
+   "trade": 0.5932,
+   "migration": 0.7019,
+   "neighbor": true,
+   "distance_km": 650
+  },
+  {
+   "a": "SEN",
+   "b": "SLE",
+   "trade": 0.0919,
+   "migration": 0.129,
+   "neighbor": false,
+   "distance_km": 796
+  },
+  {
+   "a": "SGP",
+   "b": "SLB",
+   "trade": 0.0237,
+   "migration": 0.0128,
+   "neighbor": false,
+   "distance_km": 6225
+  },
+  {
+   "a": "SGP",
+   "b": "THA",
+   "trade": 0.2716,
+   "migration": 0.1033,
+   "neighbor": false,
+   "distance_km": 1596
+  },
+  {
+   "a": "SGP",
+   "b": "TLS",
+   "trade": 0.0474,
+   "migration": 0.029,
+   "neighbor": false,
+   "distance_km": 2691
+  },
+  {
+   "a": "SGP",
+   "b": "TWN",
+   "trade": 0.1156,
+   "migration": 0.0337,
+   "neighbor": false,
+   "distance_km": 3085
+  },
+  {
+   "a": "SGP",
+   "b": "VNM",
+   "trade": 0.0693,
+   "migration": 0.0391,
+   "neighbor": false,
+   "distance_km": 2269
+  },
+  {
+   "a": "SGP",
+   "b": "VUT",
+   "trade": 0.0196,
+   "migration": 0.0079,
+   "neighbor": false,
+   "distance_km": 7176
+  },
+  {
+   "a": "SGP",
+   "b": "WSM",
+   "trade": 0.0157,
+   "migration": 0.0065,
+   "neighbor": false,
+   "distance_km": 9368
+  },
+  {
+   "a": "SLB",
+   "b": "TWN",
+   "trade": 0.0269,
+   "migration": 0.039,
+   "neighbor": false,
+   "distance_km": 5451
+  },
+  {
+   "a": "SLV",
+   "b": "USA",
+   "trade": 0.0657,
+   "migration": 0.0568,
+   "neighbor": false,
+   "distance_km": 2995
+  },
+  {
+   "a": "SOL",
+   "b": "SOM",
+   "trade": 0.6591,
+   "migration": 0.3577,
+   "neighbor": true,
+   "distance_km": 675
+  },
+  {
+   "a": "SOL",
+   "b": "YEM",
+   "trade": 0.0893,
+   "migration": 0.134,
+   "neighbor": false,
+   "distance_km": 661
+  },
+  {
+   "a": "SOM",
+   "b": "UGA",
+   "trade": 0.0825,
+   "migration": 0.0856,
+   "neighbor": false,
+   "distance_km": 1371
+  },
+  {
+   "a": "SUR",
+   "b": "TTO",
+   "trade": 0.1181,
+   "migration": 0.0949,
+   "neighbor": false,
+   "distance_km": 941
+  },
+  {
+   "a": "SUR",
+   "b": "USA",
+   "trade": 0.0152,
+   "migration": 0.019,
+   "neighbor": false,
+   "distance_km": 5735
+  },
+  {
+   "a": "SUR",
+   "b": "VEN",
+   "trade": 0.0524,
+   "migration": 0.1198,
+   "neighbor": false,
+   "distance_km": 1019
+  },
+  {
+   "a": "SVK",
+   "b": "UKR",
+   "trade": 0.3124,
+   "migration": 0.3661,
+   "neighbor": true,
+   "distance_km": 956
+  },
+  {
+   "a": "SWZ",
+   "b": "ZAF",
+   "trade": 0.7977,
+   "migration": 0.6252,
+   "neighbor": true,
+   "distance_km": 842
+  },
+  {
+   "a": "SWZ",
+   "b": "ZMB",
+   "trade": 0.0431,
+   "migration": 0.0504,
+   "neighbor": false,
+   "distance_km": 1421
+  },
+  {
+   "a": "SWZ",
+   "b": "ZWE",
+   "trade": 0.071,
+   "migration": 0.0933,
+   "neighbor": false,
+   "distance_km": 862
+  },
+  {
+   "a": "SYR",
+   "b": "TUR",
+   "trade": 0.5848,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 587
+  },
+  {
+   "a": "THA",
+   "b": "VNM",
+   "trade": 0.2344,
+   "migration": 0.2537,
+   "neighbor": false,
+   "distance_km": 831
+  },
+  {
+   "a": "TJK",
+   "b": "UZB",
+   "trade": 0.3991,
+   "migration": 0.7049,
+   "neighbor": true,
+   "distance_km": 828
+  },
+  {
+   "a": "TKM",
+   "b": "TUR",
+   "trade": 0.0638,
+   "migration": 0.0535,
+   "neighbor": false,
+   "distance_km": 2065
+  },
+  {
+   "a": "TKM",
+   "b": "UZB",
+   "trade": 0.72,
+   "migration": 0.9321,
+   "neighbor": true,
+   "distance_km": 493
+  },
+  {
+   "a": "TLS",
+   "b": "TWN",
+   "trade": 0.0252,
+   "migration": 0.041,
+   "neighbor": false,
+   "distance_km": 3649
+  },
+  {
+   "a": "TTO",
+   "b": "USA",
+   "trade": 0.0892,
+   "migration": 0.0381,
+   "neighbor": false,
+   "distance_km": 4799
+  },
+  {
+   "a": "TTO",
+   "b": "VEN",
+   "trade": 0.389,
+   "migration": 0.3365,
+   "neighbor": false,
+   "distance_km": 586
+  },
+  {
+   "a": "TWN",
+   "b": "VNM",
+   "trade": 0.1173,
+   "migration": 0.1621,
+   "neighbor": false,
+   "distance_km": 1602
+  },
+  {
+   "a": "TZA",
+   "b": "UGA",
+   "trade": 0.6012,
+   "migration": 0.7297,
+   "neighbor": true,
+   "distance_km": 920
+  },
+  {
+   "a": "TZA",
+   "b": "ZMB",
+   "trade": 0.4379,
+   "migration": 0.452,
+   "neighbor": true,
+   "distance_km": 1339
+  },
+  {
+   "a": "URY",
+   "b": "USA",
+   "trade": 0.0101,
+   "migration": 0.0085,
+   "neighbor": false,
+   "distance_km": 9125
+  },
+  {
+   "a": "USA",
+   "b": "VEN",
+   "trade": 0.0274,
+   "migration": 0.0529,
+   "neighbor": false,
+   "distance_km": 4867
+  },
+  {
+   "a": "USA",
+   "b": "WSM",
+   "trade": 0.0192,
+   "migration": 0.0231,
+   "neighbor": false,
+   "distance_km": 9724
+  },
+  {
+   "a": "ZAF",
+   "b": "ZWE",
+   "trade": 0.8406,
+   "migration": 0.7135,
+   "neighbor": true,
+   "distance_km": 1357
+  },
+  {
+   "a": "ZMB",
+   "b": "ZWE",
+   "trade": 0.7897,
+   "migration": 1.0,
+   "neighbor": true,
+   "distance_km": 604
+  }
+ ]
+}
