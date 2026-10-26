@@ -31,6 +31,16 @@ static func has(id: String) -> bool:
 	return texture(id) != null
 
 
+## Есть ли в игре хоть одна иллюстрация (для строки о Grok в титрах).
+static func any() -> bool:
+	if not DirAccess.dir_exists_absolute(DIR):
+		return false
+	for f in DirAccess.get_files_at(DIR):
+		if f.contains(".webp"):
+			return true
+	return false
+
+
 ## Картинка, заполняющая прямоугольник size (лишнее по краям обрезается); null — картинки нет.
 static func view(id: String, size: Vector2) -> Control:
 	var t := texture(id)

@@ -150,7 +150,10 @@ def process(incoming: Path, out: Path, sizes: dict[str, tuple[int, int]]) -> tup
         manifest[art_id] = {"file": dest.name, "width": size[0], "height": size[1], "source": digest,
                             "source_name": src.name, "version": VERSION}
         done.append(art_id)
-    manifest_path.write_text(json.dumps(dict(sorted(manifest.items())), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    # Пустой манифест не пишем: пока картинок нет, в assets/art ничего не появляется.
+    if manifest:
+        manifest_path.write_text(json.dumps(dict(sorted(manifest.items())), ensure_ascii=False, indent=1) + "\n",
+                                 encoding="utf-8")
     return done, unknown
 
 

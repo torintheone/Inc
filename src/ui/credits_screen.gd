@@ -60,7 +60,7 @@ func _init() -> void:
 ## Разделы титров: [заголовок, [строки]]. Строка про Grok появляется, когда прислали иллюстрации.
 static func sections() -> Array:
 	var art: Array = ["CREDITS_ART_STUBS"]
-	if DirAccess.dir_exists_absolute("res://assets/art") and ResourceLoader.exists("res://assets/art/manifest.json"):
+	if ArtLibrary.any():
 		art = ["CREDITS_ART_GROK"]
 	return [
 		["CREDITS_CODE", ["CREDITS_GODOT", "CREDITS_CLAUDE"]],
