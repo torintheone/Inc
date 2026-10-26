@@ -1039,7 +1039,8 @@ CREDITS_FONTS,Шрифты,Fonts
 CREDITS_PT_SANS,PT Sans — ParaType (SIL Open Font License 1.1).,PT Sans — ParaType (OFL 1.1).
 CREDITS_OSWALD,Oswald — The Oswald Project Authors (SIL Open Font License 1.1).,Oswald (OFL 1.1).
 CREDITS_SOUND,Музыка и звуки,Music and sound
-CREDITS_MUSIC_OWN,Музыкальные темы сочинены и записаны нотами для игры (CC0).,Music themes composed for the game (CC0).
+CREDITS_MUSIC_SONGS,"Песни из общественного достояния в своей аранжировке: «Смело, товарищи, в ногу» (Л. Радин) — меню, «Варшавянка» (старая революционная песня, слова Г. Кржижановского) — сражения, «Интернационал» (музыка П. Дегейтера) — победа.","Public-domain songs in our own arrangement: ""Boldly, Comrades, in Step"" (L. Radin) — menu, ""Warszawianka"" (old revolutionary song) — battles, ""The Internationale"" (music by P. De Geyter) — victory."
+CREDITS_MUSIC_OWN,Остальные темы сочинены для игры; ноты и аранжировки — CC0.,Other themes composed for the game; scores and arrangements are CC0.
 CREDITS_SOUNDFONT,"Инструменты — SoundFont FluidR3_GM, Frank Wen (лицензия MIT).",Instruments: FluidR3_GM by Frank Wen (MIT).
 CREDITS_SFX,Звуки синтезированы скриптом из шума и тонов (CC0).,Sounds synthesized by script (CC0).
 CREDITS_ART,Иллюстрации,Illustrations

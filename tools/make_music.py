@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
-"""Музыка игры: собственные темы, записанные нотами в этом файле.
+"""Музыка игры, записанная нотами в этом файле.
 
 Скрипт пишет MIDI (tools/music/*.mid), озвучивает их свободным SoundFont FluidR3_GM (лицензия MIT)
 через fluidsynth и кодирует в OGG (assets/music/*.ogg). Темы:
 
-- menu — главное меню;
+- menu — главное меню: «Смело, товарищи, в ногу»;
 - world_calm — спокойная тема мировой карты;
 - world_tension — слой напряжения поверх неё (тот же темп и длина, звучат вместе): Реакция выше 60
   или открыто окно революции;
-- battle — марш местных сражений;
-- victory, defeat — короткие темы победы и поражения.
+- battle — марш местных сражений: «Варшавянка»;
+- victory — короткая тема победы: последняя фраза припева «Интернационала»;
+- anthem — финал выигранной партии: весь припев «Интернационала»;
+- defeat — короткая тема поражения.
 
-Все мелодии и аранжировки сочинены для игры (CC0). Петли озвучиваются дважды подряд, и берётся второй
-проход: так хвост реверберации конца переходит в начало без щелчка.
+Мелодии трёх песен — общественное достояние; их ноты переписаны с вокальных строк старых изданий,
+гармония и аранжировки свои. Остальные темы сочинены для игры. Всё, что здесь записано, — CC0.
+Петли озвучиваются дважды подряд, и берётся второй проход: так хвост реверберации конца переходит
+в начало без щелчка.
 Запуск: python3 tools/make_music.py (нужны fluidsynth, ffmpeg и /usr/share/sounds/sf2/FluidR3_GM.sf2).
 """
 from __future__ import annotations
@@ -34,6 +38,7 @@ TPB = 480
 RATE = 44100
 
 NOTE_NAMES = {"C": 0, "D": 2, "E": 4, "F": 5, "G": 7, "A": 9, "B": 11}
+FLAT_NAMES = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 
 
 def pitch(name: str) -> int:
@@ -47,7 +52,7 @@ def pitch(name: str) -> int:
 
 
 CHORDS = {
-    "": (0, 4, 7), "m": (0, 3, 7), "7": (0, 4, 7, 10), "m7": (0, 3, 7, 10), "sus4": (0, 5, 7),
+    "": (0, 4, 7), "m": (0, 3, 7), "7": (0, 4, 7, 10), "m7": (0, 3, 7, 10), "sus4": (0, 5, 7), "dim7": (0, 3, 6, 9),
 }
 
 
@@ -64,6 +69,63 @@ def chord(name: str) -> tuple[int, tuple[int, ...]]:
     return root % 12, CHORDS[rest]
 
 
+def transpose_chord(name: str, shift: int) -> str:
+    """«Dm» на +5 → «Gm»; новые названия — через бемоли."""
+    if shift == 0:
+        return name
+    root, _ = chord(name)
+    suffix = name[2:] if len(name) > 1 and name[1] in "#b" else name[1:]
+    return FLAT_NAMES[(root + shift) % 12] + suffix
+
+
+def seq(text: str, shift: int = 0) -> list[tuple[int | str, float]]:
+    """Мелодия записью «A4/4 A4/8. G4/16 | R/8 G4/2+8»: высота/длительность (4 — четверть, 8. — восьмая
+    с точкой, 2+8 — половинная, залигованная с восьмой), R — пауза, «|» — тактовая черта для чтения.
+    shift — транспонировать на столько полутонов."""
+    out: list[tuple[int | str, float]] = []
+    for tok in text.split():
+        if tok == "|":
+            continue
+        name, dur = tok.split("/")
+        beats = 0.0
+        for part in dur.split("+"):
+            beats += 4.0 / int(part.rstrip(".")) * (1.5 if part.endswith(".") else 1.0)
+        out.append(("R" if name == "R" else pitch(name) + shift, beats))
+    return out
+
+
+def harmony(text: str, shift: int = 0) -> list[tuple[float, float, str]]:
+    """Аккорды по тактам в 4/4: «Dm | Dm:1 A:1 Dm:2 | A7» → [(доля, длительность, аккорд)].
+    Аккорды без «:n» делят остаток такта поровну."""
+    out = []
+    for i, bar in enumerate(text.split("|")):
+        items = bar.split()
+        fixed = [float(x.split(":")[1]) for x in items if ":" in x]
+        free = len(items) - len(fixed)
+        beat = 4.0 * i
+        for x in items:
+            length = float(x.split(":")[1]) if ":" in x else (4.0 - sum(fixed)) / free
+            out.append((beat, length, transpose_chord(x.split(":")[0], shift)))
+            beat += length
+    return out
+
+
+def check_bars(name: str, text: str, pickup: bool = False) -> None:
+    """Каждый такт мелодии — ровно четыре доли (кроме затакта и последнего, протянутого такта)."""
+    bars = [sum(length for _, length in seq(bar)) for bar in text.split("|")]
+    inner = bars[1:-1] if pickup else bars[:-1]
+    bad = [i for i, b in enumerate(inner) if abs(b - 4.0) > 1e-6]
+    if bad or bars[-1] < 4.0 - 1e-6:
+        raise ValueError(f"{name}: неполные такты {bad} — {bars}")
+
+
+def chord_at(chords: list[tuple[float, float, str]], beat: float) -> str:
+    for start, length, name in chords:
+        if start <= beat < start + length:
+            return name
+    return chords[-1][2]
+
+
 @dataclass
 class Track:
     channel: int
@@ -77,12 +139,14 @@ class Track:
     def note(self, beat: float, length: float, p: int | str, vel: int = 80) -> None:
         self.notes.append((beat, length, pitch(p) if isinstance(p, str) else p, vel))
 
-    def line(self, start: float, items: list, vel: int = 80, octave_shift: int = 0) -> float:
-        """Мелодия: [(«E5», 1), («R», 0.5), …] — нота и длительность в долях; R — пауза."""
+    def line(self, start: float, items: list, vel: int = 80, octave_shift: int = 0, legato: float = 0.95) -> float:
+        """Мелодия: [(«E5», 1), («R», 0.5), …] — нота (название или номер MIDI) и длительность в долях;
+        R — пауза. legato — какую часть длительности нота звучит."""
         beat = start
         for p, length in items:
             if p != "R":
-                self.note(beat, length * 0.95, pitch(p) + 12 * octave_shift, vel)
+                n = pitch(p) if isinstance(p, str) else p
+                self.note(beat, length * legato, n + 12 * octave_shift, vel)
             beat += length
         return beat
 
@@ -275,108 +339,249 @@ def world_tension(tracks: dict[int, Track], off: float) -> None:
                 drums.note(b + 3 + 0.25 * k, 0.25, 38, 30 + 12 * k)
 
 
-BATTLE_BARS = ["Dm", "Dm", "Bb", "C", "Dm", "A", "Dm", "A", "F", "C", "Dm", "A", "Bb", "C", "A", "A"] * 2
-BATTLE_MELODY = [
-    ("A4", 1), ("D5", 1.5), ("E5", 0.5), ("F5", 1), ("E5", 1), ("D5", 1), ("A4", 2),
-    ("D5", 1), ("F5", 1.5), ("G5", 0.5), ("F5", 1), ("E5", 2), ("C5", 2),
-    ("D5", 1), ("F5", 1), ("A5", 2), ("G5", 1), ("F5", 1), ("E5", 2),
-    ("F5", 1), ("E5", 1), ("D5", 1), ("A4", 1), ("C#5", 2), ("E5", 2),
-    ("F5", 1.5), ("E5", 0.5), ("D5", 1), ("C5", 1), ("E5", 2), ("G4", 2),
-    ("A4", 1), ("D5", 1), ("F5", 1), ("D5", 1), ("E5", 2), ("C#5", 2),
-    ("D5", 1), ("F5", 1), ("Bb5", 2), ("A5", 1), ("G5", 1), ("E5", 2),
-    ("C#5", 1), ("E5", 1), ("A5", 2), ("A5", 3), ("R", 1),
-]
+# --- Песни: мелодии из общественного достояния, своя гармония и аранжировка ----------------------
+
+def pad(track: Track, chords: list, off: float, low: int, vel: int, count: int = 3) -> None:
+    """Выдержанные аккорды на всю длину каждой гармонии."""
+    for start, length, c in chords:
+        for p in voiced(c, low, count):
+            track.note(off + start, length, p, vel)
+
+
+def march_bass(track: Track, chords: list, off: float, octave: int, vel: int) -> None:
+    """«Умпа»: бас на сильных долях — основной тон на смене аккорда и на первой доле, иначе квинта."""
+    for start, length, c in chords:
+        for j in range(int(length)):
+            t = start + j
+            if t % 2 == 0:
+                p = bass_note(c, octave) if j == 0 or t % 4 == 0 else fifth(c, octave) - 12
+                track.note(off + t, 0.9, p, vel if t % 4 == 0 else vel - 10)
+
+
+def march_chords(track: Track, chords: list, off: float, low: int, vel: int) -> None:
+    """«Па»: короткие аккорды на слабых долях."""
+    end = int(chords[-1][0] + chords[-1][1])
+    for t in range(1, end, 2):
+        for p in voiced(chord_at(chords, t), low):
+            track.note(off + t, 0.45, p, vel)
+
+
+def snare_bar(drums: Track, b: float, vel: int, fill: bool = False) -> None:
+    """Такт марша на малом барабане: восьмые с акцентами, в конце фразы — дробь шестнадцатыми."""
+    accents = [1.0, 0.55, 0.75, 0.55, 0.9, 0.55, 0.75, 0.6]
+    for k, a in enumerate(accents):
+        if fill and k >= 6:
+            continue
+        drums.note(b + 0.5 * k, 0.4, 38, int(vel * a))
+    if fill:
+        for k in range(4):
+            drums.note(b + 3 + 0.25 * k, 0.2, 38, int(vel * (0.6 + 0.12 * k)))
+
+
+# «Варшавянка»: куплет (16 тактов) и припев (8), ре минор; в игре звучит в соль миноре.
+VARSH_VERSE = """
+A4/4 A4/8. G4/16 F4/4 F4/8. E4/16 | D4/4 D4/8. C#4/16 D4/4 F4/4 | E4/4 A4/8. A4/16 A4/8 G4/8 F4/8 E4/8 |
+D4/8 E4/8 F4/8 G4/8 A4/2 |
+A4/4 A4/8. A4/16 D5/4 A4/8. G4/16 | F4/4 F4/8. E4/16 D4/4 F4/4 | E4/4 A4/8. A4/16 A4/8 G4/8 F4/8 E4/8 |
+D4/4 F4/8. E4/16 D4/2 |
+F4/4 F4/8. F4/16 C4/4 F4/4 | G4/4 G4/8. G4/16 C4/4 G4/4 | G4/4 G4/8. G4/16 C5/8 Bb4/8 A4/8 G4/8 |
+A4/4 A4/8. G4/16 A4/4 A4/4 |
+A4/4 A4/8. A4/16 D5/4 A4/8. G4/16 | F4/4 F4/8. E4/16 D4/4 F4/4 | E4/4 A4/8. A4/16 A4/8 G4/8 F4/8 E4/8 |
+D4/4 F4/8. E4/16 D4/4 E4/4
+"""
+VARSH_CHORUS = """
+F4/4 F4/8. F4/16 C4/4 F4/4 | G4/4 G4/8. G4/16 C4/4 G4/4 | G4/4 G4/8. G4/16 C5/8 Bb4/8 A4/8 G4/8 |
+A4/4 A4/8. G4/16 A4/2 |
+A4/4 A4/8. A4/16 D5/4 A4/8 G4/8 | F4/4 F4/8. E4/16 D4/4 F4/4 | E4/4 A4/8. A4/16 A4/8 G4/8 F4/8 E4/8 |
+D4/4 F4/8. E4/16 D4/2
+"""
+VARSH_VERSE_CHORDS = ("Dm | Dm | A7 | Dm | Dm | Bb:2 Dm:2 | A7 | Dm | "
+                      "F | C | C7 | F | Dm | Bb:2 Dm:2 | A7 | Dm:3 C7:1")
+VARSH_CHORUS_CHORDS = "F | C | C7 | F | Dm | Bb:2 Dm:2 | A7 | Dm"
+VARSH_SHIFT = 5
+BATTLE_BARS = 48
 
 
 def battle(tracks: dict[int, Track], off: float) -> None:
+    """Куплет и припев дважды: сначала труба соло, потом вся медь; во втором припеве — тутти с тарелками."""
     drums = get(tracks, 9, 0, volume=100, reverb=35)
-    timp = get(tracks, 1, 47, volume=95, reverb=45)
-    brass = get(tracks, 2, 61, volume=82, reverb=55)
-    trumpet = get(tracks, 3, 56, volume=96, reverb=60, pan=70)
-    horns = get(tracks, 4, 60, volume=85, reverb=60, pan=54)
-    tuba = get(tracks, 5, 58, volume=90, reverb=40)
-    strings = get(tracks, 0, 48, volume=70, reverb=70)
-    for i, c in enumerate(BATTLE_BARS):
-        b = off + 4 * i
-        accents = [100, 55, 80, 55, 90, 55, 80, 60]
-        for k, v in enumerate(accents):
-            drums.note(b + 0.5 * k, 0.4, 38, v)
-        if i % 4 == 3:
-            for k in range(4):
-                drums.note(b + 3 + 0.25 * k, 0.2, 38, 70 + 8 * k)
-        drums.note(b, 0.5, 36, 95)
-        drums.note(b + 2, 0.5, 36, 85)
-        if i % 16 == 0:
-            drums.note(b, 2, 49, 100)
-        timp.note(b, 1, bass_note(c, 2), 80)
-        for k in (0, 2):
-            for p in voiced(c, 55):
-                brass.note(b + k, 0.8, p, 70 if k == 0 else 60)
-        tuba.note(b, 1, bass_note(c, 2), 85)
-        tuba.note(b + 2, 1, fifth(c, 2) - (12 if fifth(c, 2) > 52 else 0), 75)
-        for p in voiced(c, 50, 2):
-            strings.note(b, 4, p, 50)
-    trumpet.line(off, BATTLE_MELODY, vel=88)
-    trumpet.line(off + 64, BATTLE_MELODY, vel=100)
-    horns.line(off + 64, BATTLE_MELODY, vel=82, octave_shift=-1)
+    timp = get(tracks, 1, 47, volume=92, reverb=45)
+    brass = get(tracks, 2, 61, volume=76, reverb=50)
+    trumpet = get(tracks, 3, 56, volume=100, reverb=55, pan=70)
+    horns = get(tracks, 4, 60, volume=88, reverb=60, pan=54)
+    tuba = get(tracks, 5, 58, volume=92, reverb=40)
+    trombone = get(tracks, 6, 57, volume=84, reverb=50, pan=80)
+    strings = get(tracks, 0, 48, volume=72, reverb=70, pan=40)
+    verse, chorus = seq(VARSH_VERSE, VARSH_SHIFT), seq(VARSH_CHORUS, VARSH_SHIFT)
+    vchords, cchords = harmony(VARSH_VERSE_CHORDS, VARSH_SHIFT), harmony(VARSH_CHORUS_CHORDS, VARSH_SHIFT)
+    plan = [(0, verse, vchords, 0), (16, chorus, cchords, 1), (24, verse, vchords, 2), (40, chorus, cchords, 3)]
+    for bar0, melody, chords, level in plan:
+        b0 = off + 4 * bar0
+        bars = int(sum(length for _, length in melody) / 4)
+        march_bass(tuba, chords, b0, 2, 78 + 4 * level)
+        march_chords(brass, chords, b0, 55, 46 + 6 * level)
+        if level >= 2:
+            pad(strings, chords, b0, 55, 40 + 4 * level)
+        else:
+            pad(strings, chords, b0, 50, 34, 2)
+        for i in range(bars):
+            b = b0 + 4 * i
+            snare_bar(drums, b, 70 + 8 * level, fill=i % 4 == 3)
+            drums.note(b, 0.5, 36, 80 + 6 * level)
+            drums.note(b + 2, 0.5, 36, 66 + 6 * level)
+            if level == 3 and i % 2 == 0:
+                drums.note(b, 1, 49, 70)
+            if level >= 1:
+                timp.note(b, 0.9, bass_note(chord_at(chords, 4 * i), 2), 64 + 6 * level)
+        drums.note(b0, 2, 49, 80 + 10 * level)
+        # Дробь литавр перед припевом.
+        if level in (0, 2):
+            last = b0 + 4 * (bars - 1)
+            for k in range(8):
+                timp.note(last + 2 + 0.25 * k, 0.25, bass_note(chord_at(chords, 4 * bars - 1), 2), 50 + 6 * k)
+        trumpet.line(b0, melody, vel=84 + 6 * level, legato=0.85)
+        if level in (1, 3):
+            horns.line(b0, melody, vel=78 + 6 * level, octave_shift=-1, legato=0.9)
+        if level >= 2:
+            trombone.line(b0, melody, vel=70 + 6 * level, octave_shift=-1, legato=0.85)
+        if level == 3:
+            strings.line(b0, melody, vel=64, octave_shift=1, legato=0.9)
 
 
-MENU_BARS = ["Em", "Em", "C", "C", "G", "G", "D", "D", "Em", "C", "G", "D", "Em", "C", "D", "D",
-             "C", "D", "Em", "Em", "C", "D", "G", "G"]
-MENU_MELODY = [
-    ("B4", 2), ("E5", 1), ("F#5", 1), ("G5", 2), ("E5", 2), ("D5", 1), ("B4", 1), ("G4", 2), ("A4", 4),
-    ("B4", 1), ("E5", 1), ("G5", 1), ("F#5", 1), ("E5", 2), ("C5", 2), ("D5", 1), ("E5", 1), ("F#5", 1), ("A5", 1),
-    ("F#5", 4), ("G5", 2), ("E5", 1), ("C5", 1), ("F#5", 2), ("D5", 1), ("A4", 1), ("B4", 1), ("E5", 1), ("G5", 2),
-    ("F#5", 2), ("E5", 2), ("C5", 1), ("E5", 1), ("G5", 2), ("A5", 2), ("F#5", 2), ("G5", 4), ("D5", 2), ("B4", 2),
-]
+# «Смело, товарищи, в ногу»: вступление и куплет (по партии корнета, записанной до мажором);
+# в игре звучит в си-бемоль мажоре, как в духовом оркестре.
+SMELO_INTRO = """
+G4/4 F#4/8. G4/16 A4/4 G4/8. F4/16 | G4/2 E4/2 | G4/4 F#4/8. G4/16 A4/4 B4/8. B4/16 | C5/1
+"""
+SMELO_SONG = """
+A4/4 A4/8. B4/16 C5/4 B4/8. A4/16 | G4/4 E5/4 E5/2 | F5/4 D5/8. C5/16 B4/4 A4/8. B4/16 | C5/1
+"""
+SMELO_INTRO_CHORDS = "C:1 F#dim7:1 F:1 C:1 | C | C:1 F#dim7:1 G7:2 | C"
+SMELO_CHORDS = "F:3 G7:1 | C | G7 | C"
+SMELO_QUIET_CHORDS = "Am:2 F:1 G7:1 | C | Dm:2 G7:2 | C"
+SMELO_SHIFT = -2
+MENU_BARS = 20
 
 
 def menu(tracks: dict[int, Track], off: float) -> None:
-    piano = get(tracks, 1, 0, volume=88, reverb=60)
-    strings = get(tracks, 0, 48, volume=72, reverb=80)
-    bass = get(tracks, 2, 43, volume=78, reverb=50)
-    horn = get(tracks, 3, 60, volume=70, reverb=85, pan=72)
-    brass = get(tracks, 4, 61, volume=60, reverb=70)
-    timp = get(tracks, 5, 47, volume=70, reverb=60)
-    for i, c in enumerate(MENU_BARS):
-        b = off + 4 * i
-        r = bass_note(c, 3)
-        for k in range(4):
-            for p in voiced(c, 55 if k % 2 == 0 else 60):
-                piano.note(b + k, 0.9, p, 38 if k else 46)
-        for p in voiced(c, 52, 3):
-            strings.note(b, 4, p, 48)
-        bass.note(b, 4, bass_note(c, 2), 56)
-        if i >= 16:
-            for p in voiced(c, 55):
-                brass.note(b, 2, p, 50)
-            timp.note(b, 1, r - 12, 55)
-    horn.line(off + 32, MENU_MELODY, vel=74)
+    """Вступление на валторне, куплет у кларнета, у меди, тихо у струнных и последний раз — тутти."""
+    strings = get(tracks, 0, 48, volume=74, reverb=80, pan=44)
+    pizz = get(tracks, 1, 45, volume=74, reverb=50, pan=56)
+    tuba = get(tracks, 2, 58, volume=78, reverb=45)
+    horn = get(tracks, 3, 60, volume=82, reverb=80, pan=72)
+    clarinet = get(tracks, 4, 71, volume=80, reverb=75, pan=60)
+    trumpet = get(tracks, 5, 56, volume=86, reverb=65, pan=66)
+    brass = get(tracks, 6, 61, volume=64, reverb=60)
+    timp = get(tracks, 7, 47, volume=78, reverb=60)
+    harp = get(tracks, 8, 46, volume=72, reverb=80, pan=36)
+    drums = get(tracks, 9, 0, volume=70, reverb=45)
+    intro, song = seq(SMELO_INTRO, SMELO_SHIFT), seq(SMELO_SONG, SMELO_SHIFT)
+    plan = [(0, intro, SMELO_INTRO_CHORDS, "intro"), (4, song, SMELO_CHORDS, "clarinet"), (8, song, SMELO_CHORDS, "brass"),
+            (12, song, SMELO_QUIET_CHORDS, "strings"), (16, song, SMELO_CHORDS, "tutti")]
+    for bar0, melody, chord_text, part in plan:
+        b0 = off + 4 * bar0
+        chords = harmony(chord_text, SMELO_SHIFT)
+        loud = part in ("brass", "tutti")
+        pad(strings, chords, b0, 53, 46 if loud else 38)
+        if part == "strings":
+            # Тихий куплет: арфа перебирает аккорды, бас — щипком.
+            for start, length, c in chords:
+                tones = voiced(c, 55, 3) + [voiced(c, 55, 3)[0] + 12]
+                for k in range(int(length * 2)):
+                    harp.note(b0 + start + 0.5 * k, 0.5, tones[k % 4], 46)
+                pizz.note(b0 + start, 1, bass_note(c, 2), 52)
+            strings.line(b0, melody, vel=66, octave_shift=1)
+            for k in range(8):
+                drums.note(b0 + 14 + 0.25 * k, 0.25, 38, 28 + 6 * k)
+            continue
+        march_bass(pizz if not loud else tuba, chords, b0, 2, 58 if not loud else 72)
+        march_chords(pizz if not loud else brass, chords, b0, 55, 40 if not loud else 54)
+        for i in range(4):
+            b = b0 + 4 * i
+            snare_bar(drums, b, 34 if not loud else 58, fill=i == 3)
+            drums.note(b, 0.5, 36, 46 if not loud else 66)
+            if loud:
+                timp.note(b, 0.9, bass_note(chord_at(chords, 4 * i), 2), 66)
+        if part == "intro":
+            horn.line(b0, melody, vel=64)
+        elif part == "clarinet":
+            clarinet.line(b0, melody, vel=70, legato=0.88)
+        elif part == "brass":
+            trumpet.line(b0, melody, vel=82, legato=0.88)
+            horn.line(b0, melody, vel=70, octave_shift=-1)
+        else:
+            drums.note(b0, 2, 49, 76)
+            trumpet.line(b0, melody, vel=90, legato=0.88)
+            horn.line(b0, melody, vel=78, octave_shift=-1)
+            strings.line(b0, melody, vel=60, octave_shift=1)
+
+
+# «Интернационал» (музыка П. Дегейтера): припев, соль мажор; в игре звучит в си-бемоль мажоре.
+# Первая доля такта 0 — вступление: дробь и аккорд, затакт «Э-то» на четвёртой доле.
+INTER_CHORUS = """
+B4/8. A4/16 | G4/2 D4/4. B3/8 | E4/2 C4/8 R/8 A4/8. G4/16 | F#4/2 E4/4 D4/4 | D4/2+8 R/8 D4/4 |
+B4/2 A4/4 D4/8 D4/8 | G4/2 F#4/4. F#4/8 | E4/4. D#4/8 E4/4 A4/4 | A4/2+8 R/8 B4/8. A4/16 |
+G4/2 D4/4. B3/8 | E4/2 C4/8 R/8 A4/8. G4/16 | F#4/2 E4/4 D4/4 | B4/2. B4/4 |
+D5/2 C5/4 B4/8 B4/8 | A4/4. B4/8 C5/4 R/8 C5/8 | B4/4. B4/8 A4/4. A4/8 | G4/1+4
+"""
+INTER_CHORUS_CHORDS = ("D7:3 G:1 | G | C:3 D7:1 | D7 | G | G:2 D:2 | C:2 D:2 | Em:1.5 B7:0.5 Em:1 A7:1 | D:3 D7:1 | "
+                       "G | C:3 D7:1 | D7 | G:3 E7:1 | E7:2 Am:1 E7:1 | D7 | G:2 D7:2 | G:6")
+# Последняя фраза: «с Интернационалом воспрянет род людской».
+INTER_FINAL = "B4/4 | D5/2 C5/4 B4/8 B4/8 | A4/4. B4/8 C5/4 R/8 C5/8 | B4/4. B4/8 A4/4. A4/8 | G4/1+4"
+INTER_FINAL_CHORDS = "G:3 E7:1 | E7:2 Am:1 E7:1 | D7 | G:2 D7:2 | G:6"
+INTER_SHIFT = 3
+
+
+def anthem_part(tracks: dict[int, Track], off: float, melody_text: str, chord_text: str, pickup: float,
+                grand_from: int) -> None:
+    """Медь и струнные под мелодию «Интернационала»; с такта grand_from — тутти."""
+    trumpet = get(tracks, 3, 56, volume=100, reverb=70, pan=70)
+    horns = get(tracks, 4, 60, volume=92, reverb=75, pan=54)
+    brass = get(tracks, 2, 61, volume=80, reverb=70)
+    trombone = get(tracks, 6, 57, volume=86, reverb=65, pan=80)
+    strings = get(tracks, 0, 48, volume=80, reverb=80, pan=40)
+    tuba = get(tracks, 5, 58, volume=92, reverb=55)
+    timp = get(tracks, 1, 47, volume=96, reverb=60)
+    drums = get(tracks, 9, 0, volume=96, reverb=60)
+    chords = harmony(chord_text, INTER_SHIFT)
+    melody = seq(melody_text, INTER_SHIFT)
+    for start, length, c in chords:
+        grand = start >= 4 * grand_from
+        for p in voiced(c, 53, 4):
+            brass.note(off + start, length, p, 72 if grand else 58)
+            strings.note(off + start, length, p + 12, 66 if grand else 52)
+        tuba.note(off + start, length, bass_note(c, 2), 86 if grand else 72)
+        if start % 4 == 0 or grand:
+            timp.note(off + start, 0.9, bass_note(c, 2), 78 if grand else 60)
+    # Вступление: аккорд с тарелкой и дробь малого барабана до затакта.
+    drums.note(off, 2, 49, 90)
+    for k in range(int(pickup * 4) - 4):
+        drums.note(off + 1 + 0.25 * k, 0.25, 38, 40 + 4 * k)
+    end = chords[-1][0]
+    drums.note(off + end, 4, 49, 110)
+    drums.note(off + end, 1, 36, 110)
+    for k in range(12):
+        timp.note(off + end - 3 + 0.25 * k, 0.25, bass_note(chords[-1][2], 2), 56 + 4 * k)
+    grand_beat = 4 * grand_from
+    beat = off + pickup
+    for p, length in melody:
+        t = beat - off
+        if p != "R":
+            grand = t >= grand_beat
+            trumpet.note(beat, length * 0.92, p, 100 if grand else 88)
+            horns.note(beat, length * 0.95, p - 12, 90 if grand else 82)
+            if grand:
+                trombone.note(beat, length * 0.92, p - 12, 82)
+                strings.note(beat, length * 0.95, p + 12, 70)
+        beat += length
 
 
 def victory(tracks: dict[int, Track], off: float) -> None:
-    trumpet = get(tracks, 3, 56, volume=100, reverb=70)
-    brass = get(tracks, 2, 61, volume=90, reverb=70)
-    strings = get(tracks, 0, 48, volume=80, reverb=80)
-    timp = get(tracks, 1, 47, volume=100, reverb=60)
-    drums = get(tracks, 9, 0, volume=100, reverb=60)
-    tuba = get(tracks, 5, 58, volume=90, reverb=50)
-    melody = [("G4", 0.5), ("C5", 0.5), ("E5", 0.5), ("G5", 0.5), ("G5", 2), ("A5", 1), ("G5", 1), ("F5", 1), ("A5", 1),
-              ("G5", 3), ("D5", 1), ("E5", 1), ("G5", 1), ("C6", 2), ("C6", 4)]
-    trumpet.line(off, melody, vel=100)
-    for bar, c in enumerate(["C", "F", "G", "C", "C"]):
-        b = off + 4 * bar
-        length = 4 if bar < 4 else 6
-        for p in voiced(c, 55, 4):
-            brass.note(b, length, p, 80)
-            strings.note(b, length, p + 12, 70)
-        tuba.note(b, length, bass_note(c, 2), 90)
-        timp.note(b, 1, bass_note(c, 2), 90)
-    for k in range(16):
-        timp.note(off + 12 + 0.25 * k, 0.25, bass_note("C", 2), 60 + 2 * k)
-        drums.note(off + 12 + 0.25 * k, 0.25, 38, 50 + 3 * k)
-    drums.note(off + 16, 4, 49, 110)
-    drums.note(off + 16, 1, 36, 110)
+    anthem_part(tracks, off, INTER_FINAL, INTER_FINAL_CHORDS, pickup=3, grand_from=1)
+
+
+def anthem(tracks: dict[int, Track], off: float) -> None:
+    anthem_part(tracks, off, INTER_CHORUS, INTER_CHORUS_CHORDS, pickup=3.0, grand_from=9)
 
 
 def defeat(tracks: dict[int, Track], off: float) -> None:
@@ -400,12 +605,17 @@ def defeat(tracks: dict[int, Track], off: float) -> None:
 def main() -> None:
     MIDI_DIR.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
+    for name, text, pickup in [("Варшавянка, куплет", VARSH_VERSE, False), ("Варшавянка, припев", VARSH_CHORUS, False),
+                               ("Смело, товарищи, вступление", SMELO_INTRO, False), ("Смело, товарищи", SMELO_SONG, False),
+                               ("Интернационал, припев", INTER_CHORUS, True), ("Интернационал, финал", INTER_FINAL, True)]:
+        check_bars(name, text, pickup)
     calm_beats = 4 * len(CALM_BARS)
     make("world_calm", 80, calm_beats, world_calm, loop=True, peak=0.6)
     make("world_tension", 80, calm_beats, world_tension, loop=True, peak=0.6)
-    make("battle", 116, 4 * len(BATTLE_BARS), battle, loop=True, peak=0.7)
-    make("menu", 92, 4 * len(MENU_BARS), menu, loop=True, peak=0.65)
-    make("victory", 100, 26, victory, loop=False, peak=0.8)
+    make("battle", 112, 4 * BATTLE_BARS, battle, loop=True, peak=0.7)
+    make("menu", 100, 4 * MENU_BARS, menu, loop=True, peak=0.65)
+    make("victory", 92, 26, victory, loop=False, peak=0.8)
+    make("anthem", 92, 80, anthem, loop=False, peak=0.8)
     make("defeat", 66, 26, defeat, loop=False, peak=0.7)
 
 

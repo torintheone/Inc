@@ -1,10 +1,10 @@
 extends GutTest
-## Этап 6: звуки и музыка на месте, слои мировой темы синхронны, музыка меняется с обстановкой,
-## подсказки обучения идут по порядку, картинки подхватываются, когда они есть.
+## Этап 6: звуки и музыка на месте (песни — в меню, сражении и победе), слои мировой темы синхронны,
+## музыка меняется с обстановкой, подсказки обучения идут по порядку, картинки подхватываются, когда они есть.
 
 const SOUNDS: PackedStringArray = ["click", "stamp", "telegraph", "page", "bubble", "alert", "fail", "drum_hit",
 	"drum_roll", "crowd_loop", "crowd_roar", "factory_whistle", "bell"]
-const MUSIC: PackedStringArray = ["menu", "world_calm", "world_tension", "battle", "victory", "defeat"]
+const MUSIC: PackedStringArray = ["menu", "world_calm", "world_tension", "battle", "victory", "anthem", "defeat"]
 const SOUND_SCRIPT := preload("res://src/audio/sound.gd")
 
 var data: GameData
@@ -28,6 +28,7 @@ func test_world_layers_have_same_length() -> void:
 	assert_almost_eq(calm.get_length(), tension.get_length(), 0.1, "слой напряжения звучит в лад со спокойной темой")
 	assert_gt(calm.get_length(), 60.0, "петля не короче минуты")
 	assert_lt(load("res://assets/music/victory.ogg").get_length(), 30.0, "тема победы короткая")
+	assert_gt(load("res://assets/music/anthem.ogg").get_length(), 30.0, "в финале — весь припев")
 
 
 func _sound() -> Node:

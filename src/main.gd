@@ -457,7 +457,11 @@ func _finish() -> void:
 	mode = "ended"
 	var won := sim.outcome == SimWorld.OUTCOME_FEDERATION or sim.outcome == SimWorld.OUTCOME_WORLD_REVOLUTION
 	Audio.set_theme("")
-	Audio.sting("victory" if won or sim.outcome == SimWorld.OUTCOME_TWO_SYSTEMS else "defeat")
+	# Выигранная партия — весь припев «Интернационала», мир двух систем — его последняя фраза.
+	if won:
+		Audio.sting("anthem")
+	else:
+		Audio.sting("victory" if sim.outcome == SimWorld.OUTCOME_TWO_SYSTEMS else "defeat")
 	hud.set_mode(mode)
 	SaveStore.delete_autosave()
 	var screen := ResultsScreen.new(sim)
