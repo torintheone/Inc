@@ -11,6 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import locale_battle  # noqa: E402
 import locale_events  # noqa: E402
+import locale_media  # noqa: E402
 import locale_society  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -770,7 +771,7 @@ ROWS = [
 
 def main() -> None:
     out = ROOT / "locale" / "game.csv"
-    all_rows = ROWS + locale_events.rows() + locale_battle.rows() + locale_society.rows()
+    all_rows = ROWS + locale_events.rows() + locale_battle.rows() + locale_society.rows() + locale_media.rows()
     keys = [r[0] for r in all_rows]
     assert len(keys) == len(set(keys)), "повторяется ключ"
     with out.open("w", encoding="utf-8", newline="") as f:

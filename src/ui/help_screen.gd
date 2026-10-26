@@ -57,6 +57,16 @@ func _init(first_time: bool = false) -> void:
 	credits.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	credits.size_flags_vertical = Control.SIZE_SHRINK_END
 	row.add_child(credits)
+	var toggles := Overlays.audio_toggles()
+	var again := Button.new()
+	again.text = tr("TUT_RESET")
+	again.custom_minimum_size = Vector2(0, 42)
+	again.add_theme_font_size_override("font_size", 16)
+	again.pressed.connect(func() -> void:
+		Tutorial.new().reset()
+		again.disabled = true)
+	toggles.add_child(again)
+	row.add_child(toggles)
 	row.add_child(Overlays.button(tr("HELP_START" if first_time else "ALERT_OK"), func() -> void: closed.emit(), true))
 	box.add_child(row)
 

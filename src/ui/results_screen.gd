@@ -32,6 +32,16 @@ func _left(sim: SimWorld) -> Control:
 	box.custom_minimum_size = Vector2(LEFT_W, 0)
 	box.add_theme_constant_override("separation", 10)
 	var key := "OUTCOME_" + sim.outcome
+	var bg_id := "bg_end_" + ("white_terror" if sim.outcome == SimWorld.OUTCOME_DEFEAT else sim.outcome)
+	var bitter := false
+	for cs in sim.countries:
+		if cs.is_revolutionary() and NewSociety.is_thermidor(cs):
+			bitter = true
+	if bitter and sim.outcome != SimWorld.OUTCOME_DEFEAT:
+		bg_id = "bg_end_thermidor"
+	var art := ArtLibrary.view(bg_id, Vector2(LEFT_W, LEFT_W * 9.0 / 16.0))
+	if art != null:
+		box.add_child(art)
 	var win := sim.outcome == SimWorld.OUTCOME_FEDERATION or sim.outcome == SimWorld.OUTCOME_WORLD_REVOLUTION
 	var title := GameTheme.make_label(tr(key).to_upper(), 44, GameTheme.display_font(700),
 		MapPalette.VERMILION if win else MapPalette.STEEL)

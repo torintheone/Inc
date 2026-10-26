@@ -7,6 +7,8 @@ extends Control
 signal option_chosen(id: String)
 
 const ART_W := 380.0
+## Ширина настоящей иллюстрации 16:9.
+const ART_IMAGE_W := 500.0
 const TEXT_W := 640.0
 
 ## Значок категории на заглушке иллюстрации.
@@ -33,10 +35,17 @@ func _init(sim: SimWorld) -> void:
 	var id: String = sim.pending_event["id"]
 	var e: Dictionary = sim.data.events[id]
 	var cs := EventSystem.pending_country(sim)
-	var stub := _ArtStub.new()
-	stub.icon = CATEGORY_ICONS.get(e.get("category", ""), "flag")
-	stub.custom_minimum_size = Vector2(ART_W, 520)
-	row.add_child(stub)
+	# Иллюстрация события, если её уже прислали; иначе — заглушка со значком категории.
+	var art := ArtLibrary.view(str(e.get("art", "")), Vector2(ART_IMAGE_W, ART_IMAGE_W * 9.0 / 16.0))
+	if art != null:
+		var col := VBoxContainer.new()
+		col.add_child(art)
+		row.add_child(col)
+	else:
+		var stub := _ArtStub.new()
+		stub.icon = CATEGORY_ICONS.get(e.get("category", ""), "flag")
+		stub.custom_minimum_size = Vector2(ART_W, 520)
+		row.add_child(stub)
 
 	var box := VBoxContainer.new()
 	box.custom_minimum_size = Vector2(TEXT_W, 0)

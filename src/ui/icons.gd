@@ -53,6 +53,8 @@ static func draw(canvas: CanvasItem, name: String, center: Vector2, r: float, co
 			bread(canvas, center, r, color)
 		"weapons":
 			rifle(canvas, center, r, color)
+		"emblem":
+			emblem(canvas, center, r)
 		_:
 			canvas.draw_circle(center, r * 0.5, color)
 
@@ -239,6 +241,30 @@ static func rifle(canvas: CanvasItem, c: Vector2, r: float, color: Color) -> voi
 	canvas.draw_line(c + Vector2(-0.95, 0.55) * r, c + Vector2(0.95, -0.6) * r, color, w)
 	canvas.draw_colored_polygon(PackedVector2Array([c + Vector2(-1.0, 0.45) * r, c + Vector2(-0.45, 0.1) * r,
 		c + Vector2(-0.2, 0.5) * r, c + Vector2(-0.75, 0.95) * r]), color)
+
+
+## Эмблема движения — «призрак» (как на иконке игры): красная фигура с волнистым подолом
+## на бумажном круге, перечёркнутом чёрной диагональю.
+static func emblem(canvas: CanvasItem, c: Vector2, r: float) -> void:
+	canvas.draw_circle(c, r, MapPalette.PAPER)
+	# Диагональ — нижняя часть круга чёрная.
+	var band := PackedVector2Array()
+	for i in 33:
+		var a := lerpf(-0.25, PI + 0.55, float(i) / 32.0)
+		band.append(c + Vector2(cos(a), sin(a)) * r)
+	canvas.draw_colored_polygon(band, MapPalette.INK)
+	var body := PackedVector2Array()
+	for i in 17:
+		var a := PI + PI * float(i) / 16.0
+		body.append(c + Vector2(cos(a) * 0.53, sin(a) * 0.62 - 0.08) * r)
+	var bottom := 0.62
+	var xs := [0.53, 0.35, 0.18, 0.0, -0.18, -0.35, -0.53]
+	for k in xs.size():
+		body.append(c + Vector2(xs[k], bottom - (0.16 if k % 2 == 1 else 0.0)) * r)
+	canvas.draw_colored_polygon(body, MapPalette.VERMILION)
+	canvas.draw_circle(c + Vector2(-0.2, -0.22) * r, 0.09 * r, MapPalette.PAPER)
+	canvas.draw_circle(c + Vector2(0.2, -0.22) * r, 0.09 * r, MapPalette.PAPER)
+	canvas.draw_arc(c, r, 0.0, TAU, 48, MapPalette.INK, maxf(r * 0.05, 2.0), true)
 
 
 ## Цвет «прорези» в значке — цвет фона, на котором он нарисован.

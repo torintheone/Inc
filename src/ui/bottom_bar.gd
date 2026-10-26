@@ -6,8 +6,13 @@ signal tab_selected(tab: String)
 
 const TABS: PackedStringArray = ["upgrades", "actions", "news", "stats"]
 
+## Скорость «телеграфа»: знаков в секунду; стук раз в столько знаков.
+const TYPE_SPEED := 70.0
+const TICK_EVERY := 7
+
 var _buttons: Dictionary[String, Button] = {}
 var _ticker: Label
+var _typed := 0.0
 
 
 func _init() -> void:
@@ -40,11 +45,36 @@ func _init() -> void:
 	row.add_child(ticker_box)
 
 
+## Середина кнопки вкладки на экране — для стрелки обучения.
+func button_center(tab: String) -> Vector2:
+	var b: Button = _buttons.get(tab)
+	return b.get_global_rect().get_center() if b != null else Vector2.ZERO
+
+
 func show_tab(tab: String) -> void:
 	for t: String in _buttons:
 		_buttons[t].set_pressed_no_signal(t == tab)
 
 
-## Последняя новость «телеграфом».
+## Последняя новость «телеграфом»: буквы появляются одна за другой под стук аппарата.
 func show_news(text: String) -> void:
+	if text == _ticker.text:
+		return
 	_ticker.text = text
+	_ticker.visible_characters = 0
+	_typed = 0.0
+	set_process(true)
+
+
+func _process(delta: float) -> void:
+	var total := _ticker.get_total_character_count()
+	if _ticker.visible_characters < 0 or _ticker.visible_characters >= total:
+		_ticker.visible_characters = -1
+		set_process(false)
+		return
+	var before := int(_typed)
+	_typed += delta * TYPE_SPEED
+	var now := int(_typed)
+	if now / TICK_EVERY != before / TICK_EVERY:
+		Audio.play("telegraph", -2.0, randf_range(0.9, 1.15))
+	_ticker.visible_characters = mini(now, total)

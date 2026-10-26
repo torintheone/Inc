@@ -2,3 +2,4 @@ shapely==2.2.0
 topojson==2.2
 mapbox-earcut==2.1.0
 numpy==2.5.3
+pillow==12.3.0

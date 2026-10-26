@@ -37,6 +37,8 @@ var _popup: Control
 var _stamp: Label
 var _stamp_time := 0.0
 var _outcome_shown := false
+## Сколько строк журнала уже озвучено и показано на карте.
+var _log_seen := 0
 
 
 func _init(p_sim: SimWorld) -> void:
@@ -69,6 +71,7 @@ func _init(p_sim: SimWorld) -> void:
 	add_child(_stamp)
 
 	_map.setup(b)
+	_log_seen = b.log.size()
 	_refresh()
 	if b.is_over():
 		_show_outcome()
@@ -196,6 +199,7 @@ func _process(delta: float) -> void:
 	if _accum >= seconds:
 		_accum -= seconds
 		BattleSystem.step_day(sim, b)
+		_react_to_log()
 		_refresh()
 		day_passed.emit()
 		if b.is_over():
@@ -452,6 +456,14 @@ func _perform(id: String, i: int) -> void:
 		return
 	if sim.data.battle_actions[id].has("chance"):
 		_show_stamp(result["success"])
+		Audio.play("stamp" if result["success"] else "fail")
+	elif id == "strike":
+		Audio.play("factory_whistle")
+	elif id == "solidarity_aid":
+		Audio.play("bubble")
+	else:
+		Audio.play("stamp", -6.0)
+	_react_to_log()
 	_refresh()
 	if b.is_over():
 		_show_outcome()
@@ -485,7 +497,27 @@ func _show_intro() -> void:
 		texts = PackedStringArray([tr("BATTLE_GOAL_ROUND") % (b.max_days - b.day), tr("BATTLE_INTRO_HINTS")])
 	_open_popup(title, MapPalette.INK, texts, tr("BTN_BEGIN"), func() -> void:
 		_close_popup()
-		_set_speed(1))
+		_set_speed(1)
+		Audio.crowd(true))
+
+
+## Новые строки журнала: звук и вспышка на карте (район взят, гарнизон перешёл, объект захвачен…).
+func _react_to_log() -> void:
+	for k in range(mini(_log_seen, b.log.size()), b.log.size()):
+		var key: String = b.log[k]["key"]
+		match key:
+			"BATTLE_LOG_TAKEN":
+				Audio.play("drum_hit")
+			"BATTLE_LOG_LOST", "BATTLE_LOG_LEADERSHIP", "BATTLE_LOG_AGITATOR_ARRESTED", "BATTLE_LOG_ARRESTS":
+				Audio.play("fail", -4.0)
+			"BATTLE_LOG_DEFECT":
+				Audio.play("crowd_roar")
+			"BATTLE_LOG_INTERVENTION", "BATTLE_LOG_CURFEW", "BATTLE_LOG_VOLUNTEERS":
+				Audio.play("drum_roll", -4.0)
+		if key.begins_with("BATTLE_LOG_SEIZED_"):
+			Audio.play("bell", -10.0, 1.5)
+		_map.flash_log(b.log[k])
+	_log_seen = b.log.size()
 
 
 func _show_outcome() -> void:
@@ -493,6 +525,15 @@ func _show_outcome() -> void:
 		return
 	_outcome_shown = true
 	_set_speed(0)
+	Audio.crowd(false)
+	match b.outcome:
+		BattleState.OUTCOME_VICTORY:
+			Audio.play("bell")
+			Audio.sting("victory")
+		BattleState.OUTCOME_DEFEAT:
+			Audio.sting("defeat")
+		_:
+			Audio.play("drum_hit")
 	var color := MapPalette.INK
 	match b.outcome:
 		BattleState.OUTCOME_VICTORY:

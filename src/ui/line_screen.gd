@@ -83,12 +83,17 @@ func _card(data: GameData, id: String, is_current: bool, changing: bool) -> Cont
 	box.add_theme_constant_override("separation", 6)
 	card.add_child(box)
 
-	var emblem := Screens.disc(MapPalette.VERMILION, 64.0)
-	emblem.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	var icon := Icons.IconView.new(ICONS.get(id, "organization"), MapPalette.PAPER, 52.0, MapPalette.VERMILION)
-	icon.position = Vector2(6, 6)
-	emblem.add_child(icon)
-	box.add_child(emblem)
+	var art := ArtLibrary.view("line_" + id, Vector2(96, 96))
+	if art != null:
+		art.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		box.add_child(art)
+	else:
+		var emblem := Screens.disc(MapPalette.VERMILION, 64.0)
+		emblem.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		var icon := Icons.IconView.new(ICONS.get(id, "organization"), MapPalette.PAPER, 52.0, MapPalette.VERMILION)
+		icon.position = Vector2(6, 6)
+		emblem.add_child(icon)
+		box.add_child(emblem)
 	var name := GameTheme.make_label(tr("LINE_" + id).to_upper(), 22, GameTheme.display_font(600))
 	name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	name.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

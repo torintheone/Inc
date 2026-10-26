@@ -29,6 +29,10 @@ var _tap_start_msec := 0
 var _tap_moved := false
 var _velocity := Vector2.ZERO
 var _last_drag_msec := 0
+## Встряска экрана при крупных событиях: сколько осталось и насколько сильно (пикселей экрана).
+var _shake_left := 0.0
+var _shake_px := 0.0
+const SHAKE_SECONDS := 0.55
 
 
 func _ready() -> void:
@@ -106,7 +110,19 @@ func reveal(world_pos: Vector2) -> void:
 	_velocity = Vector2.ZERO
 
 
+## Встряхнуть карту: strength 1 — крупное событие (победа революции).
+func shake(strength: float) -> void:
+	_shake_left = SHAKE_SECONDS
+	_shake_px = 16.0 * strength
+
+
 func _process(delta: float) -> void:
+	if _shake_left > 0.0:
+		_shake_left = maxf(_shake_left - delta, 0.0)
+		var k := _shake_left / SHAKE_SECONDS
+		offset = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * _shake_px * k / zoom_level()
+	elif offset != Vector2.ZERO:
+		offset = Vector2.ZERO
 	if _glide_to != null:
 		var target: Vector2 = _glide_to
 		position = position.lerp(target, 1.0 - exp(-8.0 * delta))

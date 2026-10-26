@@ -20,6 +20,7 @@ var top_bar: TopBar
 var bottom_bar: BottomBar
 var drawer: SideDrawer
 var panel: CountryPanel
+var tip: TipPanel
 
 var _root: Control
 var _hint: Label
@@ -66,6 +67,9 @@ func setup() -> void:
 	_root.add_child(_toast)
 	_result = ResultPopup.new()
 	_root.add_child(_result)
+	tip = TipPanel.new()
+	tip.hide()
+	_root.add_child(tip)
 
 	get_viewport().size_changed.connect(_layout)
 	panel.minimum_size_changed.connect(_layout, CONNECT_DEFERRED)
@@ -84,6 +88,8 @@ func _floating_label(size_px: int) -> Label:
 ## Элементы, касания по которым карта не обрабатывает.
 func blockers() -> Array[Control]:
 	var list: Array[Control] = [top_bar, bottom_bar, drawer, panel]
+	if tip.visible:
+		list.append(tip.card())
 	if _overlay != null:
 		list.append(_overlay)
 	return list
@@ -199,6 +205,11 @@ func show_overlay(overlay: Control) -> void:
 	overlay.offset_right = -insets.z
 	overlay.offset_bottom = -insets.w
 	holder.add_child(overlay)
+	if overlay.has_meta("paper"):
+		Audio.play("page")
+	# Экран проявляется за десятую долю секунды, а не возникает рывком.
+	holder.modulate.a = 0.0
+	holder.create_tween().tween_property(holder, "modulate:a", 1.0, 0.12)
 	_overlay = holder
 	_overlay_content = overlay
 	_root.add_child(holder)

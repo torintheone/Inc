@@ -34,6 +34,7 @@ var data: GameData
 var sim: SimWorld
 var map: WorldMap
 var bubbles: BubbleLayer
+var fx: MapFx
 var camera: MapCamera
 var hud: Hud
 
@@ -45,6 +46,10 @@ var _accum := 0.0
 var _seen_news := 0
 var _alerts: Array[Dictionary] = []
 var _start_id := ""
+## Сколько новостей уже показано анимацией на карте.
+var _fx_seen := 0
+var _tutorial := Tutorial.new()
+var _tip_step := ""
 
 
 func _ready() -> void:
@@ -59,6 +64,8 @@ func _ready() -> void:
 	map = WorldMap.new()
 	map.setup(data.world)
 	add_child(map)
+	fx = MapFx.new()
+	add_child(fx)
 	bubbles = BubbleLayer.new()
 	bubbles.world = data.world
 	add_child(bubbles)
@@ -84,11 +91,14 @@ func _ready() -> void:
 	hud.panel_button_pressed.connect(_on_panel_button)
 	hud.panel_closed.connect(_deselect)
 	hud.request_refresh.connect(_refresh_ui)
+	hud.tip.closed.connect(_on_tip_closed)
 	_show_menu()
 
 
 func _on_zoom(zoom: float) -> void:
 	map.on_zoom_changed(zoom)
+	fx.zoom = zoom
+	fx.queue_redraw()
 	bubbles.zoom = zoom
 	bubbles.queue_redraw()
 
@@ -96,7 +106,7 @@ func _on_zoom(zoom: float) -> void:
 func _process(delta: float) -> void:
 	camera.ui_blockers = hud.blockers()
 	camera.screen_insets = hud.map_insets()
-	if mode != "play" or speed == 0 or hud.has_overlay():
+	if mode != "play" or speed == 0 or hud.has_overlay() or hud.tip.visible:
 		return
 	var seconds_per_week := data.num("time.seconds_per_week", 2.5)
 	_accum += delta * speed
@@ -128,8 +138,11 @@ func _show_menu() -> void:
 	map.select(null)
 	map.reset_colors()
 	bubbles.clear()
+	fx.clear()
+	Audio.set_theme("menu")
+	Audio.crowd(false)
 	var on_continue: Variant = _continue_game if SaveStore.has_autosave() else null
-	hud.show_overlay(Overlays.menu(_new_game, on_continue))
+	hud.show_overlay(Overlays.menu(_new_game, on_continue, _show_credits))
 
 
 func _new_game() -> void:
@@ -137,6 +150,7 @@ func _new_game() -> void:
 	var seed_value := int(Time.get_unix_time_from_system()) ^ Time.get_ticks_usec()
 	sim = SimWorld.new_game(data, seed_value)
 	_seen_news = sim.news_count
+	_fx_seen = sim.news_count
 	_alerts.clear()
 	mode = "choose"
 	hud.set_mode(mode)
@@ -156,6 +170,7 @@ func _continue_game() -> void:
 	hud.close_overlay()
 	sim = loaded
 	_seen_news = sim.news_count
+	_fx_seen = sim.news_count
 	_alerts.clear()
 	if sim.line == "":
 		_choose_line()
@@ -184,6 +199,7 @@ func _on_line_chosen(id: String) -> void:
 
 func _start_play() -> void:
 	mode = "play"
+	Audio.set_theme("world")
 	hud.set_mode(mode)
 	hud.panel.tab = CountryPanel.TAB_MOVEMENT
 	_set_speed(1)
@@ -199,10 +215,18 @@ func _start_play() -> void:
 		_show_event()
 
 
+func _show_credits() -> void:
+	var screen := CreditsScreen.new()
+	screen.closed.connect(_show_menu)
+	hud.show_overlay(screen)
+
+
 func _show_help(first_time: bool) -> void:
 	var screen := HelpScreen.new(first_time)
 	screen.closed.connect(func() -> void:
 		hud.close_overlay()
+		# Подсказки могли включить заново на экране справки.
+		_tutorial = Tutorial.new()
 		_set_help_seen())
 	hud.show_overlay(screen)
 
@@ -223,6 +247,7 @@ func _set_help_seen() -> void:
 
 func _advance_week() -> void:
 	sim.step()
+	Audio.set_tension(Audio.tense(sim))
 	map.apply_sim(sim)
 	bubbles.show_bubbles(sim)
 	_collect_alerts()
@@ -235,6 +260,52 @@ func _advance_week() -> void:
 		_open_battle()
 	else:
 		_show_next_popup()
+		_check_tutorial()
+
+
+# --- Обучение ---------------------------------------------------------------
+
+## Подсказка первой партии, если для неё пришло время (и ничего другого на экране нет).
+func _check_tutorial() -> void:
+	if mode != "play" or hud.has_overlay() or hud.tip.visible:
+		return
+	var step := _tutorial.next_step(sim)
+	if step == "":
+		return
+	_tip_step = step
+	var top := hud.top_bar.position.y + hud.top_bar.size.y + 12.0
+	hud.tip.show_tip(Tutorial.text(step), _tip_target(step), top)
+	Audio.play("alert", -6.0)
+
+
+## Куда показывает стрелка подсказки: пузырёк, кнопка «Развитие», страна.
+func _tip_target(step: String) -> Variant:
+	var to_screen := func(world_pos: Vector2) -> Vector2: return get_viewport().get_canvas_transform() * world_pos
+	match step:
+		"bubble":
+			if not sim.bubbles.is_empty():
+				return to_screen.call(bubbles.position_of(sim.bubbles[0]))
+		"upgrade":
+			return hud.bottom_bar.button_center("upgrades")
+		"action":
+			var c := data.world.get_country(sim.start_country)
+			if c != null:
+				return to_screen.call(c.label)
+		"window", "society":
+			for cs in sim.countries:
+				var hit := cs.is_revolutionary() if step == "society" else (cs.window_left >= 0 and cs.influence >= 10.0)
+				if hit:
+					return to_screen.call(cs.country.label)
+	return null
+
+
+func _on_tip_closed(disable_all: bool) -> void:
+	hud.tip.hide()
+	if disable_all:
+		_tutorial.disable()
+	if _tip_step != "":
+		_tutorial.mark(_tip_step)
+	_tip_step = ""
 
 
 ## Сначала важные сообщения, потом событие, которое ждёт решения.
@@ -252,6 +323,7 @@ func _show_event() -> void:
 	var screen := EventScreen.new(sim)
 	screen.option_chosen.connect(_on_event_option)
 	hud.show_overlay(screen)
+	Audio.play("telegraph")
 
 
 func _on_event_option(option_id: String) -> void:
@@ -286,6 +358,7 @@ func _on_event_option(option_id: String) -> void:
 	if had_chance:
 		title = "%s: %s" % [tr("EVENT_RESULT_OK" if result["success"] else "EVENT_RESULT_FAIL"), tr("EVENT_%s_%s" % [id, option_id])]
 	hud.show_result(title, lines, result["success"] if had_chance else null)
+	Audio.play("stamp" if result["success"] or not had_chance else "fail")
 	map.apply_sim(sim)
 	_collect_alerts()
 	_refresh_ui()
@@ -320,6 +393,7 @@ func _show_next_alert() -> void:
 			hud.close_overlay()
 			_focus_country(cid)
 	hud.show_overlay(Overlays.alert(tr(ALERT_TITLES[item["key"]]), text, on_goto, _close_alert))
+	_alert_sound(item["key"])
 
 
 # --- Сражение ----------------------------------------------------------------
@@ -331,6 +405,8 @@ func _open_battle() -> void:
 	_focus_country(sim.battle.country_id)
 	var screen := BattleScreen.new(sim)
 	screen.finished.connect(_on_battle_finished)
+	Audio.set_theme("battle")
+	Audio.play("drum_roll")
 	screen.day_passed.connect(func() -> void:
 		if sim.battle != null and sim.battle.day % BATTLE_SAVE_DAYS == 0:
 			SaveStore.save(sim))
@@ -341,6 +417,8 @@ func _open_battle() -> void:
 func _on_battle_finished() -> void:
 	sim.finish_battle()
 	hud.close_overlay()
+	Audio.crowd(false)
+	Audio.set_theme("world")
 	map.apply_sim(sim)
 	_collect_alerts()
 	_refresh_ui()
@@ -351,6 +429,25 @@ func _on_battle_finished() -> void:
 		_show_next_popup()
 
 
+## Звук важного сообщения: победа — колокол и тема победы, разгром — тема поражения.
+func _alert_sound(key: String) -> void:
+	match key:
+		"NEWS_REVOLUTION", "NEWS_STRIKE_TO_REVOLUTION":
+			Audio.play("bell")
+			Audio.sting("victory")
+			camera.shake(1.0)
+		"NEWS_UPRISING_DEFEATED", "NEWS_COUNTERREVOLUTION":
+			Audio.sting("defeat")
+			camera.shake(0.8)
+		"NEWS_CRISIS", "NEWS_REACTION_100", "NEWS_CIVIL_WAR":
+			Audio.play("drum_hit")
+			camera.shake(0.6)
+		"NEWS_THERMIDOR", "NEWS_COUNTER_THREAT":
+			Audio.play("fail")
+		_:
+			Audio.play("alert")
+
+
 func _close_alert() -> void:
 	hud.close_overlay()
 	_show_next_popup()
@@ -358,6 +455,9 @@ func _close_alert() -> void:
 
 func _finish() -> void:
 	mode = "ended"
+	var won := sim.outcome == SimWorld.OUTCOME_FEDERATION or sim.outcome == SimWorld.OUTCOME_WORLD_REVOLUTION
+	Audio.set_theme("")
+	Audio.sting("victory" if won or sim.outcome == SimWorld.OUTCOME_TWO_SYSTEMS else "defeat")
 	hud.set_mode(mode)
 	SaveStore.delete_autosave()
 	var screen := ResultsScreen.new(sim)
@@ -398,6 +498,9 @@ func _collect_bubble(id: int) -> void:
 	var text := "+%s" % NumberFormat.decimal(float(result["value"]), 0)
 	if kind == UnrestSystem.PROTEST:
 		text = tr("BUBBLE_SUPPORTED") % text
+		Audio.play("crowd_roar", -4.0)
+	else:
+		Audio.play("bubble", 0.0, randf_range(0.95, 1.08))
 	bubbles.pop(id, text)
 	bubbles.show_bubbles(sim)
 	map.apply_sim(sim)
@@ -539,6 +642,7 @@ func _on_action(screen: ActionsScreen, id: String) -> void:
 		return
 	hud.show_result(tr("ACTION_RESULT_OK" if result["success"] else "ACTION_RESULT_FAIL") % tr("ACTION_" + id),
 		ChangeReport.lines(sim, before, cs), result["success"])
+	_action_sound(id, result["success"])
 	map.apply_sim(sim)
 	_collect_alerts()
 	_refresh_ui()
@@ -551,8 +655,88 @@ func _on_action(screen: ActionsScreen, id: String) -> void:
 		screen.show_result(result["success"])
 
 
+## Свежие новости — на карту: вспышки стран и линии распространения движения.
+func _animate_news() -> void:
+	var fresh := sim.news_count - _fx_seen
+	_fx_seen = sim.news_count
+	if fresh <= 0 or mode != "play":
+		return
+	for i in range(maxi(sim.news.size() - fresh, 0), sim.news.size()):
+		var item: Dictionary = sim.news[i]
+		var c := data.world.get_country(item.get("country", ""))
+		if c == null:
+			continue
+		var key: String = item["key"]
+		match key:
+			"NEWS_REACHED":
+				var source := _spread_source(sim.state_of(c.id))
+				if not source.is_empty():
+					fx.spread(data.world.countries[int(source[0])].label, c.label, source[1])
+			"NEWS_REVOLUTION", "NEWS_STRIKE_TO_REVOLUTION":
+				fx.pulse(c.label, MapPalette.VERMILION, 2.0)
+			"NEWS_UPRISING_DEFEATED", "NEWS_COUNTERREVOLUTION":
+				fx.pulse(c.label, MapPalette.STEEL, 2.0)
+			"NEWS_CIVIL_WAR", "NEWS_BATTLE_START", "NEWS_WINDOW_OPENED":
+				fx.pulse(c.label, MapPalette.OCHRE, 1.5)
+			"NEWS_THERMIDOR":
+				fx.pulse(c.label, MapPalette.CONCRETE, 1.5)
+			_:
+				if key.begins_with("NEWS_EVENT"):
+					fx.pulse(c.label, MapPalette.OCHRE, 1.0)
+				elif key.begins_with("NEWS_ACTION_"):
+					fx.pulse(c.label, MapPalette.VERMILION if key.ends_with("_OK") else MapPalette.STEEL, 0.8)
+
+
+## Откуда движение пришло в страну и каким путём: [номер страны, "train" | "ship" | "radio"].
+## Сосед — поездом, торговля и эмиграция — кораблём; если связи нет — радио из самой сильной страны.
+func _spread_source(target: CountryState) -> Array:
+	var best := -1
+	var best_score := 0.0
+	var kind := "radio"
+	for i in data.link_a.size():
+		var other := -1
+		if data.link_a[i] == target.index:
+			other = data.link_b[i]
+		elif data.link_b[i] == target.index:
+			other = data.link_a[i]
+		if other < 0:
+			continue
+		var cs := sim.countries[other]
+		var strength := 100.0 if cs.is_revolutionary() else cs.influence
+		if strength < 1.0:
+			continue
+		var neighbor := data.link_neighbor[i] > 0
+		var score := strength * (data.link_trade[i] + data.link_migration[i] + (0.5 if neighbor else 0.0))
+		if score > best_score:
+			best_score = score
+			best = other
+			kind = "train" if neighbor else "ship"
+	if best < 0:
+		for cs in sim.countries:
+			if cs != target and cs.influence > best_score:
+				best_score = cs.influence
+				best = cs.index
+		kind = "radio"
+	return [] if best < 0 else [best, kind]
+
+
+## Звук действия: стачка — заводской гудок, демонстрация — толпа, провал — глухой удар.
+func _action_sound(id: String, success: bool) -> void:
+	if not success:
+		Audio.play("fail")
+		return
+	var a: Dictionary = data.country_actions.get(id, {})
+	if "strike" in a.get("tags", []):
+		Audio.play("factory_whistle")
+	elif id == "demonstration":
+		Audio.play("crowd_roar")
+	else:
+		Audio.play("stamp")
+
+
 func _refresh_ui() -> void:
 	if sim == null:
 		return
+	_animate_news()
 	var cs := sim.state_of(selected.id) if selected != null else null
 	hud.refresh(sim, cs, _panel_button_text())

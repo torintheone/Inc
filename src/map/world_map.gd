@@ -4,6 +4,9 @@ extends Node2D
 ## выбранной страны. Ввод обрабатывает MapCamera.
 
 const FILL_SHADER := preload("res://src/map/country_fill.gdshader")
+const PAPER_SHADER := preload("res://src/map/paper.gdshader")
+## Скорость перетекания цвета страны к новому: доля пути за секунду.
+const COLOR_SPEED := 2.5
 const OUTLINE_WIDTH_PX := 3.0
 const WINDOW_WIDTH_PX := 2.5
 
@@ -12,6 +15,10 @@ var selected: Country
 
 var _palette_image: Image
 var _palette_texture: ImageTexture
+## Цвет, к которому страна перетекает, и тот, что на карте сейчас.
+var _target := PackedColorArray()
+var _current := PackedColorArray()
+var _paper: _PaperLayer
 var _fill: MeshInstance2D
 var _neutral: MeshInstance2D
 var _borders: _BorderLayer
@@ -22,6 +29,13 @@ var _outline: _OutlineLayer
 func setup(p_world: WorldData) -> void:
 	world = p_world
 	_build_palette()
+	_paper = _PaperLayer.new()
+	_paper.rect = world.bounds.grow(6000.0)
+	var paper_mat := ShaderMaterial.new()
+	paper_mat.shader = PAPER_SHADER
+	paper_mat.set_shader_parameter("paper_color", MapPalette.OCEAN)
+	_paper.material = paper_mat
+	add_child(_paper)
 	_neutral = _make_mesh_node(_build_neutral_mesh(), null)
 	_neutral.modulate = MapPalette.NEUTRAL_LAND
 	add_child(_neutral)
@@ -42,6 +56,8 @@ func setup(p_world: WorldData) -> void:
 
 
 func set_country_color(country: Country, color: Color) -> void:
+	_target[country.index] = color
+	_current[country.index] = color
 	_palette_image.set_pixel(country.index, 0, color)
 	_palette_texture.update(_palette_image)
 
@@ -66,10 +82,11 @@ func apply_sim(sim: SimWorld) -> void:
 		# Страна, разделённая гражданской войной, — между революционной и охваченной движением.
 		if sim.civil_wars.has(cs.country.id):
 			color = MapPalette.CIVIL_WAR_LAND
-		_palette_image.set_pixel(cs.index, 0, color)
+		_target[cs.index] = color
 		if cs.window_left >= 0 and not cs.is_revolutionary():
 			windows.append(cs.country)
-	_palette_texture.update(_palette_image)
+	# Новый цвет растекается постепенно, как чернила.
+	set_process(true)
 	if windows != _windows.countries:
 		_windows.countries = windows
 		_windows.queue_redraw()
@@ -78,6 +95,8 @@ func apply_sim(sim: SimWorld) -> void:
 func reset_colors() -> void:
 	_palette_image.fill(MapPalette.LAND)
 	_palette_texture.update(_palette_image)
+	_target.fill(MapPalette.LAND)
+	_current.fill(MapPalette.LAND)
 	_windows.countries.clear()
 	_windows.queue_redraw()
 
@@ -98,10 +117,35 @@ func on_zoom_changed(zoom: float) -> void:
 	_windows.queue_redraw()
 
 
+func _process(delta: float) -> void:
+	var k := minf(delta * COLOR_SPEED, 1.0)
+	var changed := false
+	for i in _current.size():
+		var cur := _current[i]
+		var target := _target[i]
+		if cur.is_equal_approx(target):
+			continue
+		cur = cur.lerp(target, k)
+		if absf(cur.r - target.r) + absf(cur.g - target.g) + absf(cur.b - target.b) < 0.004:
+			cur = target
+		_current[i] = cur
+		_palette_image.set_pixel(i, 0, cur)
+		changed = true
+	if changed:
+		_palette_texture.update(_palette_image)
+	else:
+		set_process(false)
+
+
 func _build_palette() -> void:
-	_palette_image = Image.create(maxi(world.countries.size(), 1), 1, false, Image.FORMAT_RGBA8)
+	var n := maxi(world.countries.size(), 1)
+	_palette_image = Image.create(n, 1, false, Image.FORMAT_RGBA8)
 	_palette_image.fill(MapPalette.LAND)
 	_palette_texture = ImageTexture.create_from_image(_palette_image)
+	_target.resize(n)
+	_target.fill(MapPalette.LAND)
+	_current.resize(n)
+	_current.fill(MapPalette.LAND)
 
 
 func _build_country_mesh() -> ArrayMesh:
@@ -166,6 +210,15 @@ static func _make_mesh_node(mesh: ArrayMesh, mat: Material) -> MeshInstance2D:
 	node.mesh = mesh
 	node.material = mat
 	return node
+
+
+## Бумага под картой: большой прямоугольник с шейдером зерна.
+class _PaperLayer:
+	extends Node2D
+	var rect := Rect2()
+
+	func _draw() -> void:
+		draw_rect(rect, Color.WHITE)
 
 
 ## Все границы одним вызовом рисования: тонкие линии в 1 пиксель при любом масштабе.

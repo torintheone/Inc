@@ -52,10 +52,20 @@ static func button(text: String, on_press: Callable, primary: bool = false) -> B
 
 
 ## Главное меню. on_continue — null, если сохранения нет.
-static func menu(on_new: Callable, on_continue: Variant) -> Control:
+static func menu(on_new: Callable, on_continue: Variant, on_credits: Callable = Callable()) -> Control:
 	var parts := make_modal(520.0)
+	# Фон меню — иллюстрация, если её уже прислали.
+	var bg := ArtLibrary.view("bg_menu", Vector2.ZERO)
+	if bg != null:
+		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+		bg.modulate = Color(1, 1, 1, 0.85)
+		parts[0].add_child(bg)
+		parts[0].move_child(bg, 0)
 	var box: VBoxContainer = parts[1]
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
+	var emblem := Icons.IconView.new("emblem", MapPalette.VERMILION, 110.0)
+	emblem.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	box.add_child(emblem)
 	var title := GameTheme.make_label(TranslationServer.translate("GAME_TITLE").to_upper(), 64, GameTheme.display_font(600), MapPalette.VERMILION)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(title)
@@ -70,7 +80,41 @@ static func menu(on_new: Callable, on_continue: Variant) -> Control:
 	var center := CenterContainer.new()
 	center.add_child(buttons)
 	box.add_child(center)
+	var toggles := audio_toggles()
+	toggles.alignment = BoxContainer.ALIGNMENT_CENTER
+	if on_credits.is_valid():
+		var credits := Button.new()
+		credits.text = TranslationServer.translate("MENU_CREDITS")
+		credits.custom_minimum_size = Vector2(120, 42)
+		credits.add_theme_font_size_override("font_size", 16)
+		credits.pressed.connect(on_credits)
+		toggles.add_child(credits)
+	box.add_child(toggles)
 	return parts[0]
+
+
+## Выключатели звука и музыки: надпись показывает, что сейчас.
+static func audio_toggles() -> HBoxContainer:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+	var t := TranslationServer.translate
+	var sfx := Button.new()
+	var music := Button.new()
+	for b in [sfx, music]:
+		b.custom_minimum_size = Vector2(170, 42)
+		b.add_theme_font_size_override("font_size", 16)
+		row.add_child(b)
+	var update := func() -> void:
+		sfx.text = t.call("SOUND_ON" if Audio.sfx_on() else "SOUND_OFF")
+		music.text = t.call("MUSIC_ON" if Audio.music_on() else "MUSIC_OFF")
+	update.call()
+	sfx.pressed.connect(func() -> void:
+		Audio.set_sfx(not Audio.sfx_on())
+		update.call())
+	music.pressed.connect(func() -> void:
+		Audio.set_music(not Audio.music_on())
+		update.call())
+	return row
 
 
 ## Сообщение о важном событии с кнопками «Перейти» (если есть страна) и «Понятно».

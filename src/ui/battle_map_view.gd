@@ -28,6 +28,12 @@ var _bounds := Rect2()
 var _scale := 1.0
 var _offset := Vector2.ZERO
 var _font: Font
+## Анимации поверх карты: {"kind", "region", "t", "object"}; t растёт от 0 до 1.
+var _effects: Array[Dictionary] = []
+var _by_name: Dictionary[String, int] = {}
+## Сколько длится каждая анимация, секунд.
+const EFFECT_SECONDS := {"taken": 1.4, "lost": 1.0, "defect": 1.2, "seized": 1.6, "barricade": 0.7, "council": 1.0,
+	"strike": 1.0}
 
 
 func _init() -> void:
@@ -40,6 +46,9 @@ func _init() -> void:
 func setup(p_battle: BattleState) -> void:
 	battle = p_battle
 	_shapes.clear()
+	_by_name.clear()
+	for i in battle.region_count():
+		_by_name[str(battle.region(i)["name_ru"])] = i
 	var first := true
 	for r: Dictionary in battle.map["regions"]:
 		var polys: Array = []
@@ -122,6 +131,96 @@ func _draw() -> void:
 	_draw_transfers()
 	for i in n:
 		_draw_region_marks(i)
+	_draw_effects()
+
+
+## Строка журнала → анимация в районе, о котором она.
+func flash_log(item: Dictionary) -> void:
+	var key: String = item["key"]
+	var args: Array = item.get("args", [])
+	var region := -1
+	if not args.is_empty() and args[0] is String:
+		region = _by_name.get(args[0], -1)
+	var kind := ""
+	var object := ""
+	match key:
+		"BATTLE_LOG_TAKEN":
+			kind = "taken"
+		"BATTLE_LOG_LOST":
+			kind = "lost"
+		"BATTLE_LOG_DEFECT":
+			kind = "defect"
+		"BATTLE_LOG_barricades_OK":
+			kind = "barricade"
+		"BATTLE_LOG_council_OK":
+			kind = "council"
+		"BATTLE_LOG_strike_OK":
+			kind = "strike"
+	if key.begins_with("BATTLE_LOG_SEIZED_"):
+		kind = "seized"
+		object = key.trim_prefix("BATTLE_LOG_SEIZED_")
+		for i in battle.region_count():
+			if battle.has_object(i, object):
+				region = i
+	if kind == "" or region < 0:
+		return
+	_effects.append({"kind": kind, "region": region, "t": 0.0, "object": object})
+	set_process(true)
+
+
+func _process(delta: float) -> void:
+	if _effects.is_empty():
+		set_process(false)
+		return
+	var i := 0
+	while i < _effects.size():
+		var e: Dictionary = _effects[i]
+		e["t"] = float(e["t"]) + delta / float(EFFECT_SECONDS.get(e["kind"], 1.0))
+		if float(e["t"]) >= 1.0:
+			_effects.remove_at(i)
+		else:
+			i += 1
+	queue_redraw()
+
+
+func _draw_effects() -> void:
+	for e: Dictionary in _effects:
+		var t: float = e["t"]
+		var i: int = e["region"]
+		var at := label_pos(i)
+		match e["kind"]:
+			"taken", "lost", "defect":
+				var color: Color = {"taken": MapPalette.VERMILION, "lost": GARRISON, "defect": MapPalette.OCHRE}[e["kind"]]
+				# Расходящееся кольцо и подсветка района.
+				draw_arc(at, TOKEN_R + 70.0 * t, 0.0, TAU, 40, Color(color, 1.0 - t), 4.0 * (1.0 - t) + 1.0, true)
+				_outline(i, Color(color, 0.9 * (1.0 - t)), 5.0)
+				if e["kind"] == "taken":
+					_flag(at + Vector2(TOKEN_R + 4.0, -TOKEN_R), t)
+			"seized":
+				var objects: Array = battle.region(i).get("objects", [])
+				var k := objects.find(e["object"])
+				var c := at + Vector2((k - (objects.size() - 1) * 0.5) * (ICON_R * 2.4), -TOKEN_R - ICON_R - 4.0)
+				_flag(c + Vector2(0, -ICON_R), t)
+			"barricade":
+				var s := ease(minf(t * 1.6, 1.0), -2.0)
+				var c := at + Vector2(TOKEN_R + 10.0, 0)
+				draw_circle(c, 7.5 + 10.0 * (1.0 - t), Color(MapPalette.INK, 0.25 * (1.0 - t)))
+				Icons.draw(self, "barricade", c, 5.5 + 6.0 * (1.0 - s) * sin(PI * minf(t * 1.6, 1.0)), MapPalette.INK)
+			"council", "strike":
+				var color := MapPalette.VERMILION
+				draw_circle(at, TOKEN_R + 18.0 * sin(PI * t), Color(color, 0.25 * (1.0 - t)))
+
+
+## Флаг поднимается на древке: t от 0 до 1.
+func _flag(base: Vector2, t: float) -> void:
+	var rise := ease(minf(t * 1.5, 1.0), 0.4)
+	var top := base + Vector2(0, -26.0)
+	draw_line(base, top, MapPalette.INK, 2.0)
+	var y := base.y + (top.y - base.y) * rise
+	var wave := sin(t * 18.0) * 2.0
+	var cloth := PackedVector2Array([Vector2(top.x, y), Vector2(top.x + 14.0, y + 3.0 + wave), Vector2(top.x + 11.0, y + 6.0),
+		Vector2(top.x + 14.0, y + 10.0 - wave), Vector2(top.x, y + 10.0)])
+	draw_colored_polygon(cloth, Color(MapPalette.VERMILION, minf(1.0, (1.0 - t) * 3.0)))
 
 
 func _outline(i: int, color: Color, width: float) -> void:

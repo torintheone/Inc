@@ -19,6 +19,8 @@ var _solidarity: Label
 var _line_label: Label
 var _line_button: Button
 var _detail_icon: Icons.IconView
+var _detail_icon_bg: Control
+var _detail_art: TextureRect
 var _detail_title: Label
 var _detail_sub: Label
 var _detail_desc: Label
@@ -99,6 +101,15 @@ func _build_detail() -> Control:
 	icon_bg.add_child(_detail_icon)
 	_detail_icon.position = Vector2(6, 6)
 	row.add_child(icon_bg)
+	_detail_icon_bg = icon_bg
+	# Карточка улучшения из иллюстраций, когда она есть, — вместо значка ветви.
+	_detail_art = TextureRect.new()
+	_detail_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_detail_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	_detail_art.custom_minimum_size = Vector2(84, 84)
+	_detail_art.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	_detail_art.visible = false
+	row.add_child(_detail_art)
 
 	var text := VBoxContainer.new()
 	text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -181,6 +192,10 @@ func _show_detail() -> void:
 	var branch := str(u.get("branch", ""))
 	_detail_icon.icon = branch
 	_detail_icon.queue_redraw()
+	var art := ArtLibrary.texture("card_" + selected)
+	_detail_art.texture = art
+	_detail_art.visible = art != null
+	_detail_icon_bg.visible = art == null
 	_detail_title.text = tr("UPGRADE_" + selected)
 	var cost := PlayerActions.upgrade_cost(sim, selected)
 	_detail_sub.text = "%s · %s" % [tr("BRANCH_" + branch).to_upper(), tr("COST") % cost]

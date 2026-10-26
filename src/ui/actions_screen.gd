@@ -209,6 +209,9 @@ func _card(id: String, width: float) -> Control:
 	card.add_child(box)
 
 	var head := HBoxContainer.new()
+	var art := ArtLibrary.view("card_" + id, Vector2(56, 56))
+	if art != null:
+		head.add_child(art)
 	var title := GameTheme.make_label(tr("ACTION_" + id), 19, GameTheme.BODY_BOLD_FONT, MapPalette.INK if not locked else MapPalette.CONCRETE)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
